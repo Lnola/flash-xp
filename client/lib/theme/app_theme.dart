@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Neutrals
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF120F11);
   static const Color surface = Color(0xFFEAEDEF);
 
-  // Brand Colors
   static const Color yellow = Color(0xFFFCE8AE);
   static const Color blue = Color(0xFF98BFF5);
   static const Color green = Color(0xFFCCEAB3);
@@ -15,56 +14,74 @@ class AppColors {
 }
 
 class AppTheme {
-  static ThemeData get light => ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppColors.surface,
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: AppColors.blue,
-          onPrimary: AppColors.black,
-          secondary: AppColors.purple,
-          onSecondary: AppColors.black,
-          surface: AppColors.white,
-          onSurface: AppColors.black,
-          error: AppColors.red,
-          onError: AppColors.white,
+  static ThemeData get light {
+    final base = ThemeData.light().textTheme;
+
+    return ThemeData(
+      useMaterial3: true,
+      scaffoldBackgroundColor: AppColors.surface,
+      colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: AppColors.blue,
+        onPrimary: AppColors.black,
+        secondary: AppColors.purple,
+        onSecondary: AppColors.black,
+        surface: AppColors.white,
+        onSurface: AppColors.black,
+        error: AppColors.red,
+        onError: AppColors.white,
+      ),
+      textTheme: TextTheme(
+        titleLarge: GoogleFonts.poppins(
+          textStyle: base.titleLarge?.copyWith(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
         ),
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black,
-          ),
-          titleSmall: TextStyle(
+        titleSmall: GoogleFonts.poppins(
+          textStyle: base.titleSmall?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
           ),
-          displaySmall: TextStyle(
+        ),
+        displaySmall: GoogleFonts.poppins(
+          textStyle: base.displaySmall?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
           ),
-          bodyLarge: TextStyle(
+        ),
+        bodyLarge: GoogleFonts.inter(
+          textStyle: base.bodyLarge?.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
           ),
-          bodyMedium: TextStyle(
+        ),
+        bodyMedium: GoogleFonts.inter(
+          textStyle: base.bodyMedium?.copyWith(
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
           ),
-          bodySmall: TextStyle(
+        ),
+        bodySmall: GoogleFonts.inter(
+          textStyle: base.bodySmall?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
           ),
-          labelSmall: TextStyle(
+        ),
+        labelSmall: GoogleFonts.inter(
+          textStyle: base.labelSmall?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
           ),
         ),
-      );
+      ),
+    );
+  }
 }
