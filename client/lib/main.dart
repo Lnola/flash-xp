@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flashxp/theme/app_theme.dart';
 import 'package:flashxp/widgets/layout/app_layout.dart';
 
 void main() {
@@ -12,10 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "flash-xp",
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-      ),
+      theme: AppTheme.light,
       home: const MainScaffold(),
     );
   }
