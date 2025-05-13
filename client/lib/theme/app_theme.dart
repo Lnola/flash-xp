@@ -29,5 +29,42 @@ class AppTheme {
           error: AppColors.red,
           onError: AppColors.white,
         ),
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+          titleSmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+          displaySmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+          labelSmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+        ),
       );
 }
