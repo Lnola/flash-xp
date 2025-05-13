@@ -1,3 +1,4 @@
+import 'package:flashxp/widgets/layout/fx_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class FxAppLayout extends StatelessWidget {
@@ -15,15 +16,7 @@ class FxAppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(39),
-        child: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(title),
-          ),
-        ),
-      ),
+      appBar: FxAppBar(title: title),
       body: child,
       bottomNavigationBar: bottomNavBar,
     );
