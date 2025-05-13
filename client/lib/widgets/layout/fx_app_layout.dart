@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/fx_app_bar.dart';
 import 'package:flashxp/widgets/layout/fx_app_navigation.dart';
-import 'package:flutter/material.dart';
 
 class FxAppLayout extends StatelessWidget {
   final String title;
@@ -28,12 +29,13 @@ class FxAppLayout extends StatelessWidget {
         showBackButton: showBackButton,
       ),
       body: child,
-      bottomNavigationBar: showNavigation && onNavigationTap != null
-          ? FxAppNavigation(
-              currentIndex: currentIndex,
-              onTap: onNavigationTap!,
-            )
-          : null,
+      bottomNavigationBar: If(
+        condition: showNavigation && onNavigationTap != null,
+        builder: (_) => FxAppNavigation(
+          currentIndex: currentIndex,
+          onTap: onNavigationTap!,
+        ),
+      ),
     );
   }
 }
