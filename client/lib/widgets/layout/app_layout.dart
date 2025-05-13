@@ -15,9 +15,17 @@ class AppLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(39),
+        child: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(title),
+          ),
+        ),
+      ),
       body: child,
-      bottomNavigationBar: bottomNavBar, // ← MAKE SURE THIS IS HERE
+      bottomNavigationBar: bottomNavBar,
     );
   }
 }
