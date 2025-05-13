@@ -47,29 +47,10 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     return FxAppLayout(
       title: _titles[_currentIndex],
-      bottomNavBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder),
-            label: "Decks",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
-        ],
-      ),
+      showBackButton: true,
+      showNavigation: true,
+      currentIndex: _currentIndex,
+      onNavigationTap: (i) => setState(() => _currentIndex = i),
       child: IndexedStack(
         index: _currentIndex,
         children: _pages,
