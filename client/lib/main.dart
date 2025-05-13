@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
-import 'package:flashxp/widgets/layout/app_layout.dart';
+import 'package:flashxp/widgets/layout/fx_app_layout.dart';
 
 void main() {
   runApp(const MainApp());
@@ -45,7 +45,7 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return AppLayout(
+    return FxAppLayout(
       title: _titles[_currentIndex],
       bottomNavBar: BottomNavigationBar(
         currentIndex: _currentIndex,

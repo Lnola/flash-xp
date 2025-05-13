@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AppLayout extends StatelessWidget {
+class FxAppLayout extends StatelessWidget {
   final String title;
   final Widget child;
   final Widget? bottomNavBar;
 
-  const AppLayout({
+  const FxAppLayout({
     required this.title,
     required this.child,
     this.bottomNavBar,
