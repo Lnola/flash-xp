@@ -6,6 +6,7 @@ import 'package:flashxp/pages/home/home_page.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
 import 'package:flashxp/pages/create/create_page.dart';
 import 'package:flashxp/pages/statistics/statistics_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -19,7 +20,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "flash-xp",
       theme: AppTheme.light,
-      home: const MainScaffold(),
+      home: ChangeNotifierProvider(
+        create: (_) => NavigationState(),
+        child: const MainScaffold(),
+      ),
     );
   }
 }
@@ -61,5 +65,14 @@ class _MainScaffoldState extends State<MainScaffold> {
         children: _pages,
       ),
     );
+  }
+}
+
+class NavigationState extends ChangeNotifier {
+  var pageTitle = "Home";
+
+  void setPageTitle(String title) {
+    pageTitle = title;
+    notifyListeners();
   }
 }
