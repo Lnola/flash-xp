@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 class NavigationState extends ChangeNotifier {
   var title = "Home";
+  var showBackButton = false;
   var tabIndex = 0;
 
   void setTitle(String title) {
     title = title;
+    notifyListeners();
+  }
+
+  void setShowBackButton(bool show) {
+    showBackButton = show;
     notifyListeners();
   }
 
