@@ -29,10 +29,10 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
 
   final List<Widget> _tabs = const [
-    TabNavigator(index: 0),
-    TabNavigator(index: 1),
-    TabNavigator(index: 2),
-    TabNavigator(index: 3),
+    HomePage(),
+    ExplorePage(),
+    CreatePage(),
+    StatisticsPage(),
   ];
 
   final List<GlobalKey<NavigatorState>> _navKeys = List.generate(
@@ -78,29 +78,101 @@ class _MainScaffoldState extends State<MainScaffold> {
   }
 }
 
-class TabNavigator extends StatelessWidget {
-  final int index;
-  const TabNavigator({super.key, required this.index});
+class Layout extends StatelessWidget {
+  final String title;
+  final Widget body;
+
+  const Layout({
+    super.key,
+    required this.title,
+    required this.body,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tab $index')),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Push new page'),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => Scaffold(
-                  appBar: AppBar(title: const Text('Nested Page')),
-                  body: const Center(child: Text('You pushed a new page!')),
-                ),
-              ),
-            );
-          },
-        ),
+      appBar: AppBar(title: Text(title)),
+      body: body,
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Layout(
+      title: "Home",
+      body: RootView(),
+    );
+  }
+}
+
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Layout(
+      title: 'Explore',
+      body: RootView(),
+    );
+  }
+}
+
+class CreatePage extends StatelessWidget {
+  const CreatePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Layout(
+      title: 'Create',
+      body: RootView(),
+    );
+  }
+}
+
+class StatisticsPage extends StatelessWidget {
+  const StatisticsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Layout(
+      title: 'Statistics',
+      body: RootView(),
+    );
+  }
+}
+
+class RootView extends StatelessWidget {
+  const RootView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        child: Text('Push new page'),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => NestedView(),
+            ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class NestedView extends StatelessWidget {
+  const NestedView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Nested Page')),
+      body: const Center(child: Text('You pushed a new page!')),
     );
   }
 }
