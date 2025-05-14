@@ -1,4 +1,4 @@
-import 'package:flashxp/main.dart';
+import 'package:flashxp/state/navigation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/fx_app_bar.dart';

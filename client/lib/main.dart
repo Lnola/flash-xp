@@ -1,3 +1,4 @@
+import 'package:flashxp/state/navigation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
 import 'package:flashxp/widgets/layout/fx_app_layout.dart';
@@ -57,14 +58,5 @@ class _MainScaffoldState extends State<MainScaffold> {
         children: _pages,
       ),
     );
-  }
-}
-
-class NavigationState extends ChangeNotifier {
-  var title = "Home";
-
-  void setTitle(String title) {
-    title = title;
-    notifyListeners();
   }
 }
