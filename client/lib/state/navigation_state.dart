@@ -7,6 +7,7 @@ class NavigationState extends ChangeNotifier {
 
   void setTitle(String newTitle) {
     title = newTitle;
+    setShowBackButton(false);
     notifyListeners();
   }
 
