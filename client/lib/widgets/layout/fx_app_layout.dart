@@ -1,7 +1,9 @@
+import 'package:flashxp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/fx_app_bar.dart';
 import 'package:flashxp/widgets/layout/fx_app_navigation.dart';
+import 'package:provider/provider.dart';
 
 class FxAppLayout extends StatelessWidget {
   final String title;
@@ -23,6 +25,9 @@ class FxAppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<NavigationState>();
+    var title = appState.title;
+
     return Scaffold(
       appBar: FxAppBar(
         title: title,
