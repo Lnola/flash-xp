@@ -9,7 +9,9 @@ class PracticeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<NavigationState>().setTitle('Practice');
+      final navigationState = context.read<NavigationState>();
+      navigationState.setTitle('Practice');
+      navigationState.setShowBackButton(true);
     });
 
     var question = 'What is the spanish word for apple?';
