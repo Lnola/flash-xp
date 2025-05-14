@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
 import 'package:flashxp/widgets/layout/fx_app_layout.dart';
 
+import 'package:flashxp/pages/home/home_view.dart';
+import 'package:flashxp/pages/explore/explore_view.dart';
+import 'package:flashxp/pages/create/create_view.dart';
+import 'package:flashxp/pages/statistics/statistics_view.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -29,25 +34,25 @@ class MainScaffold extends StatefulWidget {
 class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const Center(child: Text("Home Page")),
-    const Center(child: Text("Decks Page")),
-    const Center(child: Text("Profile Page")),
-    const Center(child: Text("Settings Page")),
+  final List<Widget> _pages = const [
+    HomeView(),
+    ExploreView(),
+    CreateView(),
+    StatisticsView(),
   ];
 
   final List<String> _titles = [
     "Home",
-    "Decks",
-    "Profile",
-    "Settings",
+    "Explore",
+    "Create",
+    "Statistics",
   ];
 
   @override
   Widget build(BuildContext context) {
     return FxAppLayout(
       title: _titles[_currentIndex],
-      showBackButton: true,
+      showBackButton: false,
       showNavigation: true,
       currentIndex: _currentIndex,
       onNavigationTap: (i) => setState(() => _currentIndex = i),
