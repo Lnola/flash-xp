@@ -7,13 +7,11 @@ import 'package:provider/provider.dart';
 
 class FxAppLayout extends StatelessWidget {
   final Widget child;
-  final bool showBackButton;
   final bool showNavigation;
 
   const FxAppLayout({
     super.key,
     required this.child,
-    this.showBackButton = false,
     this.showNavigation = false,
   });
 
@@ -21,6 +19,7 @@ class FxAppLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigationState = context.watch<NavigationState>();
     final title = navigationState.title;
+    final showBackButton = navigationState.showBackButton;
     final tabIndex = navigationState.tabIndex;
     final setTabIndex = navigationState.setTabIndex;
 

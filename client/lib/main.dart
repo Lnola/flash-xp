@@ -50,7 +50,6 @@ class _MainScaffoldState extends State<MainScaffold> {
     final tabIndex = navigationState.tabIndex;
 
     return FxAppLayout(
-      showBackButton: false,
       showNavigation: true,
       child: IndexedStack(
         index: tabIndex,
