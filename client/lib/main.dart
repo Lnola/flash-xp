@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,10 +13,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "flash-xp",
       theme: AppTheme.light,
-      home: ChangeNotifierProvider(
-        create: (_) => NavigationState(),
-        child: MainScaffold(),
-      ),
+      home: MainScaffold(),
     );
   }
 }
@@ -30,6 +26,8 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
+  int _currentIndex = 0;
+
   final List<Widget> _tabs = const [
     HomePage(),
     ExplorePage(),
@@ -37,44 +35,46 @@ class _MainScaffoldState extends State<MainScaffold> {
     StatisticsPage(),
   ];
 
+  final List<GlobalKey<NavigatorState>> _navKeys = List.generate(
+    4,
+    (_) => GlobalKey<NavigatorState>(),
+  );
+
+  void _onTap(int index) {
+    if (index == _currentIndex) {
+      _navKeys[index].currentState?.popUntil((route) => route.isFirst);
+    } else {
+      setState(() => _currentIndex = index);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final navigationState = context.watch<NavigationState>();
-    final currentIndex = navigationState.currentIndex;
-    final navKeys = navigationState.navKeys;
-
     return Scaffold(
       body: IndexedStack(
-        index: currentIndex,
+        index: _currentIndex,
         children: List.generate(
           _tabs.length,
           (i) => Navigator(
-            key: navKeys[i],
+            key: _navKeys[i],
             onGenerateRoute: (_) => MaterialPageRoute(
               builder: (_) => _tabs[i],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: _onTap,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+        ],
+      ),
     );
-  }
-}
-
-class NavigationState extends ChangeNotifier {
-  int currentIndex = 0;
-
-  final List<GlobalKey<NavigatorState>> navKeys = List.generate(
-    4,
-    (_) => GlobalKey<NavigatorState>(),
-  );
-
-  void setCurrentIndex(int index) {
-    if (index == currentIndex) {
-      navKeys[index].currentState?.popUntil((route) => route.isFirst);
-    } else {
-      currentIndex = index;
-    }
-    notifyListeners();
   }
 }
 
@@ -90,24 +90,9 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigationState = context.watch<NavigationState>();
-    final currentIndex = navigationState.currentIndex;
-    final setCurrentIndex = navigationState.setCurrentIndex;
-
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: body,
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        onTap: setCurrentIndex,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
-        ],
-      ),
     );
   }
 }
