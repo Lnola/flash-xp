@@ -23,15 +23,15 @@ class FxAppNavigation extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.folder),
-          label: "Decks",
+          label: "Explore",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: "Profile",
+          label: "Create",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          label: "Settings",
+          label: "Statistics",
         ),
       ],
     );
