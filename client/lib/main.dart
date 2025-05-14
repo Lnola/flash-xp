@@ -185,8 +185,8 @@ class NestedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Nested Page')),
+    return Layout(
+      title: 'Nested Page',
       body: const Center(child: Text('You pushed a new page!')),
     );
   }
