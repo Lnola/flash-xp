@@ -23,8 +23,8 @@ class FxAppLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<NavigationState>();
-    var title = appState.title;
+    var navigationState = context.watch<NavigationState>();
+    var title = navigationState.title;
 
     return Scaffold(
       appBar: FxAppBar(
