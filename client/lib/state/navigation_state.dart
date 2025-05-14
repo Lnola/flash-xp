@@ -5,8 +5,8 @@ class NavigationState extends ChangeNotifier {
   var showBackButton = false;
   var tabIndex = 0;
 
-  void setTitle(String title) {
-    title = title;
+  void setTitle(String newTitle) {
+    title = newTitle;
     notifyListeners();
   }
 
