@@ -1,3 +1,4 @@
+import 'package:flashxp/widgets/common/if.dart';
 import 'package:flutter/material.dart';
 
 class FxAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,15 +16,14 @@ class FxAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final leading = showBackButton
-        ? IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).maybePop(),
-          )
-        : null;
-
     return AppBar(
-      leading: leading,
+      leading: If(
+        condition: showBackButton,
+        builder: (_) => IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+      ),
       title: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(title),
