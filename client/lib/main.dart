@@ -37,8 +37,6 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
-  int _currentIndex = 0;
-
   final List<Widget> _pages = const [
     HomePage(),
     ExplorePage(),
@@ -48,13 +46,14 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final navigationState = context.watch<NavigationState>();
+    final tabIndex = navigationState.tabIndex;
+
     return FxAppLayout(
       showBackButton: false,
       showNavigation: true,
-      currentIndex: _currentIndex,
-      onNavigationTap: (i) => setState(() => _currentIndex = i),
       child: IndexedStack(
-        index: _currentIndex,
+        index: tabIndex,
         children: _pages,
       ),
     );

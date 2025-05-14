@@ -9,22 +9,20 @@ class FxAppLayout extends StatelessWidget {
   final Widget child;
   final bool showBackButton;
   final bool showNavigation;
-  final int currentIndex;
-  final ValueChanged<int>? onNavigationTap;
 
   const FxAppLayout({
     super.key,
     required this.child,
     this.showBackButton = false,
     this.showNavigation = false,
-    this.currentIndex = 0,
-    this.onNavigationTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    var navigationState = context.watch<NavigationState>();
-    var title = navigationState.title;
+    final navigationState = context.watch<NavigationState>();
+    final title = navigationState.title;
+    final tabIndex = navigationState.tabIndex;
+    final setTabIndex = navigationState.setTabIndex;
 
     return Scaffold(
       appBar: FxAppBar(
@@ -33,10 +31,10 @@ class FxAppLayout extends StatelessWidget {
       ),
       body: child,
       bottomNavigationBar: If(
-        condition: showNavigation && onNavigationTap != null,
+        condition: showNavigation,
         builder: (_) => FxAppNavigation(
-          currentIndex: currentIndex,
-          onTap: onNavigationTap!,
+          currentIndex: tabIndex,
+          onTap: setTabIndex,
         ),
       ),
     );
