@@ -45,17 +45,9 @@ class _MainScaffoldState extends State<MainScaffold> {
     StatisticsPage(),
   ];
 
-  final List<String> _titles = [
-    "Home",
-    "Explore",
-    "Create",
-    "Statistics",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return FxAppLayout(
-      title: _titles[_currentIndex],
       showBackButton: false,
       showNavigation: true,
       currentIndex: _currentIndex,

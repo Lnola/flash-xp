@@ -6,7 +6,6 @@ import 'package:flashxp/widgets/layout/fx_app_navigation.dart';
 import 'package:provider/provider.dart';
 
 class FxAppLayout extends StatelessWidget {
-  final String title;
   final Widget child;
   final bool showBackButton;
   final bool showNavigation;
@@ -15,7 +14,6 @@ class FxAppLayout extends StatelessWidget {
 
   const FxAppLayout({
     super.key,
-    required this.title,
     required this.child,
     this.showBackButton = false,
     this.showNavigation = false,
