@@ -1,11 +1,17 @@
+import 'package:flashxp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/pages/home/views/practice_view.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<NavigationState>().setTitle('Home');
+    });
+
     return Column(
       children: [
         const Text("Home main content"),

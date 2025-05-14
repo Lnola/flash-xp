@@ -1,11 +1,17 @@
+import 'package:flashxp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/widgets/flashcard-mcq/flashcard_mcq.dart';
+import 'package:provider/provider.dart';
 
 class PracticeView extends StatelessWidget {
   const PracticeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<NavigationState>().setTitle('Practice');
+    });
+
     var question = 'What is the spanish word for apple?';
     var options = ['Manzana', 'Naranja', 'Plátano', 'Fresa'];
     var correctOption = 'Manzana';
