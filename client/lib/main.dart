@@ -1,5 +1,7 @@
+import 'package:flashxp/widgets/common/if.dart';
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,7 +15,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "flash-xp",
       theme: AppTheme.light,
-      home: MainScaffold(),
+      home: ChangeNotifierProvider(
+        create: (_) => NavigationState(),
+        child: MainScaffold(),
+      ),
     );
   }
 }
@@ -50,6 +55,9 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    final navigationState = context.watch<NavigationState>();
+    final showNavigation = navigationState.showNavigation;
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -63,33 +71,55 @@ class _MainScaffoldState extends State<MainScaffold> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: _onTap,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
-        ],
+      bottomNavigationBar: If(
+        condition: showNavigation,
+        builder: (_) => BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          onTap: _onTap,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
+            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart),
+              label: 'Stats',
+            ),
+          ],
+        ),
       ),
     );
+  }
+}
+
+class NavigationState extends ChangeNotifier {
+  var showNavigation = true;
+
+  void setShowNavigation(bool show) {
+    showNavigation = show;
+    notifyListeners();
   }
 }
 
 class Layout extends StatelessWidget {
   final String title;
   final Widget body;
+  final bool showNavigation;
 
   const Layout({
     super.key,
     required this.title,
     required this.body,
+    this.showNavigation = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final navigationState = context.read<NavigationState>();
+      navigationState.setShowNavigation(showNavigation);
+    });
+
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: body,
@@ -173,6 +203,7 @@ class NestedView extends StatelessWidget {
     return Layout(
       title: 'Nested Page',
       body: const Center(child: Text('You pushed a new page!')),
+      showNavigation: false,
     );
   }
 }
