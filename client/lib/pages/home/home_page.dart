@@ -1,26 +1,17 @@
+import 'package:flashxp/pages/home/views/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flashxp/widgets/flashcard-mcq/flashcard_mcq.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var question = 'What is the spanish word for apple?';
-    var options = ['Manzana', 'Naranja', 'Plátano', 'Fresa'];
-    var correctOption = 'Manzana';
-
-    void getNextQuestion() {}
-
-    return Scaffold(
-      body: Center(
-        child: FlashcardMcq(
-          question: question,
-          options: options,
-          correctOption: correctOption,
-          onNext: getNextQuestion,
-        ),
-      ),
+    return Navigator(
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (_) => const HomeView(),
+        );
+      },
     );
   }
 }
