@@ -69,10 +69,10 @@ class _MainScaffoldState extends State<MainScaffold> {
 }
 
 class NavigationState extends ChangeNotifier {
-  var pageTitle = "Home";
+  var title = "Home";
 
-  void setPageTitle(String title) {
-    pageTitle = title;
+  void setTitle(String title) {
+    title = title;
     notifyListeners();
   }
 }
