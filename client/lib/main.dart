@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
 import 'package:flashxp/widgets/layout/fx_app_layout.dart';
 
-import 'package:flashxp/pages/home/home_view.dart';
-import 'package:flashxp/pages/explore/explore_view.dart';
-import 'package:flashxp/pages/create/create_view.dart';
-import 'package:flashxp/pages/statistics/statistics_view.dart';
+import 'package:flashxp/pages/home/home_page.dart';
+import 'package:flashxp/pages/explore/explore_page.dart';
+import 'package:flashxp/pages/create/create_page.dart';
+import 'package:flashxp/pages/statistics/statistics_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -35,10 +35,10 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = const [
-    HomeView(),
-    ExploreView(),
-    CreateView(),
-    StatisticsView(),
+    HomePage(),
+    ExplorePage(),
+    CreatePage(),
+    StatisticsPage(),
   ];
 
   final List<String> _titles = [
