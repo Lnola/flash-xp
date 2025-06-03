@@ -199,7 +199,7 @@ class RootView extends StatelessWidget {
       child: ElevatedButton(
         child: const Text('Push new page'),
         onPressed: () {
-          context.go('$currentPath/nested');
+          context.push('$currentPath/nested');
         },
       ),
     );
