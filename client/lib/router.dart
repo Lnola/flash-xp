@@ -1,4 +1,8 @@
 import 'package:flashxp/main.dart';
+import 'package:flashxp/pages/create/create_page.dart';
+import 'package:flashxp/pages/explore/explore_page.dart';
+import 'package:flashxp/pages/home/home_page.dart';
+import 'package:flashxp/pages/statistics/statistics_page.dart';
 import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flutter/material.dart';

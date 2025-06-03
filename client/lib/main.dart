@@ -39,54 +39,6 @@ class Layout extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Layout(
-      title: 'Home',
-      body: RootView(),
-    );
-  }
-}
-
-class ExplorePage extends StatelessWidget {
-  const ExplorePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Layout(
-      title: 'Explore',
-      body: RootView(),
-    );
-  }
-}
-
-class CreatePage extends StatelessWidget {
-  const CreatePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Layout(
-      title: 'Create',
-      body: RootView(),
-    );
-  }
-}
-
-class StatisticsPage extends StatelessWidget {
-  const StatisticsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Layout(
-      title: 'Statistics',
-      body: RootView(),
-    );
-  }
-}
-
 class RootView extends StatelessWidget {
   const RootView({super.key});
 

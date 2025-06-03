@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/home/views/home_view.dart';
+import 'package:flashxp/main.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,12 +6,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (_) => const HomeView(),
-        );
-      },
+    return const Layout(
+      title: 'Home',
+      body: RootView(),
     );
   }
 }
