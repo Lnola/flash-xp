@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -25,6 +26,15 @@ class MainScaffold extends StatefulWidget {
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
+class LayoutProvider extends ChangeNotifier {
+  bool isBottomNavigationShown = true;
+
+  void setIsBottomNavigationShown(bool value) {
+    isBottomNavigationShown = value;
+    notifyListeners();
+  }
+}
+
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
   final void Function(int) onTap;
@@ -37,23 +47,27 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      onTap: onTap,
-      type: BottomNavigationBarType.fixed,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Explore',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
-          label: 'Stats',
-        ),
-      ],
-    );
+    final layout = context.watch<LayoutProvider>();
+
+    return layout.isBottomNavigationShown
+        ? BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: onTap,
+            type: BottomNavigationBarType.fixed,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart),
+                label: 'Stats',
+              ),
+            ],
+          )
+        : SizedBox.shrink();
   }
 }
 
@@ -82,22 +96,25 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: List.generate(
-          _tabs.length,
-          (i) => Navigator(
-            key: _navKeys[i],
-            onGenerateRoute: (_) => MaterialPageRoute(
-              builder: (_) => _tabs[i],
+    return ChangeNotifierProvider(
+      create: (_) => LayoutProvider(),
+      child: Scaffold(
+        body: IndexedStack(
+          index: _currentIndex,
+          children: List.generate(
+            _tabs.length,
+            (i) => Navigator(
+              key: _navKeys[i],
+              onGenerateRoute: (_) => MaterialPageRoute(
+                builder: (_) => _tabs[i],
+              ),
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: _onTap,
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: _currentIndex,
+          onTap: _onTap,
+        ),
       ),
     );
   }
