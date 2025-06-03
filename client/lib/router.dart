@@ -5,67 +5,44 @@ import 'package:flashxp/main.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flashxp/widgets/common/if.dart';
 
-class RouteMeta {
-  final bool showNavBar;
-  const RouteMeta({this.showNavBar = true});
-}
-
-class MetaRoute extends GoRoute {
-  final RouteMeta? metadata;
-
-  MetaRoute({
-    required super.path,
-    super.name,
-    super.parentNavigatorKey,
-    super.redirect,
-    super.pageBuilder,
-    super.builder,
-    super.routes = const <RouteBase>[],
-    this.metadata,
-  });
-}
-
 class AppRouter {
-  static final List<MetaRoute> _routes = [
-    MetaRoute(
+  static final List<GoRoute> _routes = [
+    GoRoute(
       path: '/home',
       pageBuilder: (_, __) => const NoTransitionPage(child: HomePage()),
       routes: [
-        MetaRoute(
+        GoRoute(
           path: 'nested',
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    MetaRoute(
+    GoRoute(
       path: '/explore',
       pageBuilder: (_, __) => const NoTransitionPage(child: ExplorePage()),
       routes: [
-        MetaRoute(
+        GoRoute(
           path: 'nested',
-          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    MetaRoute(
+    GoRoute(
       path: '/create',
       pageBuilder: (_, __) => const NoTransitionPage(child: CreatePage()),
       routes: [
-        MetaRoute(
+        GoRoute(
           path: 'nested',
-          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    MetaRoute(
+    GoRoute(
       path: '/statistics',
       pageBuilder: (_, __) => const NoTransitionPage(child: StatisticsPage()),
       routes: [
-        MetaRoute(
+        GoRoute(
           path: 'nested',
-          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
@@ -77,9 +54,7 @@ class AppRouter {
     GoRouterState state,
     Widget child,
   ) {
-    // TODO: improve this logic
-    final route = _findCurrentMetaRoute(_routes, state.fullPath);
-    final showNavBar = route.metadata?.showNavBar ?? true;
+    final showNavBar = !state.fullPath!.contains('/nested');
     return Scaffold(
       body: child,
       bottomNavigationBar: If(
@@ -115,25 +90,5 @@ class AppRouter {
   static int indexFromLocation(GoRouterState state) {
     final path = state.fullPath ?? '';
     return rootPaths.indexWhere(path.startsWith);
-  }
-
-  static MetaRoute _findCurrentMetaRoute(
-    List<MetaRoute> routes,
-    String? fullPath,
-  ) {
-    return routes
-        .expand((r) => [r, ...r.routes])
-        .whereType<MetaRoute>()
-        .firstWhere((r) => fullPath == _resolveFullPath(r));
-  }
-
-  static String _resolveFullPath(GoRoute route) {
-    if (route.path.startsWith('/')) return route.path;
-    for (final parent in _routes) {
-      if (parent.routes.contains(route)) {
-        return '${parent.path}/${route.path}';
-      }
-    }
-    return route.path;
   }
 }
