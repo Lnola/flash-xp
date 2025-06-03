@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FlashNavBar extends StatelessWidget {
   final int currentIndex;
@@ -17,11 +18,20 @@ class FlashNavBar extends StatelessWidget {
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart),
+          icon: FaIcon(FontAwesomeIcons.house),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.solidCompass),
+          label: 'Explore',
+        ),
+        BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.circlePlus),
+          label: 'Create',
+        ),
+        BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.chartColumn),
           label: 'Statistics',
         ),
       ],
