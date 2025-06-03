@@ -30,6 +30,8 @@ class AppTheme {
         onSurface: AppColors.black,
         error: AppColors.red,
         onError: AppColors.white,
+        primaryContainer: AppColors.black,
+        onPrimaryContainer: AppColors.white,
       ),
       textTheme: TextTheme(
         titleLarge: GoogleFonts.poppins(
