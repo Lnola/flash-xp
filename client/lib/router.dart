@@ -54,7 +54,7 @@ class AppRouter {
     GoRouterState state,
     Widget child,
   ) {
-    final showNavBar = !state.fullPath!.contains('/nested');
+    final showNavBar = !_isNestedRoute(state);
     return Scaffold(
       body: child,
       bottomNavigationBar: If(
@@ -90,5 +90,10 @@ class AppRouter {
     if (index < rootPaths.length) {
       context.go(rootPaths[index]);
     }
+  }
+
+  static bool _isNestedRoute(GoRouterState state) {
+    final uri = Uri.parse(state.fullPath ?? '');
+    return uri.pathSegments.length > 1;
   }
 }
