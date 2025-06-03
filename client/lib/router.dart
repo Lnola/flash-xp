@@ -60,7 +60,7 @@ class AppRouter {
       bottomNavigationBar: If(
         condition: showNavBar,
         child: FlashNavBar(
-          currentIndex: indexFromLocation(state),
+          currentIndex: _getCurrentIndex(state),
           onTap: (index) => _onNavTap(context, index),
         ),
       ),
@@ -81,14 +81,14 @@ class AppRouter {
       .map((r) => r.path.startsWith('/') ? r.path : '/${r.path}')
       .toList();
 
+  static int _getCurrentIndex(GoRouterState state) {
+    final path = state.fullPath ?? '';
+    return rootPaths.indexWhere(path.startsWith);
+  }
+
   static void _onNavTap(BuildContext context, int index) {
     if (index < rootPaths.length) {
       context.go(rootPaths[index]);
     }
-  }
-
-  static int indexFromLocation(GoRouterState state) {
-    final path = state.fullPath ?? '';
-    return rootPaths.indexWhere(path.startsWith);
   }
 }
