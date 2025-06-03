@@ -1,6 +1,7 @@
 import 'package:flashxp/pages/home/views/home_view.dart';
 import 'package:flashxp/router.dart';
 import 'package:flashxp/theme/app_theme.dart';
+import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,31 +21,12 @@ class MainApp extends StatelessWidget {
   }
 }
 
-class Layout extends StatelessWidget {
-  final String title;
-  final Widget body;
-
-  const Layout({
-    super.key,
-    required this.title,
-    required this.body,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: body,
-    );
-  }
-}
-
 class NestedView extends StatelessWidget {
   const NestedView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Layout(
+    return const FlashLayout(
       title: 'Nested Page',
       body: HomeView(),
     );
