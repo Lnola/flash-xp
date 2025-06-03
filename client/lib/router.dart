@@ -1,8 +1,11 @@
-import 'package:flashxp/main.dart';
 import 'package:flashxp/pages/create/create_page.dart';
+import 'package:flashxp/pages/create/views/create_nested_view.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
+import 'package:flashxp/pages/explore/views/explore_nested_view.dart';
 import 'package:flashxp/pages/home/home_page.dart';
+import 'package:flashxp/pages/home/views/home_nested_view.dart';
 import 'package:flashxp/pages/statistics/statistics_page.dart';
+import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
 import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +19,7 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const NestedView(),
+          builder: (_, __) => const HomeNestedView(),
         ),
       ],
     ),
@@ -26,7 +29,7 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const NestedView(),
+          builder: (_, __) => const ExploreNestedView(),
         ),
       ],
     ),
@@ -36,7 +39,7 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const NestedView(),
+          builder: (_, __) => const CreateNestedView(),
         ),
       ],
     ),
@@ -46,7 +49,7 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const NestedView(),
+          builder: (_, __) => const StatisticsNestedView(),
         ),
       ],
     ),
