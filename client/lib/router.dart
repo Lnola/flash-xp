@@ -9,6 +9,7 @@ import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
 import 'package:flashxp/widgets/common/if.dart';
 import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
+import 'package:flashxp/widgets/layout/flash_not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -114,6 +115,9 @@ class AppRouter {
         routes: _routes,
       ),
     ],
+    errorPageBuilder: (context, state) => const NoTransitionPage(
+      child: FlashNotFound(),
+    ),
   );
 
   static final List<String> rootPaths = _routes
