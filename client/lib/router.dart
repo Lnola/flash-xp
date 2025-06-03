@@ -77,11 +77,12 @@ class AppRouter {
     GoRouterState state,
     Widget child,
   ) {
-    final showNav = !state.fullPath!.contains('/nested');
+    final route = _findCurrentMetaRoute(_routes, state.fullPath);
+    final showNavBar = route.metadata?.showNavBar ?? true;
     return Scaffold(
       body: child,
       bottomNavigationBar: If(
-        condition: showNav,
+        condition: showNavBar,
         child: FlashNavBar(
           currentIndex: indexFromLocation(state),
           onTap: (index) => onNavTap(context, index),
@@ -113,5 +114,25 @@ class AppRouter {
   static int indexFromLocation(GoRouterState state) {
     final path = state.fullPath ?? '';
     return rootPaths.indexWhere(path.startsWith);
+  }
+
+  static MetaRoute _findCurrentMetaRoute(
+    List<MetaRoute> routes,
+    String? fullPath,
+  ) {
+    return routes
+        .expand((r) => [r, ...r.routes])
+        .whereType<MetaRoute>()
+        .firstWhere((r) => fullPath == _resolveFullPath(r));
+  }
+
+  static String _resolveFullPath(GoRoute route) {
+    if (route.path.startsWith('/')) return route.path;
+    for (final parent in _routes) {
+      if (parent.routes.contains(route)) {
+        return '${parent.path}/${route.path}';
+      }
+    }
+    return route.path;
   }
 }
