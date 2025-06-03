@@ -48,7 +48,7 @@ class AppRouter {
     ),
   ];
 
-  static Widget _shellRouteBuilder(
+  static Widget _builder(
     BuildContext context,
     GoRouterState state,
     Widget child,
@@ -69,7 +69,7 @@ class AppRouter {
     initialLocation: '/home',
     routes: [
       ShellRoute(
-        builder: _shellRouteBuilder,
+        builder: _builder,
         routes: _routes,
       ),
     ],
