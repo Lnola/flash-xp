@@ -5,44 +5,67 @@ import 'package:flashxp/main.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flashxp/widgets/common/if.dart';
 
+class RouteMeta {
+  final bool showNavBar;
+  const RouteMeta({this.showNavBar = true});
+}
+
+class MetaRoute extends GoRoute {
+  final RouteMeta? metadata;
+
+  MetaRoute({
+    required super.path,
+    super.name,
+    super.parentNavigatorKey,
+    super.redirect,
+    super.pageBuilder,
+    super.builder,
+    super.routes = const <RouteBase>[],
+    this.metadata,
+  });
+}
+
 class AppRouter {
-  static final List<GoRoute> _routes = [
-    GoRoute(
+  static final List<MetaRoute> _routes = [
+    MetaRoute(
       path: '/home',
       pageBuilder: (_, __) => const NoTransitionPage(child: HomePage()),
       routes: [
-        GoRoute(
+        MetaRoute(
           path: 'nested',
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    GoRoute(
+    MetaRoute(
       path: '/explore',
       pageBuilder: (_, __) => const NoTransitionPage(child: ExplorePage()),
       routes: [
-        GoRoute(
+        MetaRoute(
           path: 'nested',
+          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    GoRoute(
+    MetaRoute(
       path: '/create',
       pageBuilder: (_, __) => const NoTransitionPage(child: CreatePage()),
       routes: [
-        GoRoute(
+        MetaRoute(
           path: 'nested',
+          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
     ),
-    GoRoute(
+    MetaRoute(
       path: '/statistics',
       pageBuilder: (_, __) => const NoTransitionPage(child: StatisticsPage()),
       routes: [
-        GoRoute(
+        MetaRoute(
           path: 'nested',
+          metadata: const RouteMeta(showNavBar: false),
           builder: (_, __) => const NestedView(),
         ),
       ],
