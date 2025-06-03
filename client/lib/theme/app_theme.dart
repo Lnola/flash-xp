@@ -56,6 +56,7 @@ class AppTheme {
         displaySmall: GoogleFonts.poppins(
           textStyle: base.displaySmall?.copyWith(
             fontSize: 12,
+            height: 1.5,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
           ),
