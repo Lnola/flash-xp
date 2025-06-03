@@ -25,19 +25,31 @@ class FlashNavBar extends StatelessWidget {
       unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
       items: const [
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.house),
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.house),
+          ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.solidCompass),
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.solidCompass),
+          ),
           label: 'Explore',
         ),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.circlePlus),
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.circlePlus),
+          ),
           label: 'Create',
         ),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.chartColumn),
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.chartColumn),
+          ),
           label: 'Statistics',
         ),
       ],
