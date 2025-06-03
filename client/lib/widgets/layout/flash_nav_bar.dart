@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatelessWidget {
+class FlashNavBar extends StatelessWidget {
   final int currentIndex;
   final void Function(int) onTap;
 
-  const BottomNavBar({
+  const FlashNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,

@@ -26,7 +26,7 @@ final GoRouter router = GoRouter(
         return Scaffold(
           body: child,
           bottomNavigationBar: showNav
-              ? BottomNavBar(
+              ? FlashNavBar(
                   currentIndex: _indexFromLocation(state.fullPath ?? ''),
                   onTap: (index) => _onNavTap(context, index),
                 )
