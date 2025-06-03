@@ -1,4 +1,5 @@
 import 'package:flashxp/main.dart';
+import 'package:flashxp/pages/create/views/create_view.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatelessWidget {
@@ -8,7 +9,7 @@ class CreatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Layout(
       title: 'Create',
-      body: RootView(),
+      body: CreateView(),
     );
   }
 }

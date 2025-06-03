@@ -1,4 +1,5 @@
 import 'package:flashxp/main.dart';
+import 'package:flashxp/pages/statistics/views/statistics_view.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsPage extends StatelessWidget {
@@ -8,7 +9,7 @@ class StatisticsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Layout(
       title: 'Statistics',
-      body: RootView(),
+      body: StatisticsView(),
     );
   }
 }

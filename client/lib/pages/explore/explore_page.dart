@@ -1,4 +1,5 @@
 import 'package:flashxp/main.dart';
+import 'package:flashxp/pages/explore/views/explore_view.dart';
 import 'package:flutter/material.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -8,7 +9,7 @@ class ExplorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Layout(
       title: 'Explore',
-      body: RootView(),
+      body: ExploreView(),
     );
   }
 }
