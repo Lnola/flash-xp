@@ -1,5 +1,4 @@
 import 'package:flashxp/pages/create/views/create_view.dart';
-import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 
 class CreateNestedView extends StatelessWidget {
@@ -7,9 +6,6 @@ class CreateNestedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FlashLayout(
-      title: 'Create Nested Page',
-      body: CreateView(),
-    );
+    return const CreateView();
   }
 }

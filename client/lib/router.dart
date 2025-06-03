@@ -3,10 +3,11 @@ import 'package:flashxp/pages/create/views/create_nested_view.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
 import 'package:flashxp/pages/explore/views/explore_nested_view.dart';
 import 'package:flashxp/pages/home/home_page.dart';
-import 'package:flashxp/pages/home/views/home_nested_view.dart';
+import 'package:flashxp/pages/home/views/practice_view.dart';
 import 'package:flashxp/pages/statistics/statistics_page.dart';
 import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
 import 'package:flashxp/widgets/common/if.dart';
+import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +20,10 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const HomeNestedView(),
+          builder: (_, __) => const FlashLayout(
+            title: 'Home Nested Page',
+            body: PracticeView(),
+          ),
         ),
       ],
     ),
@@ -29,7 +33,10 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const ExploreNestedView(),
+          builder: (_, __) => const FlashLayout(
+            title: 'Explore Nested Page',
+            body: ExploreNestedView(),
+          ),
         ),
       ],
     ),
@@ -39,7 +46,10 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const CreateNestedView(),
+          builder: (_, __) => const FlashLayout(
+            title: 'Create Nested Page',
+            body: CreateNestedView(),
+          ),
         ),
       ],
     ),
@@ -49,7 +59,10 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const StatisticsNestedView(),
+          builder: (_, __) => const FlashLayout(
+            title: 'Statistics Nested Page',
+            body: StatisticsNestedView(),
+          ),
         ),
       ],
     ),
