@@ -22,7 +22,7 @@ class FlashButton extends StatelessWidget {
         shape: const StadiumBorder(),
         textStyle: Theme.of(context).textTheme.bodySmall,
       ),
-      child: const Text('Start now'),
+      child: Text(label),
     );
   }
 }
