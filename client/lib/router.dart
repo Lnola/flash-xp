@@ -77,6 +77,7 @@ class AppRouter {
     GoRouterState state,
     Widget child,
   ) {
+    // TODO: improve this logic
     final route = _findCurrentMetaRoute(_routes, state.fullPath);
     final showNavBar = route.metadata?.showNavBar ?? true;
     return Scaffold(
