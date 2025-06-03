@@ -1,5 +1,4 @@
 import 'package:flashxp/pages/explore/views/explore_view.dart';
-import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -7,9 +6,6 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FlashLayout(
-      title: 'Explore',
-      body: ExploreView(),
-    );
+    return const ExploreView();
   }
 }

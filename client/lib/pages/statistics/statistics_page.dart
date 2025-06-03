@@ -1,5 +1,4 @@
 import 'package:flashxp/pages/statistics/views/statistics_view.dart';
-import 'package:flashxp/widgets/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsPage extends StatelessWidget {
@@ -7,9 +6,6 @@ class StatisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FlashLayout(
-      title: 'Statistics',
-      body: StatisticsView(),
-    );
+    return const StatisticsView();
   }
 }

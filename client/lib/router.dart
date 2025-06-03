@@ -16,7 +16,12 @@ class AppRouter {
   static final List<GoRoute> _routes = [
     GoRoute(
       path: '/home',
-      pageBuilder: (_, __) => const NoTransitionPage(child: HomePage()),
+      pageBuilder: (_, __) => const NoTransitionPage(
+        child: FlashLayout(
+          title: 'Home',
+          body: HomePage(),
+        ),
+      ),
       routes: [
         GoRoute(
           path: 'nested',
@@ -29,7 +34,12 @@ class AppRouter {
     ),
     GoRoute(
       path: '/explore',
-      pageBuilder: (_, __) => const NoTransitionPage(child: ExplorePage()),
+      pageBuilder: (_, __) => const NoTransitionPage(
+        child: FlashLayout(
+          title: 'Explore',
+          body: ExplorePage(),
+        ),
+      ),
       routes: [
         GoRoute(
           path: 'nested',
@@ -42,7 +52,12 @@ class AppRouter {
     ),
     GoRoute(
       path: '/create',
-      pageBuilder: (_, __) => const NoTransitionPage(child: CreatePage()),
+      pageBuilder: (_, __) => const NoTransitionPage(
+        child: FlashLayout(
+          title: 'Create',
+          body: CreatePage(),
+        ),
+      ),
       routes: [
         GoRoute(
           path: 'nested',
@@ -55,7 +70,12 @@ class AppRouter {
     ),
     GoRoute(
       path: '/statistics',
-      pageBuilder: (_, __) => const NoTransitionPage(child: StatisticsPage()),
+      pageBuilder: (_, __) => const NoTransitionPage(
+        child: FlashLayout(
+          title: 'Statistics',
+          body: StatisticsPage(),
+        ),
+      ),
       routes: [
         GoRoute(
           path: 'nested',
