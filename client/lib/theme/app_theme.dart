@@ -46,10 +46,17 @@ class AppTheme {
             color: AppColors.black,
           ),
         ),
-        displaySmall: GoogleFonts.poppins(
-          textStyle: base.displaySmall?.copyWith(
+        displayMedium: GoogleFonts.poppins(
+          textStyle: base.displayMedium?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+        ),
+        displaySmall: GoogleFonts.poppins(
+          textStyle: base.displaySmall?.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
             color: AppColors.black,
           ),
         ),
