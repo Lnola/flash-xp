@@ -23,6 +23,7 @@ class FlashNotFound extends StatelessWidget {
               FlashButton(
                 onPressed: () => context.go('/home'),
                 label: 'Go to Home',
+                isBlock: true,
               ),
             ],
           ),
