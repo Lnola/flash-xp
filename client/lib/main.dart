@@ -1,37 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:flashxp/theme/app_theme.dart';
-import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MainApp());
 }
+
+void _onNavTap(BuildContext context, int index) {
+  final paths = ['/home', '/explore', '/create', '/stats'];
+  context.go(paths[index]);
+}
+
+int _indexFromLocation(String location) {
+  if (location.startsWith('/home')) return 0;
+  if (location.startsWith('/explore')) return 1;
+  if (location.startsWith('/create')) return 2;
+  if (location.startsWith('/stats')) return 3;
+  return 0;
+}
+
+final GoRouter router = GoRouter(
+  initialLocation: '/home',
+  routes: [
+    ShellRoute(
+      builder: (context, state, child) {
+        final showNav = !state.fullPath!.contains('/nested');
+        return Scaffold(
+          body: child,
+          bottomNavigationBar: showNav
+              ? BottomNavBar(
+                  currentIndex: _indexFromLocation(state.fullPath ?? ''),
+                  onTap: (index) => _onNavTap(context, index),
+                )
+              : null,
+        );
+      },
+      routes: [
+        GoRoute(
+          path: '/home',
+          pageBuilder: (_, __) => const NoTransitionPage(child: HomePage()),
+          routes: [
+            GoRoute(
+              path: 'nested',
+              builder: (_, __) => const NestedView(),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/explore',
+          pageBuilder: (_, __) => const NoTransitionPage(child: ExplorePage()),
+          routes: [
+            GoRoute(
+              path: 'nested',
+              builder: (_, __) => const NestedView(),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/create',
+          pageBuilder: (_, __) => const NoTransitionPage(child: CreatePage()),
+          routes: [
+            GoRoute(
+              path: 'nested',
+              builder: (_, __) => const NestedView(),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: '/stats',
+          pageBuilder: (_, __) =>
+              const NoTransitionPage(child: StatisticsPage()),
+          routes: [
+            GoRoute(
+              path: 'nested',
+              builder: (_, __) => const NestedView(),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: "flash-xp",
       theme: AppTheme.light,
-      home: MainScaffold(),
+      routerConfig: router,
     );
-  }
-}
-
-class MainScaffold extends StatefulWidget {
-  const MainScaffold({super.key});
-
-  @override
-  State<MainScaffold> createState() => _MainScaffoldState();
-}
-
-class LayoutProvider extends ChangeNotifier {
-  bool isBottomNavigationShown = true;
-
-  void setIsBottomNavigationShown(bool value) {
-    isBottomNavigationShown = value;
-    notifyListeners();
   }
 }
 
@@ -47,75 +107,16 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final layout = context.watch<LayoutProvider>();
-
-    return layout.isBottomNavigationShown
-        ? BottomNavigationBar(
-            currentIndex: currentIndex,
-            onTap: onTap,
-            type: BottomNavigationBarType.fixed,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Explore',
-              ),
-              BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bar_chart),
-                label: 'Stats',
-              ),
-            ],
-          )
-        : SizedBox.shrink();
-  }
-}
-
-class _MainScaffoldState extends State<MainScaffold> {
-  int _currentIndex = 0;
-
-  final List<Widget> _tabs = const [
-    HomePage(),
-    ExplorePage(),
-    CreatePage(),
-    StatisticsPage(),
-  ];
-
-  final List<GlobalKey<NavigatorState>> _navKeys = List.generate(
-    4,
-    (_) => GlobalKey<NavigatorState>(),
-  );
-
-  void _onTap(int index) {
-    if (index == _currentIndex) {
-      _navKeys[index].currentState?.popUntil((route) => route.isFirst);
-    } else {
-      setState(() => _currentIndex = index);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LayoutProvider(),
-      child: Scaffold(
-        body: IndexedStack(
-          index: _currentIndex,
-          children: List.generate(
-            _tabs.length,
-            (i) => Navigator(
-              key: _navKeys[i],
-              onGenerateRoute: (_) => MaterialPageRoute(
-                builder: (_) => _tabs[i],
-              ),
-            ),
-          ),
-        ),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: _currentIndex,
-          onTap: _onTap,
-        ),
-      ),
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      type: BottomNavigationBarType.fixed,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
+        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
+        BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+      ],
     );
   }
 }
@@ -192,15 +193,13 @@ class RootView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentPath = GoRouterState.of(context).uri.toString();
+
     return Center(
       child: ElevatedButton(
-        child: Text('Push new page'),
+        child: const Text('Push new page'),
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => NestedView(),
-            ),
-          );
+          context.go('$currentPath/nested');
         },
       ),
     );
