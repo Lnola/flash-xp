@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flashxp/main.dart';
+import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 
 void _onNavTap(BuildContext context, int index) {
   final paths = ['/home', '/explore', '/create', '/stats'];
