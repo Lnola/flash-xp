@@ -19,19 +19,19 @@ class FxAppNavigation extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: "Home",
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.folder),
-          label: "Explore",
+          label: 'Explore',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: "Create",
+          label: 'Create',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          label: "Statistics",
+          label: 'Statistics',
         ),
       ],
     );

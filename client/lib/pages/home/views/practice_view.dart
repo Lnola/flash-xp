@@ -1,6 +1,6 @@
 import 'package:flashxp/state/navigation_state.dart';
-import 'package:flutter/material.dart';
 import 'package:flashxp/widgets/flashcard-mcq/flashcard_mcq.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PracticeView extends StatelessWidget {
@@ -14,9 +14,9 @@ class PracticeView extends StatelessWidget {
       navigationState.setShowBackButton(true);
     });
 
-    var question = 'What is the spanish word for apple?';
-    var options = ['Manzana', 'Naranja', 'Plátano', 'Fresa'];
-    var correctOption = 'Manzana';
+    final question = 'What is the spanish word for apple?';
+    final options = ['Manzana', 'Naranja', 'Plátano', 'Fresa'];
+    final correctOption = 'Manzana';
 
     void getNextQuestion() {}
 

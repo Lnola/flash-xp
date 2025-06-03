@@ -1,8 +1,7 @@
+import 'package:flashxp/router.dart';
+import 'package:flashxp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:flashxp/theme/app_theme.dart';
-import 'package:flashxp/router.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: "flash-xp",
+      title: 'flash-xp',
       theme: AppTheme.light,
       routerConfig: AppRouter.router,
     );
@@ -45,8 +44,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
-      title: "Home",
+    return const Layout(
+      title: 'Home',
       body: RootView(),
     );
   }
@@ -57,7 +56,7 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return const Layout(
       title: 'Explore',
       body: RootView(),
     );
@@ -69,7 +68,7 @@ class CreatePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return const Layout(
       title: 'Create',
       body: RootView(),
     );
@@ -81,7 +80,7 @@ class StatisticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return const Layout(
       title: 'Statistics',
       body: RootView(),
     );
@@ -111,7 +110,7 @@ class NestedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return const Layout(
       title: 'Nested Page',
       body: RootView(),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NavigationState extends ChangeNotifier {
-  var title = "Home";
+  var title = 'Home';
   var showBackButton = false;
   var tabIndex = 0;
 

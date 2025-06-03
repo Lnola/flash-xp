@@ -28,7 +28,7 @@ class OptionListState extends State<OptionList> {
       selectedOption = answer;
       isAnswered = true;
     });
-    Future.delayed(Duration(seconds: 1), widget.onNext);
+    Future.delayed(const Duration(seconds: 1), widget.onNext);
   }
 
   @override
@@ -40,8 +40,8 @@ class OptionListState extends State<OptionList> {
         children: [
           Column(
             children: widget.options.map((option) {
-              var isCorrect = option == widget.correctOption;
-              var isSelected = option == selectedOption;
+              final isCorrect = option == widget.correctOption;
+              final isSelected = option == selectedOption;
               return Option(
                 option: option,
                 isAnswered: isAnswered,

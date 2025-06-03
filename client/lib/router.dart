@@ -1,9 +1,8 @@
+import 'package:flashxp/main.dart';
+import 'package:flashxp/widgets/common/if.dart';
+import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:flashxp/main.dart';
-import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
-import 'package:flashxp/widgets/common/if.dart';
 
 class AppRouter {
   static final List<GoRoute> _routes = [

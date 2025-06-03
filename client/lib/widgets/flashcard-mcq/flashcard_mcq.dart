@@ -25,7 +25,7 @@ class FlashcardMcq extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Question(question: question),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             OptionList(
               options: options,
               correctOption: correctOption,

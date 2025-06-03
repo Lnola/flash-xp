@@ -1,6 +1,6 @@
+import 'package:flashxp/pages/home/views/practice_view.dart';
 import 'package:flashxp/state/navigation_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flashxp/pages/home/views/practice_view.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
 
     return Column(
       children: [
-        const Text("Home main content"),
+        const Text('Home main content'),
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(
@@ -23,7 +23,7 @@ class HomeView extends StatelessWidget {
               ),
             );
           },
-          child: const Text("Go to Practice"),
+          child: const Text('Go to Practice'),
         ),
       ],
     );

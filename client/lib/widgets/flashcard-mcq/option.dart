@@ -18,15 +18,15 @@ class Option extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = isAnswered
+    final color = isAnswered
         ? (isCorrect ? Colors.green : (isSelected ? Colors.red : Colors.white))
         : Colors.blue.shade100;
 
     return GestureDetector(
       onTap: () => onTap(option),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 6),
-        padding: EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.all(12),
         width: double.infinity,
         decoration: BoxDecoration(
           color: color,
@@ -35,7 +35,7 @@ class Option extends StatelessWidget {
         ),
         child: Text(
           option,
-          style: TextStyle(fontSize: 18, color: Colors.black),
+          style: const TextStyle(fontSize: 18, color: Colors.black),
           textAlign: TextAlign.center,
         ),
       ),
