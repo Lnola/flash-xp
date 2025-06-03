@@ -172,7 +172,7 @@ class NestedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Layout(
       title: 'Nested Page',
-      body: const Center(child: Text('You pushed a new page!')),
+      body: RootView(),
     );
   }
 }
