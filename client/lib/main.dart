@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       title: "flash-xp",
       theme: AppTheme.light,
-      routerConfig: router,
+      routerConfig: AppRouter.router,
     );
   }
 }
