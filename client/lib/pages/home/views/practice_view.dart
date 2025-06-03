@@ -1,4 +1,4 @@
-import 'package:flashxp/widgets/flashcard-mcq/flashcard_mcq.dart';
+import 'package:flashxp/pages/home/widgets/flashcard-mcq/flashcard_mcq.dart';
 import 'package:flutter/material.dart';
 
 class PracticeView extends StatelessWidget {
