@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flashxp/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flashxp/theme/app_theme.dart';
 import 'package:flashxp/router.dart';
 
 void main() {
