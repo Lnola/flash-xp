@@ -37,7 +37,7 @@ class AppRouter {
       ],
     ),
     GoRoute(
-      path: '/stats',
+      path: '/statistics',
       pageBuilder: (_, __) => const NoTransitionPage(child: StatisticsPage()),
       routes: [
         GoRoute(

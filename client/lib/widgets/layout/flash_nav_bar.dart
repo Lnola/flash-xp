@@ -20,7 +20,10 @@ class FlashNavBar extends StatelessWidget {
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
         BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
-        BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stats'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bar_chart),
+          label: 'Statistics',
+        ),
       ],
     );
   }
