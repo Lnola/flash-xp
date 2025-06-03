@@ -2,16 +2,21 @@ import 'package:flutter/widgets.dart';
 
 class If extends StatelessWidget {
   final bool condition;
-  final Widget Function(BuildContext context) builder;
+  final Widget? child;
+  final Widget Function(BuildContext context)? builder;
 
   const If({
     super.key,
     required this.condition,
-    required this.builder,
+    this.child,
+    this.builder,
   });
 
   @override
   Widget build(BuildContext context) {
-    return condition ? builder(context) : const SizedBox.shrink();
+    if (!condition) return const SizedBox.shrink();
+    if (child != null) return child!;
+    if (builder != null) return builder!(context);
+    throw ArgumentError('Either child or builder must be provided');
   }
 }
