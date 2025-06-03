@@ -17,6 +17,12 @@ class FlashNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      selectedItemColor: Theme.of(context).colorScheme.onSurface,
+      unselectedItemColor:
+          Theme.of(context).colorScheme.onSurface.withAlpha(77),
+      selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
+      unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
       items: const [
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.house),
