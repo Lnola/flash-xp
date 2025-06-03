@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:flashxp/main.dart';
 import 'package:flashxp/widgets/layout/flash_nav_bar.dart';
+import 'package:flashxp/widgets/common/if.dart';
 
 class AppRouter {
   static final List<GoRoute> _routes = [
@@ -56,12 +57,13 @@ class AppRouter {
     final showNav = !state.fullPath!.contains('/nested');
     return Scaffold(
       body: child,
-      bottomNavigationBar: showNav
-          ? FlashNavBar(
-              currentIndex: indexFromLocation(state),
-              onTap: (index) => onNavTap(context, index),
-            )
-          : null,
+      bottomNavigationBar: If(
+        condition: showNav,
+        child: FlashNavBar(
+          currentIndex: indexFromLocation(state),
+          onTap: (index) => onNavTap(context, index),
+        ),
+      ),
     );
   }
 
