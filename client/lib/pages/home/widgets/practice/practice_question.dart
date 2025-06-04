@@ -65,22 +65,26 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
     VoidCallback? onTap,
     required Color backgroundColor,
   }) {
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(56),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          spacing: 24,
-          children: [
-            title != null ? QuestionTitle(label: title) : const Spacer(),
-            QuestionBody(label: body),
-            onTap != null ? QuestionRotateButton(onTap: onTap) : const Spacer(),
-          ],
+    return Expanded(
+      child: SizedBox(
+        width: double.infinity,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(56),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 24,
+            children: [
+              title != null ? QuestionTitle(label: title) : const Spacer(),
+              QuestionBody(label: body),
+              onTap != null
+                  ? QuestionRotateButton(onTap: onTap)
+                  : const Spacer(),
+            ],
+          ),
         ),
       ),
     );
