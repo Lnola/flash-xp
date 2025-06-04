@@ -1,3 +1,4 @@
+import 'package:flashxp/pages/home/widgets/practice/practice_option_button.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_option_list.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_progress.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
@@ -13,6 +14,18 @@ class PracticeView extends StatelessWidget {
         'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
     final answer =
         'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+    final List<OptionButtonData> options = [
+      OptionButtonData(
+        label: "I don't know",
+        onPressed: () {},
+        state: PracticeOptionState.incorrect,
+      ),
+      OptionButtonData(
+        label: 'I know',
+        onPressed: () {},
+        state: PracticeOptionState.correct,
+      ),
+    ];
 
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
@@ -22,7 +35,7 @@ class PracticeView extends StatelessWidget {
           const SizedBox(height: 16),
           PracticeQuestion(question: question, answer: answer),
           const SizedBox(height: 24),
-          const PracticeOptionList(),
+          PracticeOptionList(options: options),
           const SizedBox(height: 44),
           FlashButton(
             onPressed: () {},
