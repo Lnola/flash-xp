@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/home/widgets/flashcard-mcq/flashcard_mcq.dart';
+import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
 import 'package:flutter/material.dart';
 
 class PracticeView extends StatelessWidget {
@@ -6,19 +6,14 @@ class PracticeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final question = 'What is the spanish word for apple?';
-    final options = ['Manzana', 'Naranja', 'Plátano', 'Fresa'];
-    final correctOption = 'Manzana';
+    final question =
+        'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+    final answer =
+        'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-    void getNextQuestion() {}
-
-    return Center(
-      child: FlashcardMcq(
-        question: question,
-        options: options,
-        correctOption: correctOption,
-        onNext: getNextQuestion,
-      ),
+    return PracticeQuestion(
+      question: question,
+      answer: answer,
     );
   }
 }
