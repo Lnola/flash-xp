@@ -36,6 +36,8 @@ class _PracticeViewState extends State<PracticeView> {
       ),
     ];
 
+    void noop() => {};
+
     void handleNextQuestion() {
       // TODO: implement logic to fetch the next question
       setState(() {
@@ -54,7 +56,7 @@ class _PracticeViewState extends State<PracticeView> {
           PracticeOptionList(options: options),
           const SizedBox(height: 44),
           FlashButton(
-            onPressed: _hasAnswered ? handleNextQuestion : () {},
+            onPressed: _hasAnswered ? handleNextQuestion : noop,
             label: 'Next Question',
             isBlock: true,
           )
