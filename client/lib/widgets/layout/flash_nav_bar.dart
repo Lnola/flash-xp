@@ -13,53 +13,46 @@ class FlashNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        splashFactory: NoSplash.splashFactory,
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-      ),
-      child: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        selectedItemColor: Theme.of(context).colorScheme.onSurface,
-        unselectedItemColor:
-            Theme.of(context).colorScheme.onSurface.withAlpha(77),
-        selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-        unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: FaIcon(FontAwesomeIcons.house),
-            ),
-            label: 'Home',
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: onTap,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      selectedItemColor: Theme.of(context).colorScheme.onSurface,
+      unselectedItemColor:
+          Theme.of(context).colorScheme.onSurface.withAlpha(77),
+      selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
+      unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.house),
           ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: FaIcon(FontAwesomeIcons.solidCompass),
-            ),
-            label: 'Explore',
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.solidCompass),
           ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: FaIcon(FontAwesomeIcons.circlePlus),
-            ),
-            label: 'Create',
+          label: 'Explore',
+        ),
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.circlePlus),
           ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: FaIcon(FontAwesomeIcons.chartColumn),
-            ),
-            label: 'Statistics',
+          label: 'Create',
+        ),
+        BottomNavigationBarItem(
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 4),
+            child: FaIcon(FontAwesomeIcons.chartColumn),
           ),
-        ],
-      ),
+          label: 'Statistics',
+        ),
+      ],
     );
   }
 }
