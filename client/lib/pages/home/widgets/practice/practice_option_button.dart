@@ -43,6 +43,7 @@ class PracticeOptionButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
+          shadowColor: Colors.transparent,
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
           textStyle: Theme.of(context).textTheme.labelMedium,
