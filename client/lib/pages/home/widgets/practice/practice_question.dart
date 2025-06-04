@@ -23,7 +23,7 @@ class PracticeQuestion extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (answer != null) const QuestionTitle() else const Spacer(),
-          QuestionBody(question: question),
+          QuestionBody(question: question, answer: answer),
           if (answer != null) const QuestionRotateButton() else const Spacer(),
         ],
       ),
@@ -33,10 +33,12 @@ class PracticeQuestion extends StatelessWidget {
 
 class QuestionBody extends StatelessWidget {
   final String question;
+  final String? answer;
 
   const QuestionBody({
     super.key,
     required this.question,
+    this.answer,
   });
 
   @override
