@@ -13,6 +13,20 @@ class OptionButtonData {
     this.state = PracticeOptionState.defaultState,
     this.isCorrect = false,
   });
+
+  OptionButtonData copyWith({
+    String? label,
+    VoidCallback? onPressed,
+    PracticeOptionState? state,
+    bool? isCorrect,
+  }) {
+    return OptionButtonData(
+      label: label ?? this.label,
+      onPressed: onPressed ?? this.onPressed,
+      state: state ?? this.state,
+      isCorrect: isCorrect ?? this.isCorrect,
+    );
+  }
 }
 
 class PracticeOptionList extends StatelessWidget {
