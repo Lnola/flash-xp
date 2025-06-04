@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,9 +19,11 @@ class PracticeQuestion extends StatefulWidget {
 
 class _PracticeQuestionState extends State<PracticeQuestion> {
   bool _isAnswerShown = false;
+  bool _isFlippedOnce = false;
 
   void _toggleIsAnswerShown() {
     setState(() {
+      _isFlippedOnce = true;
       _isAnswerShown = !_isAnswerShown;
     });
   }
@@ -28,28 +32,74 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
   Widget build(BuildContext context) {
     final String question = widget.question;
     final String? answer = widget.answer;
-    final bool hasAnswer = answer != null;
 
-    final String title = _isAnswerShown ? 'Answer' : 'Question';
-    final String body = _isAnswerShown ? answer! : question;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
-      decoration: BoxDecoration(
-        color: _isAnswerShown
-            ? Theme.of(context).colorScheme.surfaceBright
-            : Theme.of(context).colorScheme.inverseSurface,
-        borderRadius: BorderRadius.circular(56),
+    return TweenAnimationBuilder<double>(
+      tween: Tween(
+        begin: _isFlippedOnce ? (_isAnswerShown ? 0 : pi) : 0,
+        end: _isAnswerShown ? pi : 0,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          hasAnswer ? QuestionTitle(label: title) : const Spacer(),
-          QuestionBody(label: body),
-          hasAnswer
-              ? QuestionRotateButton(onTap: _toggleIsAnswerShown)
-              : const Spacer(),
-        ],
+      duration: const Duration(milliseconds: 400),
+      builder: (context, angle, child) {
+        final transform = Matrix4.identity()
+          ..setEntry(3, 2, 0.001)
+          ..rotateY(angle);
+
+        return Transform(
+          alignment: Alignment.center,
+          transform: transform,
+          child: Stack(
+            children: [
+              _buildCardSide(
+                context,
+                visible: angle <= pi / 2,
+                title: 'Question',
+                body: question,
+                onTap: _toggleIsAnswerShown,
+                backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+              ),
+              _buildCardSide(
+                context,
+                visible: angle > pi / 2,
+                title: 'Answer',
+                body: answer ?? '',
+                onTap: _toggleIsAnswerShown,
+                backgroundColor: Theme.of(context).colorScheme.surfaceBright,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCardSide(
+    BuildContext context, {
+    required bool visible,
+    required String title,
+    required String body,
+    required VoidCallback onTap,
+    required Color backgroundColor,
+  }) {
+    return Visibility(
+      visible: visible,
+      child: Transform(
+        transform: Matrix4.identity()..rotateY(title == 'Answer' ? pi : 0),
+        alignment: Alignment.center,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(56),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              QuestionTitle(label: title),
+              QuestionBody(label: body),
+              QuestionRotateButton(onTap: onTap),
+            ],
+          ),
+        ),
       ),
     );
   }
