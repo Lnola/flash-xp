@@ -9,7 +9,7 @@ class OptionButtonData {
   OptionButtonData({
     required this.label,
     required this.onPressed,
-    required this.state,
+    this.state = PracticeOptionState.defaultState,
   });
 }
 
