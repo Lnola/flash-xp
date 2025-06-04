@@ -22,13 +22,13 @@ class PracticeQuestion extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const QuestionTitle(),
+          if (answer != null) const QuestionTitle() else const Spacer(),
           Text(
             question,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          const QuestionRotateButton(),
+          if (answer != null) const QuestionRotateButton() else const Spacer(),
         ],
       ),
     );
