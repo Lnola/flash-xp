@@ -59,6 +59,14 @@ class AppTheme {
             color: AppColors.black,
           ),
         ),
+        titleSmall: GoogleFonts.poppins(
+          textStyle: base.titleLarge?.copyWith(
+            fontSize: 16,
+            height: 1.5,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+        ),
         // Poppins w400
         labelMedium: GoogleFonts.poppins(
           textStyle: base.labelMedium?.copyWith(
