@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PracticeQuestion extends StatelessWidget {
+class PracticeQuestion extends StatefulWidget {
   final String question;
   final String? answer;
 
@@ -12,7 +12,22 @@ class PracticeQuestion extends StatelessWidget {
   });
 
   @override
+  State<PracticeQuestion> createState() => _PracticeQuestionState();
+}
+
+class _PracticeQuestionState extends State<PracticeQuestion> {
+  bool _isAnswerShown = false;
+
+  void _toggleAnswer() {
+    setState(() {
+      _isAnswerShown = !_isAnswerShown;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bool hasAnswer = widget.answer != null;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
       decoration: BoxDecoration(
@@ -22,9 +37,17 @@ class PracticeQuestion extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (answer != null) const QuestionTitle() else const Spacer(),
-          QuestionBody(question: question, answer: answer),
-          if (answer != null) const QuestionRotateButton() else const Spacer(),
+          if (hasAnswer)
+            QuestionTitle(label: _isAnswerShown ? 'Answer' : 'Question')
+          else
+            const Spacer(),
+          QuestionBody(
+            label: _isAnswerShown ? widget.answer! : widget.question,
+          ),
+          if (hasAnswer)
+            QuestionRotateButton(onTap: _toggleAnswer)
+          else
+            const Spacer(),
         ],
       ),
     );
@@ -32,19 +55,17 @@ class PracticeQuestion extends StatelessWidget {
 }
 
 class QuestionBody extends StatelessWidget {
-  final String question;
-  final String? answer;
+  final String label;
 
   const QuestionBody({
     super.key,
-    required this.question,
-    this.answer,
+    required this.label,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      question,
+      label,
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.bodyMedium,
     );
@@ -52,12 +73,17 @@ class QuestionBody extends StatelessWidget {
 }
 
 class QuestionRotateButton extends StatelessWidget {
-  const QuestionRotateButton({super.key});
+  final VoidCallback onTap;
+
+  const QuestionRotateButton({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -80,12 +106,17 @@ class QuestionRotateButton extends StatelessWidget {
 }
 
 class QuestionTitle extends StatelessWidget {
-  const QuestionTitle({super.key});
+  final String label;
+
+  const QuestionTitle({
+    super.key,
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Question',
+      label,
       style: Theme.of(context).textTheme.titleLarge,
     );
   }
