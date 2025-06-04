@@ -19,7 +19,6 @@ class _PracticeViewState extends State<PracticeView> {
   bool _hasAnswered = false;
   PracticeMode mode = PracticeMode.multipleChoice;
   late List<OptionButtonData> options;
-  final int correctAnswerIndex = 2;
 
   void initQuestion() {
     _hasAnswered = false;
@@ -39,21 +38,20 @@ class _PracticeViewState extends State<PracticeView> {
       ];
     } else {
       final labels = ['A', 'B', 'C', 'D'];
-      options = List.generate(4, (index) {
+      final correctLabel = 'C';
+      options = labels.map((label) {
+        final isCorrect = label == correctLabel;
         return OptionButtonData(
-          label: labels[index],
+          label: label,
+          isCorrect: isCorrect,
           onPressed: () {
             setState(() {
               _hasAnswered = true;
-              options = options.asMap().entries.map((entry) {
-                final i = entry.key;
-                final o = entry.value;
-                return OptionButtonData(
-                  label: o.label,
-                  onPressed: o.onPressed,
-                  state: i == correctAnswerIndex
+              options = options.map((o) {
+                return o.copyWith(
+                  state: o.isCorrect
                       ? PracticeOptionState.correct
-                      : i == index
+                      : o.label == label
                           ? PracticeOptionState.incorrect
                           : PracticeOptionState.defaultState,
                 );
@@ -61,7 +59,7 @@ class _PracticeViewState extends State<PracticeView> {
             });
           },
         );
-      });
+      }).toList();
     }
   }
 
