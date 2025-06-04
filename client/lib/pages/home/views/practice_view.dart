@@ -15,7 +15,7 @@ class PracticeView extends StatelessWidget {
         'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
         children: [
           const PracticeProgress(current: 3, total: 12),
