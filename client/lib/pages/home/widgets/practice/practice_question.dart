@@ -18,7 +18,7 @@ class PracticeQuestion extends StatefulWidget {
 class _PracticeQuestionState extends State<PracticeQuestion> {
   bool _isAnswerShown = false;
 
-  void _toggleAnswer() {
+  void _toggleIsAnswerShown() {
     setState(() {
       _isAnswerShown = !_isAnswerShown;
     });
@@ -47,7 +47,7 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
           hasAnswer ? QuestionTitle(label: title) : const Spacer(),
           QuestionBody(label: body),
           hasAnswer
-              ? QuestionRotateButton(onTap: _toggleAnswer)
+              ? QuestionRotateButton(onTap: _toggleIsAnswerShown)
               : const Spacer(),
         ],
       ),
