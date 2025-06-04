@@ -20,6 +20,9 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: AppColors.surface,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.blue,
