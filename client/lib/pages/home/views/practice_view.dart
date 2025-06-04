@@ -4,6 +4,7 @@ import 'package:flashxp/pages/home/widgets/practice/practice_progress.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class PracticeView extends StatefulWidget {
   const PracticeView({super.key});
@@ -52,17 +53,14 @@ class _PracticeViewState extends State<PracticeView> {
           const SizedBox(height: 24),
           PracticeOptionList(options: options),
           const SizedBox(height: 44),
-          Visibility(
-            visible: _hasAnswered,
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            child: FlashButton(
-              onPressed: handleNextQuestion,
-              label: 'Next Question',
-              isBlock: true,
-            ),
-          ),
+          FlashButton(
+            onPressed: _hasAnswered ? handleNextQuestion : () {},
+            label: 'Next Question',
+            isBlock: true,
+          )
+              .animate(target: _hasAnswered ? 1 : 0)
+              .fade(begin: 0, end: 1, duration: 150.ms)
+              .slideY(begin: 1, end: 0, duration: 150.ms),
         ],
       ),
     );
