@@ -31,7 +31,9 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.inverseSurface,
+        color: _isAnswerShown
+            ? Theme.of(context).colorScheme.surfaceBright
+            : Theme.of(context).colorScheme.inverseSurface,
         borderRadius: BorderRadius.circular(56),
       ),
       child: Column(
