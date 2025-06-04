@@ -26,7 +26,12 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    final bool hasAnswer = widget.answer != null;
+    final String question = widget.question;
+    final String? answer = widget.answer;
+    final bool hasAnswer = answer != null;
+
+    final String title = _isAnswerShown ? 'Answer' : 'Question';
+    final String body = _isAnswerShown ? answer! : question;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
@@ -39,17 +44,11 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (hasAnswer)
-            QuestionTitle(label: _isAnswerShown ? 'Answer' : 'Question')
-          else
-            const Spacer(),
-          QuestionBody(
-            label: _isAnswerShown ? widget.answer! : widget.question,
-          ),
-          if (hasAnswer)
-            QuestionRotateButton(onTap: _toggleAnswer)
-          else
-            const Spacer(),
+          hasAnswer ? QuestionTitle(label: title) : const Spacer(),
+          QuestionBody(label: body),
+          hasAnswer
+              ? QuestionRotateButton(onTap: _toggleAnswer)
+              : const Spacer(),
         ],
       ),
     );
