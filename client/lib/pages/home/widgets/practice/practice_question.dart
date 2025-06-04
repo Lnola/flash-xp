@@ -32,12 +32,12 @@ class PracticeQuestion extends StatelessWidget {
 }
 
 class QuestionBody extends StatelessWidget {
+  final String question;
+
   const QuestionBody({
     super.key,
     required this.question,
   });
-
-  final String question;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +50,7 @@ class QuestionBody extends StatelessWidget {
 }
 
 class QuestionRotateButton extends StatelessWidget {
-  const QuestionRotateButton({
-    super.key,
-  });
+  const QuestionRotateButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +78,7 @@ class QuestionRotateButton extends StatelessWidget {
 }
 
 class QuestionTitle extends StatelessWidget {
-  const QuestionTitle({
-    super.key,
-  });
+  const QuestionTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
