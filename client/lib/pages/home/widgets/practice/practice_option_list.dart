@@ -20,21 +20,26 @@ class PracticeOptionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (int i = 0; i < options.length; i++) ...[
-            if (i != 0) const SizedBox(width: 8),
-            Expanded(
-              child: PracticeOptionButton(
-                label: options[i].label,
-                onPressed: options[i].onPressed,
-                state: options[i].state,
-              ),
-            ),
-          ],
-        ],
+    final spacing = 8.0;
+
+    return LayoutBuilder(
+      builder: (context, constraints) => Center(
+        child: Wrap(
+          spacing: spacing,
+          runSpacing: spacing,
+          children: options
+              .map(
+                (option) => SizedBox(
+                  width: (constraints.maxWidth - spacing) / 2,
+                  child: PracticeOptionButton(
+                    label: option.label,
+                    onPressed: option.onPressed,
+                    state: option.state,
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }
