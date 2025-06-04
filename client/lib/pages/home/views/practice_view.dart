@@ -27,6 +27,8 @@ class PracticeView extends StatelessWidget {
       ),
     ];
 
+    final isNextVisible = true;
+
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
@@ -37,10 +39,16 @@ class PracticeView extends StatelessWidget {
           const SizedBox(height: 24),
           PracticeOptionList(options: options),
           const SizedBox(height: 44),
-          FlashButton(
-            onPressed: () {},
-            label: 'Next Question',
-            isBlock: true,
+          Visibility(
+            visible: isNextVisible,
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            child: FlashButton(
+              onPressed: () {},
+              label: 'Next Question',
+              isBlock: true,
+            ),
           ),
         ],
       ),
