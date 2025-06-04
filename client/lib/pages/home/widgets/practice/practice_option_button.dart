@@ -37,23 +37,20 @@ class PracticeOptionButton extends StatelessWidget {
         foregroundColor = Theme.of(context).colorScheme.onInverseSurface;
     }
 
-    return FractionallySizedBox(
-      widthFactor: 0.5,
-      child: SizedBox(
-        height: 100,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: backgroundColor,
-            foregroundColor: foregroundColor,
-            textStyle: Theme.of(context).textTheme.labelMedium,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
-            ),
+    return SizedBox(
+      height: 100,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          textStyle: Theme.of(context).textTheme.labelMedium,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
           ),
-          child: Text(label),
         ),
+        child: Text(label),
       ),
     );
   }
