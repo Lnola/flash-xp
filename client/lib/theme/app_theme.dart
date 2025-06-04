@@ -34,13 +34,7 @@ class AppTheme {
         onPrimaryContainer: AppColors.white,
       ),
       textTheme: TextTheme(
-        titleLarge: GoogleFonts.poppins(
-          textStyle: base.titleLarge?.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black,
-          ),
-        ),
+        // Poppins W700
         displaySmall: GoogleFonts.poppins(
           textStyle: base.displaySmall?.copyWith(
             fontSize: 12,
@@ -48,6 +42,23 @@ class AppTheme {
             color: AppColors.black,
           ),
         ),
+        // Poppins w500
+        titleLarge: GoogleFonts.poppins(
+          textStyle: base.titleLarge?.copyWith(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
+        ),
+        // Poppins w400
+        labelMedium: GoogleFonts.poppins(
+          textStyle: base.labelMedium?.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+        ),
+        // Inter W400
         bodySmall: GoogleFonts.inter(
           textStyle: base.bodySmall?.copyWith(
             fontSize: 16,
