@@ -5,11 +5,13 @@ class OptionButtonData {
   final String label;
   final VoidCallback onPressed;
   final PracticeOptionState state;
+  final bool isCorrect;
 
   OptionButtonData({
     required this.label,
     required this.onPressed,
     this.state = PracticeOptionState.defaultState,
+    this.isCorrect = false,
   });
 }
 
