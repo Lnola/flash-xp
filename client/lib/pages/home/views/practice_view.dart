@@ -5,8 +5,15 @@ import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 
-class PracticeView extends StatelessWidget {
+class PracticeView extends StatefulWidget {
   const PracticeView({super.key});
+
+  @override
+  State<PracticeView> createState() => _PracticeViewState();
+}
+
+class _PracticeViewState extends State<PracticeView> {
+  bool _hasAnswered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,20 +21,19 @@ class PracticeView extends StatelessWidget {
         'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
     final answer =
         'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+
     final List<OptionButtonData> options = [
       OptionButtonData(
         label: "I don't know",
-        onPressed: () {},
+        onPressed: () => setState(() => _hasAnswered = true),
         state: PracticeOptionState.incorrect,
       ),
       OptionButtonData(
         label: 'I know',
-        onPressed: () {},
+        onPressed: () => setState(() => _hasAnswered = true),
         state: PracticeOptionState.correct,
       ),
     ];
-
-    final isNextVisible = true;
 
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
@@ -40,7 +46,7 @@ class PracticeView extends StatelessWidget {
           PracticeOptionList(options: options),
           const SizedBox(height: 44),
           Visibility(
-            visible: isNextVisible,
+            visible: _hasAnswered,
             maintainSize: true,
             maintainAnimation: true,
             maintainState: true,
