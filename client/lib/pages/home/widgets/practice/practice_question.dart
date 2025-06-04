@@ -49,10 +49,12 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
       backgroundColor: Theme.of(context).colorScheme.surfaceBright,
     );
 
-    return FlipContent(
-      flipped: _isAnswerShown,
-      front: front,
-      back: back,
+    return Expanded(
+      child: FlipContent(
+        flipped: _isAnswerShown,
+        front: front,
+        back: back,
+      ),
     );
   }
 
