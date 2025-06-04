@@ -23,14 +23,28 @@ class PracticeQuestion extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (answer != null) const QuestionTitle() else const Spacer(),
-          Text(
-            question,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          QuestionBody(question: question),
           if (answer != null) const QuestionRotateButton() else const Spacer(),
         ],
       ),
+    );
+  }
+}
+
+class QuestionBody extends StatelessWidget {
+  const QuestionBody({
+    super.key,
+    required this.question,
+  });
+
+  final String question;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      question,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.bodyMedium,
     );
   }
 }
