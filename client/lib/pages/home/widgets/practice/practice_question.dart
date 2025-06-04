@@ -73,6 +73,7 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          spacing: 24,
           children: [
             title != null ? QuestionTitle(label: title) : const Spacer(),
             QuestionBody(label: body),
