@@ -53,6 +53,7 @@ class AppTheme {
         titleLarge: GoogleFonts.poppins(
           textStyle: base.titleLarge?.copyWith(
             fontSize: 24,
+            height: 1.5,
             fontWeight: FontWeight.w500,
             color: AppColors.black,
           ),
