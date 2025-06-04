@@ -1,4 +1,6 @@
+import 'package:flashxp/pages/home/widgets/practice/practice_option_list.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
+import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 
 class PracticeView extends StatelessWidget {
@@ -11,9 +13,18 @@ class PracticeView extends StatelessWidget {
     final answer =
         'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-    return PracticeQuestion(
-      question: question,
-      answer: answer,
+    return Column(
+      children: [
+        PracticeQuestion(question: question, answer: answer),
+        const SizedBox(height: 24),
+        const PracticeOptionList(),
+        const SizedBox(height: 44),
+        FlashButton(
+          onPressed: () {},
+          label: 'Next Question',
+          isBlock: true,
+        ),
+      ],
     );
   }
 }
