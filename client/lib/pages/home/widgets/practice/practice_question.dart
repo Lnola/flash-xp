@@ -20,40 +20,59 @@ class PracticeQuestion extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            'Question',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          const QuestionTitle(),
           Text(
             question,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Tap to rotate card',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withAlpha(77),
-                      ),
-                ),
-                const SizedBox(width: 8),
-                FaIcon(
-                  FontAwesomeIcons.rotate,
-                  size: 14,
+          const QuestionRotateButton(),
+        ],
+      ),
+    );
+  }
+}
+
+class QuestionRotateButton extends StatelessWidget {
+  const QuestionRotateButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Tap to rotate card',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
                 ),
-              ],
-            ),
+          ),
+          const SizedBox(width: 8),
+          FaIcon(
+            FontAwesomeIcons.rotate,
+            size: 14,
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
           ),
         ],
       ),
+    );
+  }
+}
+
+class QuestionTitle extends StatelessWidget {
+  const QuestionTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Question',
+      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }
