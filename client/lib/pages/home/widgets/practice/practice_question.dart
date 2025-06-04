@@ -4,12 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PracticeQuestion extends StatefulWidget {
   final String question;
-  final String answer;
+  final String? answer;
 
   const PracticeQuestion({
     super.key,
     required this.question,
-    required this.answer,
+    this.answer,
   });
 
   @override
@@ -28,32 +28,39 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
   @override
   Widget build(BuildContext context) {
     final String question = widget.question;
-    final String answer = widget.answer;
+    final String? answer = widget.answer;
+    final isAnswerAvailable = answer != null;
+
+    final front = _buildCardSide(
+      context,
+      title: isAnswerAvailable ? 'Question' : null,
+      body: question,
+      onTap: isAnswerAvailable ? _toggleIsAnswerShown : null,
+      backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+    );
+
+    if (!isAnswerAvailable) return front;
+
+    final back = _buildCardSide(
+      context,
+      title: 'Answer',
+      body: answer,
+      onTap: _toggleIsAnswerShown,
+      backgroundColor: Theme.of(context).colorScheme.surfaceBright,
+    );
 
     return FlipContent(
       flipped: _isAnswerShown,
-      front: _buildCardSide(
-        context,
-        title: 'Question',
-        body: question,
-        onTap: _toggleIsAnswerShown,
-        backgroundColor: Theme.of(context).colorScheme.inverseSurface,
-      ),
-      back: _buildCardSide(
-        context,
-        title: 'Answer',
-        body: answer,
-        onTap: _toggleIsAnswerShown,
-        backgroundColor: Theme.of(context).colorScheme.surfaceBright,
-      ),
+      front: front,
+      back: back,
     );
   }
 
   Widget _buildCardSide(
     BuildContext context, {
-    required String title,
     required String body,
-    required VoidCallback onTap,
+    String? title,
+    VoidCallback? onTap,
     required Color backgroundColor,
   }) {
     return SizedBox(
@@ -67,9 +74,9 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            QuestionTitle(label: title),
+            title != null ? QuestionTitle(label: title) : const Spacer(),
             QuestionBody(label: body),
-            QuestionRotateButton(onTap: onTap),
+            onTap != null ? QuestionRotateButton(onTap: onTap) : const Spacer(),
           ],
         ),
       ),
