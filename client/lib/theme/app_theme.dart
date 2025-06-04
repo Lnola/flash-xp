@@ -39,6 +39,7 @@ class AppTheme {
         onError: AppColors.black,
         primaryContainer: AppColors.black,
         onPrimaryContainer: AppColors.white,
+        surfaceBright: AppColors.yellow,
       ),
       textTheme: TextTheme(
         // Poppins W700
