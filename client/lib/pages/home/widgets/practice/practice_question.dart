@@ -55,6 +55,23 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
   }
 }
 
+class QuestionTitle extends StatelessWidget {
+  final String label;
+
+  const QuestionTitle({
+    super.key,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: Theme.of(context).textTheme.titleLarge,
+    );
+  }
+}
+
 class QuestionBody extends StatelessWidget {
   final String label;
 
@@ -102,23 +119,6 @@ class QuestionRotateButton extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class QuestionTitle extends StatelessWidget {
-  final String label;
-
-  const QuestionTitle({
-    super.key,
-    required this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }
