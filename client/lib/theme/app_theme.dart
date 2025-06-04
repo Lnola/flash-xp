@@ -67,6 +67,14 @@ class AppTheme {
           ),
         ),
         // Inter W400
+        bodyMedium: GoogleFonts.inter(
+          textStyle: base.bodyMedium?.copyWith(
+            fontSize: 18,
+            height: 1.5,
+            fontWeight: FontWeight.w400,
+            color: AppColors.black,
+          ),
+        ),
         bodySmall: GoogleFonts.inter(
           textStyle: base.bodySmall?.copyWith(
             fontSize: 16,
