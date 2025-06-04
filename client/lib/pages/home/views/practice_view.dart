@@ -1,4 +1,5 @@
 import 'package:flashxp/pages/home/widgets/practice/practice_option_list.dart';
+import 'package:flashxp/pages/home/widgets/practice/practice_progress.dart';
 import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class PracticeView extends StatelessWidget {
 
     return Column(
       children: [
+        const PracticeProgress(current: 3, total: 12),
+        const SizedBox(height: 16),
         PracticeQuestion(question: question, answer: answer),
         const SizedBox(height: 24),
         const PracticeOptionList(),
