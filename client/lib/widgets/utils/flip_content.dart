@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class FlipCard extends StatelessWidget {
+class FlipContent extends StatelessWidget {
   final Widget front;
   final Widget back;
   final bool flipped;
   final Duration duration;
 
-  const FlipCard({
+  const FlipContent({
     super.key,
     required this.front,
     required this.back,
