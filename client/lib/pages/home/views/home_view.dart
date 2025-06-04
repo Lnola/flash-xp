@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
       child: ElevatedButton(
         child: const Text('Push new page'),
         onPressed: () {
-          context.push('$currentPath/nested');
+          context.push('$currentPath/practice');
         },
       ),
     );
