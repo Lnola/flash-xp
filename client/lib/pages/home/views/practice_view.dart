@@ -35,6 +35,13 @@ class _PracticeViewState extends State<PracticeView> {
       ),
     ];
 
+    void handleNextQuestion() {
+      // TODO: implement logic to fetch the next question
+      setState(() {
+        _hasAnswered = false;
+      });
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
@@ -51,7 +58,7 @@ class _PracticeViewState extends State<PracticeView> {
             maintainAnimation: true,
             maintainState: true,
             child: FlashButton(
-              onPressed: () {},
+              onPressed: handleNextQuestion,
               label: 'Next Question',
               isBlock: true,
             ),
