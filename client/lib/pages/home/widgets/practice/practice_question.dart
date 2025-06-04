@@ -3,10 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PracticeQuestion extends StatelessWidget {
   final String question;
+  final String? answer;
 
   const PracticeQuestion({
     super.key,
     required this.question,
+    this.answer,
   });
 
   @override
