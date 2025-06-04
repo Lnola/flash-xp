@@ -26,9 +26,10 @@ class AppRouter {
       routes: [
         GoRoute(
           path: 'nested',
-          builder: (_, __) => const FlashLayout(
+          builder: (context, __) => FlashLayout(
+            backgroundColor: Theme.of(context).colorScheme.surface,
             title: 'Home Nested Page',
-            body: PracticeView(),
+            body: const PracticeView(),
           ),
         ),
       ],
