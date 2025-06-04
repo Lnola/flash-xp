@@ -25,7 +25,7 @@ class FlashButton extends StatelessWidget {
           vertical: isBlock ? 16 : 8,
         ),
         shape: const StadiumBorder(),
-        textStyle: Theme.of(context).textTheme.bodySmall,
+        textStyle: Theme.of(context).textTheme.labelMedium,
       ),
       child: Text(label),
     );
