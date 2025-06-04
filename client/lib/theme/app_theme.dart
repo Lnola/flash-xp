@@ -29,7 +29,7 @@ class AppTheme {
         surface: AppColors.white,
         onSurface: AppColors.black,
         error: AppColors.red,
-        onError: AppColors.white,
+        onError: AppColors.black,
         primaryContainer: AppColors.black,
         onPrimaryContainer: AppColors.white,
       ),
@@ -41,20 +41,6 @@ class AppTheme {
             color: AppColors.black,
           ),
         ),
-        titleSmall: GoogleFonts.poppins(
-          textStyle: base.titleSmall?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: AppColors.black,
-          ),
-        ),
-        displayMedium: GoogleFonts.poppins(
-          textStyle: base.displayMedium?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: AppColors.black,
-          ),
-        ),
         displaySmall: GoogleFonts.poppins(
           textStyle: base.displaySmall?.copyWith(
             fontSize: 12,
@@ -62,31 +48,10 @@ class AppTheme {
             color: AppColors.black,
           ),
         ),
-        bodyLarge: GoogleFonts.inter(
-          textStyle: base.bodyLarge?.copyWith(
-            fontSize: 24,
-            fontWeight: FontWeight.w400,
-            color: AppColors.black,
-          ),
-        ),
-        bodyMedium: GoogleFonts.inter(
-          textStyle: base.bodyMedium?.copyWith(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-            color: AppColors.black,
-          ),
-        ),
         bodySmall: GoogleFonts.inter(
           textStyle: base.bodySmall?.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w400,
-            color: AppColors.black,
-          ),
-        ),
-        labelSmall: GoogleFonts.inter(
-          textStyle: base.labelSmall?.copyWith(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
             color: AppColors.black,
           ),
         ),
