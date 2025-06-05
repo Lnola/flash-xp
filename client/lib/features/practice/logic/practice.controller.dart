@@ -16,12 +16,6 @@ class PracticeController extends ChangeNotifier {
     initQuestion();
   }
 
-  void _handleOptionSelected(String label) {
-    hasAnswered = true;
-    options = mode.updateOptions(label: label, options: options);
-    notifyListeners();
-  }
-
   void initQuestion() {
     final dummyQuestion =
         'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
@@ -46,4 +40,10 @@ class PracticeController extends ChangeNotifier {
   }
 
   void nextQuestion() => initQuestion();
+
+  void _handleOptionSelected(String label) {
+    hasAnswered = true;
+    options = mode.updateOptions(label: label, options: options);
+    notifyListeners();
+  }
 }
