@@ -43,7 +43,10 @@ class _PracticeViewState extends State<PracticeView> {
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
         children: [
-          const PracticeProgress(current: 3, total: 12),
+          PracticeProgress(
+            current: controller.currentQuestionIndex,
+            total: controller.totalQuestions,
+          ),
           const SizedBox(height: 16),
           PracticeQuestion(
             question: controller.question,
