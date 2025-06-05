@@ -4,12 +4,12 @@ class QuestionDto {
   final int id;
   final String text;
   final String? answer;
-  final List<AnswerOptionDto> answerOptionDtos;
+  final List<AnswerOptionDto>? answerOptionDtos;
 
   QuestionDto({
     required this.id,
     required this.text,
     this.answer,
-    required this.answerOptionDtos,
+    this.answerOptionDtos,
   });
 }
