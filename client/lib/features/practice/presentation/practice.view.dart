@@ -33,18 +33,16 @@ class _PracticeViewState extends State<PracticeView> {
 
   @override
   Widget build(BuildContext context) {
-    final question =
-        'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-    final answer =
-        'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
         children: [
           const PracticeProgress(current: 3, total: 12),
           const SizedBox(height: 16),
-          PracticeQuestion(question: question, answer: answer),
+          PracticeQuestion(
+            question: controller.question,
+            answer: controller.answer,
+          ),
           const SizedBox(height: 24),
           PracticeOptionList(options: controller.options),
           const SizedBox(height: 44),
