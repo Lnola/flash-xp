@@ -12,12 +12,15 @@ class PracticeController extends ChangeNotifier {
   late String question;
   late String? answer;
   late List<AnswerOptionButtonModel> answerOptionButtons;
+  late int totalQuestions;
 
   bool hasAnswered = false;
   bool isLoading = true;
 
   List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
+
+  int get currentQuestionIndex => _currentQuestionIndex + 1;
 
   PracticeController(this._questionRepository) {
     modeStrategy = MultipleChoiceStrategy();
@@ -29,6 +32,7 @@ class PracticeController extends ChangeNotifier {
 
     _questions = await _questionRepository.fetch();
     _currentQuestionIndex = 0;
+    totalQuestions = _questions.length;
 
     _loadCurrentQuestion();
 
@@ -36,7 +40,7 @@ class PracticeController extends ChangeNotifier {
   }
 
   void nextQuestion() {
-    if (_currentQuestionIndex < _questions.length - 1) {
+    if (_currentQuestionIndex < totalQuestions - 1) {
       _currentQuestionIndex++;
       _loadCurrentQuestion();
     }
