@@ -6,12 +6,14 @@ class OptionButtonData {
   final VoidCallback onPressed;
   final PracticeOptionState state;
   final bool isCorrect;
+  final bool isDisabled;
 
   OptionButtonData({
     required this.label,
     required this.onPressed,
     this.state = PracticeOptionState.defaultState,
     this.isCorrect = false,
+    this.isDisabled = false,
   });
 
   OptionButtonData copyWith({
@@ -19,12 +21,14 @@ class OptionButtonData {
     VoidCallback? onPressed,
     PracticeOptionState? state,
     bool? isCorrect,
+    bool? isDisabled,
   }) {
     return OptionButtonData(
       label: label ?? this.label,
       onPressed: onPressed ?? this.onPressed,
       state: state ?? this.state,
       isCorrect: isCorrect ?? this.isCorrect,
+      isDisabled: isDisabled ?? this.isDisabled,
     );
   }
 }
@@ -33,6 +37,8 @@ class PracticeOptionList extends StatelessWidget {
   final List<OptionButtonData> options;
 
   const PracticeOptionList({super.key, required this.options});
+
+  void noop() {}
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,7 @@ class PracticeOptionList extends StatelessWidget {
                   width: (constraints.maxWidth - spacing) / 2,
                   child: PracticeOptionButton(
                     label: option.label,
-                    onPressed: option.onPressed,
+                    onPressed: !option.isDisabled ? option.onPressed : noop,
                     state: option.state,
                   ),
                 ),
