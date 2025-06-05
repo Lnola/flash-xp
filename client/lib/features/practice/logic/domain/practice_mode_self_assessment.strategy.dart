@@ -4,7 +4,7 @@ import 'package:flashxp/features/practice/logic/model/answer_option_button.model
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
-  List<AnswerOptionButtonModel> createOptions({
+  List<AnswerOptionButtonModel> createAnswerOptionButtons({
     required void Function(String label) onPressed,
     List<AnswerOptionDto>? answerOptionDtos,
   }) {
@@ -23,7 +23,7 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }
 
   @override
-  List<AnswerOptionButtonModel> updateOptions({
+  List<AnswerOptionButtonModel> updateAnswerOptionButtons({
     required String label,
     required List<AnswerOptionButtonModel> answerOptionButtons,
   }) {

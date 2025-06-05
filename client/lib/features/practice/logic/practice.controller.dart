@@ -33,7 +33,7 @@ class PracticeController extends ChangeNotifier {
 
     question = dummyQuestion;
     answer = dummyAnswer;
-    answerOptionButtons = modeStrategy.createOptions(
+    answerOptionButtons = modeStrategy.createAnswerOptionButtons(
       onPressed: _handleOptionSelected,
       answerOptionDtos: dummyAnswerOptionDtos,
     );
@@ -44,7 +44,7 @@ class PracticeController extends ChangeNotifier {
 
   void _handleOptionSelected(String label) {
     hasAnswered = true;
-    answerOptionButtons = modeStrategy.updateOptions(
+    answerOptionButtons = modeStrategy.updateAnswerOptionButtons(
       label: label,
       answerOptionButtons: answerOptionButtons,
     );
