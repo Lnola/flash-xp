@@ -31,8 +31,7 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
     final String? answer = widget.answer;
     final isAnswerAvailable = answer != null;
 
-    final front = _buildCardSide(
-      context,
+    final front = _QuestionCardSide(
       title: isAnswerAvailable ? 'Question' : null,
       body: question,
       onTap: isAnswerAvailable ? _toggleIsAnswerShown : null,
@@ -41,8 +40,7 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
 
     if (!isAnswerAvailable) return front;
 
-    final back = _buildCardSide(
-      context,
+    final back = _QuestionCardSide(
       title: 'Answer',
       body: answer,
       onTap: _toggleIsAnswerShown,
@@ -57,14 +55,23 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
       ),
     );
   }
+}
 
-  Widget _buildCardSide(
-    BuildContext context, {
-    required String body,
-    String? title,
-    VoidCallback? onTap,
-    required Color backgroundColor,
-  }) {
+class _QuestionCardSide extends StatelessWidget {
+  final String body;
+  final String? title;
+  final VoidCallback? onTap;
+  final Color backgroundColor;
+
+  const _QuestionCardSide({
+    required this.body,
+    this.title,
+    this.onTap,
+    required this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       child: SizedBox(
         width: double.infinity,
@@ -78,10 +85,10 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             spacing: 24,
             children: [
-              title != null ? _QuestionTitle(label: title) : const Spacer(),
+              title != null ? _QuestionTitle(label: title!) : const Spacer(),
               _QuestionBody(label: body),
               onTap != null
-                  ? _QuestionRotateButton(onTap: onTap)
+                  ? _QuestionRotateButton(onTap: onTap!)
                   : const Spacer(),
             ],
           ),
