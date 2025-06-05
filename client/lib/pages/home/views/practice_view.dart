@@ -10,10 +10,9 @@ enum PracticeMode { selfAssessment, multipleChoice }
 
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions(void Function(String label) onPressed);
-  void handleOptionPressed({
+  List<OptionButtonData> handleOptionPressed({
     required String selectedLabel,
     required List<OptionButtonData> options,
-    required void Function(List<OptionButtonData>) updateOptions,
   });
 }
 
@@ -35,11 +34,12 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }
 
   @override
-  void handleOptionPressed({
+  List<OptionButtonData> handleOptionPressed({
     required String selectedLabel,
     required List<OptionButtonData> options,
-    required void Function(List<OptionButtonData>) updateOptions,
-  }) {}
+  }) {
+    return options;
+  }
 }
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
@@ -59,12 +59,11 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   }
 
   @override
-  void handleOptionPressed({
+  List<OptionButtonData> handleOptionPressed({
     required String selectedLabel,
     required List<OptionButtonData> options,
-    required void Function(List<OptionButtonData>) updateOptions,
   }) {
-    final updated = options.map((option) {
+    return options.map((option) {
       var state = PracticeOptionState.defaultState;
       if (option.isCorrect) {
         state = PracticeOptionState.correct;
@@ -73,8 +72,6 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
       }
       return option.copyWith(state: state, isDisabled: true);
     }).toList();
-
-    updateOptions(updated);
   }
 }
 
@@ -95,10 +92,9 @@ class _PracticeViewState extends State<PracticeView> {
     options = modeStrategy.createOptions((label) {
       setState(() {
         _hasAnswered = true;
-        modeStrategy.handleOptionPressed(
+        options = modeStrategy.handleOptionPressed(
           selectedLabel: label,
           options: options,
-          updateOptions: (updated) => options = updated,
         );
       });
     });
