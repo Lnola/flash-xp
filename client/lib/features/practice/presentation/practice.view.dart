@@ -1,4 +1,4 @@
-import 'package:flashxp/features/practice/logic/practice_controller.dart';
+import 'package:flashxp/features/practice/logic/practice.controller.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_question.dart';

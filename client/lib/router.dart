@@ -1,4 +1,4 @@
-import 'package:flashxp/features/practice/presentation/practice_view.dart';
+import 'package:flashxp/features/practice/presentation/practice.view.dart';
 import 'package:flashxp/pages/create/create_page.dart';
 import 'package:flashxp/pages/create/views/create_nested_view.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
