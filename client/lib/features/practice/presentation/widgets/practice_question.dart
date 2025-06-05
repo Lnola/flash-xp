@@ -85,11 +85,9 @@ class _QuestionCardSide extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             spacing: 24,
             children: [
-              title != null ? _QuestionTitle(label: title!) : const Spacer(),
-              _QuestionBody(label: body),
-              onTap != null
-                  ? _QuestionRotateButton(onTap: onTap!)
-                  : const Spacer(),
+              title != null ? _CardTitle(label: title!) : const Spacer(),
+              _CardBody(label: body),
+              onTap != null ? _CardRotateButton(onTap: onTap!) : const Spacer(),
             ],
           ),
         ),
@@ -98,10 +96,10 @@ class _QuestionCardSide extends StatelessWidget {
   }
 }
 
-class _QuestionTitle extends StatelessWidget {
+class _CardTitle extends StatelessWidget {
   final String label;
 
-  const _QuestionTitle({
+  const _CardTitle({
     required this.label,
   });
 
@@ -114,10 +112,10 @@ class _QuestionTitle extends StatelessWidget {
   }
 }
 
-class _QuestionBody extends StatelessWidget {
+class _CardBody extends StatelessWidget {
   final String label;
 
-  const _QuestionBody({
+  const _CardBody({
     required this.label,
   });
 
@@ -131,10 +129,10 @@ class _QuestionBody extends StatelessWidget {
   }
 }
 
-class _QuestionRotateButton extends StatelessWidget {
+class _CardRotateButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const _QuestionRotateButton({
+  const _CardRotateButton({
     required this.onTap,
   });
 
