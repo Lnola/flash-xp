@@ -1,4 +1,3 @@
-import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/data/question.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
@@ -24,23 +23,11 @@ class PracticeController extends ChangeNotifier {
     isLoading = true;
 
     final fetched = await _questionRepository.fetchQuestion();
-    final dummyQuestion =
-        'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-    final dummyAnswer =
-        'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
-
-    final dummyAnswerOptionDtos = [
-      AnswerOptionDto(label: 'A', isCorrect: false),
-      AnswerOptionDto(label: 'B', isCorrect: false),
-      AnswerOptionDto(label: 'C', isCorrect: true),
-      AnswerOptionDto(label: 'D', isCorrect: false),
-    ];
-
-    question = dummyQuestion;
-    answer = dummyAnswer;
+    question = fetched[0].text;
+    answer = fetched[0].answer;
     answerOptionButtons = modeStrategy.createAnswerOptionButtons(
       onPressed: _handleOptionSelected,
-      answerOptionDtos: dummyAnswerOptionDtos,
+      answerOptionDtos: fetched[0].answerOptionDtos,
     );
 
     isLoading = false;
