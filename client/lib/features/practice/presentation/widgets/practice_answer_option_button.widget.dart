@@ -1,12 +1,12 @@
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flutter/material.dart';
 
-class PracticeOptionButton extends StatelessWidget {
+class PracticeAnswerOptionButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final AnswerOptionButtonState state;
 
-  const PracticeOptionButton({
+  const PracticeAnswerOptionButton({
     super.key,
     required this.label,
     required this.onPressed,

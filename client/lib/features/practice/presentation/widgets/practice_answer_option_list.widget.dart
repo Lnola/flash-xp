@@ -1,11 +1,11 @@
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_answer_option_button.widget.dart';
 import 'package:flutter/material.dart';
 
-class PracticeOptionList extends StatelessWidget {
+class PracticeAnswerOptionList extends StatelessWidget {
   final List<AnswerOptionButtonModel> answerOptionButtons;
 
-  const PracticeOptionList({
+  const PracticeAnswerOptionList({
     super.key,
     required this.answerOptionButtons,
   });
@@ -25,7 +25,7 @@ class PracticeOptionList extends StatelessWidget {
               .map(
                 (option) => SizedBox(
                   width: (constraints.maxWidth - spacing) / 2,
-                  child: PracticeOptionButton(
+                  child: PracticeAnswerOptionButton(
                     label: option.label,
                     onPressed: !option.isDisabled ? option.onPressed : noop,
                     state: option.state,
