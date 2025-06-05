@@ -2,7 +2,7 @@ import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/data/dto/question.dto.dart';
 
 class QuestionRepository {
-  Future<List<QuestionDto>> fetchQuestion() async {
+  Future<List<QuestionDto>> fetch() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return [
       QuestionDto(

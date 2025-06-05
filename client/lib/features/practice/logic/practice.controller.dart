@@ -22,7 +22,7 @@ class PracticeController extends ChangeNotifier {
     hasAnswered = false;
     isLoading = true;
 
-    final fetched = await _questionRepository.fetchQuestion();
+    final fetched = await _questionRepository.fetch();
     question = fetched[0].text;
     answer = fetched[0].answer;
     answerOptionButtons = modeStrategy.createAnswerOptionButtons(
