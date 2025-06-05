@@ -1,11 +1,11 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
-  List<OptionButtonData> createOptions({
+  List<AnswerOptionButtonModel> createOptions({
     required void Function(String label) onPressed,
     List<AnswerOptionDto>? answerOptionDtos,
   }) {
@@ -14,18 +14,18 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
         'MultipleChoiceStrategy options cannot be null or empty',
       );
     }
-    return _mapDtosToOptionButtons(
+    return _mapDtosToButtonModels(
       answerOptionDtos: answerOptionDtos,
       onPressed: (label) => onPressed(label),
     );
   }
 
   @override
-  List<OptionButtonData> updateOptions({
+  List<AnswerOptionButtonModel> updateOptions({
     required String label,
-    required List<OptionButtonData> options,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
   }) {
-    return options.map((option) {
+    return answerOptionButtons.map((option) {
       var state = PracticeOptionState.defaultState;
       if (option.isCorrect) {
         state = PracticeOptionState.correct;
@@ -36,12 +36,12 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     }).toList();
   }
 
-  List<OptionButtonData> _mapDtosToOptionButtons({
+  List<AnswerOptionButtonModel> _mapDtosToButtonModels({
     required List<AnswerOptionDto> answerOptionDtos,
     required void Function(String label) onPressed,
   }) {
     return answerOptionDtos.map((answerOptionDto) {
-      return OptionButtonData(
+      return AnswerOptionButtonModel(
         label: answerOptionDto.label,
         isCorrect: answerOptionDto.isCorrect,
         onPressed: () => onPressed(answerOptionDto.label),

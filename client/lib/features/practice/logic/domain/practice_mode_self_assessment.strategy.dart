@@ -1,21 +1,21 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
-  List<OptionButtonData> createOptions({
+  List<AnswerOptionButtonModel> createOptions({
     required void Function(String label) onPressed,
     List<AnswerOptionDto>? answerOptionDtos,
   }) {
     return [
-      OptionButtonData(
+      AnswerOptionButtonModel(
         label: "I don't know",
         onPressed: () => onPressed("I don't know"),
         state: PracticeOptionState.incorrect,
       ),
-      OptionButtonData(
+      AnswerOptionButtonModel(
         label: 'I know',
         onPressed: () => onPressed('I know'),
         state: PracticeOptionState.correct,
@@ -24,10 +24,10 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }
 
   @override
-  List<OptionButtonData> updateOptions({
+  List<AnswerOptionButtonModel> updateOptions({
     required String label,
-    required List<OptionButtonData> options,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
   }) {
-    return options;
+    return answerOptionButtons;
   }
 }

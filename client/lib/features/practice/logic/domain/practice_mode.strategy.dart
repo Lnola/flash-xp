@@ -1,13 +1,13 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 
 abstract class PracticeModeStrategy {
-  List<OptionButtonData> createOptions({
+  List<AnswerOptionButtonModel> createOptions({
     required void Function(String label) onPressed,
     List<AnswerOptionDto>? answerOptionDtos,
   });
-  List<OptionButtonData> updateOptions({
+  List<AnswerOptionButtonModel> updateOptions({
     required String label,
-    required List<OptionButtonData> options,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
   });
 }

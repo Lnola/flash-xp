@@ -1,42 +1,14 @@
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 import 'package:flutter/material.dart';
 
-class OptionButtonData {
-  final String label;
-  final VoidCallback onPressed;
-  final PracticeOptionState state;
-  final bool isCorrect;
-  final bool isDisabled;
-
-  OptionButtonData({
-    required this.label,
-    required this.onPressed,
-    this.state = PracticeOptionState.defaultState,
-    this.isCorrect = false,
-    this.isDisabled = false,
-  });
-
-  OptionButtonData copyWith({
-    String? label,
-    VoidCallback? onPressed,
-    PracticeOptionState? state,
-    bool? isCorrect,
-    bool? isDisabled,
-  }) {
-    return OptionButtonData(
-      label: label ?? this.label,
-      onPressed: onPressed ?? this.onPressed,
-      state: state ?? this.state,
-      isCorrect: isCorrect ?? this.isCorrect,
-      isDisabled: isDisabled ?? this.isDisabled,
-    );
-  }
-}
-
 class PracticeOptionList extends StatelessWidget {
-  final List<OptionButtonData> options;
+  final List<AnswerOptionButtonModel> answerOptionButtons;
 
-  const PracticeOptionList({super.key, required this.options});
+  const PracticeOptionList({
+    super.key,
+    required this.answerOptionButtons,
+  });
 
   void noop() {}
 
@@ -49,7 +21,7 @@ class PracticeOptionList extends StatelessWidget {
         child: Wrap(
           spacing: spacing,
           runSpacing: spacing,
-          children: options
+          children: answerOptionButtons
               .map(
                 (option) => SizedBox(
                   width: (constraints.maxWidth - spacing) / 2,

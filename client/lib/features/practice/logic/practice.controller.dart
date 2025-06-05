@@ -1,7 +1,7 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flutter/material.dart';
 
 class PracticeController extends ChangeNotifier {
@@ -9,7 +9,7 @@ class PracticeController extends ChangeNotifier {
   late PracticeModeStrategy modeStrategy;
   late String question;
   late String? answer;
-  late List<OptionButtonData> options;
+  late List<AnswerOptionButtonModel> answerOptionButtons;
 
   PracticeController() {
     modeStrategy = MultipleChoiceStrategy();
@@ -33,7 +33,7 @@ class PracticeController extends ChangeNotifier {
 
     question = dummyQuestion;
     answer = dummyAnswer;
-    options = modeStrategy.createOptions(
+    answerOptionButtons = modeStrategy.createOptions(
       onPressed: _handleOptionSelected,
       answerOptionDtos: dummyAnswerOptionDtos,
     );
@@ -44,7 +44,10 @@ class PracticeController extends ChangeNotifier {
 
   void _handleOptionSelected(String label) {
     hasAnswered = true;
-    options = modeStrategy.updateOptions(label: label, options: options);
+    answerOptionButtons = modeStrategy.updateOptions(
+      label: label,
+      answerOptionButtons: answerOptionButtons,
+    );
     notifyListeners();
   }
 }

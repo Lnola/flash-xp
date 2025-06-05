@@ -44,7 +44,9 @@ class _PracticeViewState extends State<PracticeView> {
             answer: controller.answer,
           ),
           const SizedBox(height: 24),
-          PracticeOptionList(options: controller.options),
+          PracticeOptionList(
+            answerOptionButtons: controller.answerOptionButtons,
+          ),
           const SizedBox(height: 44),
           FlashButton(
             onPressed: controller.hasAnswered ? controller.nextQuestion : () {},
