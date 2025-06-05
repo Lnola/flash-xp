@@ -1,3 +1,4 @@
+import 'package:flashxp/features/practice/data/question.repository.dart';
 import 'package:flashxp/features/practice/logic/practice.controller.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_options.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.widget.dart';
@@ -21,7 +22,7 @@ class _PracticeViewState extends State<PracticeView> {
   @override
   void initState() {
     super.initState();
-    controller = PracticeController();
+    controller = PracticeController(QuestionRepository());
     controller.addListener(_onControllerUpdated);
   }
 
@@ -33,6 +34,7 @@ class _PracticeViewState extends State<PracticeView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.isLoading) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
