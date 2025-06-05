@@ -1,5 +1,5 @@
 import 'package:flashxp/features/practice/logic/practice.controller.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_answer_option_list.widget.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_answer_options.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_question.widget.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
@@ -44,7 +44,7 @@ class _PracticeViewState extends State<PracticeView> {
             answer: controller.answer,
           ),
           const SizedBox(height: 24),
-          PracticeAnswerOptionList(
+          PracticeAnswerOptions(
             answerOptionButtons: controller.answerOptionButtons,
           ),
           const SizedBox(height: 44),

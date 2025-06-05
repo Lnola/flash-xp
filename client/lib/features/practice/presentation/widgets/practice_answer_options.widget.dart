@@ -2,10 +2,10 @@ import 'package:flashxp/features/practice/logic/model/answer_option_button.model
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_option_button.widget.dart';
 import 'package:flutter/material.dart';
 
-class PracticeAnswerOptionList extends StatelessWidget {
+class PracticeAnswerOptions extends StatelessWidget {
   final List<AnswerOptionButtonModel> answerOptionButtons;
 
-  const PracticeAnswerOptionList({
+  const PracticeAnswerOptions({
     super.key,
     required this.answerOptionButtons,
   });
