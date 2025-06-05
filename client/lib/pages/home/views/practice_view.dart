@@ -20,6 +20,21 @@ class _PracticeViewState extends State<PracticeView> {
   PracticeMode mode = PracticeMode.multipleChoice;
   late List<OptionButtonData> options;
 
+  void handleOptionPressed(String label) {
+    setState(() {
+      _hasAnswered = true;
+      options = options.map((option) {
+        var state = PracticeOptionState.defaultState;
+        if (option.isCorrect) {
+          state = PracticeOptionState.correct;
+        } else if (option.label == label) {
+          state = PracticeOptionState.incorrect;
+        }
+        return option.copyWith(state: state);
+      }).toList();
+    });
+  }
+
   void initQuestion() {
     _hasAnswered = false;
 
@@ -44,20 +59,7 @@ class _PracticeViewState extends State<PracticeView> {
         return OptionButtonData(
           label: label,
           isCorrect: isCorrect,
-          onPressed: () {
-            setState(() {
-              _hasAnswered = true;
-              options = options.map((o) {
-                return o.copyWith(
-                  state: o.isCorrect
-                      ? PracticeOptionState.correct
-                      : o.label == label
-                          ? PracticeOptionState.incorrect
-                          : PracticeOptionState.defaultState,
-                );
-              }).toList();
-            });
-          },
+          onPressed: () => handleOptionPressed(label),
         );
       }).toList();
     }
