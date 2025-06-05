@@ -78,10 +78,10 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             spacing: 24,
             children: [
-              title != null ? QuestionTitle(label: title) : const Spacer(),
-              QuestionBody(label: body),
+              title != null ? _QuestionTitle(label: title) : const Spacer(),
+              _QuestionBody(label: body),
               onTap != null
-                  ? QuestionRotateButton(onTap: onTap)
+                  ? _QuestionRotateButton(onTap: onTap)
                   : const Spacer(),
             ],
           ),
@@ -91,11 +91,10 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
   }
 }
 
-class QuestionTitle extends StatelessWidget {
+class _QuestionTitle extends StatelessWidget {
   final String label;
 
-  const QuestionTitle({
-    super.key,
+  const _QuestionTitle({
     required this.label,
   });
 
@@ -108,11 +107,10 @@ class QuestionTitle extends StatelessWidget {
   }
 }
 
-class QuestionBody extends StatelessWidget {
+class _QuestionBody extends StatelessWidget {
   final String label;
 
-  const QuestionBody({
-    super.key,
+  const _QuestionBody({
     required this.label,
   });
 
@@ -126,11 +124,10 @@ class QuestionBody extends StatelessWidget {
   }
 }
 
-class QuestionRotateButton extends StatelessWidget {
+class _QuestionRotateButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const QuestionRotateButton({
-    super.key,
+  const _QuestionRotateButton({
     required this.onTap,
   });
 
