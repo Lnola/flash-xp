@@ -1,8 +1,8 @@
-class AnswerOption {
+class AnswerOptionDto {
   final String label;
   final bool isCorrect;
 
-  AnswerOption({
+  AnswerOptionDto({
     required this.label,
     this.isCorrect = false,
   });

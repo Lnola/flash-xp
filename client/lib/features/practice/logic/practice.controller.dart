@@ -22,11 +22,11 @@ class PracticeController extends ChangeNotifier {
     final dummyAnswer =
         'Answer is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-    final dummyOptions = [
-      AnswerOption(label: 'A', isCorrect: false),
-      AnswerOption(label: 'B', isCorrect: false),
-      AnswerOption(label: 'C', isCorrect: true),
-      AnswerOption(label: 'D', isCorrect: false),
+    final dummyAnswerOptionDtos = [
+      AnswerOptionDto(label: 'A', isCorrect: false),
+      AnswerOptionDto(label: 'B', isCorrect: false),
+      AnswerOptionDto(label: 'C', isCorrect: true),
+      AnswerOptionDto(label: 'D', isCorrect: false),
     ];
 
     hasAnswered = false;
@@ -34,7 +34,7 @@ class PracticeController extends ChangeNotifier {
     answer = dummyAnswer;
     options = mode.createOptions(
       onPressed: _handleOptionSelected,
-      answerOptions: dummyOptions,
+      answerOptionDtos: dummyAnswerOptionDtos,
     );
     notifyListeners();
   }

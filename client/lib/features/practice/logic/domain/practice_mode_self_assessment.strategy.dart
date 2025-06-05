@@ -7,7 +7,7 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<AnswerOption>? answerOptions,
+    List<AnswerOptionDto>? answerOptionDtos,
   }) {
     return [
       OptionButtonData(

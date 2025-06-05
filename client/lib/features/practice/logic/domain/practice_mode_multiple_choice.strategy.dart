@@ -7,15 +7,15 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<AnswerOption>? answerOptions,
+    List<AnswerOptionDto>? answerOptionDtos,
   }) {
-    if (answerOptions == null || answerOptions.isEmpty) {
+    if (answerOptionDtos == null || answerOptionDtos.isEmpty) {
       throw ArgumentError(
         'MultipleChoiceStrategy options cannot be null or empty',
       );
     }
-    return _mapOptionsToOptionButtons(
-      answerOptions: answerOptions,
+    return _mapDtosToOptionButtons(
+      answerOptionDtos: answerOptionDtos,
       onPressed: (label) => onPressed(label),
     );
   }
@@ -36,15 +36,15 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     }).toList();
   }
 
-  List<OptionButtonData> _mapOptionsToOptionButtons({
-    required List<AnswerOption> answerOptions,
+  List<OptionButtonData> _mapDtosToOptionButtons({
+    required List<AnswerOptionDto> answerOptionDtos,
     required void Function(String label) onPressed,
   }) {
-    return answerOptions.map((option) {
+    return answerOptionDtos.map((answerOptionDto) {
       return OptionButtonData(
-        label: option.label,
-        isCorrect: option.isCorrect,
-        onPressed: () => onPressed(option.label),
+        label: answerOptionDto.label,
+        isCorrect: answerOptionDto.isCorrect,
+        onPressed: () => onPressed(answerOptionDto.label),
       );
     }).toList();
   }

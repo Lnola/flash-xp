@@ -4,7 +4,7 @@ import 'package:flashxp/features/practice/presentation/widgets/practice_option_l
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<AnswerOption>? answerOptions,
+    List<AnswerOptionDto>? answerOptionDtos,
   });
   List<OptionButtonData> updateOptions({
     required String label,
