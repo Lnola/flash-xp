@@ -9,7 +9,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 enum PracticeMode { selfAssessment, multipleChoice }
 
 abstract class PracticeModeStrategy {
-  List<OptionButtonData> createOptions(void Function(String label) onPressed);
+  List<OptionButtonData> createOptions({
+    required void Function(String label) onPressed,
+  });
   List<OptionButtonData> updateOptions({
     required String label,
     required List<OptionButtonData> options,
@@ -18,7 +20,9 @@ abstract class PracticeModeStrategy {
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
-  List<OptionButtonData> createOptions(void Function(String label) onPressed) {
+  List<OptionButtonData> createOptions({
+    required void Function(String label) onPressed,
+  }) {
     return [
       OptionButtonData(
         label: "I don't know",
@@ -46,7 +50,9 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   static const correctLabel = 'C';
 
   @override
-  List<OptionButtonData> createOptions(void Function(String label) onPressed) {
+  List<OptionButtonData> createOptions({
+    required void Function(String label) onPressed,
+  }) {
     final labels = ['A', 'B', 'C', 'D'];
     return labels.map((label) {
       final isCorrect = label == correctLabel;
@@ -96,7 +102,7 @@ class _PracticeViewState extends State<PracticeView> {
 
   void initQuestion() {
     _hasAnswered = false;
-    options = modeStrategy.createOptions(_handleOptionSelected);
+    options = modeStrategy.createOptions(onPressed: _handleOptionSelected);
   }
 
   @override
