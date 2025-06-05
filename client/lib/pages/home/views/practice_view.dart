@@ -6,11 +6,22 @@ import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+class QuestionOption {
+  final String label;
+  final bool isCorrect;
+
+  QuestionOption({
+    required this.label,
+    this.isCorrect = false,
+  });
+}
+
 enum PracticeMode { selfAssessment, multipleChoice }
 
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
+    List<QuestionOption>? options,
   });
   List<OptionButtonData> updateOptions({
     required String label,
@@ -22,6 +33,7 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
+    List<QuestionOption>? options,
   }) {
     return [
       OptionButtonData(
@@ -52,6 +64,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
+    List<QuestionOption>? options,
   }) {
     final labels = ['A', 'B', 'C', 'D'];
     return labels.map((label) {
