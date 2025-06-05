@@ -127,8 +127,18 @@ class _PracticeViewState extends State<PracticeView> {
   }
 
   void initQuestion() {
+    final dummyOptions = [
+      QuestionOption(label: 'A', isCorrect: false),
+      QuestionOption(label: 'B', isCorrect: false),
+      QuestionOption(label: 'C', isCorrect: true),
+      QuestionOption(label: 'D', isCorrect: false),
+    ];
+
     _hasAnswered = false;
-    options = modeStrategy.createOptions(onPressed: _handleOptionSelected);
+    options = modeStrategy.createOptions(
+      onPressed: _handleOptionSelected,
+      options: dummyOptions,
+    );
   }
 
   @override
