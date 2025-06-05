@@ -4,6 +4,7 @@ import 'package:flashxp/features/practice/presentation/widgets/practice_answer_o
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_question.widget.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
+import 'package:flashxp/widgets/common/flash_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -34,7 +35,10 @@ class _PracticeViewState extends State<PracticeView> {
 
   @override
   Widget build(BuildContext context) {
-    if (controller.isLoading) return const SizedBox.shrink();
+    if (controller.isLoading) {
+      return const Center(child: FlashLoading());
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
