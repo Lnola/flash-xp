@@ -1,9 +1,9 @@
+import 'package:flashxp/features/practice/presentation/practice_view.dart';
 import 'package:flashxp/pages/create/create_page.dart';
 import 'package:flashxp/pages/create/views/create_nested_view.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
 import 'package:flashxp/pages/explore/views/explore_nested_view.dart';
 import 'package:flashxp/pages/home/home_page.dart';
-import 'package:flashxp/pages/home/views/practice_view.dart';
 import 'package:flashxp/pages/statistics/statistics_page.dart';
 import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
 import 'package:flashxp/widgets/layout/flash_layout.dart';

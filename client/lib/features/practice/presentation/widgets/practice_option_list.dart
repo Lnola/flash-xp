@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/home/widgets/practice/practice_option_button.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 import 'package:flutter/material.dart';
 
 class OptionButtonData {

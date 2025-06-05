@@ -1,7 +1,7 @@
-import 'package:flashxp/pages/home/widgets/practice/practice_option_button.dart';
-import 'package:flashxp/pages/home/widgets/practice/practice_option_list.dart';
-import 'package:flashxp/pages/home/widgets/practice/practice_progress.dart';
-import 'package:flashxp/pages/home/widgets/practice/practice_question.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_progress.dart';
+import 'package:flashxp/features/practice/presentation/widgets/practice_question.dart';
 import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
