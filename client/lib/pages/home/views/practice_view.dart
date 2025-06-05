@@ -30,7 +30,7 @@ class _PracticeViewState extends State<PracticeView> {
         } else if (option.label == label) {
           state = PracticeOptionState.incorrect;
         }
-        return option.copyWith(state: state);
+        return option.copyWith(state: state, isDisabled: true);
       }).toList();
     });
   }
