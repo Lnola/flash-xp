@@ -16,14 +16,14 @@ class PracticeView extends StatefulWidget {
 class _PracticeViewState extends State<PracticeView> {
   late final PracticeController controller;
 
+  void _onControllerUpdated() => setState(() {});
+
   @override
   void initState() {
     super.initState();
     controller = PracticeController();
     controller.addListener(_onControllerUpdated);
   }
-
-  void _onControllerUpdated() => setState(() {});
 
   @override
   void dispose() {
