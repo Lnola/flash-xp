@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 
 class PracticeController extends ChangeNotifier {
   final QuestionRepository _questionRepository;
-  bool hasAnswered = false;
   late PracticeModeStrategy modeStrategy;
+
   late String question;
   late String? answer;
   late List<AnswerOptionButtonModel> answerOptionButtons;
+
+  bool hasAnswered = false;
   bool isLoading = true;
 
   List<QuestionDto> _questions = [];
