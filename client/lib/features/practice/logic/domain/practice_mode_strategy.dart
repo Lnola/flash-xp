@@ -2,8 +2,6 @@ import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
 
-enum PracticeMode { selfAssessment, multipleChoice }
-
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
