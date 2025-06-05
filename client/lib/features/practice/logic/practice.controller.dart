@@ -1,5 +1,6 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
-import 'package:flashxp/features/practice/logic/domain/practice_mode_strategy.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_option_list.dart';
 import 'package:flutter/material.dart';
 
