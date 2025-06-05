@@ -1,21 +1,16 @@
+import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flutter/material.dart';
-
-enum PracticeOptionState {
-  defaultState,
-  correct,
-  incorrect,
-}
 
 class PracticeOptionButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
-  final PracticeOptionState state;
+  final AnswerOptionButtonState state;
 
   const PracticeOptionButton({
     super.key,
     required this.label,
     required this.onPressed,
-    this.state = PracticeOptionState.defaultState,
+    this.state = AnswerOptionButtonState.defaultState,
   });
 
   @override
@@ -24,15 +19,15 @@ class PracticeOptionButton extends StatelessWidget {
     Color foregroundColor;
 
     switch (state) {
-      case PracticeOptionState.correct:
+      case AnswerOptionButtonState.correct:
         backgroundColor = Theme.of(context).colorScheme.tertiary;
         foregroundColor = Theme.of(context).colorScheme.onTertiary;
         break;
-      case PracticeOptionState.incorrect:
+      case AnswerOptionButtonState.incorrect:
         backgroundColor = Theme.of(context).colorScheme.error;
         foregroundColor = Theme.of(context).colorScheme.onError;
         break;
-      case PracticeOptionState.defaultState:
+      case AnswerOptionButtonState.defaultState:
         backgroundColor = Theme.of(context).colorScheme.inverseSurface;
         foregroundColor = Theme.of(context).colorScheme.onInverseSurface;
     }

@@ -1,17 +1,22 @@
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 import 'package:flutter/material.dart';
+
+enum AnswerOptionButtonState {
+  defaultState,
+  correct,
+  incorrect,
+}
 
 class AnswerOptionButtonModel {
   final String label;
   final VoidCallback onPressed;
-  final PracticeOptionState state;
+  final AnswerOptionButtonState state;
   final bool isCorrect;
   final bool isDisabled;
 
   AnswerOptionButtonModel({
     required this.label,
     required this.onPressed,
-    this.state = PracticeOptionState.defaultState,
+    this.state = AnswerOptionButtonState.defaultState,
     this.isCorrect = false,
     this.isDisabled = false,
   });
@@ -19,7 +24,7 @@ class AnswerOptionButtonModel {
   AnswerOptionButtonModel copyWith({
     String? label,
     VoidCallback? onPressed,
-    PracticeOptionState? state,
+    AnswerOptionButtonState? state,
     bool? isCorrect,
     bool? isDisabled,
   }) {

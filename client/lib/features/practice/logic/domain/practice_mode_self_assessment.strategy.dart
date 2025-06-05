@@ -1,7 +1,6 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
@@ -13,12 +12,12 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
       AnswerOptionButtonModel(
         label: "I don't know",
         onPressed: () => onPressed("I don't know"),
-        state: PracticeOptionState.incorrect,
+        state: AnswerOptionButtonState.incorrect,
       ),
       AnswerOptionButtonModel(
         label: 'I know',
         onPressed: () => onPressed('I know'),
-        state: PracticeOptionState.correct,
+        state: AnswerOptionButtonState.correct,
       ),
     ];
   }

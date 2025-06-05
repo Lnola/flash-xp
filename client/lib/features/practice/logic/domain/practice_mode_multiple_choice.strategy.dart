@@ -1,7 +1,6 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
-import 'package:flashxp/features/practice/presentation/widgets/practice_option_button.dart';
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
@@ -26,11 +25,11 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     required List<AnswerOptionButtonModel> answerOptionButtons,
   }) {
     return answerOptionButtons.map((option) {
-      var state = PracticeOptionState.defaultState;
+      var state = AnswerOptionButtonState.defaultState;
       if (option.isCorrect) {
-        state = PracticeOptionState.correct;
+        state = AnswerOptionButtonState.correct;
       } else if (option.label == label) {
-        state = PracticeOptionState.incorrect;
+        state = AnswerOptionButtonState.incorrect;
       }
       return option.copyWith(state: state, isDisabled: true);
     }).toList();
