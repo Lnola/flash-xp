@@ -6,11 +6,11 @@ import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class QuestionOption {
+class AnswerOption {
   final String label;
   final bool isCorrect;
 
-  QuestionOption({
+  AnswerOption({
     required this.label,
     this.isCorrect = false,
   });
@@ -21,7 +21,7 @@ enum PracticeMode { selfAssessment, multipleChoice }
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<QuestionOption>? options,
+    List<AnswerOption>? answerOptions,
   });
   List<OptionButtonData> updateOptions({
     required String label,
@@ -33,7 +33,7 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<QuestionOption>? options,
+    List<AnswerOption>? answerOptions,
   }) {
     return [
       OptionButtonData(
@@ -64,15 +64,15 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
-    List<QuestionOption>? options,
+    List<AnswerOption>? answerOptions,
   }) {
-    if (options == null || options.isEmpty) {
+    if (answerOptions == null || answerOptions.isEmpty) {
       throw ArgumentError(
         'MultipleChoiceStrategy options cannot be null or empty',
       );
     }
     return _mapOptionsToOptionButtons(
-      questionOptions: options,
+      answerOptions: answerOptions,
       onPressed: (label) => onPressed(label),
     );
   }
@@ -94,14 +94,14 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   }
 
   List<OptionButtonData> _mapOptionsToOptionButtons({
-    required List<QuestionOption> questionOptions,
+    required List<AnswerOption> answerOptions,
     required void Function(String label) onPressed,
   }) {
-    return questionOptions.map((questionOption) {
+    return answerOptions.map((option) {
       return OptionButtonData(
-        label: questionOption.label,
-        isCorrect: questionOption.isCorrect,
-        onPressed: () => onPressed(questionOption.label),
+        label: option.label,
+        isCorrect: option.isCorrect,
+        onPressed: () => onPressed(option.label),
       );
     }).toList();
   }
@@ -128,16 +128,16 @@ class _PracticeViewState extends State<PracticeView> {
 
   void initQuestion() {
     final dummyOptions = [
-      QuestionOption(label: 'A', isCorrect: false),
-      QuestionOption(label: 'B', isCorrect: false),
-      QuestionOption(label: 'C', isCorrect: true),
-      QuestionOption(label: 'D', isCorrect: false),
+      AnswerOption(label: 'A', isCorrect: false),
+      AnswerOption(label: 'B', isCorrect: false),
+      AnswerOption(label: 'C', isCorrect: true),
+      AnswerOption(label: 'D', isCorrect: false),
     ];
 
     _hasAnswered = false;
     options = modeStrategy.createOptions(
       onPressed: _handleOptionSelected,
-      options: dummyOptions,
+      answerOptions: dummyOptions,
     );
   }
 
