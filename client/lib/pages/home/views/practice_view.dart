@@ -8,6 +8,41 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 enum PracticeMode { selfAssessment, multipleChoice }
 
+// TODO: clean up this factory and clicking logic
+class OptionButtonFactory {
+  static List<OptionButtonData> create({
+    required PracticeMode mode,
+    required void Function(String label) onPressed,
+  }) {
+    if (mode == PracticeMode.selfAssessment) {
+      return [
+        OptionButtonData(
+          label: "I don't know",
+          onPressed: () => onPressed("I don't know"),
+          state: PracticeOptionState.incorrect,
+        ),
+        OptionButtonData(
+          label: 'I know',
+          onPressed: () => onPressed('I know'),
+          state: PracticeOptionState.correct,
+        ),
+      ];
+    }
+
+    final labels = ['A', 'B', 'C', 'D'];
+    const correctLabel = 'C';
+
+    return labels.map((label) {
+      final isCorrect = label == correctLabel;
+      return OptionButtonData(
+        label: label,
+        isCorrect: isCorrect,
+        onPressed: () => onPressed(label),
+      );
+    }).toList();
+  }
+}
+
 class PracticeView extends StatefulWidget {
   const PracticeView({super.key});
 
@@ -22,7 +57,6 @@ class _PracticeViewState extends State<PracticeView> {
 
   void handleOptionPressed(String label) {
     setState(() {
-      _hasAnswered = true;
       options = options.map((option) {
         var state = PracticeOptionState.defaultState;
         if (option.isCorrect) {
@@ -37,32 +71,13 @@ class _PracticeViewState extends State<PracticeView> {
 
   void initQuestion() {
     _hasAnswered = false;
-
-    if (mode == PracticeMode.selfAssessment) {
-      options = [
-        OptionButtonData(
-          label: "I don't know",
-          onPressed: () => setState(() => _hasAnswered = true),
-          state: PracticeOptionState.incorrect,
-        ),
-        OptionButtonData(
-          label: 'I know',
-          onPressed: () => setState(() => _hasAnswered = true),
-          state: PracticeOptionState.correct,
-        ),
-      ];
-    } else {
-      final labels = ['A', 'B', 'C', 'D'];
-      final correctLabel = 'C';
-      options = labels.map((label) {
-        final isCorrect = label == correctLabel;
-        return OptionButtonData(
-          label: label,
-          isCorrect: isCorrect,
-          onPressed: () => handleOptionPressed(label),
-        );
-      }).toList();
-    }
+    options = OptionButtonFactory.create(
+      mode: mode,
+      onPressed: (label) {
+        _hasAnswered = true;
+        if (mode == PracticeMode.multipleChoice) handleOptionPressed(label);
+      },
+    );
   }
 
   @override
