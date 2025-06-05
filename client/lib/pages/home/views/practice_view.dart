@@ -10,7 +10,7 @@ enum PracticeMode { selfAssessment, multipleChoice }
 
 abstract class PracticeModeStrategy {
   List<OptionButtonData> createOptions(void Function(String label) onPressed);
-  List<OptionButtonData> handleOptionPressed({
+  List<OptionButtonData> updateOptions({
     required String selectedLabel,
     required List<OptionButtonData> options,
   });
@@ -34,7 +34,7 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }
 
   @override
-  List<OptionButtonData> handleOptionPressed({
+  List<OptionButtonData> updateOptions({
     required String selectedLabel,
     required List<OptionButtonData> options,
   }) {
@@ -59,7 +59,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   }
 
   @override
-  List<OptionButtonData> handleOptionPressed({
+  List<OptionButtonData> updateOptions({
     required String selectedLabel,
     required List<OptionButtonData> options,
   }) {
@@ -92,7 +92,7 @@ class _PracticeViewState extends State<PracticeView> {
     options = modeStrategy.createOptions((label) {
       setState(() {
         _hasAnswered = true;
-        options = modeStrategy.handleOptionPressed(
+        options = modeStrategy.updateOptions(
           selectedLabel: label,
           options: options,
         );
