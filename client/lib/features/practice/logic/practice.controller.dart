@@ -8,7 +8,7 @@ class PracticeController extends ChangeNotifier {
   bool hasAnswered = false;
   late PracticeModeStrategy mode;
   late String question;
-  late String answer;
+  late String? answer;
   late List<OptionButtonData> options;
 
   PracticeController() {
