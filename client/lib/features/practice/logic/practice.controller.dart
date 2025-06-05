@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 
 class PracticeController extends ChangeNotifier {
   bool hasAnswered = false;
-  late PracticeModeStrategy mode;
+  late PracticeModeStrategy modeStrategy;
   late String question;
   late String? answer;
   late List<OptionButtonData> options;
 
   PracticeController() {
-    mode = MultipleChoiceStrategy();
+    modeStrategy = MultipleChoiceStrategy();
     initQuestion();
   }
 
@@ -33,7 +33,7 @@ class PracticeController extends ChangeNotifier {
 
     question = dummyQuestion;
     answer = dummyAnswer;
-    options = mode.createOptions(
+    options = modeStrategy.createOptions(
       onPressed: _handleOptionSelected,
       answerOptionDtos: dummyAnswerOptionDtos,
     );
@@ -44,7 +44,7 @@ class PracticeController extends ChangeNotifier {
 
   void _handleOptionSelected(String label) {
     hasAnswered = true;
-    options = mode.updateOptions(label: label, options: options);
+    options = modeStrategy.updateOptions(label: label, options: options);
     notifyListeners();
   }
 }
