@@ -87,17 +87,19 @@ class _PracticeViewState extends State<PracticeView> {
   late PracticeModeStrategy modeStrategy;
   late List<OptionButtonData> options;
 
+  void _handleOptionSelected(label) {
+    setState(() {
+      _hasAnswered = true;
+      options = modeStrategy.updateOptions(
+        selectedLabel: label,
+        options: options,
+      );
+    });
+  }
+
   void initQuestion() {
     _hasAnswered = false;
-    options = modeStrategy.createOptions((label) {
-      setState(() {
-        _hasAnswered = true;
-        options = modeStrategy.updateOptions(
-          selectedLabel: label,
-          options: options,
-        );
-      });
-    });
+    options = modeStrategy.createOptions(_handleOptionSelected);
   }
 
   @override
