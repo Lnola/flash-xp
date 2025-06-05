@@ -17,6 +17,8 @@ class PracticeController extends ChangeNotifier {
   }
 
   void initQuestion() {
+    hasAnswered = false;
+
     final dummyQuestion =
         'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
     final dummyAnswer =
@@ -29,7 +31,6 @@ class PracticeController extends ChangeNotifier {
       AnswerOptionDto(label: 'D', isCorrect: false),
     ];
 
-    hasAnswered = false;
     question = dummyQuestion;
     answer = dummyAnswer;
     options = mode.createOptions(
