@@ -45,8 +45,6 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
 }
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
-  static const correctLabel = 'C';
-
   @override
   List<OptionButtonData> createOptions({
     required void Function(String label) onPressed,
