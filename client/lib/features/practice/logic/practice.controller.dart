@@ -1,24 +1,29 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
+import 'package:flashxp/features/practice/data/question.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
 import 'package:flutter/material.dart';
 
 class PracticeController extends ChangeNotifier {
+  final QuestionRepository _questionRepository;
   bool hasAnswered = false;
   late PracticeModeStrategy modeStrategy;
   late String question;
   late String? answer;
   late List<AnswerOptionButtonModel> answerOptionButtons;
+  bool isLoading = true;
 
-  PracticeController() {
+  PracticeController(this._questionRepository) {
     modeStrategy = MultipleChoiceStrategy();
     initQuestion();
   }
 
-  void initQuestion() {
+  Future<void> initQuestion() async {
     hasAnswered = false;
+    isLoading = true;
 
+    final fetched = await _questionRepository.fetchQuestion();
     final dummyQuestion =
         'Question is: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
     final dummyAnswer =
@@ -37,6 +42,8 @@ class PracticeController extends ChangeNotifier {
       onPressed: _handleOptionSelected,
       answerOptionDtos: dummyAnswerOptionDtos,
     );
+
+    isLoading = false;
     notifyListeners();
   }
 
