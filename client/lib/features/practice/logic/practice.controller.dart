@@ -1,3 +1,4 @@
+import 'package:flashxp/features/practice/data/dto/question.dto.dart';
 import 'package:flashxp/features/practice/data/question.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
@@ -13,28 +14,44 @@ class PracticeController extends ChangeNotifier {
   late List<AnswerOptionButtonModel> answerOptionButtons;
   bool isLoading = true;
 
+  List<QuestionDto> _questions = [];
+  int _currentQuestionIndex = 0;
+
   PracticeController(this._questionRepository) {
     modeStrategy = MultipleChoiceStrategy();
-    initQuestion();
+    initQuestions();
   }
 
-  Future<void> initQuestion() async {
-    hasAnswered = false;
+  Future<void> initQuestions() async {
     isLoading = true;
 
-    final fetched = await _questionRepository.fetch();
-    question = fetched[0].text;
-    answer = fetched[0].answer;
-    answerOptionButtons = modeStrategy.createAnswerOptionButtons(
-      onPressed: _handleOptionSelected,
-      answerOptionDtos: fetched[0].answerOptionDtos,
-    );
+    _questions = await _questionRepository.fetch();
+    _currentQuestionIndex = 0;
+
+    _loadCurrentQuestion();
 
     isLoading = false;
-    notifyListeners();
   }
 
-  void nextQuestion() => initQuestion();
+  void nextQuestion() {
+    if (_currentQuestionIndex < _questions.length - 1) {
+      _currentQuestionIndex++;
+      _loadCurrentQuestion();
+    }
+  }
+
+  void _loadCurrentQuestion() {
+    hasAnswered = false;
+
+    final current = _questions[_currentQuestionIndex];
+    question = current.text;
+    answer = current.answer;
+    answerOptionButtons = modeStrategy.createAnswerOptionButtons(
+      onPressed: _handleOptionSelected,
+      answerOptionDtos: current.answerOptionDtos,
+    );
+    notifyListeners();
+  }
 
   void _handleOptionSelected(String label) {
     hasAnswered = true;
