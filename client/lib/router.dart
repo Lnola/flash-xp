@@ -36,7 +36,8 @@ class AppRouter {
             GoRoute(
               path: 'finished',
               builder: (context, __) => FlashLayout(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                appBarColor: Theme.of(context).colorScheme.secondary,
                 title: 'Practice finished',
                 body: const PracticeFinishedView(),
               ),
