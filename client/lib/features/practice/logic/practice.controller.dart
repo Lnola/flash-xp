@@ -18,6 +18,7 @@ class PracticeController extends ChangeNotifier {
   bool hasAnswered = false;
   bool isLoading = true;
   bool isLoadingNextQuestion = false;
+  bool isFinished = false;
 
   List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
@@ -49,10 +50,13 @@ class PracticeController extends ChangeNotifier {
   }
 
   void nextQuestion() {
-    if (_currentQuestionIndex < totalQuestions - 1) {
-      _currentQuestionIndex++;
-      _loadCurrentQuestion();
+    if (_currentQuestionIndex >= totalQuestions - 1) {
+      isFinished = true;
+      notifyListeners();
+      return;
     }
+    _currentQuestionIndex++;
+    _loadCurrentQuestion();
   }
 
   void _loadCurrentQuestion() {
