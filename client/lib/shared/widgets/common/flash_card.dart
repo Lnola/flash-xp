@@ -70,9 +70,13 @@ class _CardInfo extends StatelessWidget {
           children: [
             const FaIcon(FontAwesomeIcons.solidCircleQuestion, size: 16),
             const SizedBox(width: 8),
-            Text(
-              '$totalQuestions Questions',
-              style: theme.textTheme.labelMedium,
+            Expanded(
+              child: Text(
+                '$totalQuestions Questions',
+                style: theme.textTheme.labelMedium,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
             ),
           ],
         ),
@@ -81,7 +85,14 @@ class _CardInfo extends StatelessWidget {
           children: [
             const FaIcon(FontAwesomeIcons.listOl, size: 16),
             const SizedBox(width: 8),
-            Text('Multiple Choice', style: theme.textTheme.labelMedium),
+            Expanded(
+              child: Text(
+                'Multiple Choice',
+                style: theme.textTheme.labelMedium,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
+            ),
           ],
         ),
       ],
