@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/router.dart';
+import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
