@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+// TODO: extract this enum and leverage it for the practice feature as well
 enum FlashCardMode { multipleChoice, selfAssessment }
 
 extension on FlashCardMode {
