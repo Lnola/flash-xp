@@ -55,13 +55,13 @@ class _PracticeViewState extends State<PracticeView> {
             ),
           )
               .animate(target: !controller.isLoadingNextQuestion ? 1 : 0)
-              .slideX(begin: 1.5, end: 0, duration: 150.ms),
+              .slideX(begin: 1.2, end: 0, duration: 150.ms),
           const SizedBox(height: 24),
           PracticeAnswerOptions(
             answerOptionButtons: controller.answerOptionButtons,
           )
               .animate(target: !controller.isLoadingNextQuestion ? 1 : 0)
-              .slideX(begin: 1.5, end: 0, duration: 150.ms),
+              .slideX(begin: 1.2, end: 0, duration: 150.ms),
           const SizedBox(height: 44),
           FlashButton(
             onPressed: controller.hasAnswered ? controller.nextQuestion : () {},
