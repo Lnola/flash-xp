@@ -42,7 +42,7 @@ class _PracticeViewState extends State<PracticeView> {
 
     if (controller.isFinished) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.pop();
+        context.go('/home/practice/finished');
       });
     }
 
