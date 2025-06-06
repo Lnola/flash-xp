@@ -6,12 +6,14 @@ class FlashCard extends StatelessWidget {
   final String title;
   final int totalQuestions;
   final int progress;
+  final Color? backgroundColor;
 
   const FlashCard({
     super.key,
     required this.title,
     required this.totalQuestions,
     required this.progress,
+    this.backgroundColor,
   });
 
   @override
@@ -22,7 +24,7 @@ class FlashCard extends StatelessWidget {
       height: 216,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceBright,
+        color: backgroundColor ?? theme.colorScheme.surfaceBright,
         borderRadius: BorderRadius.circular(28),
       ),
       child: Column(
