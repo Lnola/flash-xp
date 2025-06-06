@@ -30,15 +30,8 @@ class FlashCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _CardInfo(
-            theme: theme,
-            title: title,
-            totalQuestions: totalQuestions,
-          ),
-          _CardActions(
-            theme: theme,
-            progress: progress,
-          ),
+          _CardInfo(title: title, totalQuestions: totalQuestions),
+          _CardActions(progress: progress),
         ],
       ),
     );
@@ -50,15 +43,14 @@ class _CardInfo extends StatelessWidget {
   final int totalQuestions;
 
   const _CardInfo({
-    required this.theme,
     required this.title,
     required this.totalQuestions,
   });
 
-  final ThemeData theme;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -94,14 +86,13 @@ class _CardActions extends StatelessWidget {
   final int progress;
 
   const _CardActions({
-    required this.theme,
     required this.progress,
   });
 
-  final ThemeData theme;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
