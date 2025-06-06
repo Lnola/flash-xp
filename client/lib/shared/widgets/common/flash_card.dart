@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FlashCard extends StatelessWidget {
+  final String title;
+  final int totalQuestions;
+  final int progress;
+
   const FlashCard({
     super.key,
+    required this.title,
+    required this.totalQuestions,
+    required this.progress,
   });
 
   @override
@@ -21,8 +28,15 @@ class FlashCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _CardInfo(theme: theme),
-          _CardActions(theme: theme),
+          _CardInfo(
+            theme: theme,
+            title: title,
+            totalQuestions: totalQuestions,
+          ),
+          _CardActions(
+            theme: theme,
+            progress: progress,
+          ),
         ],
       ),
     );
@@ -30,8 +44,13 @@ class FlashCard extends StatelessWidget {
 }
 
 class _CardInfo extends StatelessWidget {
+  final String title;
+  final int totalQuestions;
+
   const _CardInfo({
     required this.theme,
+    required this.title,
+    required this.totalQuestions,
   });
 
   final ThemeData theme;
@@ -42,7 +61,7 @@ class _CardInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Short title',
+          title,
           style: theme.textTheme.titleLarge?.copyWith(height: 1.2),
         ),
         const SizedBox(height: 8),
@@ -50,7 +69,10 @@ class _CardInfo extends StatelessWidget {
           children: [
             const FaIcon(FontAwesomeIcons.solidCircleQuestion, size: 16),
             const SizedBox(width: 8),
-            Text('12 Questions', style: theme.textTheme.labelMedium),
+            Text(
+              '$totalQuestions Questions',
+              style: theme.textTheme.labelMedium,
+            ),
           ],
         ),
         const SizedBox(height: 4),
@@ -67,8 +89,11 @@ class _CardInfo extends StatelessWidget {
 }
 
 class _CardActions extends StatelessWidget {
+  final int progress;
+
   const _CardActions({
     required this.theme,
+    required this.progress,
   });
 
   final ThemeData theme;
@@ -79,7 +104,7 @@ class _CardActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FlashButton(label: 'Start now', onPressed: () {}),
-        Text('40%', style: theme.textTheme.bodySmall),
+        Text('$progress%', style: theme.textTheme.bodySmall),
       ],
     );
   }
