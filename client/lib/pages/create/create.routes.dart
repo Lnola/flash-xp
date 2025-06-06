@@ -1,5 +1,5 @@
-import 'package:flashxp/pages/create/create_page.dart';
-import 'package:flashxp/pages/create/views/create_nested_view.dart';
+import 'package:flashxp/pages/create/create.page.dart';
+import 'package:flashxp/pages/create/views/create_nested.view.dart';
 import 'package:flashxp/shared/layout/flash_layout.dart';
 import 'package:go_router/go_router.dart';
 

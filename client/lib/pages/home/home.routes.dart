@@ -1,6 +1,6 @@
 import 'package:flashxp/features/practice/presentation/practice.view.dart';
 import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
-import 'package:flashxp/pages/home/home_page.dart';
+import 'package:flashxp/pages/home/home.page.dart';
 import 'package:flashxp/shared/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -1,5 +1,5 @@
-import 'package:flashxp/pages/statistics/statistics_page.dart';
-import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
+import 'package:flashxp/pages/statistics/statistics.page.dart';
+import 'package:flashxp/pages/statistics/views/statistics_nested.view.dart';
 import 'package:flashxp/shared/layout/flash_layout.dart';
 import 'package:go_router/go_router.dart';
 

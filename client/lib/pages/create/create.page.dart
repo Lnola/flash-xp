@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/create/views/create_view.dart';
+import 'package:flashxp/pages/create/views/create.view.dart';
 import 'package:flutter/material.dart';
 
 class CreatePage extends StatelessWidget {
