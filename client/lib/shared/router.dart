@@ -1,13 +1,7 @@
-import 'package:flashxp/features/practice/presentation/practice.view.dart';
-import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
-import 'package:flashxp/pages/create/create_page.dart';
-import 'package:flashxp/pages/create/views/create_nested_view.dart';
-import 'package:flashxp/pages/explore/explore_page.dart';
-import 'package:flashxp/pages/explore/views/explore_nested_view.dart';
-import 'package:flashxp/pages/home/home_page.dart';
-import 'package:flashxp/pages/statistics/statistics_page.dart';
-import 'package:flashxp/pages/statistics/views/statistics_nested_view.dart';
-import 'package:flashxp/shared/layout/flash_layout.dart';
+import 'package:flashxp/pages/create/create.routes.dart';
+import 'package:flashxp/pages/explore/explore.routes.dart';
+import 'package:flashxp/pages/home/home.routes.dart';
+import 'package:flashxp/pages/statistics/statistics.routes.dart';
 import 'package:flashxp/shared/layout/flash_nav_bar.dart';
 import 'package:flashxp/shared/layout/flash_not_found.dart';
 import 'package:flashxp/shared/widgets/utils/if.dart';
@@ -16,90 +10,10 @@ import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final List<GoRoute> _routes = [
-    GoRoute(
-      path: '/home',
-      pageBuilder: (_, __) => const NoTransitionPage(
-        child: FlashLayout(
-          title: 'Home',
-          body: HomePage(),
-        ),
-      ),
-      routes: [
-        GoRoute(
-          path: 'practice',
-          builder: (context, __) => FlashLayout(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            title: 'Practice',
-            body: const PracticeView(),
-          ),
-          routes: [
-            GoRoute(
-              path: 'finished',
-              builder: (context, __) => FlashLayout(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                appBarColor: Theme.of(context).colorScheme.secondary,
-                title: 'Practice finished',
-                body: const PracticeFinishedView(),
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/explore',
-      pageBuilder: (_, __) => const NoTransitionPage(
-        child: FlashLayout(
-          title: 'Explore',
-          body: ExplorePage(),
-        ),
-      ),
-      routes: [
-        GoRoute(
-          path: 'nested',
-          builder: (_, __) => const FlashLayout(
-            title: 'Explore Nested Page',
-            body: ExploreNestedView(),
-          ),
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/create',
-      pageBuilder: (_, __) => const NoTransitionPage(
-        child: FlashLayout(
-          title: 'Create',
-          body: CreatePage(),
-        ),
-      ),
-      routes: [
-        GoRoute(
-          path: 'nested',
-          builder: (_, __) => const FlashLayout(
-            title: 'Create Nested Page',
-            body: CreateNestedView(),
-          ),
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/statistics',
-      pageBuilder: (_, __) => const NoTransitionPage(
-        child: FlashLayout(
-          title: 'Statistics',
-          body: StatisticsPage(),
-        ),
-      ),
-      routes: [
-        GoRoute(
-          path: 'nested',
-          builder: (_, __) => const FlashLayout(
-            title: 'Statistics Nested Page',
-            body: StatisticsNestedView(),
-          ),
-        ),
-      ],
-    ),
+    homeRoutes,
+    exploreRoutes,
+    createRoutes,
+    statisticsRoutes,
   ];
 
   static Widget _builder(

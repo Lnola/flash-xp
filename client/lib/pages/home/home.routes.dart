@@ -1,0 +1,37 @@
+import 'package:flashxp/features/practice/presentation/practice.view.dart';
+import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
+import 'package:flashxp/pages/home/home_page.dart';
+import 'package:flashxp/shared/layout/flash_layout.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+final homeRoutes = GoRoute(
+  path: '/home',
+  pageBuilder: (_, __) => const NoTransitionPage(
+    child: FlashLayout(
+      title: 'Home',
+      body: HomePage(),
+    ),
+  ),
+  routes: [
+    GoRoute(
+      path: 'practice',
+      builder: (context, __) => FlashLayout(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: 'Practice',
+        body: const PracticeView(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'finished',
+          builder: (context, __) => FlashLayout(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            appBarColor: Theme.of(context).colorScheme.secondary,
+            title: 'Practice finished',
+            body: const PracticeFinishedView(),
+          ),
+        ),
+      ],
+    ),
+  ],
+);
