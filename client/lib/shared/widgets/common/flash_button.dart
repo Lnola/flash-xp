@@ -21,7 +21,7 @@ class FlashButton extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         padding: EdgeInsets.symmetric(
-          horizontal: 16,
+          horizontal: 12,
           vertical: isBlock ? 16 : 8,
         ),
         shape: const StadiumBorder(),
