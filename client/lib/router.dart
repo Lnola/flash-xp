@@ -1,4 +1,5 @@
 import 'package:flashxp/features/practice/presentation/practice.view.dart';
+import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
 import 'package:flashxp/pages/create/create_page.dart';
 import 'package:flashxp/pages/create/views/create_nested_view.dart';
 import 'package:flashxp/pages/explore/explore_page.dart';
@@ -31,6 +32,16 @@ class AppRouter {
             title: 'Practice',
             body: const PracticeView(),
           ),
+          routes: [
+            GoRoute(
+              path: 'finished',
+              builder: (context, __) => FlashLayout(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                title: 'Practice finished',
+                body: const PracticeFinishedView(),
+              ),
+            ),
+          ],
         ),
       ],
     ),
