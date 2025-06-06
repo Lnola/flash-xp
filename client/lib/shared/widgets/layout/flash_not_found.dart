@@ -1,5 +1,5 @@
-import 'package:flashxp/widgets/common/flash_button.dart';
-import 'package:flashxp/widgets/layout/flash_layout.dart';
+import 'package:flashxp/shared/widgets/common/flash_button.dart';
+import 'package:flashxp/shared/widgets/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
