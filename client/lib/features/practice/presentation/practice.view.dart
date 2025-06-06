@@ -48,14 +48,20 @@ class _PracticeViewState extends State<PracticeView> {
             total: controller.totalQuestions,
           ),
           const SizedBox(height: 16),
-          PracticeQuestion(
-            question: controller.question,
-            answer: controller.answer,
-          ),
+          Expanded(
+            child: PracticeQuestion(
+              question: controller.question,
+              answer: controller.answer,
+            ),
+          )
+              .animate(target: !controller.isLoadingNextQuestion ? 1 : 0)
+              .slideX(begin: 1.5, end: 0, duration: 150.ms),
           const SizedBox(height: 24),
           PracticeAnswerOptions(
             answerOptionButtons: controller.answerOptionButtons,
-          ),
+          )
+              .animate(target: !controller.isLoadingNextQuestion ? 1 : 0)
+              .slideX(begin: 1.5, end: 0, duration: 150.ms),
           const SizedBox(height: 44),
           FlashButton(
             onPressed: controller.hasAnswered ? controller.nextQuestion : () {},
