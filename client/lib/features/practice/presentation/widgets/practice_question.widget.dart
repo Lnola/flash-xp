@@ -47,12 +47,10 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
       backgroundColor: Theme.of(context).colorScheme.surfaceBright,
     );
 
-    return Expanded(
-      child: FlipContent(
-        flipped: _isAnswerShown,
-        front: front,
-        back: back,
-      ),
+    return FlipContent(
+      flipped: _isAnswerShown,
+      front: front,
+      back: back,
     );
   }
 }
@@ -72,24 +70,22 @@ class _QuestionCardSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(56),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            spacing: 24,
-            children: [
-              title != null ? _CardTitle(label: title!) : const Spacer(),
-              _CardBody(label: body),
-              onTap != null ? _CardRotateButton(onTap: onTap!) : const Spacer(),
-            ],
-          ),
+    return SizedBox(
+      width: double.infinity,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(56),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          spacing: 24,
+          children: [
+            title != null ? _CardTitle(label: title!) : const Spacer(),
+            _CardBody(label: body),
+            onTap != null ? _CardRotateButton(onTap: onTap!) : const Spacer(),
+          ],
         ),
       ),
     );
