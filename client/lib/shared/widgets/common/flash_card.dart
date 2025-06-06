@@ -1,6 +1,7 @@
 import 'package:flashxp/shared/widgets/common/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class FlashCard extends StatelessWidget {
   final String title;
@@ -116,7 +117,10 @@ class _CardActions extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        FlashButton(label: 'Start now', onPressed: () {}),
+        FlashButton(
+          label: 'Start now',
+          onPressed: () => context.go('/home/practice'),
+        ),
         Text('$progress%', style: theme.textTheme.bodySmall),
       ],
     );
