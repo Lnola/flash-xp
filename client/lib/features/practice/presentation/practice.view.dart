@@ -7,6 +7,7 @@ import 'package:flashxp/widgets/common/flash_button.dart';
 import 'package:flashxp/widgets/common/flash_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 
 class PracticeView extends StatefulWidget {
   const PracticeView({super.key});
@@ -37,6 +38,12 @@ class _PracticeViewState extends State<PracticeView> {
   Widget build(BuildContext context) {
     if (controller.isLoading) {
       return const Center(child: FlashLoading());
+    }
+
+    if (controller.isFinished) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.pop();
+      });
     }
 
     return Padding(
