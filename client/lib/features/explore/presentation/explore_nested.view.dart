@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/explore/views/explore_view.dart';
+import 'package:flashxp/features/explore/presentation/explore.view.dart';
 import 'package:flutter/material.dart';
 
 class ExploreNestedView extends StatelessWidget {

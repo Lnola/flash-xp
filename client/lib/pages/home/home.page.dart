@@ -1,4 +1,4 @@
-import 'package:flashxp/pages/home/views/home.view.dart';
+import 'package:flashxp/features/home/presentation/home.view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
