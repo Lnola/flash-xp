@@ -17,6 +17,7 @@ class PracticeController extends ChangeNotifier {
 
   bool hasAnswered = false;
   bool isLoading = true;
+  bool isLoadingNextQuestion = false;
 
   List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
@@ -57,6 +58,7 @@ class PracticeController extends ChangeNotifier {
   void _loadCurrentQuestion() {
     hasAnswered = false;
 
+    isLoadingNextQuestion = true;
     final current = _questions[_currentQuestionIndex];
     question = current.text;
     answer = current.answer;
@@ -65,6 +67,11 @@ class PracticeController extends ChangeNotifier {
       answerOptionDtos: current.answerOptionDtos,
     );
     notifyListeners();
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      isLoadingNextQuestion = false;
+      notifyListeners();
+    });
   }
 
   void _handleOptionSelected(String label) {
