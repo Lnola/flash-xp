@@ -64,6 +64,8 @@ class _CardInfo extends StatelessWidget {
         Text(
           title,
           style: theme.textTheme.titleLarge?.copyWith(height: 1.2),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 8),
         Row(
