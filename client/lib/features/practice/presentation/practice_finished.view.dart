@@ -14,9 +14,15 @@ class PracticeFinishedView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Great job! You've completed the practice. Solve it again for the best learning results.",
+              'Finished!',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "You've completed the practice. Solve it again for the best learning results.",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 32),
             FlashButton(
