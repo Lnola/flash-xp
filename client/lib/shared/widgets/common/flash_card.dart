@@ -3,10 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+enum FlashCardMode { multipleChoice, selfAssessment }
+
+extension on FlashCardMode {
+  IconData get icon => switch (this) {
+        FlashCardMode.multipleChoice => FontAwesomeIcons.listOl,
+        FlashCardMode.selfAssessment => FontAwesomeIcons.solidThumbsUp,
+      };
+
+  String get label => switch (this) {
+        FlashCardMode.multipleChoice => 'Multiple Choice',
+        FlashCardMode.selfAssessment => 'Flashcards',
+      };
+}
+
 class FlashCard extends StatelessWidget {
   final String title;
   final int totalQuestions;
   final int progress;
+  final FlashCardMode mode;
   final Color? backgroundColor;
 
   const FlashCard({
@@ -14,6 +29,7 @@ class FlashCard extends StatelessWidget {
     required this.title,
     required this.totalQuestions,
     required this.progress,
+    required this.mode,
     this.backgroundColor,
   });
 
@@ -35,7 +51,11 @@ class FlashCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _CardInfo(title: title, totalQuestions: totalQuestions),
+                _CardInfo(
+                  title: title,
+                  totalQuestions: totalQuestions,
+                  mode: mode,
+                ),
                 _CardActions(progress: progress),
               ],
             ),
@@ -46,13 +66,41 @@ class FlashCard extends StatelessWidget {
   }
 }
 
+class _CardInfoRow extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _CardInfoRow({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        FaIcon(icon, size: 16),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: theme.textTheme.labelMedium,
+            overflow: TextOverflow.ellipsis,
+            softWrap: false,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _CardInfo extends StatelessWidget {
   final String title;
   final int totalQuestions;
+  final FlashCardMode mode;
 
   const _CardInfo({
     required this.title,
     required this.totalQuestions,
+    required this.mode,
   });
 
   @override
@@ -69,35 +117,12 @@ class _CardInfo extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            const FaIcon(FontAwesomeIcons.solidCircleQuestion, size: 16),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                '$totalQuestions Questions',
-                style: theme.textTheme.labelMedium,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-              ),
-            ),
-          ],
+        _CardInfoRow(
+          icon: FontAwesomeIcons.solidCircleQuestion,
+          text: '$totalQuestions Questions',
         ),
         const SizedBox(height: 4),
-        Row(
-          children: [
-            const FaIcon(FontAwesomeIcons.listOl, size: 16),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'Multiple Choice',
-                style: theme.textTheme.labelMedium,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-              ),
-            ),
-          ],
-        ),
+        _CardInfoRow(icon: mode.icon, text: mode.label),
       ],
     );
   }
