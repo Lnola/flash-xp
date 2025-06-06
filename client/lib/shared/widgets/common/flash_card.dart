@@ -20,20 +20,27 @@ class FlashCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      height: 216,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: backgroundColor ?? theme.colorScheme.surfaceBright,
-        borderRadius: BorderRadius.circular(28),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _CardInfo(title: title, totalQuestions: totalQuestions),
-          _CardActions(progress: progress),
-        ],
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SizedBox(
+          width: (constraints.maxWidth / 2) - 6,
+          child: Container(
+            height: 216,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: backgroundColor ?? theme.colorScheme.surfaceBright,
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _CardInfo(title: title, totalQuestions: totalQuestions),
+                _CardActions(progress: progress),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
