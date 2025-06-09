@@ -1,7 +1,7 @@
 import 'package:flashxp/shared/widgets/common/flash_card.dart';
 
 class DeckDto {
-  final String id;
+  final int id;
   final String title;
   final int totalQuestions;
   final int progress;
