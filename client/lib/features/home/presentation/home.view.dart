@@ -33,17 +33,16 @@ class _HomeViewState extends State<HomeView> {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
+        spacing: 32,
         children: [
           FlashDeckCardGrid(
             title: 'In progress',
             decks: controller.decks,
           ),
-          const SizedBox(height: 32),
           FlashDeckCardGrid(
             title: 'My decks',
             decks: controller.decks,
           ),
-          const SizedBox(height: 32),
           FlashDeckCardGrid(
             title: 'Saved',
             decks: controller.decks,
