@@ -43,9 +43,21 @@ class CreateViewState extends State<CreateView> {
           ...controller.dynamicControllers.map(
             (ctrl) => Padding(
               padding: const EdgeInsets.only(bottom: 24),
-              child: CreateInput(
-                label: 'Dynamic Input',
-                controller: ctrl,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: CreateInput(
+                      label: 'Dynamic Input',
+                      controller: ctrl,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => controller.removeDynamicInput(ctrl),
+                  ),
+                ],
               ),
             ),
           ),

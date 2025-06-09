@@ -20,6 +20,12 @@ class CreateController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeDynamicInput(TextEditingController controller) {
+    dynamicControllers.remove(controller);
+    controller.dispose();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     titleController.dispose();
