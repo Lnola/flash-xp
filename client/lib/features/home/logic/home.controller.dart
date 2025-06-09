@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class HomeController extends ChangeNotifier {
   final DeckRepository _deckRepository;
 
-  List<DeckDto> decks = [];
+  List<DeckDto> inProgressDecks = [];
+  List<DeckDto> myDecks = [];
+  List<DeckDto> savedDecks = [];
   bool isLoading = true;
 
   HomeController(this._deckRepository) {
@@ -16,7 +18,9 @@ class HomeController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    decks = await _deckRepository.fetch();
+    inProgressDecks = await _deckRepository.fetch();
+    myDecks = await _deckRepository.fetch();
+    inProgressDecks = await _deckRepository.fetch();
 
     isLoading = false;
     notifyListeners();
