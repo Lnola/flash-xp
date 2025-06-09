@@ -1,4 +1,5 @@
 import 'package:flashxp/features/preview/data/deck.repository.dart';
+import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
@@ -39,30 +40,63 @@ class PreviewViewState extends State<PreviewView> {
       child: Column(
         spacing: 24,
         children: [
-          Column(
-            spacing: 12,
-            children: [
-              PreviewInfoWidget(
-                label: 'Title',
-                content: controller.title,
-              ),
-              PreviewInfoWidget(
-                label: 'Description',
-                content: controller.description,
-              ),
-            ],
+          _PreviewHeader(
+            title: controller.title,
+            description: controller.description,
           ),
-          Column(
-            spacing: 12,
-            children: List.generate(
-              controller.questions.length,
-              (index) => PreviewInfoWidget(
-                label: '#${index + 1}',
-                content: controller.questions[index].text,
-              ),
-            ),
+          _PreviewQuestions(
+            questions: controller.questions,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _PreviewHeader extends StatelessWidget {
+  final String title;
+  final String description;
+
+  const _PreviewHeader({
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 12,
+      children: [
+        PreviewInfoWidget(
+          label: 'Title',
+          content: title,
+        ),
+        PreviewInfoWidget(
+          label: 'Description',
+          content: description,
+        ),
+      ],
+    );
+  }
+}
+
+class _PreviewQuestions extends StatelessWidget {
+  final List<Question> questions;
+
+  const _PreviewQuestions({
+    required this.questions,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 12,
+      children: List.generate(
+        questions.length,
+        (index) => PreviewInfoWidget(
+          label: '#${index + 1}',
+          content: questions[index].text,
+        ),
       ),
     );
   }
