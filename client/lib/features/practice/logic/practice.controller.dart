@@ -34,10 +34,10 @@ class PracticeController extends ChangeNotifier {
   int get currentQuestionIndex => _currentQuestionIndex + 1;
 
   PracticeController(this._questionRepository) {
-    initQuestions();
+    _initQuestions();
   }
 
-  Future<void> initQuestions() async {
+  Future<void> _initQuestions() async {
     isLoading = true;
 
     _questions = await _questionRepository.fetch();
