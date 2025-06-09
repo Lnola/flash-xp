@@ -2,6 +2,7 @@ import 'package:flashxp/features/preview/data/deck.repository.dart';
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,7 @@ class PreviewViewState extends State<PreviewView> {
           _PreviewQuestions(
             questions: controller.questions,
           ),
+          _PreviewActions(),
         ],
       ),
     );
@@ -98,6 +100,27 @@ class _PreviewQuestions extends StatelessWidget {
           content: questions[index].text,
         ),
       ),
+    );
+  }
+}
+
+class _PreviewActions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 12,
+      children: [
+        FlashButton(
+          label: 'Start now',
+          onPressed: () {},
+          isBlock: true,
+        ),
+        FlashButton(
+          label: 'Edit deck',
+          onPressed: () {},
+          isBlock: true,
+        ),
+      ],
     );
   }
 }
