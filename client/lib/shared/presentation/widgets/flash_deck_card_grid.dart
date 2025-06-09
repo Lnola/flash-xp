@@ -19,6 +19,10 @@ class FlashDeckCardGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (decks.isEmpty && !isLoading) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
