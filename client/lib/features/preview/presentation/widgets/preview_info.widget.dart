@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class PreviewInfoWidget extends StatelessWidget {
-  const PreviewInfoWidget({super.key});
+  final String label;
+  final String content;
+
+  const PreviewInfoWidget({
+    super.key,
+    required this.label,
+    required this.content,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class PreviewInfoWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Description',
+            label,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withAlpha(77),
               fontWeight: FontWeight.w600,
@@ -24,7 +31,7 @@ class PreviewInfoWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            content,
             style: theme.textTheme.bodyMedium?.copyWith(height: 1.2),
           ),
         ],
