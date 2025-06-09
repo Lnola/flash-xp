@@ -1,6 +1,6 @@
 import 'package:flashxp/features/explore/data/deck.repository.dart';
 import 'package:flashxp/features/explore/logic/explore.controller.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_deck_card_swiper.dart';
 import 'package:flutter/material.dart';
 
 class ExploreView extends StatefulWidget {
@@ -36,22 +36,22 @@ class ExploreViewState extends State<ExploreView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 32,
         children: [
-          FlashDeckCardGrid(
+          FlashDeckCardSwiper(
             title: 'Multiple choice',
             decks: controller.multipleChoiceDecks,
             isLoading: controller.isLoading,
           ),
-          FlashDeckCardGrid(
+          FlashDeckCardSwiper(
             title: 'Flashcards',
             decks: controller.selfAssessmentDecks,
             isLoading: controller.isLoading,
           ),
-          FlashDeckCardGrid(
+          FlashDeckCardSwiper(
             title: 'Popular',
             decks: controller.popularDecks,
             isLoading: controller.isLoading,
           ),
-          FlashDeckCardGrid(
+          FlashDeckCardSwiper(
             title: 'For You',
             decks: controller.forYouDecks,
             isLoading: controller.isLoading,
