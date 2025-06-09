@@ -40,7 +40,7 @@ class FlashButton extends StatelessWidget {
             width: 2,
           ),
         ),
-        textStyle: Theme.of(context).textTheme.labelMedium,
+        textStyle: Theme.of(context).textTheme.titleSmall,
       ),
       child: Text(label),
     );
