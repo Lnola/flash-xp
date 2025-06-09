@@ -126,6 +126,7 @@ class _PreviewActions extends StatelessWidget {
       spacing: 12,
       children: [
         Row(
+          spacing: 8,
           children: [
             Expanded(
               child: FlashButton(
@@ -134,7 +135,6 @@ class _PreviewActions extends StatelessWidget {
                 isBlock: true,
               ),
             ),
-            const SizedBox(width: 8),
             FlashBookmark(
               isBookmarked: isBookmarked,
               onPressed: toggleIsBookmarked,
