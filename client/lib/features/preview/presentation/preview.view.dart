@@ -5,6 +5,7 @@ import 'package:flashxp/features/preview/presentation/widgets/preview_info.widge
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PreviewView extends StatefulWidget {
   const PreviewView({super.key});
@@ -114,12 +115,12 @@ class _PreviewActions extends StatelessWidget {
       children: [
         FlashButton(
           label: 'Start now',
-          onPressed: () {},
+          onPressed: () => context.push('/home/practice'),
           isBlock: true,
         ),
         FlashButton(
           label: 'Edit deck',
-          onPressed: () {},
+          onPressed: () => context.push('/create/edit'),
           isBlock: true,
         ),
       ],
