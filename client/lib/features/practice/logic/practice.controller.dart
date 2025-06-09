@@ -4,11 +4,19 @@ import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.da
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_self_assessment.strategy.dart';
 import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
+
+extension on PracticeMode {
+  PracticeModeStrategy get strategy => switch (this) {
+        PracticeMode.multipleChoice => MultipleChoiceStrategy(),
+        PracticeMode.selfAssessment => SelfAssessmentStrategy(),
+      };
+}
 
 class PracticeController extends ChangeNotifier {
   final QuestionRepository _questionRepository;
-  late PracticeModeStrategy modeStrategy;
+  late PracticeMode mode;
 
   late String question;
   late String? answer;
@@ -37,16 +45,9 @@ class PracticeController extends ChangeNotifier {
 
     totalQuestions = _questions.length;
     _currentQuestionIndex = 0;
-    modeStrategy = _resolveStrategy(_questions.first);
 
     _loadCurrentQuestion();
     isLoading = false;
-  }
-
-  PracticeModeStrategy _resolveStrategy(QuestionDto question) {
-    final options = question.answerOptionDtos;
-    final hasOptions = options != null && options.isNotEmpty;
-    return hasOptions ? MultipleChoiceStrategy() : SelfAssessmentStrategy();
   }
 
   void nextQuestion() {
@@ -66,7 +67,8 @@ class PracticeController extends ChangeNotifier {
     final current = _questions[_currentQuestionIndex];
     question = current.text;
     answer = current.answer;
-    answerOptionButtons = modeStrategy.createAnswerOptionButtons(
+    mode = current.mode;
+    answerOptionButtons = mode.strategy.createAnswerOptionButtons(
       onPressed: _handleOptionSelected,
       answerOptionDtos: current.answerOptionDtos,
     );
@@ -80,7 +82,7 @@ class PracticeController extends ChangeNotifier {
 
   void _handleOptionSelected(String label) {
     hasAnswered = true;
-    answerOptionButtons = modeStrategy.updateAnswerOptionButtons(
+    answerOptionButtons = mode.strategy.updateAnswerOptionButtons(
       label: label,
       answerOptionButtons: answerOptionButtons,
     );
