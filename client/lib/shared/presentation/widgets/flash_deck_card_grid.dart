@@ -21,20 +21,23 @@ class FlashDeckCardGrid extends StatelessWidget {
       children: [
         Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: decks
-              .map(
-                (deck) => FlashDeckCard(
-                  title: deck.title,
-                  totalQuestions: deck.totalQuestions,
-                  progress: deck.progress,
-                  mode: deck.mode,
-                  backgroundColor: backgroundColor,
-                ),
-              )
-              .toList(),
+        LayoutBuilder(
+          builder: (context, constraints) => Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: decks
+                .map(
+                  (deck) => FlashDeckCard(
+                    title: deck.title,
+                    totalQuestions: deck.totalQuestions,
+                    progress: deck.progress,
+                    mode: deck.mode,
+                    backgroundColor: backgroundColor,
+                    width: (constraints.maxWidth / 2) - 6,
+                  ),
+                )
+                .toList(),
+          ),
         ),
       ],
     );
