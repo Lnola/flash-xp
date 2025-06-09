@@ -34,10 +34,13 @@ final homeRoutes = GoRoute(
     ),
     GoRoute(
       path: 'preview',
-      builder: (context, __) => const FlashLayout(
-        title: 'Preview Deck',
-        body: PreviewView(),
-      ),
+      builder: (context, state) {
+        return FlashLayout(
+          state: state,
+          title: 'Preview deck',
+          body: const PreviewView(),
+        );
+      },
     ),
   ],
 );
