@@ -10,23 +10,21 @@ class FlashNotFound extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlashLayout(
       title: 'Not Found',
-      body: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Oops! Page not found.',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 16),
-              FlashButton(
-                onPressed: () => context.go('/home'),
-                label: 'Go to Home',
-                isBlock: true,
-              ),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Oops! Page not found.',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 16),
+            FlashButton(
+              onPressed: () => context.go('/home'),
+              label: 'Go to Home',
+              isBlock: true,
+            ),
+          ],
         ),
       ),
     );
