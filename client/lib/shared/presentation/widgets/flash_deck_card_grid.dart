@@ -2,10 +2,10 @@ import 'package:flashxp/shared/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_card.dart';
 import 'package:flutter/material.dart';
 
-class FlashCardGrid extends StatelessWidget {
+class FlashDeckCardGrid extends StatelessWidget {
   final List<DeckDto> decks;
 
-  const FlashCardGrid({
+  const FlashDeckCardGrid({
     super.key,
     required this.decks,
   });
