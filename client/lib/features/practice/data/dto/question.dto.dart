@@ -1,4 +1,5 @@
 import 'package:flashxp/features/practice/data/dto/answer_option.dto.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 
 class QuestionDto {
   final int id;
@@ -12,4 +13,11 @@ class QuestionDto {
     this.answer,
     this.answerOptionDtos,
   });
+
+  PracticeMode get mode {
+    final hasOptions = answerOptionDtos != null && answerOptionDtos!.isNotEmpty;
+    return hasOptions
+        ? PracticeMode.multipleChoice
+        : PracticeMode.selfAssessment;
+  }
 }
