@@ -1,6 +1,6 @@
 import 'package:flashxp/features/statistics/presentation/statistics_nested.view.dart';
 import 'package:flashxp/pages/statistics/statistics.page.dart';
-import 'package:flashxp/shared/layout/flash_layout.dart';
+import 'package:flashxp/shared/presentation/layout/flash_layout.dart';
 import 'package:go_router/go_router.dart';
 
 final statisticsRoutes = GoRoute(

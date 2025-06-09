@@ -1,5 +1,5 @@
 import 'package:flashxp/shared/data/dto/deck.dto.dart';
-import 'package:flashxp/shared/widgets/common/flash_card.dart';
+import 'package:flashxp/shared/presentation/widgets/common/flash_card.dart';
 import 'package:flutter/material.dart';
 
 class FlashCardGrid extends StatelessWidget {

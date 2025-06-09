@@ -2,9 +2,9 @@ import 'package:flashxp/pages/create/create.routes.dart';
 import 'package:flashxp/pages/explore/explore.routes.dart';
 import 'package:flashxp/pages/home/home.routes.dart';
 import 'package:flashxp/pages/statistics/statistics.routes.dart';
-import 'package:flashxp/shared/layout/flash_nav_bar.dart';
-import 'package:flashxp/shared/layout/flash_not_found.dart';
-import 'package:flashxp/shared/widgets/utils/if.dart';
+import 'package:flashxp/shared/presentation/layout/flash_nav_bar.dart';
+import 'package:flashxp/shared/presentation/layout/flash_not_found.dart';
+import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
