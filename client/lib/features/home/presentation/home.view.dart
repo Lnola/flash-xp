@@ -39,14 +39,17 @@ class _HomeViewState extends State<HomeView> {
           FlashDeckCardGrid(
             title: 'In progress',
             decks: controller.inProgressDecks,
+            isLoading: controller.isLoading,
           ),
           FlashDeckCardGrid(
             title: 'My decks',
             decks: controller.myDecks,
+            isLoading: controller.isLoading,
           ),
           FlashDeckCardGrid(
             title: 'Saved',
             decks: controller.savedDecks,
+            isLoading: controller.isLoading,
           ),
         ],
       ),
