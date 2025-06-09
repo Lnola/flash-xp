@@ -21,25 +21,40 @@ class FlashDeckCardGrid extends StatelessWidget {
       children: [
         Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        LayoutBuilder(
-          builder: (context, constraints) => Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: decks
-                .map(
-                  (deck) => FlashDeckCard(
-                    title: deck.title,
-                    totalQuestions: deck.totalQuestions,
-                    progress: deck.progress,
-                    mode: deck.mode,
-                    backgroundColor: backgroundColor,
-                    width: (constraints.maxWidth / 2) - 6,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
+        _GridLayout(decks: decks, backgroundColor: backgroundColor),
       ],
+    );
+  }
+}
+
+class _GridLayout extends StatelessWidget {
+  final List<DeckDto> decks;
+  final Color? backgroundColor;
+
+  const _GridLayout({
+    required this.decks,
+    required this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: decks
+            .map(
+              (deck) => FlashDeckCard(
+                title: deck.title,
+                totalQuestions: deck.totalQuestions,
+                progress: deck.progress,
+                mode: deck.mode,
+                backgroundColor: backgroundColor,
+                width: (constraints.maxWidth / 2) - 6,
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
