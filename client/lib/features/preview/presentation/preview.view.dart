@@ -37,20 +37,29 @@ class PreviewViewState extends State<PreviewView> {
 
     return SingleChildScrollView(
       child: Column(
+        spacing: 24,
         children: [
-          PreviewInfoWidget(
-            label: 'Title',
-            content: controller.title,
+          Column(
+            spacing: 12,
+            children: [
+              PreviewInfoWidget(
+                label: 'Title',
+                content: controller.title,
+              ),
+              PreviewInfoWidget(
+                label: 'Description',
+                content: controller.description,
+              ),
+            ],
           ),
-          PreviewInfoWidget(
-            label: 'Description',
-            content: controller.description,
-          ),
-          ...List.generate(
-            controller.questions.length,
-            (index) => PreviewInfoWidget(
-              label: '#${index + 1}',
-              content: controller.questions[index].text,
+          Column(
+            spacing: 12,
+            children: List.generate(
+              controller.questions.length,
+              (index) => PreviewInfoWidget(
+                label: '#${index + 1}',
+                content: controller.questions[index].text,
+              ),
             ),
           ),
         ],
