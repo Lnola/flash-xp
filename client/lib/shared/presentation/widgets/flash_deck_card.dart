@@ -1,3 +1,4 @@
+import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,10 @@ class FlashDeckCard extends StatelessWidget {
     return SizedBox(
       width: width,
       child: GestureDetector(
-        onTap: () => context.push('/home/preview'),
+        onTap: () => context.push(
+          '/home/preview',
+          extra: RouterStateExtra(title: title),
+        ),
         child: Container(
           height: 216,
           padding: const EdgeInsets.all(20),
