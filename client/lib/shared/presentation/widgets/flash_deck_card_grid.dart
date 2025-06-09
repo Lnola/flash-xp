@@ -1,5 +1,5 @@
 import 'package:flashxp/shared/data/dto/deck.dto.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_card.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_deck_card.dart';
 import 'package:flutter/material.dart';
 
 class FlashDeckCardGrid extends StatelessWidget {
@@ -17,7 +17,7 @@ class FlashDeckCardGrid extends StatelessWidget {
       runSpacing: 12,
       children: decks
           .map(
-            (deck) => FlashCard(
+            (deck) => FlashDeckCard(
               title: deck.title,
               totalQuestions: deck.totalQuestions,
               progress: deck.progress,

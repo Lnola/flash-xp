@@ -16,14 +16,14 @@ extension on PracticeMode {
       };
 }
 
-class FlashCard extends StatelessWidget {
+class FlashDeckCard extends StatelessWidget {
   final String title;
   final int totalQuestions;
   final int progress;
   final PracticeMode mode;
   final Color? backgroundColor;
 
-  const FlashCard({
+  const FlashDeckCard({
     super.key,
     required this.title,
     required this.totalQuestions,
