@@ -12,6 +12,7 @@ class DeckRepository {
       title: 'Deck 1',
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      isBookmarked: false,
       questions: [
         Question(
           id: 1,
