@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/logic/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 
 class DeckDto {
   final int id;

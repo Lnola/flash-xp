@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/logic/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
