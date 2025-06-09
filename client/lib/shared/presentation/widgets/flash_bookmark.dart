@@ -19,14 +19,18 @@ class FlashBookmark extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Colors.transparent,
           shape: BoxShape.circle,
+          border: Border.all(
+            width: 2,
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
         ),
         child: FaIcon(
           icon,
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          color: Theme.of(context).colorScheme.primaryContainer,
           size: 20,
         ),
       ),
