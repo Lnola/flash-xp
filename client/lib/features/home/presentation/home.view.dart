@@ -33,6 +33,7 @@ class _HomeViewState extends State<HomeView> {
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 32,
         children: [
           FlashDeckCardGrid(
