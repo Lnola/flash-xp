@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class FlashDeckCardGrid extends StatelessWidget {
   final String title;
+  final Color? backgroundColor;
   final List<DeckDto> decks;
 
   const FlashDeckCardGrid({
     super.key,
     required this.title,
+    this.backgroundColor,
     required this.decks,
   });
 
@@ -29,6 +31,7 @@ class FlashDeckCardGrid extends StatelessWidget {
                   totalQuestions: deck.totalQuestions,
                   progress: deck.progress,
                   mode: deck.mode,
+                  backgroundColor: backgroundColor,
                 ),
               )
               .toList(),
