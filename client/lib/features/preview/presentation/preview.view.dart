@@ -73,7 +73,7 @@ class _PreviewHeader extends StatelessWidget {
       spacing: 12,
       children: [
         PreviewInfoWidget(
-          label: 'Title',
+          label: 'Full title',
           content: title,
         ),
         PreviewInfoWidget(
