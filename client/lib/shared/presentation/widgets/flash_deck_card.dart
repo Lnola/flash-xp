@@ -40,23 +40,26 @@ class FlashDeckCard extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: Container(
-        height: 216,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? theme.colorScheme.surfaceBright,
-          borderRadius: BorderRadius.circular(28),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _CardInfo(
-              title: title,
-              totalQuestions: totalQuestions,
-              mode: mode,
-            ),
-            _CardActions(progress: progress),
-          ],
+      child: GestureDetector(
+        onTap: () => context.go('/home/preview'),
+        child: Container(
+          height: 216,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? theme.colorScheme.surfaceBright,
+            borderRadius: BorderRadius.circular(28),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _CardInfo(
+                title: title,
+                totalQuestions: totalQuestions,
+                mode: mode,
+              ),
+              _CardActions(progress: progress),
+            ],
+          ),
         ),
       ),
     );
