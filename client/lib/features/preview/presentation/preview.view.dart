@@ -39,6 +39,10 @@ class PreviewViewState extends State<PreviewView> {
       child: Column(
         children: [
           PreviewInfoWidget(
+            label: 'Title',
+            content: controller.title,
+          ),
+          PreviewInfoWidget(
             label: 'Description',
             content: controller.description,
           ),
