@@ -20,7 +20,7 @@ class HomeController extends ChangeNotifier {
 
     inProgressDecks = await _deckRepository.fetch();
     myDecks = await _deckRepository.fetch();
-    inProgressDecks = await _deckRepository.fetch();
+    savedDecks = await _deckRepository.fetch();
 
     isLoading = false;
     notifyListeners();
