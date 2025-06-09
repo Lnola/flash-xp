@@ -41,50 +41,105 @@ class CreateViewState extends State<CreateView> {
             controller: controller.titleController,
           ),
           const SizedBox(height: 24),
-          ...controller.dynamicControllers.map(
-            (ctrl) => Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: CreateInput(
-                      label: 'Dynamic Input',
-                      controller: ctrl,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Remove Input'),
-                          content: const Text(
-                            'Are you sure you want to remove this input?',
+          if (controller.mode == PracticeMode.selfAssessment)
+            ...controller.selfAssessmentPairs.map(
+              (pair) => Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          CreateInput(
+                            label: 'Question',
+                            controller: pair.$1,
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: const Text('Cancel'),
+                          const SizedBox(height: 8),
+                          CreateInput(
+                            label: 'Answer',
+                            controller: pair.$2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Remove Pair'),
+                            content: const Text(
+                              'Are you sure you want to remove this question-answer pair?',
                             ),
-                            TextButton(
-                              onPressed: () {
-                                controller.removeDynamicInput(ctrl);
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Remove'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  controller.removeSelfAssessmentPair(pair);
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Remove'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else
+            ...controller.dynamicControllers.map(
+              (ctrl) => Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: CreateInput(
+                        label: 'Dynamic Input',
+                        controller: ctrl,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Remove Input'),
+                            content: const Text(
+                              'Are you sure you want to remove this input?',
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  controller.removeDynamicInput(ctrl);
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Remove'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           DropdownButton<PracticeMode>(
             value: controller.mode,
             onChanged: (mode) {
