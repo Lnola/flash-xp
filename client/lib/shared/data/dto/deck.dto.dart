@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/presentation/widgets/common/flash_card.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_card.dart';
 
 class DeckDto {
   final int id;

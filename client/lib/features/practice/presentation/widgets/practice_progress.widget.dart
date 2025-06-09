@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/presentation/widgets/common/flash_progress_bar.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_progress_bar.dart';
 import 'package:flutter/material.dart';
 
 class PracticeProgress extends StatelessWidget {
