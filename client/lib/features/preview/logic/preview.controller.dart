@@ -1,11 +1,10 @@
 import 'package:flashxp/features/preview/data/deck.repository.dart';
-import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flutter/material.dart';
 
 class PreviewController extends ChangeNotifier {
   final DeckRepository _deckRepository;
 
-  DeckDto? deck;
+  late String description;
   bool isLoading = true;
 
   PreviewController(this._deckRepository) {
@@ -15,8 +14,10 @@ class PreviewController extends ChangeNotifier {
   Future<void> _initDeck() async {
     isLoading = true;
 
-    deck = await _deckRepository.fetch();
+    final deck = await _deckRepository.fetch();
+    description = deck.description;
 
     isLoading = false;
+    notifyListeners();
   }
 }
