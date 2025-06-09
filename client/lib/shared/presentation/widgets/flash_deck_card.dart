@@ -22,6 +22,7 @@ class FlashDeckCard extends StatelessWidget {
   final int progress;
   final PracticeMode mode;
   final Color? backgroundColor;
+  final double width;
 
   const FlashDeckCard({
     super.key,
@@ -30,37 +31,34 @@ class FlashDeckCard extends StatelessWidget {
     required this.progress,
     required this.mode,
     this.backgroundColor,
+    required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SizedBox(
-          width: (constraints.maxWidth / 2) - 6,
-          child: Container(
-            height: 216,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: backgroundColor ?? theme.colorScheme.surfaceBright,
-              borderRadius: BorderRadius.circular(28),
+    return SizedBox(
+      width: width,
+      child: Container(
+        height: 216,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: backgroundColor ?? theme.colorScheme.surfaceBright,
+          borderRadius: BorderRadius.circular(28),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _CardInfo(
+              title: title,
+              totalQuestions: totalQuestions,
+              mode: mode,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _CardInfo(
-                  title: title,
-                  totalQuestions: totalQuestions,
-                  mode: mode,
-                ),
-                _CardActions(progress: progress),
-              ],
-            ),
-          ),
-        );
-      },
+            _CardActions(progress: progress),
+          ],
+        ),
+      ),
     );
   }
 }
