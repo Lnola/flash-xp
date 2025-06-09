@@ -46,6 +46,13 @@ class PreviewViewState extends State<PreviewView> {
             label: 'Description',
             content: controller.description,
           ),
+          ...List.generate(
+            controller.questions.length,
+            (index) => PreviewInfoWidget(
+              label: '#${index + 1}',
+              content: controller.questions[index].text,
+            ),
+          ),
         ],
       ),
     );
