@@ -1,4 +1,3 @@
-import 'package:flashxp/features/explore/presentation/explore_nested.view.dart';
 import 'package:flashxp/pages/explore/explore.page.dart';
 import 'package:flashxp/shared/presentation/layout/flash_layout.dart';
 import 'package:go_router/go_router.dart';
@@ -11,13 +10,4 @@ final exploreRoutes = GoRoute(
       body: ExplorePage(),
     ),
   ),
-  routes: [
-    GoRoute(
-      path: 'nested',
-      builder: (_, __) => const FlashLayout(
-        title: 'Explore Nested Page',
-        body: ExploreNestedView(),
-      ),
-    ),
-  ],
 );
