@@ -8,6 +8,7 @@ class PreviewController extends ChangeNotifier {
   late String title;
   late String description;
   late List<Question> questions;
+  late bool isBookmarked;
   bool isLoading = true;
 
   PreviewController(this._deckRepository) {
@@ -21,8 +22,15 @@ class PreviewController extends ChangeNotifier {
     title = deck.title;
     description = deck.description;
     questions = deck.questions;
+    isBookmarked = deck.isBookmarked;
 
     isLoading = false;
+    notifyListeners();
+  }
+
+  void toggleIsBookmarked() {
+    // TODO: replace with the actual implementation through repository
+    isBookmarked = !isBookmarked;
     notifyListeners();
   }
 }
