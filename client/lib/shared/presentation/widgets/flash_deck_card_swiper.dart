@@ -22,27 +22,48 @@ class FlashDeckCardSwiper extends StatelessWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 16),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: decks
-                  .map(
-                    (deck) => Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: FlashDeckCard(
-                        title: deck.title,
-                        totalQuestions: deck.totalQuestions,
-                        progress: deck.progress,
-                        mode: deck.mode,
-                        backgroundColor: backgroundColor,
-                        width: (constraints.maxWidth / 2) - 6,
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
+          _SwiperLayout(
+            decks: decks,
+            backgroundColor: backgroundColor,
+            cardWidth: (constraints.maxWidth / 2) - 6,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _SwiperLayout extends StatelessWidget {
+  final List<DeckDto> decks;
+  final Color? backgroundColor;
+  final double cardWidth;
+
+  const _SwiperLayout({
+    required this.decks,
+    required this.backgroundColor,
+    required this.cardWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: decks
+            .map(
+              (deck) => Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: FlashDeckCard(
+                  title: deck.title,
+                  totalQuestions: deck.totalQuestions,
+                  progress: deck.progress,
+                  mode: deck.mode,
+                  backgroundColor: backgroundColor,
+                  width: cardWidth,
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
