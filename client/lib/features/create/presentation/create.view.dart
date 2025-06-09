@@ -67,28 +67,34 @@ class CreateViewState extends State<CreateView> {
                     IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Remove Pair'),
-                            content: const Text(
-                              'Are you sure you want to remove this question-answer pair?',
+                        final isDirty = pair.$1.text.trim().isNotEmpty ||
+                            pair.$2.text.trim().isNotEmpty;
+                        if (isDirty) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Remove Pair'),
+                              content: const Text(
+                                'Are you sure you want to remove this question-answer pair?',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    controller.removeSelfAssessmentPair(pair);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Remove'),
+                                ),
+                              ],
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  controller.removeSelfAssessmentPair(pair);
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Remove'),
-                              ),
-                            ],
-                          ),
-                        );
+                          );
+                        } else {
+                          controller.removeSelfAssessmentPair(pair);
+                        }
                       },
                     ),
                   ],
