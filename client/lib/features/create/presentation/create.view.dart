@@ -106,12 +106,15 @@ class CreateViewState extends State<CreateView> {
                       child: Column(
                         children: [
                           CreateInput(
-                              label: 'Question', controller: question.$1),
+                            label: 'Question',
+                            controller: question.$1,
+                          ),
                           const SizedBox(height: 8),
                           for (var i = 0; i < 4; i++) ...[
                             CreateInput(
-                                label: 'Option ${String.fromCharCode(65 + i)}',
-                                controller: question.$2[i]),
+                              label: 'Option ${String.fromCharCode(65 + i)}',
+                              controller: question.$2[i],
+                            ),
                             const SizedBox(height: 8),
                           ],
                         ],
@@ -120,7 +123,36 @@ class CreateViewState extends State<CreateView> {
                     IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
-                        controller.removeMultipleChoiceQuestion(question);
+                        final isDirty = question.$1.text.isNotEmpty ||
+                            question.$2.any((c) => c.text.isNotEmpty);
+
+                        if (isDirty) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Remove Question'),
+                              content: const Text(
+                                'Some fields are not empty. Are you sure you want to remove this question?',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    controller
+                                        .removeMultipleChoiceQuestion(question);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Remove'),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          controller.removeMultipleChoiceQuestion(question);
+                        }
                       },
                     ),
                   ],
