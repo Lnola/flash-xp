@@ -1,8 +1,11 @@
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 class CreateController extends ChangeNotifier {
   final TextEditingController titleController;
   final List<TextEditingController> dynamicControllers;
+
+  PracticeMode mode = PracticeMode.multipleChoice;
 
   CreateController()
       : titleController = TextEditingController(),
@@ -10,6 +13,7 @@ class CreateController extends ChangeNotifier {
 
   void submit() {
     print('Title: ${titleController.text}');
+    print('Mode: ${mode.name}');
     for (int i = 0; i < dynamicControllers.length; i++) {
       print('Dynamic Input $i: ${dynamicControllers[i].text}');
     }
@@ -23,6 +27,11 @@ class CreateController extends ChangeNotifier {
   void removeDynamicInput(TextEditingController controller) {
     dynamicControllers.remove(controller);
     controller.dispose();
+    notifyListeners();
+  }
+
+  void updateMode(PracticeMode newMode) {
+    mode = newMode;
     notifyListeners();
   }
 

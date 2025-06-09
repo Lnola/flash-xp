@@ -1,5 +1,6 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_input.widget.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 class CreateView extends StatefulWidget {
@@ -56,38 +57,47 @@ class CreateViewState extends State<CreateView> {
                   IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
-                      if (ctrl.text.isNotEmpty) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Remove Input'),
-                            content: const Text(
-                              'Are you sure you want to remove this input?',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  controller.removeDynamicInput(ctrl);
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Remove'),
-                              ),
-                            ],
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Remove Input'),
+                          content: const Text(
+                            'Are you sure you want to remove this input?',
                           ),
-                        );
-                      } else {
-                        controller.removeDynamicInput(ctrl);
-                      }
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                controller.removeDynamicInput(ctrl);
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Remove'),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 ],
               ),
             ),
           ),
+          DropdownButton<PracticeMode>(
+            value: controller.mode,
+            onChanged: (mode) {
+              if (mode != null) controller.updateMode(mode);
+            },
+            items: PracticeMode.values.map((mode) {
+              return DropdownMenuItem(
+                value: mode,
+                child: Text(mode.name),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 24),
           ElevatedButton(
             onPressed: controller.addDynamicInput,
             child: const Text('Add input'),
