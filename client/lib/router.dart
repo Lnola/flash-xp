@@ -67,3 +67,12 @@ class AppRouter {
     return uri.pathSegments.length > 1;
   }
 }
+
+class RouterStateExtra {
+  final String title;
+  RouterStateExtra({required this.title});
+}
+
+extension RouteMetadata on GoRouterState {
+  RouterStateExtra? get metadata => extra as RouterStateExtra?;
+}
