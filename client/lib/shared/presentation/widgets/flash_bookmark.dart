@@ -16,17 +16,19 @@ class FlashBookmark extends StatelessWidget {
     final icon =
         isBookmarked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart;
 
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: const StadiumBorder(),
-      ),
-      child: FaIcon(
-        icon,
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          shape: BoxShape.circle,
+        ),
+        child: FaIcon(
+          icon,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          size: 20,
+        ),
       ),
     );
   }
