@@ -17,7 +17,7 @@ class ExploreController extends ChangeNotifier {
 
   Future<void> _initDecks() async {
     isLoading = true;
-    notifyListeners();
+    notifyListeners(); // TODO: check if this notifyListeners() is needed
 
     multipleChoiceDecks = await _deckRepository.fetch();
     selfAssessmentDecks = await _deckRepository.fetch();
