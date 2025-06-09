@@ -38,6 +38,8 @@ class PreviewViewState extends State<PreviewView> {
     }
 
     return SingleChildScrollView(
+      clipBehavior: Clip.none,
+      padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
         spacing: 24,
         children: [
