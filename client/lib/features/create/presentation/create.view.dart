@@ -55,7 +55,34 @@ class CreateViewState extends State<CreateView> {
                   const SizedBox(width: 8),
                   IconButton(
                     icon: const Icon(Icons.close),
-                    onPressed: () => controller.removeDynamicInput(ctrl),
+                    onPressed: () {
+                      if (ctrl.text.isNotEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Remove Input'),
+                            content: const Text(
+                              'Are you sure you want to remove this input?',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  controller.removeDynamicInput(ctrl);
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Remove'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        controller.removeDynamicInput(ctrl);
+                      }
+                    },
                   ),
                 ],
               ),
