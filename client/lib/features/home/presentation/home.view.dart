@@ -1,7 +1,6 @@
 import 'package:flashxp/features/home/data/deck.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_deck_card_swiper.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -35,13 +34,18 @@ class _HomeViewState extends State<HomeView> {
       clipBehavior: Clip.none,
       child: Column(
         children: [
-          FlashDeckCardSwiper(
-            title: 'Swiper',
+          FlashDeckCardGrid(
+            title: 'In progress',
             decks: controller.decks,
           ),
           const SizedBox(height: 32),
           FlashDeckCardGrid(
-            title: 'Grid',
+            title: 'My decks',
+            decks: controller.decks,
+          ),
+          const SizedBox(height: 32),
+          FlashDeckCardGrid(
+            title: 'Saved',
             decks: controller.decks,
           ),
         ],
