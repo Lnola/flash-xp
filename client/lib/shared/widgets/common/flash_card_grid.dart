@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/dto/deck.dto.dart';
+import 'package:flashxp/shared/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/widgets/common/flash_card.dart';
 import 'package:flutter/material.dart';
 
