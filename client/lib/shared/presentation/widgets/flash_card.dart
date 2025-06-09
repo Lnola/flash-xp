@@ -1,20 +1,18 @@
+import 'package:flashxp/shared/logic/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-// TODO: extract this enum and leverage it for the practice feature as well
-enum FlashCardMode { multipleChoice, selfAssessment }
-
-extension on FlashCardMode {
+extension on PracticeMode {
   IconData get icon => switch (this) {
-        FlashCardMode.multipleChoice => FontAwesomeIcons.listOl,
-        FlashCardMode.selfAssessment => FontAwesomeIcons.solidThumbsUp,
+        PracticeMode.multipleChoice => FontAwesomeIcons.listOl,
+        PracticeMode.selfAssessment => FontAwesomeIcons.solidThumbsUp,
       };
 
   String get label => switch (this) {
-        FlashCardMode.multipleChoice => 'Multiple Choice',
-        FlashCardMode.selfAssessment => 'Flashcards',
+        PracticeMode.multipleChoice => 'Multiple Choice',
+        PracticeMode.selfAssessment => 'Flashcards',
       };
 }
 
@@ -22,7 +20,7 @@ class FlashCard extends StatelessWidget {
   final String title;
   final int totalQuestions;
   final int progress;
-  final FlashCardMode mode;
+  final PracticeMode mode;
   final Color? backgroundColor;
 
   const FlashCard({
@@ -96,7 +94,7 @@ class _CardInfoRow extends StatelessWidget {
 class _CardInfo extends StatelessWidget {
   final String title;
   final int totalQuestions;
-  final FlashCardMode mode;
+  final PracticeMode mode;
 
   const _CardInfo({
     required this.title,

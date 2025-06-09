@@ -1,11 +1,11 @@
-import 'package:flashxp/shared/presentation/widgets/flash_card.dart';
+import 'package:flashxp/shared/logic/practice_mode.enum.dart';
 
 class DeckDto {
   final int id;
   final String title;
   final int totalQuestions;
   final int progress;
-  final FlashCardMode mode;
+  final PracticeMode mode;
 
   DeckDto({
     required this.id,

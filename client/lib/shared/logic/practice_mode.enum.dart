@@ -1,0 +1,1 @@
+enum PracticeMode { multipleChoice, selfAssessment }
