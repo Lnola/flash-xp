@@ -145,6 +145,7 @@ class _PreviewActions extends StatelessWidget {
           label: 'Edit deck',
           onPressed: () => context.push('/create/edit'),
           isBlock: true,
+          isSecondary: true,
         ),
       ],
     );
