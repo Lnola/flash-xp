@@ -6,13 +6,16 @@ class CreateController extends ChangeNotifier {
   final List<TextEditingController> dynamicControllers;
   final List<(TextEditingController, TextEditingController)>
       selfAssessmentPairs;
+  final List<(TextEditingController, List<TextEditingController>)>
+      multipleChoiceQuestions;
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
   CreateController()
       : titleController = TextEditingController(),
         dynamicControllers = [],
-        selfAssessmentPairs = [];
+        selfAssessmentPairs = [],
+        multipleChoiceQuestions = [];
 
   void submit() {
     print('Title: ${titleController.text}');
@@ -21,6 +24,16 @@ class CreateController extends ChangeNotifier {
       for (int i = 0; i < selfAssessmentPairs.length; i++) {
         print('Q$i: ${selfAssessmentPairs[i].$1.text}');
         print('A$i: ${selfAssessmentPairs[i].$2.text}');
+      }
+    } else if (mode == PracticeMode.multipleChoice) {
+      for (int i = 0; i < multipleChoiceQuestions.length; i++) {
+        final question = multipleChoiceQuestions[i];
+        print('Question $i: ${question.$1.text}');
+        for (int j = 0; j < question.$2.length; j++) {
+          print(
+            'Option ${String.fromCharCode(65 + j)}: ${question.$2[j].text}',
+          );
+        }
       }
     } else {
       for (int i = 0; i < dynamicControllers.length; i++) {
@@ -37,9 +50,26 @@ class CreateController extends ChangeNotifier {
           TextEditingController(),
         ),
       );
+    } else if (mode == PracticeMode.multipleChoice) {
+      multipleChoiceQuestions.add(
+        (
+          TextEditingController(),
+          List.generate(4, (_) => TextEditingController()),
+        ),
+      );
     } else {
       dynamicControllers.add(TextEditingController());
     }
+    notifyListeners();
+  }
+
+  void addMultipleChoiceQuestion() {
+    multipleChoiceQuestions.add(
+      (
+        TextEditingController(),
+        List.generate(4, (_) => TextEditingController()),
+      ),
+    );
     notifyListeners();
   }
 
@@ -58,6 +88,17 @@ class CreateController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeMultipleChoiceQuestion(
+    (TextEditingController, List<TextEditingController>) question,
+  ) {
+    question.$1.dispose();
+    for (final option in question.$2) {
+      option.dispose();
+    }
+    multipleChoiceQuestions.remove(question);
+    notifyListeners();
+  }
+
   void updateMode(PracticeMode newMode) {
     mode = newMode;
     notifyListeners();
@@ -72,6 +113,12 @@ class CreateController extends ChangeNotifier {
     for (final pair in selfAssessmentPairs) {
       pair.$1.dispose();
       pair.$2.dispose();
+    }
+    for (final question in multipleChoiceQuestions) {
+      question.$1.dispose();
+      for (final option in question.$2) {
+        option.dispose();
+      }
     }
     super.dispose();
   }

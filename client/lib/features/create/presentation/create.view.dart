@@ -95,6 +95,38 @@ class CreateViewState extends State<CreateView> {
                 ),
               ),
             )
+          else if (controller.mode == PracticeMode.multipleChoice)
+            ...controller.multipleChoiceQuestions.map(
+              (question) => Padding(
+                padding: const EdgeInsets.only(bottom: 24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          CreateInput(
+                              label: 'Question', controller: question.$1),
+                          const SizedBox(height: 8),
+                          for (var i = 0; i < 4; i++) ...[
+                            CreateInput(
+                                label: 'Option ${String.fromCharCode(65 + i)}',
+                                controller: question.$2[i]),
+                            const SizedBox(height: 8),
+                          ],
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        controller.removeMultipleChoiceQuestion(question);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            )
           else
             ...controller.dynamicControllers.map(
               (ctrl) => Padding(
@@ -154,7 +186,13 @@ class CreateViewState extends State<CreateView> {
           ),
           const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: controller.addDynamicInput,
+            onPressed: () {
+              if (controller.mode == PracticeMode.multipleChoice) {
+                controller.addMultipleChoiceQuestion();
+              } else {
+                controller.addDynamicInput();
+              }
+            },
             child: const Text('Add input'),
           ),
           const SizedBox(height: 24),
