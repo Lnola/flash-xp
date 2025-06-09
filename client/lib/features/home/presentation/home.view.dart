@@ -1,3 +1,4 @@
+import 'package:flashxp/features/home/data/deck.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_swiper.dart';
@@ -18,7 +19,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    controller = HomeController();
+    controller = HomeController(DeckRepository());
     controller.addListener(_onControllerUpdated);
   }
 
