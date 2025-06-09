@@ -13,11 +13,13 @@ class DeckDto {
   final String title;
   final String description;
   final List<Question> questions;
+  final bool isBookmarked;
 
   DeckDto({
     required this.id,
     required this.title,
     required this.description,
     required this.questions,
+    required this.isBookmarked,
   });
 }
