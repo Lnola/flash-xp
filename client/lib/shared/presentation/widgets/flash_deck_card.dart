@@ -41,7 +41,7 @@ class FlashDeckCard extends StatelessWidget {
     return SizedBox(
       width: width,
       child: GestureDetector(
-        onTap: () => context.go('/home/preview'),
+        onTap: () => context.push('/home/preview'),
         child: Container(
           height: 216,
           padding: const EdgeInsets.all(20),
@@ -144,7 +144,7 @@ class _CardActions extends StatelessWidget {
       children: [
         FlashButton(
           label: 'Start now',
-          onPressed: () => context.go('/home/practice'),
+          onPressed: () => context.push('/home/practice'),
         ),
         Text('$progress%', style: theme.textTheme.bodySmall),
       ],
