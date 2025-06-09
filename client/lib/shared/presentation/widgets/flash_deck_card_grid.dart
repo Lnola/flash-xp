@@ -1,5 +1,6 @@
 import 'package:flashxp/shared/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_deck_card_skeleton.dart';
 import 'package:flutter/material.dart';
 
 class FlashDeckCardGrid extends StatelessWidget {
@@ -39,22 +40,37 @@ class _GridLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) => Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: decks
-            .map(
-              (deck) => FlashDeckCard(
-                title: deck.title,
-                totalQuestions: deck.totalQuestions,
-                progress: deck.progress,
-                mode: deck.mode,
-                backgroundColor: backgroundColor,
-                width: (constraints.maxWidth / 2) - 6,
-              ),
-            )
-            .toList(),
-      ),
+      builder: (context, constraints) {
+        final cardWidth = (constraints.maxWidth / 2) - 6;
+        final cards = decks.isEmpty
+            ? _buildDeckCardsSkeleton(cardWidth)
+            : _buildDeckCards(cardWidth);
+
+        return Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: cards,
+        );
+      },
     );
+  }
+
+  List<Widget> _buildDeckCardsSkeleton(double cardWidth) {
+    return List.generate(2, (_) => FlashDeckCardSkeleton(width: cardWidth));
+  }
+
+  List<Widget> _buildDeckCards(double cardWidth) {
+    return decks
+        .map(
+          (deck) => FlashDeckCard(
+            title: deck.title,
+            totalQuestions: deck.totalQuestions,
+            progress: deck.progress,
+            mode: deck.mode,
+            backgroundColor: backgroundColor,
+            width: cardWidth,
+          ),
+        )
+        .toList();
   }
 }
