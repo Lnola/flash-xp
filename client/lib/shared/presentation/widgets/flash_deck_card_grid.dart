@@ -7,12 +7,14 @@ class FlashDeckCardGrid extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
   final List<DeckDto> decks;
+  final bool isLoading;
 
   const FlashDeckCardGrid({
     super.key,
     required this.title,
     this.backgroundColor,
     required this.decks,
+    this.isLoading = false,
   });
 
   @override
@@ -22,7 +24,11 @@ class FlashDeckCardGrid extends StatelessWidget {
       children: [
         Text(title, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
-        _GridLayout(decks: decks, backgroundColor: backgroundColor),
+        _GridLayout(
+          decks: decks,
+          backgroundColor: backgroundColor,
+          isLoading: isLoading,
+        ),
       ],
     );
   }
@@ -31,10 +37,12 @@ class FlashDeckCardGrid extends StatelessWidget {
 class _GridLayout extends StatelessWidget {
   final List<DeckDto> decks;
   final Color? backgroundColor;
+  final bool isLoading;
 
   const _GridLayout({
     required this.decks,
     required this.backgroundColor,
+    required this.isLoading,
   });
 
   @override
@@ -42,7 +50,7 @@ class _GridLayout extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cardWidth = (constraints.maxWidth / 2) - 6;
-        final cards = decks.isEmpty
+        final cards = isLoading
             ? _buildDeckCardsSkeleton(cardWidth)
             : _buildDeckCards(cardWidth);
 
