@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CreateInput extends StatelessWidget {
   final String label;
+  final TextEditingController controller;
 
   const CreateInput({
     super.key,
     required this.label,
+    required this.controller,
   });
 
   @override
@@ -29,6 +31,15 @@ class CreateInput extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
+          TextField(
+            controller: controller,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
+            ),
+            style: theme.textTheme.bodyLarge,
+          ),
         ],
       ),
     );
