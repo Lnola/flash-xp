@@ -34,11 +34,29 @@ class CreateViewState extends State<CreateView> {
       clipBehavior: Clip.none,
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
-        spacing: 24,
         children: [
           CreateInput(
             label: 'Full title',
             controller: controller.titleController,
+          ),
+          const SizedBox(height: 24),
+          ...controller.dynamicControllers.map(
+            (ctrl) => Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: CreateInput(
+                label: 'Dynamic Input',
+                controller: ctrl,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: controller.addDynamicInput,
+            child: const Text('Add input'),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: controller.submit,
+            child: const Text('Submit'),
           ),
         ],
       ),
