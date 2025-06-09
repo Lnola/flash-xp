@@ -1,5 +1,6 @@
 import 'package:flashxp/features/practice/presentation/practice.view.dart';
 import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
+import 'package:flashxp/features/preview/presentation/preview.view.dart';
 import 'package:flashxp/pages/home/home.page.dart';
 import 'package:flashxp/shared/presentation/layout/flash_layout.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,13 @@ final homeRoutes = GoRoute(
         appBarColor: Theme.of(context).colorScheme.secondary,
         title: 'Practice finished',
         body: const PracticeFinishedView(),
+      ),
+    ),
+    GoRoute(
+      path: 'preview',
+      builder: (context, __) => const FlashLayout(
+        title: 'Preview Deck',
+        body: PreviewView(),
       ),
     ),
   ],
