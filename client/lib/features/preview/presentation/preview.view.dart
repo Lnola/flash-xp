@@ -1,5 +1,6 @@
 import 'package:flashxp/features/preview/data/deck.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
+import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
 import 'package:flutter/material.dart';
 
 class PreviewView extends StatefulWidget {
@@ -29,10 +30,13 @@ class PreviewViewState extends State<PreviewView> {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
-          Text('Hello'),
+          PreviewInfoWidget(
+            label: 'Description',
+            content: controller.description,
+          ),
         ],
       ),
     );
