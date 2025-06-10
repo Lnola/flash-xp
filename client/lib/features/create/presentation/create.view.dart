@@ -4,6 +4,15 @@ import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 extension PracticeModeUIX on PracticeMode {
+  String get label {
+    switch (this) {
+      case PracticeMode.selfAssessment:
+        return 'Self Assessment';
+      case PracticeMode.multipleChoice:
+        return 'Multiple Choice';
+    }
+  }
+
   Widget buildInputs(CreateController controller) {
     switch (this) {
       case PracticeMode.selfAssessment:
@@ -254,7 +263,7 @@ class ModeSelect extends StatelessWidget {
       items: PracticeMode.values.map((mode) {
         return DropdownMenuItem(
           value: mode,
-          child: Text(mode.name),
+          child: Text(mode.label),
         );
       }).toList(),
     );
