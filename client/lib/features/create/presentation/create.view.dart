@@ -210,36 +210,68 @@ class CreateViewState extends State<CreateView> {
                 ),
               ),
             ),
-          DropdownButton<PracticeMode>(
-            value: controller.mode,
-            onChanged: (mode) {
-              if (mode != null) controller.updateMode(mode);
-            },
-            items: PracticeMode.values.map((mode) {
-              return DropdownMenuItem(
-                value: mode,
-                child: Text(mode.name),
-              );
-            }).toList(),
-          ),
+          ModeSelect(controller: controller),
           const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () {
-              if (controller.mode == PracticeMode.multipleChoice) {
-                controller.addMultipleChoiceQuestion();
-              } else {
-                controller.addDynamicInput();
-              }
-            },
-            child: const Text('Add input'),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: controller.submit,
-            child: const Text('Submit'),
-          ),
+          CreateActions(controller: controller),
         ],
       ),
+    );
+  }
+}
+
+class CreateActions extends StatelessWidget {
+  final CreateController controller;
+
+  const CreateActions({
+    super.key,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            if (controller.mode == PracticeMode.multipleChoice) {
+              controller.addMultipleChoiceQuestion();
+            } else {
+              controller.addDynamicInput();
+            }
+          },
+          child: const Text('Add input'),
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: controller.submit,
+          child: const Text('Submit'),
+        ),
+      ],
+    );
+  }
+}
+
+class ModeSelect extends StatelessWidget {
+  final CreateController controller;
+
+  const ModeSelect({
+    super.key,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<PracticeMode>(
+      value: controller.mode,
+      onChanged: (mode) {
+        if (mode != null) controller.updateMode(mode);
+      },
+      items: PracticeMode.values.map((mode) {
+        return DropdownMenuItem(
+          value: mode,
+          child: Text(mode.name),
+        );
+      }).toList(),
     );
   }
 }
