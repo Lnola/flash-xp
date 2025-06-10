@@ -16,14 +16,13 @@ class FlashInputGroup<T> extends StatelessWidget {
     required this.buildChildren,
   });
 
-  void _handleRemoveTap(BuildContext context, T input) async {
-    final dirty = isDirty(input);
-    if (dirty) {
-      final shouldDelete = await showConfirmDeleteDialog(context);
-      if (shouldDelete) {
-        onRemoveInputGroup(input);
-      }
-    } else {
+  void _handleRemovePressed(BuildContext context, T input) async {
+    if (!isDirty(input)) {
+      onRemoveInputGroup(input);
+      return;
+    }
+    final confirmed = await showConfirmDeleteDialog(context);
+    if (confirmed) {
       onRemoveInputGroup(input);
     }
   }
@@ -42,7 +41,7 @@ class FlashInputGroup<T> extends StatelessWidget {
                 condition: true,
                 child: IconButton(
                   icon: const Icon(Icons.close),
-                  onPressed: () => _handleRemoveTap(context, input),
+                  onPressed: () => _handleRemovePressed(context, input),
                 ),
               ),
             ],
