@@ -1,14 +1,14 @@
+import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 
-// TODO: make this optionally removable
 class FlashInputGroup extends StatelessWidget {
   final List<Widget> children;
-  final VoidCallback onRemove;
+  final VoidCallback? onRemove;
 
   const FlashInputGroup({
     super.key,
     required this.children,
-    required this.onRemove,
+    this.onRemove,
   });
 
   @override
@@ -18,13 +18,13 @@ class FlashInputGroup extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(children: children),
-          ),
-          const SizedBox(width: 8),
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: onRemove,
+          Expanded(child: Column(children: children)),
+          If(
+            condition: onRemove != null,
+            child: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: onRemove,
+            ),
           ),
         ],
       ),
