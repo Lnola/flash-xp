@@ -32,13 +32,36 @@ extension on PracticeMode {
       };
 
   Widget buildInputs(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice => MultipleChoiceInputs(
+        PracticeMode.multipleChoice => FlashModeInputGroup<
+              (TextEditingController, List<TextEditingController>)>(
             inputControllers: controller.multipleChoiceQuestions,
             onRemoveInputGroup: controller.removeMultipleChoiceQuestion,
+            isDirty: (input) =>
+                input.$1.text.isNotEmpty ||
+                input.$2.any((c) => c.text.isNotEmpty),
+            buildChildren: (input) => [
+              CreateInput(label: 'Question', controller: input.$1),
+              const SizedBox(height: 8),
+              for (var i = 0; i < 4; i++) ...[
+                CreateInput(
+                  label: 'Option ${String.fromCharCode(65 + i)}',
+                  controller: input.$2[i],
+                ),
+                const SizedBox(height: 8),
+              ],
+            ],
           ),
-        PracticeMode.selfAssessment => SelfAssessmentInputs(
+        PracticeMode.selfAssessment =>
+          FlashModeInputGroup<(TextEditingController, TextEditingController)>(
             inputControllers: controller.selfAssessmentPairs,
             onRemoveInputGroup: controller.removeSelfAssessmentPair,
+            isDirty: (input) =>
+                input.$1.text.isNotEmpty || input.$2.text.isNotEmpty,
+            buildChildren: (input) => [
+              CreateInput(label: 'Question', controller: input.$1),
+              const SizedBox(height: 8),
+              CreateInput(label: 'Answer', controller: input.$2),
+            ],
           ),
       };
 
