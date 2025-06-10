@@ -3,6 +3,27 @@ import 'package:flashxp/features/create/presentation/widgets/create_input.widget
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
+Future<bool> showConfirmDeleteDialog(BuildContext context) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Remove question'),
+      content: const Text('Are you sure you want to remove this question?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: const Text('Remove'),
+        ),
+      ],
+    ),
+  );
+  return result ?? false;
+}
+
 extension on PracticeMode {
   String get label => switch (this) {
         PracticeMode.multipleChoice => 'Multiple Choice',
@@ -75,6 +96,21 @@ class SelfAssessmentInputs extends StatelessWidget {
 
   const SelfAssessmentInputs({super.key, required this.controller});
 
+  void _handleRemoveTap(
+    bool isDirty,
+    BuildContext context,
+    (TextEditingController, TextEditingController) pair,
+  ) async {
+    if (isDirty) {
+      final shouldDelete = await showConfirmDeleteDialog(context);
+      if (shouldDelete) {
+        controller.removeSelfAssessmentPair(pair);
+      }
+    } else {
+      controller.removeSelfAssessmentPair(pair);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -98,34 +134,7 @@ class SelfAssessmentInputs extends StatelessWidget {
               const SizedBox(width: 8),
               IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () {
-                  if (isDirty) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Remove Pair'),
-                        content: const Text(
-                          'Are you sure you want to remove this question-answer pair?',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              controller.removeSelfAssessmentPair(pair);
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Remove'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    controller.removeSelfAssessmentPair(pair);
-                  }
-                },
+                onPressed: () => _handleRemoveTap(isDirty, context, pair),
               ),
             ],
           ),
@@ -139,6 +148,21 @@ class MultipleChoiceInputs extends StatelessWidget {
   final CreateController controller;
 
   const MultipleChoiceInputs({super.key, required this.controller});
+
+  void _handleRemoveTap(
+    bool isDirty,
+    BuildContext context,
+    (TextEditingController, List<TextEditingController>) question,
+  ) async {
+    if (isDirty) {
+      final shouldDelete = await showConfirmDeleteDialog(context);
+      if (shouldDelete) {
+        controller.removeMultipleChoiceQuestion(question);
+      }
+    } else {
+      controller.removeMultipleChoiceQuestion(question);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,34 +192,7 @@ class MultipleChoiceInputs extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () {
-                  if (isDirty) {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Remove Question'),
-                        content: const Text(
-                          'Some fields are not empty. Are you sure you want to remove this question?',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              controller.removeMultipleChoiceQuestion(question);
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Remove'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    controller.removeMultipleChoiceQuestion(question);
-                  }
-                },
+                onPressed: () => _handleRemoveTap(isDirty, context, question),
               ),
             ],
           ),
