@@ -4,34 +4,22 @@ import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 extension on PracticeMode {
-  String get label {
-    switch (this) {
-      case PracticeMode.selfAssessment:
-        return 'Self Assessment';
-      case PracticeMode.multipleChoice:
-        return 'Multiple Choice';
-    }
-  }
+  String get label => switch (this) {
+        PracticeMode.multipleChoice => 'Multiple Choice',
+        PracticeMode.selfAssessment => 'Self Assessment',
+      };
 
-  Widget buildInputs(CreateController controller) {
-    switch (this) {
-      case PracticeMode.selfAssessment:
-        return SelfAssessmentInputs(controller: controller);
-      case PracticeMode.multipleChoice:
-        return MultipleChoiceInputs(controller: controller);
-    }
-  }
+  Widget buildInputs(CreateController controller) => switch (this) {
+        PracticeMode.multipleChoice =>
+          MultipleChoiceInputs(controller: controller),
+        PracticeMode.selfAssessment =>
+          SelfAssessmentInputs(controller: controller),
+      };
 
-  void handleAddInput(CreateController controller) {
-    switch (this) {
-      case PracticeMode.multipleChoice:
-        controller.addMultipleChoiceQuestion();
-        break;
-      case PracticeMode.selfAssessment:
-        controller.addDynamicInput();
-        break;
-    }
-  }
+  void handleAddInput(CreateController controller) => switch (this) {
+        PracticeMode.multipleChoice => controller.addMultipleChoiceQuestion(),
+        PracticeMode.selfAssessment => controller.addDynamicInput(),
+      };
 }
 
 class CreateView extends StatefulWidget {
