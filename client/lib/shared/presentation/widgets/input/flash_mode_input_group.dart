@@ -1,14 +1,19 @@
-import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/presentation/create.view.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_input.widget.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flutter/material.dart';
 
 class MultipleChoiceInputs extends StatelessWidget {
-  // TODO: remove this controller since it doesnt belong in this context
-  final CreateController controller;
+  final List<(TextEditingController, List<TextEditingController>)>
+      inputControllers;
+  final void Function((TextEditingController, List<TextEditingController>))
+      onRemoveInputGroup;
 
-  const MultipleChoiceInputs({super.key, required this.controller});
+  const MultipleChoiceInputs({
+    super.key,
+    required this.inputControllers,
+    required this.onRemoveInputGroup,
+  });
 
   void _handleRemoveTap(
     bool isDirty,
@@ -18,17 +23,17 @@ class MultipleChoiceInputs extends StatelessWidget {
     if (isDirty) {
       final shouldDelete = await showConfirmDeleteDialog(context);
       if (shouldDelete) {
-        controller.removeMultipleChoiceQuestion(question);
+        onRemoveInputGroup(question);
       }
     } else {
-      controller.removeMultipleChoiceQuestion(question);
+      onRemoveInputGroup(question);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: controller.multipleChoiceQuestions.map((question) {
+      children: inputControllers.map((question) {
         final isDirty = question.$1.text.isNotEmpty ||
             question.$2.any((c) => c.text.isNotEmpty);
         return FlashInputGroup(
@@ -51,10 +56,15 @@ class MultipleChoiceInputs extends StatelessWidget {
 }
 
 class SelfAssessmentInputs extends StatelessWidget {
-  // TODO: remove this controller since it doesnt belong in this context
-  final CreateController controller;
+  final List<(TextEditingController, TextEditingController)> inputControllers;
+  final void Function((TextEditingController, TextEditingController))
+      onRemoveInputGroup;
 
-  const SelfAssessmentInputs({super.key, required this.controller});
+  const SelfAssessmentInputs({
+    super.key,
+    required this.inputControllers,
+    required this.onRemoveInputGroup,
+  });
 
   void _handleRemoveTap(
     bool isDirty,
@@ -64,17 +74,17 @@ class SelfAssessmentInputs extends StatelessWidget {
     if (isDirty) {
       final shouldDelete = await showConfirmDeleteDialog(context);
       if (shouldDelete) {
-        controller.removeSelfAssessmentPair(pair);
+        onRemoveInputGroup(pair);
       }
     } else {
-      controller.removeSelfAssessmentPair(pair);
+      onRemoveInputGroup(pair);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: controller.selfAssessmentPairs.map((pair) {
+      children: inputControllers.map((pair) {
         final isDirty =
             pair.$1.text.trim().isNotEmpty || pair.$2.text.trim().isNotEmpty;
         return FlashInputGroup(

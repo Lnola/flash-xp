@@ -32,10 +32,14 @@ extension on PracticeMode {
       };
 
   Widget buildInputs(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice =>
-          MultipleChoiceInputs(controller: controller),
-        PracticeMode.selfAssessment =>
-          SelfAssessmentInputs(controller: controller),
+        PracticeMode.multipleChoice => MultipleChoiceInputs(
+            inputControllers: controller.multipleChoiceQuestions,
+            onRemoveInputGroup: controller.removeMultipleChoiceQuestion,
+          ),
+        PracticeMode.selfAssessment => SelfAssessmentInputs(
+            inputControllers: controller.selfAssessmentPairs,
+            onRemoveInputGroup: controller.removeSelfAssessmentPair,
+          ),
       };
 
   void handleAddInput(CreateController controller) => switch (this) {
