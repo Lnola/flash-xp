@@ -3,6 +3,28 @@ import 'package:flashxp/features/create/presentation/widgets/create_input.widget
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
+extension PracticeModeUIX on PracticeMode {
+  Widget buildInputs(CreateController controller) {
+    switch (this) {
+      case PracticeMode.selfAssessment:
+        return SelfAssessmentInputs(controller: controller);
+      case PracticeMode.multipleChoice:
+        return MultipleChoiceInputs(controller: controller);
+    }
+  }
+
+  void handleAddInput(CreateController controller) {
+    switch (this) {
+      case PracticeMode.multipleChoice:
+        controller.addMultipleChoiceQuestion();
+        break;
+      case PracticeMode.selfAssessment:
+        controller.addDynamicInput();
+        break;
+    }
+  }
+}
+
 class CreateView extends StatefulWidget {
   const CreateView({super.key});
 
@@ -29,16 +51,6 @@ class CreateViewState extends State<CreateView> {
     super.dispose();
   }
 
-  Widget _buildModeInputs() {
-    if (controller.mode == PracticeMode.selfAssessment) {
-      return SelfAssessmentInputs(controller: controller);
-    } else if (controller.mode == PracticeMode.multipleChoice) {
-      return MultipleChoiceInputs(controller: controller);
-    } else {
-      return DynamicInputs(controller: controller);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -51,7 +63,7 @@ class CreateViewState extends State<CreateView> {
             controller: controller.titleController,
           ),
           const SizedBox(height: 24),
-          _buildModeInputs(),
+          controller.mode.buildInputs(controller),
           ModeSelect(controller: controller),
           const SizedBox(height: 24),
           CreateActions(controller: controller),
@@ -196,59 +208,6 @@ class MultipleChoiceInputs extends StatelessWidget {
   }
 }
 
-class DynamicInputs extends StatelessWidget {
-  final CreateController controller;
-
-  const DynamicInputs({super.key, required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: controller.dynamicControllers.map((ctrl) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: CreateInput(label: 'Dynamic Input', controller: ctrl),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Remove Input'),
-                      content: const Text(
-                        'Are you sure you want to remove this input?',
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            controller.removeDynamicInput(ctrl);
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Remove'),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
-
 class CreateActions extends StatelessWidget {
   final CreateController controller;
 
@@ -263,11 +222,7 @@ class CreateActions extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            if (controller.mode == PracticeMode.multipleChoice) {
-              controller.addMultipleChoiceQuestion();
-            } else {
-              controller.addDynamicInput();
-            }
+            controller.mode.handleAddInput(controller);
           },
           child: const Text('Add input'),
         ),
