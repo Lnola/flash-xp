@@ -33,6 +33,8 @@ class FlashTextInput extends StatelessWidget {
           const SizedBox(height: 4),
           TextField(
             controller: controller,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             decoration: const InputDecoration(
               border: InputBorder.none,
               isDense: true,
