@@ -22,6 +22,7 @@ class FlashTextInput extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 4,
         children: [
           Text(
             label,
@@ -30,7 +31,6 @@ class FlashTextInput extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 4),
           TextField(
             controller: controller,
             keyboardType: TextInputType.multiline,
