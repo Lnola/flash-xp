@@ -1,7 +1,7 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_input.widget.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
-import 'package:flashxp/shared/presentation/widgets/input/flash_mode_input_group.dart';
+import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flutter/material.dart';
 
 Future<bool> showConfirmDeleteDialog(BuildContext context) async {
@@ -32,8 +32,8 @@ extension on PracticeMode {
       };
 
   Widget buildInputs(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice => FlashModeInputGroup<
-              (TextEditingController, List<TextEditingController>)>(
+        PracticeMode.multipleChoice =>
+          FlashInputGroup<(TextEditingController, List<TextEditingController>)>(
             inputControllers: controller.multipleChoiceQuestions,
             onRemoveInputGroup: controller.removeMultipleChoiceQuestion,
             isDirty: (input) =>
@@ -52,7 +52,7 @@ extension on PracticeMode {
             ],
           ),
         PracticeMode.selfAssessment =>
-          FlashModeInputGroup<(TextEditingController, TextEditingController)>(
+          FlashInputGroup<(TextEditingController, TextEditingController)>(
             inputControllers: controller.selfAssessmentPairs,
             onRemoveInputGroup: controller.removeSelfAssessmentPair,
             isDirty: (input) =>
