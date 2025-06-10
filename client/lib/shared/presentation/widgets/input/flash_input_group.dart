@@ -30,22 +30,20 @@ class FlashInputGroup<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 24,
       children: inputControllers.map((input) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: Column(children: buildChildren(input))),
-              If(
-                condition: true,
-                child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () => _handleRemovePressed(context, input),
-                ),
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: Column(children: buildChildren(input))),
+            If(
+              condition: true,
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => _handleRemovePressed(context, input),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       }).toList(),
     );
