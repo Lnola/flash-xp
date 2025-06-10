@@ -5,16 +5,28 @@ Future<bool> showConfirmRemoveDialog(BuildContext context) async {
   final result = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Remove question'),
-      content: const Text('Are you sure you want to remove this question?'),
+      title: Text(
+        'Remove question',
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+      content: Text(
+        'Are you sure you want to remove this question?',
+        style: Theme.of(context).textTheme.labelMedium,
+      ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(
+            'Cancel',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Remove'),
+          child: Text(
+            'Remove',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ),
       ],
     ),
