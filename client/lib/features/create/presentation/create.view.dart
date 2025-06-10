@@ -3,7 +3,7 @@ import 'package:flashxp/features/create/presentation/widgets/create_input.widget
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
-extension PracticeModeUIX on PracticeMode {
+extension on PracticeMode {
   String get label {
     switch (this) {
       case PracticeMode.selfAssessment:
