@@ -91,6 +91,37 @@ class CreateViewState extends State<CreateView> {
   }
 }
 
+class RemovableInputGroup extends StatelessWidget {
+  final List<Widget> children;
+  final VoidCallback onRemove;
+
+  const RemovableInputGroup({
+    super.key,
+    required this.children,
+    required this.onRemove,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(children: children),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: onRemove,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SelfAssessmentInputs extends StatelessWidget {
   final CreateController controller;
 
@@ -117,27 +148,13 @@ class SelfAssessmentInputs extends StatelessWidget {
       children: controller.selfAssessmentPairs.map((pair) {
         final isDirty =
             pair.$1.text.trim().isNotEmpty || pair.$2.text.trim().isNotEmpty;
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    CreateInput(label: 'Question', controller: pair.$1),
-                    const SizedBox(height: 8),
-                    CreateInput(label: 'Answer', controller: pair.$2),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => _handleRemoveTap(isDirty, context, pair),
-              ),
-            ],
-          ),
+        return RemovableInputGroup(
+          onRemove: () => _handleRemoveTap(isDirty, context, pair),
+          children: [
+            CreateInput(label: 'Question', controller: pair.$1),
+            const SizedBox(height: 8),
+            CreateInput(label: 'Answer', controller: pair.$2),
+          ],
         );
       }).toList(),
     );
@@ -170,32 +187,19 @@ class MultipleChoiceInputs extends StatelessWidget {
       children: controller.multipleChoiceQuestions.map((question) {
         final isDirty = question.$1.text.isNotEmpty ||
             question.$2.any((c) => c.text.isNotEmpty);
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    CreateInput(label: 'Question', controller: question.$1),
-                    const SizedBox(height: 8),
-                    for (var i = 0; i < 4; i++) ...[
-                      CreateInput(
-                        label: 'Option ${String.fromCharCode(65 + i)}',
-                        controller: question.$2[i],
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                  ],
-                ),
+        return RemovableInputGroup(
+          onRemove: () => _handleRemoveTap(isDirty, context, question),
+          children: [
+            CreateInput(label: 'Question', controller: question.$1),
+            const SizedBox(height: 8),
+            for (var i = 0; i < 4; i++) ...[
+              CreateInput(
+                label: 'Option ${String.fromCharCode(65 + i)}',
+                controller: question.$2[i],
               ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => _handleRemoveTap(isDirty, context, question),
-              ),
+              const SizedBox(height: 8),
             ],
-          ),
+          ],
         );
       }).toList(),
     );
