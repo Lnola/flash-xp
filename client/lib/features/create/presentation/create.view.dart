@@ -29,6 +29,16 @@ class CreateViewState extends State<CreateView> {
     super.dispose();
   }
 
+  Widget _buildModeInputs() {
+    if (controller.mode == PracticeMode.selfAssessment) {
+      return SelfAssessmentInputs(controller: controller);
+    } else if (controller.mode == PracticeMode.multipleChoice) {
+      return MultipleChoiceInputs(controller: controller);
+    } else {
+      return DynamicInputs(controller: controller);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -41,180 +51,200 @@ class CreateViewState extends State<CreateView> {
             controller: controller.titleController,
           ),
           const SizedBox(height: 24),
-          if (controller.mode == PracticeMode.selfAssessment)
-            ...controller.selfAssessmentPairs.map(
-              (pair) => Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          CreateInput(
-                            label: 'Question',
-                            controller: pair.$1,
-                          ),
-                          const SizedBox(height: 8),
-                          CreateInput(
-                            label: 'Answer',
-                            controller: pair.$2,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        final isDirty = pair.$1.text.trim().isNotEmpty ||
-                            pair.$2.text.trim().isNotEmpty;
-                        if (isDirty) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Remove Pair'),
-                              content: const Text(
-                                'Are you sure you want to remove this question-answer pair?',
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    controller.removeSelfAssessmentPair(pair);
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Remove'),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          controller.removeSelfAssessmentPair(pair);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            )
-          else if (controller.mode == PracticeMode.multipleChoice)
-            ...controller.multipleChoiceQuestions.map(
-              (question) => Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          CreateInput(
-                            label: 'Question',
-                            controller: question.$1,
-                          ),
-                          const SizedBox(height: 8),
-                          for (var i = 0; i < 4; i++) ...[
-                            CreateInput(
-                              label: 'Option ${String.fromCharCode(65 + i)}',
-                              controller: question.$2[i],
-                            ),
-                            const SizedBox(height: 8),
-                          ],
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        final isDirty = question.$1.text.isNotEmpty ||
-                            question.$2.any((c) => c.text.isNotEmpty);
-
-                        if (isDirty) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Remove Question'),
-                              content: const Text(
-                                'Some fields are not empty. Are you sure you want to remove this question?',
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    controller
-                                        .removeMultipleChoiceQuestion(question);
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Remove'),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          controller.removeMultipleChoiceQuestion(question);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            )
-          else
-            ...controller.dynamicControllers.map(
-              (ctrl) => Padding(
-                padding: const EdgeInsets.only(bottom: 24),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: CreateInput(
-                        label: 'Dynamic Input',
-                        controller: ctrl,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Remove Input'),
-                            content: const Text(
-                              'Are you sure you want to remove this input?',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  controller.removeDynamicInput(ctrl);
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Remove'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          _buildModeInputs(),
           ModeSelect(controller: controller),
           const SizedBox(height: 24),
           CreateActions(controller: controller),
         ],
       ),
+    );
+  }
+}
+
+class SelfAssessmentInputs extends StatelessWidget {
+  final CreateController controller;
+
+  const SelfAssessmentInputs({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: controller.selfAssessmentPairs.map((pair) {
+        final isDirty =
+            pair.$1.text.trim().isNotEmpty || pair.$2.text.trim().isNotEmpty;
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    CreateInput(label: 'Question', controller: pair.$1),
+                    const SizedBox(height: 8),
+                    CreateInput(label: 'Answer', controller: pair.$2),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  if (isDirty) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Remove Pair'),
+                        content: const Text(
+                          'Are you sure you want to remove this question-answer pair?',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              controller.removeSelfAssessmentPair(pair);
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Remove'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    controller.removeSelfAssessmentPair(pair);
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class MultipleChoiceInputs extends StatelessWidget {
+  final CreateController controller;
+
+  const MultipleChoiceInputs({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: controller.multipleChoiceQuestions.map((question) {
+        final isDirty = question.$1.text.isNotEmpty ||
+            question.$2.any((c) => c.text.isNotEmpty);
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    CreateInput(label: 'Question', controller: question.$1),
+                    const SizedBox(height: 8),
+                    for (var i = 0; i < 4; i++) ...[
+                      CreateInput(
+                        label: 'Option ${String.fromCharCode(65 + i)}',
+                        controller: question.$2[i],
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  if (isDirty) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Remove Question'),
+                        content: const Text(
+                          'Some fields are not empty. Are you sure you want to remove this question?',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              controller.removeMultipleChoiceQuestion(question);
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Remove'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    controller.removeMultipleChoiceQuestion(question);
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
+class DynamicInputs extends StatelessWidget {
+  final CreateController controller;
+
+  const DynamicInputs({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: controller.dynamicControllers.map((ctrl) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: CreateInput(label: 'Dynamic Input', controller: ctrl),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Remove Input'),
+                      content: const Text(
+                        'Are you sure you want to remove this input?',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            controller.removeDynamicInput(ctrl);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Remove'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }
