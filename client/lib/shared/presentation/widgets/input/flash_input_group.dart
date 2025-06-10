@@ -21,8 +21,8 @@ class FlashInputGroup<T> extends StatelessWidget {
       onRemoveInputGroup(input);
       return;
     }
-    final confirmed = await showConfirmDeleteDialog(context);
-    if (confirmed) {
+    final isConfirmed = await showConfirmDeleteDialog(context);
+    if (isConfirmed) {
       onRemoveInputGroup(input);
     }
   }
