@@ -1,7 +1,7 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
-import 'package:flashxp/features/create/presentation/widgets/create_input.widget.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
+import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
 extension on PracticeMode {
@@ -19,10 +19,10 @@ extension on PracticeMode {
                 input.$1.text.isNotEmpty ||
                 input.$2.any((c) => c.text.isNotEmpty),
             buildChildren: (input) => [
-              CreateInput(label: 'Question', controller: input.$1),
+              FlashTextInput(label: 'Question', controller: input.$1),
               const SizedBox(height: 8),
               for (var i = 0; i < 4; i++) ...[
-                CreateInput(
+                FlashTextInput(
                   label: 'Option ${String.fromCharCode(65 + i)}',
                   controller: input.$2[i],
                 ),
@@ -37,9 +37,9 @@ extension on PracticeMode {
             isDirty: (input) =>
                 input.$1.text.isNotEmpty || input.$2.text.isNotEmpty,
             buildChildren: (input) => [
-              CreateInput(label: 'Question', controller: input.$1),
+              FlashTextInput(label: 'Question', controller: input.$1),
               const SizedBox(height: 8),
-              CreateInput(label: 'Answer', controller: input.$2),
+              FlashTextInput(label: 'Answer', controller: input.$2),
             ],
           ),
       };
@@ -83,7 +83,7 @@ class CreateViewState extends State<CreateView> {
       padding: const EdgeInsets.only(top: 8, bottom: 18),
       child: Column(
         children: [
-          CreateInput(
+          FlashTextInput(
             label: 'Full title',
             controller: controller.titleController,
           ),

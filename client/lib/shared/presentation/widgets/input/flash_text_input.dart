@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CreateInput extends StatelessWidget {
+class FlashTextInput extends StatelessWidget {
   final String label;
   final TextEditingController controller;
 
-  const CreateInput({
+  const FlashTextInput({
     super.key,
     required this.label,
     required this.controller,
