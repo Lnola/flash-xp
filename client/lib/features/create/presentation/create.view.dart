@@ -4,27 +4,6 @@ import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flutter/material.dart';
 
-Future<bool> showConfirmDeleteDialog(BuildContext context) async {
-  final result = await showDialog<bool>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text('Remove question'),
-      content: const Text('Are you sure you want to remove this question?'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Remove'),
-        ),
-      ],
-    ),
-  );
-  return result ?? false;
-}
-
 extension on PracticeMode {
   String get label => switch (this) {
         PracticeMode.multipleChoice => 'Multiple Choice',

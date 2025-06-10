@@ -1,6 +1,26 @@
-import 'package:flashxp/features/create/presentation/create.view.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
+
+Future<bool> showConfirmRemoveDialog(BuildContext context) async {
+  final result = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Remove question'),
+      content: const Text('Are you sure you want to remove this question?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: const Text('Remove'),
+        ),
+      ],
+    ),
+  );
+  return result ?? false;
+}
 
 class FlashInputGroup<T> extends StatelessWidget {
   final List<T> inputControllers;
@@ -21,7 +41,7 @@ class FlashInputGroup<T> extends StatelessWidget {
       onRemoveInputGroup(input);
       return;
     }
-    final isConfirmed = await showConfirmDeleteDialog(context);
+    final isConfirmed = await showConfirmRemoveDialog(context);
     if (isConfirmed) {
       onRemoveInputGroup(input);
     }
