@@ -1,10 +1,11 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 extension on PracticeMode {
   String get label => switch (this) {
@@ -125,18 +126,19 @@ class CreateActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 12,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        FlashButton(
+        FlashIconButton(
           onPressed: () => controller.mode.handleAddInput(controller),
-          label: 'Add input',
-          isBlock: true,
+          label: 'Add Input',
+          icon: FontAwesomeIcons.plus,
         ),
-        FlashButton(
+        const SizedBox(width: 12),
+        FlashIconButton(
           onPressed: controller.submit,
           label: 'Submit',
-          isBlock: true,
+          icon: FontAwesomeIcons.check,
         ),
       ],
     );
