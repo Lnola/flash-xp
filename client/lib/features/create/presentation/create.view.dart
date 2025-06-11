@@ -11,6 +11,7 @@ extension on PracticeMode {
         PracticeMode.selfAssessment => 'Self Assessment',
       };
 
+  // TODO: upgrade this
   Widget buildInputs(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice =>
           FlashInputGroup<(TextEditingController, List<TextEditingController>)>(
