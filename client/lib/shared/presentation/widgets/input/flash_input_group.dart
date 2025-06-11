@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Future<bool> showConfirmRemoveDialog(BuildContext context) async {
   final result = await showDialog<bool>(
@@ -105,7 +106,7 @@ class _InputGroupHeader extends StatelessWidget {
           style: Theme.of(context).textTheme.titleSmall,
         ),
         IconButton(
-          icon: const Icon(Icons.close),
+          icon: const FaIcon(FontAwesomeIcons.trash, size: 18),
           onPressed: handleRemovePressed,
         ),
       ],
