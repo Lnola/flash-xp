@@ -70,14 +70,14 @@ class FlashInputGroup<T> extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 8,
           children: [
-            Text(
-              'Question #$index',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(child: Column(children: buildInputs(input))),
+                Text(
+                  'Question #$index',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
                 If(
                   condition: true,
                   child: IconButton(
@@ -87,6 +87,7 @@ class FlashInputGroup<T> extends StatelessWidget {
                 ),
               ],
             ),
+            Column(children: buildInputs(input)),
           ],
         );
       }).toList(),
