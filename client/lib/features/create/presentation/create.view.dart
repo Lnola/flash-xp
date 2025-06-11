@@ -1,5 +1,6 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,14 @@ class CreateViewState extends State<CreateView> {
           ),
           const SizedBox(height: 24),
           controller.mode.buildInputs(controller),
-          ModeSelect(controller: controller),
+          FlashDropdown<PracticeMode>(
+            value: controller.mode,
+            values: PracticeMode.values,
+            labelBuilder: (mode) => mode.label,
+            onChanged: (mode) {
+              if (mode != null) controller.updateMode(mode);
+            },
+          ),
           const SizedBox(height: 24),
           CreateActions(controller: controller),
         ],
@@ -122,31 +130,6 @@ class CreateActions extends StatelessWidget {
           child: const Text('Submit'),
         ),
       ],
-    );
-  }
-}
-
-class ModeSelect extends StatelessWidget {
-  final CreateController controller;
-
-  const ModeSelect({
-    super.key,
-    required this.controller,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<PracticeMode>(
-      value: controller.mode,
-      onChanged: (mode) {
-        if (mode != null) controller.updateMode(mode);
-      },
-      items: PracticeMode.values.map((mode) {
-        return DropdownMenuItem(
-          value: mode,
-          child: Text(mode.label),
-        );
-      }).toList(),
     );
   }
 }
