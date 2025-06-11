@@ -1,4 +1,3 @@
-import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 
 Future<bool> showConfirmRemoveDialog(BuildContext context) async {
@@ -70,27 +69,46 @@ class FlashInputGroup<T> extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 8,
           children: [
+            _InputGroupHeader(
+              index: index,
+              handleRemovePressed: () => _handleRemovePressed(context, input),
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Question #$index',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                If(
-                  condition: true,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => _handleRemovePressed(context, input),
-                  ),
-                ),
+                Expanded(child: Column(children: buildInputs(input))),
               ],
             ),
-            Column(children: buildInputs(input)),
           ],
         );
       }).toList(),
+    );
+  }
+}
+
+class _InputGroupHeader extends StatelessWidget {
+  final int index;
+  final VoidCallback handleRemovePressed;
+
+  const _InputGroupHeader({
+    required this.index,
+    required this.handleRemovePressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Question #$index',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: handleRemovePressed,
+        ),
+      ],
     );
   }
 }
