@@ -1,5 +1,6 @@
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
@@ -80,32 +81,40 @@ class CreateViewState extends State<CreateView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      clipBehavior: Clip.none,
-      padding: const EdgeInsets.only(top: 8, bottom: 18),
-      child: Column(
-        children: [
-          FlashTextInput(
-            label: 'Full title',
-            controller: controller.titleController,
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          clipBehavior: Clip.none,
+          padding: const EdgeInsets.only(top: 8, bottom: 120),
+          child: Column(
+            children: [
+              FlashTextInput(
+                label: 'Full title',
+                controller: controller.titleController,
+              ),
+              const SizedBox(height: 24),
+              controller.mode.buildInputs(controller),
+              FlashDropdown<PracticeMode>(
+                value: controller.mode,
+                values: PracticeMode.values,
+                labelBuilder: (mode) => mode.label,
+                onChanged: (mode) => controller.updateMode(mode!),
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
-          const SizedBox(height: 24),
-          controller.mode.buildInputs(controller),
-          FlashDropdown<PracticeMode>(
-            value: controller.mode,
-            values: PracticeMode.values,
-            labelBuilder: (mode) => mode.label,
-            onChanged: (mode) => controller.updateMode(mode!),
-          ),
-          const SizedBox(height: 24),
-          CreateActions(controller: controller),
-        ],
-      ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CreateActions(controller: controller),
+        ),
+      ],
     );
   }
 }
 
-// TODO: style this and make it floating
 class CreateActions extends StatelessWidget {
   final CreateController controller;
 
@@ -117,17 +126,17 @@ class CreateActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 12,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            controller.mode.handleAddInput(controller);
-          },
-          child: const Text('Add input'),
+        FlashButton(
+          onPressed: () => controller.mode.handleAddInput(controller),
+          label: 'Add input',
+          isBlock: true,
         ),
-        const SizedBox(height: 16),
-        ElevatedButton(
+        FlashButton(
           onPressed: controller.submit,
-          child: const Text('Submit'),
+          label: 'Submit',
+          isBlock: true,
         ),
       ],
     );
