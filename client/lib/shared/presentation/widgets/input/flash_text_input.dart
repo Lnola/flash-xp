@@ -17,7 +17,7 @@ class FlashTextInput extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: theme.colorScheme.outline.withAlpha(77),
           width: 1,
