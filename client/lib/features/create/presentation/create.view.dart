@@ -95,9 +95,7 @@ class CreateViewState extends State<CreateView> {
             value: controller.mode,
             values: PracticeMode.values,
             labelBuilder: (mode) => mode.label,
-            onChanged: (mode) {
-              if (mode != null) controller.updateMode(mode);
-            },
+            onChanged: (mode) => controller.updateMode(mode!),
           ),
           const SizedBox(height: 24),
           CreateActions(controller: controller),
@@ -107,6 +105,7 @@ class CreateViewState extends State<CreateView> {
   }
 }
 
+// TODO: style this and make it floating
 class CreateActions extends StatelessWidget {
   final CreateController controller;
 
