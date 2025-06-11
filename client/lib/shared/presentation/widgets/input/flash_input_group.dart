@@ -38,14 +38,14 @@ class FlashInputGroup<T> extends StatelessWidget {
   final List<T> inputControllers;
   final void Function(T) onRemoveInputGroup;
   final bool Function(T input) isDirty;
-  final List<Widget> Function(T input) buildChildren;
+  final List<Widget> Function(T input) buildInputs;
 
   const FlashInputGroup({
     super.key,
     required this.inputControllers,
     required this.onRemoveInputGroup,
     required this.isDirty,
-    required this.buildChildren,
+    required this.buildInputs,
   });
 
   void _handleRemovePressed(BuildContext context, T input) async {
@@ -67,7 +67,7 @@ class FlashInputGroup<T> extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: Column(children: buildChildren(input))),
+            Expanded(child: Column(children: buildInputs(input))),
             If(
               condition: true,
               child: IconButton(

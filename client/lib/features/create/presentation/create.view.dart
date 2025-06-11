@@ -18,7 +18,7 @@ extension on PracticeMode {
             isDirty: (input) =>
                 input.$1.text.isNotEmpty ||
                 input.$2.any((c) => c.text.isNotEmpty),
-            buildChildren: (input) => [
+            buildInputs: (input) => [
               FlashTextInput(label: 'Question', controller: input.$1),
               const SizedBox(height: 8),
               for (var i = 0; i < 4; i++) ...[
@@ -36,7 +36,7 @@ extension on PracticeMode {
             onRemoveInputGroup: controller.removeSelfAssessmentPair,
             isDirty: (input) =>
                 input.$1.text.isNotEmpty || input.$2.text.isNotEmpty,
-            buildChildren: (input) => [
+            buildInputs: (input) => [
               FlashTextInput(label: 'Question', controller: input.$1),
               const SizedBox(height: 8),
               FlashTextInput(label: 'Answer', controller: input.$2),
