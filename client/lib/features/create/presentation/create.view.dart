@@ -109,18 +109,18 @@ class CreateViewState extends State<CreateView> {
           bottom: 0,
           left: 0,
           right: 0,
-          child: CreateActions(controller: controller),
+          child: _CreateActions(controller: controller),
         ),
       ],
     );
   }
 }
 
-class CreateActions extends StatelessWidget {
+// TODO: dont pass the controller
+class _CreateActions extends StatelessWidget {
   final CreateController controller;
 
-  const CreateActions({
-    super.key,
+  const _CreateActions({
     required this.controller,
   });
 
