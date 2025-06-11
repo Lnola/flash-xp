@@ -63,17 +63,29 @@ class FlashInputGroup<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       spacing: 24,
-      children: inputControllers.map((input) {
-        return Row(
+      children: inputControllers.asMap().entries.map((entry) {
+        final index = entry.key + 1;
+        final input = entry.value;
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
           children: [
-            Expanded(child: Column(children: buildInputs(input))),
-            If(
-              condition: true,
-              child: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => _handleRemovePressed(context, input),
-              ),
+            Text(
+              'Question #$index',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: Column(children: buildInputs(input))),
+                If(
+                  condition: true,
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => _handleRemovePressed(context, input),
+                  ),
+                ),
+              ],
             ),
           ],
         );
