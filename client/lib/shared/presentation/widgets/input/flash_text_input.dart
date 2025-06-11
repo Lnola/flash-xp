@@ -66,6 +66,7 @@ class _FlashTextInputState extends State<FlashTextInput> {
               widget.label,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurface.withAlpha(77),
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -79,7 +80,7 @@ class _FlashTextInputState extends State<FlashTextInput> {
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
               ),
-              style: theme.textTheme.bodyLarge,
+              style: theme.textTheme.bodySmall,
             ),
           ],
         ),
