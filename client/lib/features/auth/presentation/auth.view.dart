@@ -1,4 +1,6 @@
 import 'package:flashxp/shared/logic/service/auth.service.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
+import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -35,21 +37,22 @@ class _AuthViewState extends State<AuthView> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          spacing: 16,
           children: [
-            TextField(
+            FlashTextInput(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              label: 'Email',
             ),
-            TextField(
+            FlashTextInput(
               controller: passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
+              label: 'Password',
             ),
             if (error != null)
               Text(error!, style: const TextStyle(color: Colors.red)),
-            ElevatedButton(
+            FlashButton(
               onPressed: _authenticate,
-              child: const Text('Login'),
+              label: 'Sign In',
+              isBlock: true,
             ),
           ],
         ),
