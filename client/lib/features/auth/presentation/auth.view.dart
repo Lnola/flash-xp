@@ -1,8 +1,8 @@
+import 'package:flashxp/features/auth/logic/auth.controller.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AuthView extends StatefulWidget {
@@ -13,37 +13,29 @@ class AuthView extends StatefulWidget {
 }
 
 class _AuthViewState extends State<AuthView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  String? error;
-  bool isLoading = false;
+  late final AuthController controller;
 
-  void _authenticate() async {
-    try {
-      setState(() {
-        error = null;
-        isLoading = true;
-      });
-      final authService = context.read<AuthService>();
-      await authService.authenticate(
-        emailController.text,
-        passwordController.text,
-      );
-      // TODO: Handle correct navigation
-      context.go('/home');
-    } catch (e) {
-      print(e);
-      setState(() => error = 'Unable to authenticate. Please try again.');
-    } finally {
-      setState(() => isLoading = false);
-    }
+  void _onControllerUpdated() => setState(() {});
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AuthController(context.read<AuthService>());
+    controller.addListener(_onControllerUpdated);
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_onControllerUpdated);
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final errorLabel = error != null
+    final errorLabel = controller.error != null
         ? Text(
-            error!,
+            controller.error!,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall
@@ -58,20 +50,20 @@ class _AuthViewState extends State<AuthView> {
           spacing: 16,
           children: [
             FlashTextInput(
-              controller: emailController,
+              controller: controller.emailController,
               label: 'Email',
             ),
             FlashTextInput(
-              controller: passwordController,
+              controller: controller.passwordController,
               label: 'Password',
               isPassword: true,
             ),
             errorLabel,
             FlashButton(
-              onPressed: _authenticate,
+              onPressed: () => controller.authenticate(context),
               label: 'Sign In',
               isBlock: true,
-              isLoading: isLoading,
+              isLoading: controller.isLoading,
             ),
           ],
         ),
