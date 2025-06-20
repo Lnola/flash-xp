@@ -26,7 +26,7 @@ class FlashButton extends StatelessWidget {
         : Theme.of(context).colorScheme.onPrimaryContainer;
 
     final button = ElevatedButton(
-      onPressed: onPressed,
+      onPressed: () => isLoading ? () => {} : onPressed(),
       style: ElevatedButton.styleFrom(
         elevation: 0,
         backgroundColor: backgroundColor,
