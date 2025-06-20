@@ -1,5 +1,6 @@
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,18 +17,26 @@ class _AuthViewState extends State<AuthView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String? error;
+  bool isLoading = false;
 
   void _authenticate() async {
     try {
+      setState(() {
+        error = null;
+        isLoading = true;
+      });
       final authService = context.read<AuthService>();
       await authService.authenticate(
         emailController.text,
         passwordController.text,
       );
+      // TODO: Handle correct navigation
       context.go('/home');
     } catch (e) {
       print(e);
       setState(() => error = 'Unable to authenticate. Please try again.');
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 
@@ -59,6 +68,7 @@ class _AuthViewState extends State<AuthView> {
               isPassword: true,
             ),
             errorLabel,
+            if (isLoading) const FlashLoading(),
             FlashButton(
               onPressed: _authenticate,
               label: 'Sign In',
