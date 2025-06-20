@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RouteGuards {
-  static Page authGuardedPage({
+  static Page authGuard({
     required BuildContext context,
-    required Widget child,
+    required Page child,
   }) {
     final auth = Provider.of<AuthService>(context, listen: false);
     if (!auth.isSignedIn) {
@@ -15,6 +15,6 @@ class RouteGuards {
       });
     }
 
-    return NoTransitionPage(child: child);
+    return child;
   }
 }
