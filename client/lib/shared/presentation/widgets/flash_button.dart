@@ -5,6 +5,7 @@ class FlashButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isBlock;
   final bool isSecondary;
+  final bool isLoading;
 
   const FlashButton({
     super.key,
@@ -12,6 +13,7 @@ class FlashButton extends StatelessWidget {
     required this.onPressed,
     this.isBlock = false,
     this.isSecondary = false,
+    this.isLoading = false,
   });
 
   @override
@@ -42,7 +44,16 @@ class FlashButton extends StatelessWidget {
         ),
         textStyle: Theme.of(context).textTheme.titleSmall,
       ),
-      child: Text(label),
+      child: isLoading
+          ? SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+            )
+          : Text(label),
     );
 
     return isBlock
