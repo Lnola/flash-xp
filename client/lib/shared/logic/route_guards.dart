@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RouteGuards {
-  static Page authGuard({
-    required BuildContext context,
+  static Page authGuard(
+    BuildContext context, {
     required Page child,
   }) {
     final auth = Provider.of<AuthService>(context, listen: false);
