@@ -1,3 +1,4 @@
+import 'package:flashxp/pages/auth/auth.routes.dart';
 import 'package:flashxp/pages/create/create.routes.dart';
 import 'package:flashxp/pages/explore/explore.routes.dart';
 import 'package:flashxp/pages/home/home.routes.dart';
@@ -9,6 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
+  static final List<GoRoute> _asideRoutes = [
+    authRoutes,
+  ];
+
   static final List<GoRoute> _routes = [
     homeRoutes,
     exploreRoutes,
@@ -37,6 +42,7 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/home',
     routes: [
+      ..._asideRoutes,
       ShellRoute(
         builder: _builder,
         routes: _routes,
