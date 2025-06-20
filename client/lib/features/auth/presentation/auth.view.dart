@@ -1,6 +1,5 @@
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -68,11 +67,11 @@ class _AuthViewState extends State<AuthView> {
               isPassword: true,
             ),
             errorLabel,
-            if (isLoading) const FlashLoading(),
             FlashButton(
               onPressed: _authenticate,
               label: 'Sign In',
               isBlock: true,
+              isLoading: isLoading,
             ),
           ],
         ),
