@@ -56,6 +56,7 @@ class _AuthViewState extends State<AuthView> {
             FlashTextInput(
               controller: passwordController,
               label: 'Password',
+              isPassword: true,
             ),
             errorLabel,
             FlashButton(
