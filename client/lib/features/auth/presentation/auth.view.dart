@@ -33,6 +33,16 @@ class _AuthViewState extends State<AuthView> {
 
   @override
   Widget build(BuildContext context) {
+    final errorLabel = error != null
+        ? Text(
+            error!,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: Colors.red),
+          )
+        : const SizedBox(height: 15);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -47,8 +57,7 @@ class _AuthViewState extends State<AuthView> {
               controller: passwordController,
               label: 'Password',
             ),
-            if (error != null)
-              Text(error!, style: const TextStyle(color: Colors.red)),
+            errorLabel,
             FlashButton(
               onPressed: _authenticate,
               label: 'Sign In',
