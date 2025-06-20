@@ -15,7 +15,7 @@ class _AuthViewState extends State<AuthView> {
   final passwordController = TextEditingController();
   String? error;
 
-  void _login() async {
+  void _authenticate() async {
     try {
       final authService = context.read<AuthService>();
       await authService.authenticate(
@@ -47,7 +47,10 @@ class _AuthViewState extends State<AuthView> {
             ),
             if (error != null)
               Text(error!, style: const TextStyle(color: Colors.red)),
-            ElevatedButton(onPressed: _login, child: const Text('Login')),
+            ElevatedButton(
+              onPressed: _authenticate,
+              child: const Text('Login'),
+            ),
           ],
         ),
       ),
