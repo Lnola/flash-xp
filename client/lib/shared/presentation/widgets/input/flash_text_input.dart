@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class FlashTextInput extends StatefulWidget {
   final String label;
   final TextEditingController controller;
+  final bool isPassword;
 
   const FlashTextInput({
     super.key,
     required this.label,
     required this.controller,
+    this.isPassword = false,
   });
 
   @override
@@ -43,6 +45,9 @@ class _FlashTextInputState extends State<FlashTextInput> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final passwordConfig = widget.isPassword
+        ? (keyboardType: TextInputType.text, maxLines: 1)
+        : (keyboardType: TextInputType.multiline, maxLines: null);
 
     return GestureDetector(
       onTap: () => _focusNode.requestFocus(),
@@ -73,13 +78,16 @@ class _FlashTextInputState extends State<FlashTextInput> {
             TextField(
               controller: widget.controller,
               focusNode: _focusNode,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
+              keyboardType: passwordConfig.keyboardType,
+              maxLines: passwordConfig.maxLines,
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
               ),
+              obscureText: widget.isPassword,
+              enableSuggestions: !widget.isPassword,
+              autocorrect: !widget.isPassword,
               style: theme.textTheme.bodySmall,
             ),
           ],
