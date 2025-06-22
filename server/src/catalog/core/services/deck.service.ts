@@ -1,7 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Injectable } from '@nestjs/common';
-import { Deck } from '../entities/deck.entity';
 import { EntityRepository } from '@mikro-orm/postgresql';
+import { Injectable } from '@nestjs/common';
+import { Deck } from 'catalog/core/entities/deck.entity';
 
 @Injectable()
 export class DeckService {
