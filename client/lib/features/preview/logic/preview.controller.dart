@@ -17,6 +17,7 @@ class PreviewController extends ChangeNotifier {
 
   Future<void> _initDeck() async {
     isLoading = true;
+    notifyListeners();
 
     final deck = await _deckRepository.fetch();
     title = deck.title;

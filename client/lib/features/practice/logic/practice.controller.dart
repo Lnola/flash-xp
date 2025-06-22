@@ -39,6 +39,7 @@ class PracticeController extends ChangeNotifier {
 
   Future<void> _initQuestions() async {
     isLoading = true;
+    notifyListeners();
 
     _questions = await _questionRepository.fetch();
     if (_questions.isEmpty) return;
@@ -48,6 +49,7 @@ class PracticeController extends ChangeNotifier {
 
     _loadCurrentQuestion();
     isLoading = false;
+    notifyListeners();
   }
 
   void nextQuestion() {
