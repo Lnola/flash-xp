@@ -15,6 +15,7 @@ const databaseConfig = registerAs<DatabaseConfig>('database', () => ({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
 }));
+export default databaseConfig;
 
 export const DbConfigModule = ConfigModule.forRoot({
   load: [databaseConfig],
