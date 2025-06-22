@@ -4,13 +4,7 @@ import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from 'config/database.config';
 
-const mikroOrmConfig = {
-  driver: PostgreSqlDriver,
-  discovery: { checkDuplicateTableNames: false },
-  debug: true,
-  autoLoadEntities: true,
-};
-export default mikroOrmConfig;
+export const mikroOrmDriver = PostgreSqlDriver;
 
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
   imports: [ConfigModule],

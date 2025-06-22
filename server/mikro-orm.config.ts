@@ -1,13 +1,13 @@
 import * as dotenv from 'dotenv';
 import databaseConfigFactory from 'config/database.config';
-import mikroOrmConfig from 'config/orm.config';
 import { defineConfig } from '@mikro-orm/core';
+import { mikroOrmDriver } from 'config/orm.config';
 
 dotenv.config();
 
 export default defineConfig({
   ...databaseConfigFactory(),
-  ...mikroOrmConfig,
+  driver: mikroOrmDriver,
   migrations: {
     path: `${process.cwd()}/src/shared/database/migrations`,
     disableForeignKeys: false,
