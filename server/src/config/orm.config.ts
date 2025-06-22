@@ -15,10 +15,12 @@ export default mikroOrmConfig;
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  driver: mikroOrmConfig.driver,
-  useFactory: (config: ConfigService) =>
-    defineConfig({
-      ...config.get<DatabaseConfig>('database'),
-      ...mikroOrmConfig,
-    }),
+  driver: mikroOrmDriver,
+  useFactory: (config: ConfigService) => ({
+    ...config.get<DatabaseConfig>('database'),
+    ...defineConfig({ driver: mikroOrmDriver }),
+    discovery: { checkDuplicateTableNames: false },
+    debug: true,
+    autoLoadEntities: true,
+  }),
 });
