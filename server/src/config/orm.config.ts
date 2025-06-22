@@ -1,7 +1,7 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseConfig } from './database.config';
+import { DatabaseConfig } from 'config/database.config';
 
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
   imports: [ConfigModule],
