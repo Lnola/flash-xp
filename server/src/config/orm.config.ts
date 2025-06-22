@@ -10,7 +10,6 @@ const mikroOrmConfig = {
   migrations: {
     path: `${process.cwd()}/src/shared/database/migrations`,
     disableForeignKeys: false,
-    pattern: /^\d+[\w-]+\.ts$/,
     fileName: (timestamp: string) => `${timestamp}-new-migration`,
   },
   debug: true,
