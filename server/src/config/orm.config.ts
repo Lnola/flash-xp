@@ -21,6 +21,7 @@ export default mikroOrmConfig;
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
+  driver: mikroOrmConfig.driver,
   useFactory: (config: ConfigService) =>
     defineConfig({
       ...config.get<DatabaseConfig>('database'),
