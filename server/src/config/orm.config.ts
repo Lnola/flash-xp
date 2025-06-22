@@ -6,15 +6,11 @@ import { DatabaseConfig } from './database.config';
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  useFactory: async (config: ConfigService) => {
-    const databaseConfig: DatabaseConfig | undefined =
-      await config.get('database');
-    return {
-      ...databaseConfig,
-      driver: PostgreSqlDriver,
-      debug: true,
-      autoLoadEntities: true,
-      discovery: { checkDuplicateTableNames: false },
-    };
-  },
+  useFactory: (config: ConfigService) => ({
+    ...config.get<DatabaseConfig>('database'),
+    driver: PostgreSqlDriver,
+    debug: true,
+    autoLoadEntities: true,
+    discovery: { checkDuplicateTableNames: false },
+  }),
 });
