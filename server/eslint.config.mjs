@@ -4,6 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import eslintPluginImport from 'eslint-plugin-import';
+import 'eslint-import-resolver-typescript';
 
 export default tseslint.config(
   {
@@ -48,6 +49,15 @@ export default tseslint.config(
           },
         },
       ],
+    },
+  },
+  {
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+      },
     },
   },
 );
