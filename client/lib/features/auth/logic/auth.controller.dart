@@ -1,6 +1,5 @@
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AuthController extends ChangeNotifier {
   final AuthService authService;
@@ -12,7 +11,7 @@ class AuthController extends ChangeNotifier {
 
   AuthController(this.authService);
 
-  Future<void> authenticate(BuildContext context) async {
+  Future<bool> authenticate(BuildContext context) async {
     error = null;
     isLoading = true;
     notifyListeners();
@@ -22,11 +21,11 @@ class AuthController extends ChangeNotifier {
         emailController.text,
         passwordController.text,
       );
-      // TODO: handle the warning below
-      context.go('/home');
+      return true;
     } catch (e) {
       print(e);
       error = 'Unable to authenticate. Please try again.';
+      return false;
     } finally {
       isLoading = false;
       notifyListeners();

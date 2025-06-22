@@ -3,6 +3,7 @@ import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AuthView extends StatefulWidget {
@@ -29,6 +30,11 @@ class _AuthViewState extends State<AuthView> {
     controller.removeListener(_onControllerUpdated);
     controller.dispose();
     super.dispose();
+  }
+
+  Future<void> authenticate(BuildContext context) async {
+    final success = await controller.authenticate(context);
+    if (success && context.mounted) context.go('/home');
   }
 
   @override
@@ -60,7 +66,7 @@ class _AuthViewState extends State<AuthView> {
             ),
             errorLabel,
             FlashButton(
-              onPressed: () => controller.authenticate(context),
+              onPressed: () => authenticate(context),
               label: 'Sign In',
               isBlock: true,
               isLoading: controller.isLoading,
