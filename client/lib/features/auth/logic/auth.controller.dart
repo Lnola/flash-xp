@@ -23,7 +23,6 @@ class AuthController extends ChangeNotifier {
       );
       return true;
     } catch (e) {
-      print(e);
       error = 'Unable to authenticate. Please try again.';
       return false;
     } finally {
