@@ -1,9 +1,10 @@
+import { defineConfig } from '@mikro-orm/core';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from 'config/database.config';
 
-const mikroOrmConfig = {
+const mikroOrmConfig = defineConfig({
   driver: PostgreSqlDriver,
   discovery: { checkDuplicateTableNames: false },
   migrations: {
@@ -11,7 +12,7 @@ const mikroOrmConfig = {
     disableForeignKeys: false,
   },
   debug: true,
-};
+});
 export default mikroOrmConfig;
 
 export const OrmConfigModule = MikroOrmModule.forRootAsync({
