@@ -8,5 +8,10 @@ dotenv.config();
 export default defineConfig({
   ...databaseConfigFactory(),
   ...mikroOrmConfig,
+  migrations: {
+    path: `${process.cwd()}/src/shared/database/migrations`,
+    disableForeignKeys: false,
+    fileName: (timestamp: string) => `${timestamp}-new-migration`,
+  },
   entities: [`./**/entities/*.entity.ts`],
 });

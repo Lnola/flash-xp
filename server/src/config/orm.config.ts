@@ -7,11 +7,6 @@ import { DatabaseConfig } from 'config/database.config';
 const mikroOrmConfig = {
   driver: PostgreSqlDriver,
   discovery: { checkDuplicateTableNames: false },
-  migrations: {
-    path: `${process.cwd()}/src/shared/database/migrations`,
-    disableForeignKeys: false,
-    fileName: (timestamp: string) => `${timestamp}-new-migration`,
-  },
   debug: true,
   autoLoadEntities: true,
 };
