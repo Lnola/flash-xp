@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    restart: on-failure
+    environment:
+      POSTGRES_DB: flashxp
+      POSTGRES_USER: flashxp
+      POSTGRES_PASSWORD: flashxp
+    ports:
+      - 5432:5432
