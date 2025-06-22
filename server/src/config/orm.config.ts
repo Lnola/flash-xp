@@ -5,7 +5,6 @@ import { DatabaseConfig } from 'config/database.config';
 
 const mikroOrmConfig = {
   driver: PostgreSqlDriver,
-  autoLoadEntities: true,
   discovery: { checkDuplicateTableNames: false },
   migrations: {
     path: `${process.cwd()}/src/shared/database/migrations`,
@@ -21,5 +20,6 @@ export const OrmConfigModule = MikroOrmModule.forRootAsync({
   useFactory: (config: ConfigService) => ({
     ...config.get<DatabaseConfig>('database'),
     ...mikroOrmConfig,
+    autoLoadEntities: true,
   }),
 });
