@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Learner } from 'catalog/core/entities';
+import { Learner } from 'authoring/core/entities';
 import { DatabaseSeederContext } from '.';
 
 const users = [{}, {}, {}];

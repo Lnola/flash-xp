@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Question } from 'catalog/core/entities';
+import { Question } from 'authoring/core/entities';
 import { DatabaseSeederContext } from '.';
 
 const questions = [

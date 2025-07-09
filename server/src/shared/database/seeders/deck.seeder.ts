@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Deck } from 'catalog/core/entities';
+import { Deck } from 'authoring/core/entities';
 import { DatabaseSeederContext } from '.';
 
 const decks = [

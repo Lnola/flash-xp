@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Deck, Learner, Question, QuestionType } from 'catalog/core/entities';
+import { Deck, Learner, Question, QuestionType } from 'authoring/core/entities';
 import { AnswerOptionSeeder } from './answer-option.seeder';
 import { DeckSeeder } from './deck.seeder';
 import { QuestionTypeSeeder } from './question-type.seeder';
