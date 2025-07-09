@@ -3,9 +3,10 @@ import { Seeder } from '@mikro-orm/seeder';
 import { Deck, Learner, QuestionType } from 'catalog/core/entities';
 import { DeckSeeder } from './deck.seeder';
 import { QuestionTypeSeeder } from './question-type.seeder';
+import { QuestionSeeder } from './question.seeder';
 import { UserSeeder } from './user.seeder';
 
-const seeders = [UserSeeder, DeckSeeder, QuestionTypeSeeder];
+const seeders = [UserSeeder, DeckSeeder, QuestionTypeSeeder, QuestionSeeder];
 
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
