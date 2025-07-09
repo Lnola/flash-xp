@@ -3,6 +3,7 @@ import BaseEntity from 'shared/database/base.entity';
 import { Question } from './question.entity';
 
 type CreateDeckProps = {
+  authorId: number;
   title: string;
   description: string;
 };
@@ -15,12 +16,16 @@ export class Deck extends BaseEntity {
   @Property({ length: 300 })
   description!: string;
 
+  // TODO: think about renaming this to authorId
+  @Property()
+  userId!: number;
+
   @OneToMany(() => Question, (question) => question.deck)
   questions = new Collection<Question>(this);
 
-  constructor({ title, description }: CreateDeckProps) {
+  constructor({ authorId, title, description }: CreateDeckProps) {
     super();
-
+    this.userId = authorId;
     this.title = title;
     this.description = description;
   }
