@@ -10,6 +10,36 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
+    text: 'What is the capital of France?',
+    deckIndex: 0,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the capital of France?',
+    deckIndex: 0,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the capital of France?',
+    deckIndex: 0,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'Explain the theory of relativity.',
+    deckIndex: 1,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the theory of relativity.',
+    deckIndex: 1,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the theory of relativity.',
+    deckIndex: 1,
+    questionTypeIndex: 1,
+  },
+  {
     text: 'Explain the theory of relativity.',
     deckIndex: 1,
     questionTypeIndex: 1,
@@ -18,6 +48,56 @@ const questions = [
     text: 'What is the largest mammal?',
     deckIndex: 2,
     questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'What is the largest mammal?',
+    deckIndex: 2,
+    questionTypeIndex: 0,
+  },
+  {
+    text: 'Describe the process of photosynthesis.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the process of photosynthesis.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
   },
   {
     text: 'Describe the process of photosynthesis.',
