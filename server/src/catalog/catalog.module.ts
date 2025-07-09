@@ -1,7 +1,7 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { DeckController } from './api/deck.controller';
-import { Deck } from './core/entities/deck.entity';
+import { Deck } from './core/entities';
 import { DeckService } from './core/services/deck.service';
 
 @Module({

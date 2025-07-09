@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Question } from './question.entity';
+import { Question } from '.';
 
 type CreateDeckProps = {
   authorId: number;

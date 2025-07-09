@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Question } from './question.entity';
+import { Question } from '.';
 
 @Entity({ tableName: 'answer_option' })
 export class AnswerOption extends BaseEntity {
