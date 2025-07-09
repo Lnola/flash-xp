@@ -9,6 +9,7 @@ dotenv.config();
 export default defineConfig({
   ...databaseConfigFactory(),
   driver: mikroOrmDriver,
+  discovery: { checkDuplicateTableNames: false },
   migrations: {
     path: `${process.cwd()}/src/shared/database/migrations`,
     disableForeignKeys: false,
