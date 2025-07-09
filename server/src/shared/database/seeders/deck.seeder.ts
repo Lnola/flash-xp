@@ -3,19 +3,6 @@ import { Seeder } from '@mikro-orm/seeder';
 import { Deck } from 'authoring/core/entities';
 import { DatabaseSeederContext } from '.';
 
-const decks = [
-  { title: 'Title1', description: 'Description1' },
-  { title: 'Title2', description: 'Description2' },
-  { title: 'Title3', description: 'Description3' },
-  { title: 'Title4', description: 'Description4' },
-  { title: 'Title5', description: 'Description5' },
-  { title: 'Title6', description: 'Description6' },
-  { title: 'Title7', description: 'Description7' },
-  { title: 'Title8', description: 'Description8' },
-  { title: 'Title9', description: 'Description9' },
-  { title: 'Title10', description: 'Description10' },
-];
-
 export class DeckSeeder extends Seeder {
   async run(em: EntityManager, context: DatabaseSeederContext): Promise<void> {
     const seedDecks = decks.map((it, index) => {
@@ -30,3 +17,49 @@ export class DeckSeeder extends Seeder {
     return em.persistAndFlush(seedDecks);
   }
 }
+
+const decks = [
+  {
+    title: 'Basic Spanish Phrases',
+    description:
+      'Learn essential phrases for travel and everyday conversations in Spanish.',
+  },
+  {
+    title: 'World War II Overview',
+    description: 'Key events, dates, and figures from the Second World War.',
+  },
+  {
+    title: 'Introduction to JavaScript',
+    description: 'Core concepts and syntax of JavaScript programming.',
+  },
+  {
+    title: 'Human Anatomy - Skeletal System',
+    description: 'Bones of the human body and their functions.',
+  },
+  {
+    title: 'European Capitals',
+    description: 'Match European countries with their capitals.',
+  },
+  {
+    title: 'Photosynthesis Process',
+    description: 'Steps and components involved in photosynthesis.',
+  },
+  {
+    title: 'US Presidents',
+    description:
+      'Learn the names and terms of the Presidents of the United States.',
+  },
+  {
+    title: 'Mathematics - Algebra Basics',
+    description: 'Foundational algebra concepts and operations.',
+  },
+  {
+    title: 'Shakespearean Plays',
+    description: 'Famous plays by William Shakespeare and their summaries.',
+  },
+  {
+    title: 'Cybersecurity Fundamentals',
+    description:
+      'Common threats and basic practices for staying secure online.',
+  },
+];
