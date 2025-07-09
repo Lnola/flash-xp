@@ -115,6 +115,7 @@ export class QuestionSeeder extends Seeder {
         questionType: context.questionTypes[it.questionTypeIndex],
       });
     });
+    context.questions = seedQuestions;
     return em.persistAndFlush(seedQuestions);
   }
 }

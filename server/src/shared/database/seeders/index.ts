@@ -1,6 +1,6 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
-import { Deck, Learner, QuestionType } from 'catalog/core/entities';
+import { Deck, Learner, Question, QuestionType } from 'catalog/core/entities';
 import { DeckSeeder } from './deck.seeder';
 import { QuestionTypeSeeder } from './question-type.seeder';
 import { QuestionSeeder } from './question.seeder';
@@ -18,4 +18,5 @@ export type DatabaseSeederContext = {
   users: Learner[];
   decks: Deck[];
   questionTypes: QuestionType[];
+  questions: Question[];
 };
