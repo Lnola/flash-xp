@@ -204,81 +204,81 @@ const questions = [
     questionTypeIndex: 1,
   },
 
-  // Deck 3 – Human Anatomy: Skeletal System
+  // Deck 3 – Human Anatomy: Skeletal System (Self-assessment, open-ended)
   {
-    text: 'How many cervical vertebrae does the human spine contain?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Which bone is commonly referred to as the collarbone?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the largest bone in the human body?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the bone that forms the human forehead.',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Which bones make up the lower arm?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What type of bone is the patella classified as?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'How many bones are in the adult human body?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the function of the rib cage?',
+    text: 'Describe the number and role of cervical vertebrae in the human spine.',
     deckIndex: 3,
     questionTypeIndex: 1,
   },
   {
-    text: 'Which bone connects the arm to the body?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the longest bone in the human body.',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the axial skeleton?',
+    text: 'Explain the anatomical name, location, and function of the collarbone.',
     deckIndex: 3,
     questionTypeIndex: 1,
   },
   {
-    text: 'Which bones protect the brain?',
-    deckIndex: 3,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What type of joint is found in the shoulder?',
+    text: 'Discuss the largest bone in the human body and its importance.',
     deckIndex: 3,
     questionTypeIndex: 1,
   },
   {
-    text: 'What is the function of cartilage in the skeletal system?',
+    text: 'Describe the bone that forms the human forehead and its structural significance.',
     deckIndex: 3,
     questionTypeIndex: 1,
   },
   {
-    text: 'Which bone forms the lower jaw?',
+    text: 'Identify the bones of the lower arm and explain their roles.',
     deckIndex: 3,
-    questionTypeIndex: 0,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Discuss the classification and function of the patella in the skeletal system.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain how many bones are found in the adult human body and describe their general organization.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the structure and protective role of the rib cage.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain which bone connects the arm to the body and describe its function.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Identify the longest bone in the human body and discuss its function.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the axial skeleton and its components.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain which bones protect the brain and their arrangement.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the type of joint found in the shoulder and discuss its range of motion.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the function of cartilage in the skeletal system and provide examples.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Discuss the bone that forms the lower jaw and its role in facial structure.',
+    deckIndex: 3,
+    questionTypeIndex: 1,
   },
 
   // Deck 4 – European Capitals
@@ -313,79 +313,79 @@ const questions = [
     questionTypeIndex: 0,
   },
 
-  // Deck 5 – Photosynthesis Process
+  // Deck 5 – Photosynthesis Process (Self-assessment, open-ended)
   {
-    text: 'In which organelle does photosynthesis take place?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What gas is absorbed by plants during photosynthesis?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the pigment responsible for absorbing light energy.',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What are the two main stages of photosynthesis?',
+    text: 'Describe the organelle where photosynthesis occurs and explain its role in the cell.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'Write the balanced chemical equation for photosynthesis.',
+    text: 'Explain how plants absorb gases during photosynthesis and identify which gas is taken in.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'Which molecule produced in photosynthesis is a source of energy for plants?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the role of chlorophyll in photosynthesis?',
+    text: 'Discuss the pigment that absorbs light energy for photosynthesis and describe its importance.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'Which light spectrum is most effective for photosynthesis?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is photolysis in photosynthesis?',
+    text: 'Describe the two main stages of photosynthesis and summarize what occurs in each stage.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'Where does the Calvin cycle take place?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the main product of the Calvin cycle?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'How do stomata contribute to photosynthesis?',
+    text: 'Write and explain the balanced chemical equation for photosynthesis, including the significance of each component.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'What is the source of oxygen released during photosynthesis?',
-    deckIndex: 5,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the two types of chlorophyll found in plants.',
+    text: 'Identify the molecule produced during photosynthesis that serves as an energy source for plants and explain its role.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
   {
-    text: 'How does temperature affect photosynthesis?',
+    text: 'Explain the function of chlorophyll in photosynthesis and discuss how it contributes to the process.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Discuss which parts of the light spectrum are most effective for photosynthesis and explain why.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the process of photolysis during photosynthesis and explain its importance.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain where the Calvin cycle takes place within the plant cell and describe its main function.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Identify the main product of the Calvin cycle and discuss its significance for the plant.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the role of stomata in photosynthesis and explain how they regulate gas exchange.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the origin of oxygen released during photosynthesis and describe the step in which it is produced.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Name and compare the two main types of chlorophyll found in plants and discuss their roles.',
+    deckIndex: 5,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Discuss the effect of temperature on the rate of photosynthesis and explain the underlying reasons.',
     deckIndex: 5,
     questionTypeIndex: 1,
   },
@@ -434,7 +434,7 @@ const questions = [
     questionTypeIndex: 1,
   },
   {
-    text: 'Factor the expression x² − 9.',
+    text: 'Factor the expression x² - 9.',
     deckIndex: 7,
     questionTypeIndex: 0,
   },
@@ -456,109 +456,109 @@ const questions = [
 
   // Deck 8 – Shakespearean Plays
   {
-    text: 'Which play features the line "To be, or not to be"?',
-    deckIndex: 8,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the two feuding families in "Romeo and Juliet".',
-    deckIndex: 8,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Who is the Moorish general in Venice in a Shakespeare tragedy?',
-    deckIndex: 8,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Which Shakespeare play includes the characters Goneril, Regan, and Cordelia?',
-    deckIndex: 8,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is the setting of "The Tempest"?',
+    text: 'Identify the play that includes the line "To be, or not to be" and explain its significance.',
     deckIndex: 8,
     questionTypeIndex: 1,
   },
   {
-    text: 'Who murders King Duncan in "Macbeth"?',
+    text: 'Describe the two feuding families in "Romeo and Juliet" and their impact on the story.',
     deckIndex: 8,
-    questionTypeIndex: 0,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the role and significance of the Moorish general in Venice in a Shakespeare tragedy.',
+    deckIndex: 8,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Discuss the characters Goneril, Regan, and Cordelia and their importance in the play.',
+    deckIndex: 8,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe the setting of "The Tempest" and its relevance to the play’s themes.',
+    deckIndex: 8,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the circumstances and motivation behind King Duncan’s murder in "Macbeth".',
+    deckIndex: 8,
+    questionTypeIndex: 1,
   },
 
   // Deck 9 – Cybersecurity Fundamentals
   {
-    text: 'What does the acronym VPN stand for?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Define phishing.',
+    text: 'Explain what a VPN is and how it enhances online security.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'What is the purpose of a firewall?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name the security principle represented by the acronym CIA.',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What type of malware demands payment to unlock data?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Which protocol secures HTTP traffic with encryption?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is two-factor authentication?',
+    text: 'Define phishing and describe common techniques used in such attacks.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'Define a brute force attack.',
+    text: 'Describe the purpose and function of a firewall in cybersecurity.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'What is a DDoS attack?',
+    text: 'Explain the security principle represented by the acronym CIA and its components.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'Explain the role of encryption in cybersecurity.',
+    text: 'Discuss what ransomware is and how it affects computer systems.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'What does the acronym HTTPS stand for?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'What is a firewall`s primary function?',
-    deckIndex: 9,
-    questionTypeIndex: 0,
-  },
-  {
-    text: 'Name a common method hackers use to gain unauthorized access.',
+    text: 'Describe how HTTPS secures HTTP traffic and why it is important.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'What is social engineering in cybersecurity?',
+    text: 'Explain the concept of two-factor authentication and its benefits.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
   {
-    text: 'How does a VPN enhance security?',
+    text: 'Define a brute force attack and discuss methods to prevent it.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'What is a DDoS attack? Describe its impact on network services.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the role of encryption in protecting data within cybersecurity.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe what HTTPS stands for and its importance in web security.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain the primary function of a firewall in network security.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Identify common methods hackers use to gain unauthorized access and how to defend against them.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Describe social engineering in cybersecurity and provide examples of such attacks.',
+    deckIndex: 9,
+    questionTypeIndex: 1,
+  },
+  {
+    text: 'Explain how a VPN enhances security and privacy for users.',
     deckIndex: 9,
     questionTypeIndex: 1,
   },
