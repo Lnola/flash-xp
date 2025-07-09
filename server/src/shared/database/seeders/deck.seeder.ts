@@ -26,6 +26,7 @@ export class DeckSeeder extends Seeder {
         authorId: author.id,
       });
     });
+    context.decks = seedDecks;
     return em.persistAndFlush(seedDecks);
   }
 }
