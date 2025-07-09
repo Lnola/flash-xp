@@ -456,34 +456,34 @@ const questions = [
 
   // Deck 8 – Shakespearean Plays
   {
-    text: 'Identify the play that includes the line "To be, or not to be" and explain its significance.',
+    text: 'Which play features the line "To be, or not to be"?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'Describe the two feuding families in "Romeo and Juliet" and their impact on the story.',
+    text: 'What are the names of the two feuding families in "Romeo and Juliet"?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'Explain the role and significance of the Moorish general in Venice in a Shakespeare tragedy.',
+    text: 'Who is the Moorish general in the Shakespeare play "Othello"?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'Discuss the characters Goneril, Regan, and Cordelia and their importance in the play.',
+    text: 'In which Shakespeare play do the characters Goneril, Regan, and Cordelia appear?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'Describe the setting of "The Tempest" and its relevance to the play’s themes.',
+    text: 'Where is the setting of "The Tempest"?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'Explain the circumstances and motivation behind King Duncan’s murder in "Macbeth".',
+    text: 'Who murders King Duncan in "Macbeth"?',
     deckIndex: 8,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
 
   // Deck 9 – Cybersecurity Fundamentals
