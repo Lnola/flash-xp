@@ -104,7 +104,7 @@ const questions = [
   {
     text: 'Name the Allied powers known as the "Big Three".',
     deckIndex: 1,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'What event brought the United States into World War II?',
@@ -149,9 +149,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'Explain the difference between "==" and "===" in JavaScript.',
+    text: 'What is the main difference between "==" and "===" in JavaScript?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'How do you declare a function in JavaScript?',
@@ -159,9 +159,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'What is the purpose of the "this" keyword?',
+    text: 'What does the "this" keyword refer to in JavaScript?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'Which method adds an element to the end of an array?',
@@ -174,14 +174,14 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'Explain what a promise is in JavaScript.',
+    text: 'What is a promise in JavaScript?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
-    text: 'What is the difference between var, let, and const?',
+    text: 'Which is true about var, let, and const?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'How do you write a comment in JavaScript?',
@@ -189,9 +189,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'What is an arrow function?',
+    text: 'What is the main use of the arrow (=>) function in JavaScript?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'Which method removes the last element from an array?',
@@ -199,9 +199,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'What is event bubbling in JavaScript?',
+    text: 'What happens during event bubbling in JavaScript?',
     deckIndex: 2,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
 
   // Deck 3 – Human Anatomy: Skeletal System (Self-assessment, open-ended)
@@ -429,9 +429,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'What is the quadratic formula?',
+    text: 'Which of these is the correct quadratic formula?',
     deckIndex: 7,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
   {
     text: 'Factor the expression x² - 9.',
@@ -449,9 +449,9 @@ const questions = [
     questionTypeIndex: 0,
   },
   {
-    text: 'Define a polynomial.',
+    text: 'What is the value of 5²?',
     deckIndex: 7,
-    questionTypeIndex: 1,
+    questionTypeIndex: 0,
   },
 
   // Deck 8 – Shakespearean Plays

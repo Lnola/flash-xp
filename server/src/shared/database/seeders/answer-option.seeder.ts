@@ -99,7 +99,6 @@ const answerOptions = [
   { text: '1939', isCorrect: true, questionIndex: 15 },
   { text: '1945', isCorrect: false, questionIndex: 15 },
 
-  // questionIndex: 16
   {
     text: 'United States, United Kingdom, Soviet Union',
     isCorrect: true,
@@ -138,43 +137,78 @@ const answerOptions = [
   { text: 'Franklin D. Roosevelt', isCorrect: false, questionIndex: 20 },
 
   // Deck 2 – Introduction to JavaScript
-  // questionIndex 21
   { text: 'let', isCorrect: false, questionIndex: 21 },
   { text: 'var', isCorrect: false, questionIndex: 21 },
   { text: 'static', isCorrect: false, questionIndex: 21 },
   { text: 'const', isCorrect: true, questionIndex: 21 },
 
-  // questionIndex 22
   { text: 'JSON.stringify()', isCorrect: false, questionIndex: 22 },
   { text: 'JSON.parse()', isCorrect: true, questionIndex: 22 },
   { text: 'JSON.toObject()', isCorrect: false, questionIndex: 22 },
   { text: 'parseJSON()', isCorrect: false, questionIndex: 22 },
 
-  // questionIndex 23
   { text: 'Not a Number', isCorrect: true, questionIndex: 23 },
   { text: 'Negative a Number', isCorrect: false, questionIndex: 23 },
   { text: 'Not an Integer', isCorrect: false, questionIndex: 23 },
   { text: 'Not a Name', isCorrect: false, questionIndex: 23 },
 
-  // questionIndex 24
   { text: 'forEach()', isCorrect: false, questionIndex: 24 },
   { text: 'map()', isCorrect: true, questionIndex: 24 },
   { text: 'filter()', isCorrect: false, questionIndex: 24 },
   { text: 'reduce()', isCorrect: false, questionIndex: 24 },
 
-  // questionIndex 26
+  {
+    text: '"===" checks both value and type, while "==" checks only value',
+    isCorrect: true,
+    questionIndex: 25,
+  },
+  {
+    text: '"==" is used for strict equality, "===" is not',
+    isCorrect: false,
+    questionIndex: 25,
+  },
+  {
+    text: '"===" converts types automatically, "==" does not',
+    isCorrect: false,
+    questionIndex: 25,
+  },
+  {
+    text: 'There is no difference; both compare values the same way',
+    isCorrect: false,
+    questionIndex: 25,
+  },
+
   { text: 'func myFunc() {}', isCorrect: false, questionIndex: 26 },
   { text: 'def myFunc() {}', isCorrect: false, questionIndex: 26 },
   { text: 'function myFunc() {}', isCorrect: true, questionIndex: 26 },
   { text: 'method myFunc() {}', isCorrect: false, questionIndex: 26 },
 
-  // questionIndex 28
+  {
+    text: 'The object that is currently executing the function',
+    isCorrect: true,
+    questionIndex: 27,
+  },
+  {
+    text: 'The parent object of the current function',
+    isCorrect: false,
+    questionIndex: 27,
+  },
+  {
+    text: 'A reference to the global scope always',
+    isCorrect: false,
+    questionIndex: 27,
+  },
+  {
+    text: 'The next sibling function in execution context',
+    isCorrect: false,
+    questionIndex: 27,
+  },
+
   { text: 'pop()', isCorrect: false, questionIndex: 28 },
   { text: 'shift()', isCorrect: false, questionIndex: 28 },
   { text: 'push()', isCorrect: true, questionIndex: 28 },
   { text: 'unshift()', isCorrect: false, questionIndex: 28 },
 
-  // questionIndex 29
   {
     text: 'Returns the data type of a value',
     isCorrect: true,
@@ -184,17 +218,51 @@ const answerOptions = [
   { text: 'Checks value equality', isCorrect: false, questionIndex: 29 },
   { text: 'Declares a new variable', isCorrect: false, questionIndex: 29 },
 
-  // questionIndex 32
+  { text: 'Async result holder', isCorrect: true, questionIndex: 30 },
+  { text: 'Loop type', isCorrect: false, questionIndex: 30 },
+  { text: 'Scope tool', isCorrect: false, questionIndex: 30 },
+  { text: 'Class keyword', isCorrect: false, questionIndex: 30 },
+
+  { text: '`var` is function scoped', isCorrect: true, questionIndex: 31 },
+  { text: '`const` is reassignable', isCorrect: false, questionIndex: 31 },
+  { text: '`let` is hoisted', isCorrect: false, questionIndex: 31 },
+  { text: '`var` is block scoped', isCorrect: false, questionIndex: 31 },
+
   { text: '/* multi-line comment */', isCorrect: false, questionIndex: 32 },
   { text: '# comment', isCorrect: false, questionIndex: 32 },
   { text: '<!-- comment -->', isCorrect: false, questionIndex: 32 },
   { text: '// single-line comment', isCorrect: true, questionIndex: 32 },
 
-  // questionIndex 34
+  { text: 'To define a function', isCorrect: true, questionIndex: 33 },
+  { text: 'To create a variable', isCorrect: false, questionIndex: 33 },
+  { text: 'To import a module', isCorrect: false, questionIndex: 33 },
+  { text: 'To loop through an array', isCorrect: false, questionIndex: 33 },
+
   { text: 'pop()', isCorrect: true, questionIndex: 34 },
   { text: 'shift()', isCorrect: false, questionIndex: 34 },
   { text: 'slice()', isCorrect: false, questionIndex: 34 },
   { text: 'splice()', isCorrect: false, questionIndex: 34 },
+
+  {
+    text: 'Event propagates from child to parent',
+    isCorrect: true,
+    questionIndex: 35,
+  },
+  {
+    text: 'Event goes from parent to child',
+    isCorrect: false,
+    questionIndex: 35,
+  },
+  {
+    text: 'Event skips intermediate elements',
+    isCorrect: false,
+    questionIndex: 35,
+  },
+  {
+    text: 'Event only affects the target element',
+    isCorrect: false,
+    questionIndex: 35,
+  },
 
   // Deck 4 – European Capitals
   { text: 'Milan', isCorrect: false, questionIndex: 50 },
@@ -259,29 +327,35 @@ const answerOptions = [
   { text: 'Richard Nixon', isCorrect: true, questionIndex: 76 },
 
   // Deck 7 – Mathematics: Algebra Basics
-  // questionIndex 77
   { text: '3', isCorrect: false, questionIndex: 77 },
   { text: '4', isCorrect: true, questionIndex: 77 },
   { text: '5', isCorrect: false, questionIndex: 77 },
   { text: '6', isCorrect: false, questionIndex: 77 },
 
-  // questionIndex 79
+  { text: 'x = (-b ± √(b² - 4ac)) / 2a', isCorrect: true, questionIndex: 78 },
+  { text: 'x = (b ± √(b² - 4ac)) / 2a', isCorrect: false, questionIndex: 78 },
+  { text: 'x = (-b ± √(4ac - b²)) / 2a', isCorrect: false, questionIndex: 78 },
+  { text: 'x = (-b ± √(b² + 4ac)) / 2a', isCorrect: false, questionIndex: 78 },
+
   { text: '(x − 3)(x + 3)', isCorrect: true, questionIndex: 79 },
   { text: '(x − 9)(x + 9)', isCorrect: false, questionIndex: 79 },
   { text: 'x(x − 9)', isCorrect: false, questionIndex: 79 },
   { text: '(x − 2)(x + 2)', isCorrect: false, questionIndex: 79 },
 
-  // questionIndex 80
   { text: '6x⁶', isCorrect: false, questionIndex: 80 },
   { text: '6x⁵', isCorrect: true, questionIndex: 80 },
   { text: '5x⁵', isCorrect: false, questionIndex: 80 },
   { text: '6x³', isCorrect: false, questionIndex: 80 },
 
-  // questionIndex 81
   { text: 'x = my + b', isCorrect: false, questionIndex: 81 },
   { text: 'y = b + xᵐ', isCorrect: false, questionIndex: 81 },
   { text: 'y = m/x + b', isCorrect: false, questionIndex: 81 },
   { text: 'y = mx + b', isCorrect: true, questionIndex: 81 },
+
+  { text: '25', isCorrect: true, questionIndex: 82 },
+  { text: '10', isCorrect: false, questionIndex: 82 },
+  { text: '15', isCorrect: false, questionIndex: 82 },
+  { text: '20', isCorrect: false, questionIndex: 82 },
 
   // Deck 8 – Shakespearean Plays
   { text: 'Macbeth', isCorrect: false, questionIndex: 83 },
@@ -304,7 +378,10 @@ const answerOptions = [
   { text: 'Twelfth Night', isCorrect: false, questionIndex: 86 },
   { text: 'Othello', isCorrect: false, questionIndex: 86 },
 
-  // questionIndex 87 – open-ended, skipped
+  { text: 'A remote island', isCorrect: true, questionIndex: 87 },
+  { text: 'The city of Venice', isCorrect: false, questionIndex: 87 },
+  { text: 'A Scottish castle', isCorrect: false, questionIndex: 87 },
+  { text: 'The Roman Empire', isCorrect: false, questionIndex: 87 },
 
   { text: 'Macbeth', isCorrect: true, questionIndex: 88 },
   { text: 'Banquo', isCorrect: false, questionIndex: 88 },
