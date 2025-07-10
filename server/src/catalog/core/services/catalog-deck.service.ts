@@ -13,4 +13,9 @@ export class CatalogDeckService {
   fetchAll() {
     return this.catalogDeckRepository.findAll();
   }
+
+  fetchById(id: number) {
+    // TODO: add error handling
+    return this.catalogDeckRepository.findOne(id, { populate: ['questions'] });
+  }
 }
