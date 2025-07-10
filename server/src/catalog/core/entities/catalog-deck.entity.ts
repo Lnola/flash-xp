@@ -14,5 +14,5 @@ export class CatalogDeck extends BaseEntity {
   authorId!: number;
 
   @OneToMany(() => CatalogQuestion, (question) => question.deck)
-  questions = new Collection<CatalogQuestion>(this);
+  questions? = new Collection<CatalogQuestion>(this);
 }
