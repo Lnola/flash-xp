@@ -1,4 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { CatalogDeck } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 
 // TODO: think about the endpoint naming convention
@@ -12,7 +13,7 @@ export class CatalogDeckController {
   }
 
   @Get(':id')
-  fetchById(@Param('id') id: number) {
-    return this.catalogDeckService.fetchById(id);
+  fetchById(@Param('id') deckId: CatalogDeck['id']) {
+    return this.catalogDeckService.fetchById(deckId);
   }
 }

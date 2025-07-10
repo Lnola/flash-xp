@@ -14,8 +14,10 @@ export class CatalogDeckService {
     return this.catalogDeckRepository.findAll();
   }
 
-  fetchById(id: number) {
+  fetchById(deckId: CatalogDeck['id']) {
     // TODO: add error handling
-    return this.catalogDeckRepository.findOne(id, { populate: ['questions'] });
+    return this.catalogDeckRepository.findOne(deckId, {
+      populate: ['questions'],
+    });
   }
 }
