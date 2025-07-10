@@ -16,7 +16,6 @@ export class Deck extends BaseEntity {
   @Property({ length: 300 })
   description!: string;
 
-  // TODO: think about renaming this to authorId
   @Property()
   authorId!: number;
 
