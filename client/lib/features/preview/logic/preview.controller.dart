@@ -19,7 +19,8 @@ class PreviewController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final deck = await _deckRepository.fetch();
+    // TODO: replace with the real value
+    final deck = await _deckRepository.fetch(1);
     title = deck.title;
     description = deck.description;
     questions = deck.questions;
