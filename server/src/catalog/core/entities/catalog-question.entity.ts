@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { CatalogDeck } from './catalog-deck.entity';
+import { CatalogDeck } from '.';
 
 @Entity({ tableName: 'question' })
 export class CatalogQuestion extends BaseEntity {
