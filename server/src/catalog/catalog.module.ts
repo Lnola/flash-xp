@@ -1,6 +1,6 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import { CatalogDeckController } from './api/catalog-deck.controller';
+import { CatalogDeckController } from './api';
 import { CatalogDeck } from './core/entities';
 import { CatalogDeckService } from './core/services';
 
