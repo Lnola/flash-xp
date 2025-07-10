@@ -4,6 +4,7 @@ import { Deck, QuestionType } from '.';
 
 type CreateQuestionProps = {
   text: string;
+  answer?: string;
   deck: Deck;
   questionType: QuestionType;
 };
@@ -22,9 +23,10 @@ export class Question extends BaseEntity {
   @ManyToOne(() => QuestionType, { eager: true })
   questionType!: QuestionType;
 
-  constructor({ text, deck, questionType }: CreateQuestionProps) {
+  constructor({ text, answer, deck, questionType }: CreateQuestionProps) {
     super();
     this.text = text;
+    this.answer = answer;
     this.deck = deck;
     this.questionType = questionType;
   }
