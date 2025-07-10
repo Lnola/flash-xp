@@ -10,5 +10,5 @@ export class CatalogDeck extends BaseEntity {
   description!: string;
 
   @Property()
-  userId!: number;
+  authorId!: number;
 }

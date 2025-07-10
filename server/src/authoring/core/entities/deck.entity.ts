@@ -18,14 +18,14 @@ export class Deck extends BaseEntity {
 
   // TODO: think about renaming this to authorId
   @Property()
-  userId!: number;
+  authorId!: number;
 
   @OneToMany(() => Question, (question) => question.deck)
   questions = new Collection<Question>(this);
 
   constructor({ authorId, title, description }: CreateDeckProps) {
     super();
-    this.userId = authorId;
+    this.authorId = authorId;
     this.title = title;
     this.description = description;
   }

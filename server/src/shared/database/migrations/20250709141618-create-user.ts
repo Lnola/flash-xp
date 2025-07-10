@@ -12,8 +12,8 @@ export class CreateUser extends Migration {
     });
 
     const addUserToDeck = knex.schema.alterTable(DECK_TABLE_NAME, (table) => {
-      table.integer('user_id').notNullable();
-      table.foreign('user_id').references('user.id');
+      table.integer('author_id').notNullable();
+      table.foreign('author_id').references('user.id');
     });
 
     this.addSql(createUser.toQuery());
