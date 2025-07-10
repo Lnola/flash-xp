@@ -11,6 +11,7 @@ export class CreateQuestion extends Migration {
       (table) => {
         createBaseEntity(table, knex);
         table.string('text').notNullable();
+        table.string('answer').nullable();
         table.integer('deck_id').notNullable();
         table.foreign('deck_id').references('deck.id');
         table.integer('question_type_id').notNullable();

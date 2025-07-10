@@ -13,6 +13,9 @@ export class Question extends BaseEntity {
   @Property()
   text!: string;
 
+  @Property({ nullable: true })
+  answer?: string;
+
   @ManyToOne(() => Deck, { hidden: true })
   deck!: Deck;
 
