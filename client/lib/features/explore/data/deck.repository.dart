@@ -1,42 +1,20 @@
+import 'dart:convert';
+
 import 'package:flashxp/shared/data/dto/deck.dto.dart';
-import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:http/http.dart' as http;
 
 class DeckRepository {
   Future<List<DeckDto>> fetch() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    return _mockDecks();
+    // TODO: improve the fetch itself
+    final response = await http.get(Uri.parse('http://localhost:3000/decks'));
+
+    // TODO: throw the correct error that comes from the server
+    if (response.statusCode != 200) throw Exception('Failed to fetch decks.');
+    return parseDecks(response.body);
   }
 
-  List<DeckDto> _mockDecks() {
-    return [
-      DeckDto(
-        id: 1,
-        title: 'Long title lorem ipsum dolor sit amet',
-        totalQuestions: 4,
-        progress: 25,
-        mode: PracticeMode.multipleChoice,
-      ),
-      DeckDto(
-        id: 2,
-        title: 'Short title',
-        totalQuestions: 12,
-        progress: 10,
-        mode: PracticeMode.multipleChoice,
-      ),
-      DeckDto(
-        id: 3,
-        title: 'Short title',
-        totalQuestions: 40,
-        progress: 40,
-        mode: PracticeMode.selfAssessment,
-      ),
-      DeckDto(
-        id: 4,
-        title: 'Long title lorem ipsum dolor sit amet',
-        totalQuestions: 100,
-        progress: 100,
-        mode: PracticeMode.selfAssessment,
-      ),
-    ];
+  List<DeckDto> parseDecks(String jsonString) {
+    final List<dynamic> jsonList = json.decode(jsonString);
+    return jsonList.map((json) => DeckDto.fromJson(json)).toList();
   }
 }
