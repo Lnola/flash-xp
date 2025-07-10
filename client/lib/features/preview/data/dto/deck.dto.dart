@@ -22,4 +22,16 @@ class DeckDto {
     required this.questions,
     required this.isBookmarked,
   });
+
+  static DeckDto fromJson(json) {
+    return DeckDto(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      questions: (json['questions'] as List)
+          .map((q) => Question(id: q['id'], text: q['text']))
+          .toList(),
+      isBookmarked: json['isBookmarked'] ?? false,
+    );
+  }
 }
