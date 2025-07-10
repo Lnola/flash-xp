@@ -18,9 +18,14 @@ class HomeController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    inProgressDecks = await _deckRepository.fetch();
-    myDecks = await _deckRepository.fetch();
-    savedDecks = await _deckRepository.fetch();
+    try {
+      inProgressDecks = await _deckRepository.fetch();
+      myDecks = await _deckRepository.fetch();
+      savedDecks = await _deckRepository.fetch();
+    } catch (e) {
+      // TODO: Handle error by showing a toast
+      print(e);
+    }
 
     isLoading = false;
     notifyListeners();
