@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { CatalogDeckService } from 'catalog/core/services/catalog-deck.service';
+import { CatalogDeckService } from 'catalog/core/services';
 
 // TODO: think about the endpoint naming convention
 @Controller('decks')

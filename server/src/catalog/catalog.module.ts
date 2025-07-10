@@ -2,7 +2,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { CatalogDeckController } from './api/catalog-deck.controller';
 import { CatalogDeck } from './core/entities';
-import { CatalogDeckService } from './core/services/catalog-deck.service';
+import { CatalogDeckService } from './core/services';
 
 @Module({
   imports: [MikroOrmModule.forFeature([CatalogDeck])],
