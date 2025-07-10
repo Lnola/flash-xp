@@ -15,4 +15,15 @@ class DeckDto {
     required this.progress,
     required this.mode,
   });
+
+// TODO: create a correct implementation of fromJson without the data mocking
+  static DeckDto fromJson(json) {
+    return DeckDto(
+      id: json['id'],
+      title: json['title'],
+      totalQuestions: 5,
+      progress: 50,
+      mode: PracticeMode.multipleChoice,
+    );
+  }
 }
