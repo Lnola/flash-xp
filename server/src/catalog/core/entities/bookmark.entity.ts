@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { Entity, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
 import { CatalogDeck, Learner } from '.';
 
@@ -7,12 +7,12 @@ export class Bookmark extends BaseEntity {
   @Property()
   deckId!: CatalogDeck['id'];
 
-  @ManyToOne(() => Learner)
-  learner!: Learner;
+  @Property()
+  learnerId!: Learner['id'];
 
-  constructor(deckId: CatalogDeck['id'], learner: Learner) {
+  constructor(deckId: CatalogDeck['id'], learnerId: Learner['id']) {
     super();
     this.deckId = deckId;
-    this.learner = learner;
+    this.learnerId = learnerId;
   }
 }
