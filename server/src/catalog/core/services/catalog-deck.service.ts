@@ -28,13 +28,15 @@ export class CatalogDeckService {
   async createBookmark(
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
-  ): Promise<boolean> {
+  ): Promise<Result<void>> {
     try {
       const bookmark = new Bookmark(deckId, learnerId);
       await this.bookmarkRepository.persistAndFlush(bookmark);
-      return true;
+      return Result.success();
     } catch (error) {
-      if (error instanceof UniqueConstraintViolationException) return false;
+      if (error instanceof UniqueConstraintViolationException) {
+        return Result.failure('Bookmark already exists');
+      }
       throw error;
     }
   }

@@ -32,11 +32,11 @@ export class CatalogDeckController {
   async createBookmark(
     @Body() { deckId, learnerId }: CreateBookmarkDto,
   ): Promise<void> {
-    const created = await this.catalogDeckService.createBookmark(
+    const { error } = await this.catalogDeckService.createBookmark(
       deckId,
       learnerId,
     );
-    if (!created) throw new ConflictException('Bookmark already exists');
+    if (error) throw new ConflictException(error);
   }
 
   // TODO: move to a separate controller
