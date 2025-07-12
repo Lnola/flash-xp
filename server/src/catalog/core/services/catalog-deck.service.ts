@@ -3,6 +3,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
+import { Result } from 'shared/helpers/result';
 
 @Injectable()
 export class CatalogDeckService {
@@ -38,13 +39,16 @@ export class CatalogDeckService {
     }
   }
 
-  async deleteBookmark(deckId: CatalogDeck['id'], learnerId: Learner['id']) {
+  async deleteBookmark(
+    deckId: CatalogDeck['id'],
+    learnerId: Learner['id'],
+  ): Promise<Result<void>> {
     const bookmarkToRemove = await this.bookmarkRepository.findOne({
       deckId: deckId,
       learnerId: learnerId,
     });
-    // TODO: add error handling
-    if (!bookmarkToRemove) throw new Error(`Not found`);
+    if (!bookmarkToRemove) return Result.failure('Bookmark does not exist');
     await this.bookmarkRepository.removeAndFlush(bookmarkToRemove);
+    return Result.success();
   }
 }

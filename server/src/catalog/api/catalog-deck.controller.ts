@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   ConflictException,
   Controller,
@@ -40,7 +41,11 @@ export class CatalogDeckController {
 
   // TODO: move to a separate controller
   @Delete('bookmarks')
-  deleteBookmark(@Body() { deckId, learnerId }: DeleteBookmarkDto) {
-    return this.catalogDeckService.deleteBookmark(deckId, learnerId);
+  async deleteBookmark(@Body() { deckId, learnerId }: DeleteBookmarkDto) {
+    const { error } = await this.catalogDeckService.deleteBookmark(
+      deckId,
+      learnerId,
+    );
+    if (error) throw new BadRequestException(error);
   }
 }
