@@ -14,6 +14,7 @@ export class CreateBookmark extends Migration {
         table.foreign('learner_id').references('user.id');
         table.integer('deck_id').notNullable();
         table.foreign('deck_id').references('deck.id');
+        table.unique(['deck_id', 'learner_id']);
       },
     );
 
