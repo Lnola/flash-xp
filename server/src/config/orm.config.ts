@@ -3,6 +3,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from 'config/database.config';
+import { BaseEntityRepository } from 'shared/database/base.repository';
 
 export const mikroOrmDriver = PostgreSqlDriver;
 
@@ -16,5 +17,6 @@ export const OrmConfigModule = MikroOrmModule.forRootAsync({
     discovery: { checkDuplicateTableNames: false },
     debug: true,
     autoLoadEntities: true,
+    entityRepository: BaseEntityRepository,
   }),
 });
