@@ -10,8 +10,8 @@ export class CreateBookmark extends Migration {
       BOOKMARK_TABLE_NAME,
       (table) => {
         createBaseEntity(table, knex);
-        table.integer('user_id').notNullable();
-        table.foreign('user_id').references('user.id');
+        table.integer('learner_id').notNullable();
+        table.foreign('learner_id').references('user.id');
         table.integer('deck_id').notNullable();
         table.foreign('deck_id').references('deck.id');
       },
