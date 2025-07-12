@@ -41,7 +41,9 @@ export class CatalogDeckController {
 
   // TODO: move to a separate controller
   @Delete('bookmarks')
-  async deleteBookmark(@Body() { deckId, learnerId }: DeleteBookmarkDto) {
+  async deleteBookmark(
+    @Body() { deckId, learnerId }: DeleteBookmarkDto,
+  ): Promise<void> {
     const { error } = await this.catalogDeckService.deleteBookmark(
       deckId,
       learnerId,
