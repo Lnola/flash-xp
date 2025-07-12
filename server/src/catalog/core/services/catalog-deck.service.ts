@@ -1,3 +1,4 @@
+import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
@@ -23,11 +24,18 @@ export class CatalogDeckService {
     });
   }
 
-  // TODO: add error handling
-  async createBookmark(deckId: CatalogDeck['id'], learnerId: Learner['id']) {
-    console.log(deckId, learnerId);
-    const bookmark = new Bookmark(deckId, learnerId);
-    await this.bookmarkRepository.persistAndFlush(bookmark);
+  async createBookmark(
+    deckId: CatalogDeck['id'],
+    learnerId: Learner['id'],
+  ): Promise<boolean> {
+    try {
+      const bookmark = new Bookmark(deckId, learnerId);
+      await this.bookmarkRepository.persistAndFlush(bookmark);
+      return true;
+    } catch (error) {
+      if (error instanceof UniqueConstraintViolationException) return false;
+      throw error;
+    }
   }
 
   async deleteBookmark(deckId: CatalogDeck['id'], learnerId: Learner['id']) {
