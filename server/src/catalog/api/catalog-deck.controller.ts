@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { CatalogDeck } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 import { CreateBookmarkDto, DeleteBookmarkDto } from './dto';
@@ -20,8 +28,14 @@ export class CatalogDeckController {
 
   // TODO: move to a separate controller
   @Post('bookmarks')
-  createBookmark(@Body() { deckId, learnerId }: CreateBookmarkDto) {
-    return this.catalogDeckService.createBookmark(deckId, learnerId);
+  async createBookmark(
+    @Body() { deckId, learnerId }: CreateBookmarkDto,
+  ): Promise<void> {
+    const created = await this.catalogDeckService.createBookmark(
+      deckId,
+      learnerId,
+    );
+    if (!created) throw new ConflictException('Bookmark already exists');
   }
 
   // TODO: move to a separate controller
