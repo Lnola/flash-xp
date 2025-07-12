@@ -1,8 +1,7 @@
 import { defineConfig } from '@mikro-orm/core';
 import { SeedManager } from '@mikro-orm/seeder';
 import * as dotenv from 'dotenv';
-import databaseConfigFactory from 'config/database.config';
-import { mikroOrmDriver } from 'config/orm.config';
+import { databaseConfigFactory, mikroOrmDriver } from 'shared/config';
 
 dotenv.config();
 

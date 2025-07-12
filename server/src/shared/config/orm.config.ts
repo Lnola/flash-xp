@@ -2,8 +2,8 @@ import { defineConfig } from '@mikro-orm/core';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatabaseConfig } from 'config/database.config';
 import { BaseEntityRepository } from 'shared/database/base.repository';
+import { DatabaseConfig } from './database.config';
 
 export const mikroOrmDriver = PostgreSqlDriver;
 
