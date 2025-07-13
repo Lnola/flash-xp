@@ -26,7 +26,7 @@ export class Deck extends BaseEntity {
   authorId!: Author['id'];
 
   @OneToMany(() => Question, (question) => question.deck, {
-    cascade: [Cascade.REMOVE],
+    cascade: [Cascade.REMOVE, Cascade.PERSIST],
   })
   questions = new Collection<Question>(this);
 
