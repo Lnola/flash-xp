@@ -42,4 +42,17 @@ export class Question extends BaseEntity {
     this.deck = deck;
     this.questionType = questionType;
   }
+
+  setAnswerOptions(answerOptions: AnswerOption[]) {
+    this.answerOptions.set(answerOptions);
+  }
+
+  clone(deck: Deck): Question {
+    const clonedQuestion = new Question({ ...this, deck });
+    const clonedAnswerOptions = this.answerOptions.map((answerOption) =>
+      answerOption.clone(clonedQuestion),
+    );
+    clonedQuestion.setAnswerOptions(clonedAnswerOptions);
+    return clonedQuestion;
+  }
 }
