@@ -13,7 +13,7 @@ export class CreateQuestion extends Migration {
         table.string('text').notNullable();
         table.string('answer').nullable();
         table.integer('deck_id').notNullable();
-        table.foreign('deck_id').references('deck.id');
+        table.foreign('deck_id').references('deck.id').onDelete('CASCADE');
         table.integer('question_type_id').notNullable();
         table.foreign('question_type_id').references('question_type.id');
       },

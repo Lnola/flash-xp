@@ -13,7 +13,10 @@ export class CreateAnswerOption extends Migration {
         table.string('text', 120).notNullable();
         table.boolean('is_correct');
         table.integer('question_id').notNullable();
-        table.foreign('question_id').references('question.id');
+        table
+          .foreign('question_id')
+          .references('question.id')
+          .onDelete('CASCADE');
       },
     );
 

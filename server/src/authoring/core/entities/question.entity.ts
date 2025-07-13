@@ -4,6 +4,7 @@ import {
   ManyToOne,
   OneToMany,
   Collection,
+  Cascade,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
 import { AnswerOption, Deck, QuestionType } from '.';
@@ -29,7 +30,9 @@ export class Question extends BaseEntity {
   @ManyToOne(() => QuestionType, { eager: true })
   questionType!: QuestionType;
 
-  @OneToMany(() => AnswerOption, (answerOption) => answerOption.question)
+  @OneToMany(() => AnswerOption, (answerOption) => answerOption.question, {
+    cascade: [Cascade.REMOVE],
+  })
   answerOptions = new Collection<AnswerOption>(this);
 
   constructor({ text, answer, deck, questionType }: CreateQuestionProps) {

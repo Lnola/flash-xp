@@ -1,4 +1,10 @@
-import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core';
+import {
+  Cascade,
+  Collection,
+  Entity,
+  OneToMany,
+  Property,
+} from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
 import { Question } from '.';
 
@@ -19,7 +25,9 @@ export class Deck extends BaseEntity {
   @Property()
   authorId!: number;
 
-  @OneToMany(() => Question, (question) => question.deck)
+  @OneToMany(() => Question, (question) => question.deck, {
+    cascade: [Cascade.REMOVE],
+  })
   questions = new Collection<Question>(this);
 
   constructor({ authorId, title, description }: CreateDeckProps) {
