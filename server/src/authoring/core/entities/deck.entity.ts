@@ -6,7 +6,7 @@ import {
   Property,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Question } from '.';
+import { Author, Question } from '.';
 
 type CreateDeckProps = {
   authorId: number;
@@ -48,5 +48,12 @@ export class Deck extends BaseEntity {
     );
     clonedDeck.setQuestions(clonedQuestions);
     return clonedDeck;
+  }
+
+  fork(authorId: Author['id']): Deck {
+    const forkedDeck = this.clone();
+    forkedDeck.authorId = authorId;
+    forkedDeck.title = `${this.title} (Forked)`;
+    return forkedDeck;
   }
 }
