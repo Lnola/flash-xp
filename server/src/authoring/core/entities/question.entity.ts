@@ -1,6 +1,12 @@
-import { Entity, Property, ManyToOne } from '@mikro-orm/core';
+import {
+  Entity,
+  Property,
+  ManyToOne,
+  OneToMany,
+  Collection,
+} from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Deck, QuestionType } from '.';
+import { AnswerOption, Deck, QuestionType } from '.';
 
 type CreateQuestionProps = {
   text: string;
@@ -22,6 +28,9 @@ export class Question extends BaseEntity {
 
   @ManyToOne(() => QuestionType, { eager: true })
   questionType!: QuestionType;
+
+  @OneToMany(() => AnswerOption, (answerOption) => answerOption.question)
+  answerOptions = new Collection<AnswerOption>(this);
 
   constructor({ text, answer, deck, questionType }: CreateQuestionProps) {
     super();
