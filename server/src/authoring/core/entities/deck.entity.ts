@@ -23,7 +23,7 @@ export class Deck extends BaseEntity {
   description!: string;
 
   @Property()
-  authorId!: number;
+  authorId!: Author['id'];
 
   @OneToMany(() => Question, (question) => question.deck, {
     cascade: [Cascade.REMOVE],
