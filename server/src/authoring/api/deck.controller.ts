@@ -1,4 +1,10 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
 import { Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
 
@@ -11,5 +17,11 @@ export class DeckController {
     const { error, data } = await this.deckService.fetchById(deckId);
     if (error || !data) throw new NotFoundException(error);
     return data;
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') deckId: Deck['id']): Promise<void> {
+    const { error } = await this.deckService.remove(deckId);
+    if (error) throw new NotFoundException(error);
   }
 }
