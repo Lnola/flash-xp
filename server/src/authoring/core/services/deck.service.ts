@@ -1,6 +1,6 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { Deck } from 'authoring/core/entities';
+import { Author, Deck } from 'authoring/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
 
@@ -17,6 +17,22 @@ export class DeckService {
     });
     if (!deck) return Result.failure('Deck not found');
     return Result.success(deck);
+  }
+
+  async fork(
+    deckId: Deck['id'],
+    authorId: Author['id'],
+  ): Promise<Result<Deck>> {
+    const originalDeck = await this.deckRepository.findOne(deckId, {
+      populate: ['questions', 'questions.answerOptions'],
+    });
+    if (!originalDeck) return Result.failure('Original deck not found');
+    if (originalDeck.authorId === authorId) {
+      return Result.failure('Cannot fork your own deck');
+    }
+    const forkedDeck = originalDeck.fork(authorId);
+    await this.deckRepository.persistAndFlush(forkedDeck);
+    return Result.success(forkedDeck);
   }
 
   async remove(deckId: Deck['id']): Promise<Result<void>> {
