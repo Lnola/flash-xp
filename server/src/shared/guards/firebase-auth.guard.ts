@@ -20,32 +20,39 @@ export class FirebaseAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    const authHeader = request.headers.authorization;
-    if (!authHeader?.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Failed to authenticate.');
-    }
     try {
-      const idToken = authHeader.split('Bearer ')[1];
-      const decodedToken = await firebaseAdmin.auth().verifyIdToken(idToken);
-      request.ssoId = decodedToken.uid;
-
-      const user = await this.userRepository.findOne({
-        ssoId: decodedToken.uid,
-      });
-      if (user) {
-        request.user = user;
-        return true;
-      }
-      const newUser = new User({ ssoId: decodedToken.uid });
-      await this.userRepository.persistAndFlush(newUser);
-      request.user = newUser;
+      const ssoId = await this._verifyFirebaseUser(request);
+      request.ssoId = ssoId;
+      const user = await this._verifyDatabaseUser(ssoId);
+      request.user = user;
       return true;
     } catch {
       throw new UnauthorizedException('Failed to authenticate.');
     }
   }
+
+  async _verifyFirebaseUser(request: Request): Promise<string> {
+    const authHeader = request.headers.authorization;
+    if (!authHeader?.startsWith('Bearer ')) {
+      throw new UnauthorizedException('Failed to authenticate.');
+    }
+    const idToken = authHeader.split('Bearer ')[1];
+    const decodedToken = await firebaseAdmin.auth().verifyIdToken(idToken);
+    return decodedToken.uid;
+  }
+
+  async _verifyDatabaseUser(ssoId: string): Promise<User> {
+    const user = await this.userRepository.findOne({ ssoId });
+    if (!user) {
+      const newUser = new User({ ssoId });
+      await this.userRepository.persistAndFlush(newUser);
+      return newUser;
+    }
+    return user;
+  }
 }
 
+// TODO: move this to the auth module
 export const FirebaseAuthGuardProvider = {
   provide: APP_GUARD,
   useClass: FirebaseAuthGuard,
