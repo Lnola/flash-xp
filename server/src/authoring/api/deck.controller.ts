@@ -1,12 +1,15 @@
 import {
+  BadRequestException,
   Controller,
   Delete,
   Get,
   NotFoundException,
   Param,
+  Post,
 } from '@nestjs/common';
-import { Deck } from 'authoring/core/entities';
+import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
+import { User } from 'shared/auth/decorators';
 
 @Controller('authoring/decks')
 export class DeckController {
@@ -16,6 +19,16 @@ export class DeckController {
   async fetchById(@Param('id') deckId: Deck['id']): Promise<Deck> {
     const { error, data } = await this.deckService.fetchById(deckId);
     if (error || !data) throw new NotFoundException(error);
+    return data;
+  }
+
+  @Post(':id/fork')
+  async fork(
+    @Param('id') deckId: Deck['id'],
+    @User('id') authorId: Author['id'],
+  ): Promise<Deck> {
+    const { error, data } = await this.deckService.fork(deckId, authorId);
+    if (error || !data) throw new BadRequestException(error);
     return data;
   }
 
