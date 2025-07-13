@@ -1,6 +1,6 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import { User } from 'shared/entities';
+import { User } from 'shared/auth/entities';
 import { FirebaseAuthGuard, FirebaseAuthGuardProvider } from 'shared/guards';
 
 @Module({

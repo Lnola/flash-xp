@@ -8,8 +8,8 @@ import {
 import { APP_GUARD } from '@nestjs/core';
 import { Request } from 'express';
 import * as firebaseAdmin from 'firebase-admin';
+import { User } from 'shared/auth/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
-import { User } from 'shared/entities';
 
 @Injectable()
 export class FirebaseAuthGuard implements CanActivate {

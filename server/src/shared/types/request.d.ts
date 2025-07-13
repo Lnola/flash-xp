@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { User } from 'shared/entities';
+import { User } from 'shared/auth/entities';
 
 declare module 'express' {
   interface Request {
