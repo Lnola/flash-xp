@@ -5,7 +5,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
 import { Request } from 'express';
 import * as firebaseAdmin from 'firebase-admin';
 import { User } from 'shared/auth/entities';
@@ -51,9 +50,3 @@ export class FirebaseAuthGuard implements CanActivate {
     return user;
   }
 }
-
-// TODO: move this to the auth module
-export const FirebaseAuthGuardProvider = {
-  provide: APP_GUARD,
-  useClass: FirebaseAuthGuard,
-};

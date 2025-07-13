@@ -1,10 +1,8 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
-import { User } from 'shared/auth/entities';
-import {
-  FirebaseAuthGuard,
-  FirebaseAuthGuardProvider,
-} from 'shared/auth/guards';
+import { User } from './entities';
+import { FirebaseAuthGuard } from './guards';
+import { FirebaseAuthGuardProvider } from './providers';
 
 @Module({
   imports: [MikroOrmModule.forFeature([User])],

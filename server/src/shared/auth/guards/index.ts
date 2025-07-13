@@ -1,4 +1,1 @@
-export {
-  FirebaseAuthGuard,
-  FirebaseAuthGuardProvider,
-} from './firebase-auth.guard';
+export { FirebaseAuthGuard } from './firebase-auth.guard';
