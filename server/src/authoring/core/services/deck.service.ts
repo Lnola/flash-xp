@@ -18,4 +18,11 @@ export class DeckService {
     if (!deck) return Result.failure('Deck not found');
     return Result.success(deck);
   }
+
+  async remove(deckId: Deck['id']): Promise<Result<void>> {
+    const deck = await this.deckRepository.findOne(deckId);
+    if (!deck) return Result.failure('Deck not found');
+    await this.deckRepository.removeAndFlush(deck);
+    return Result.success();
+  }
 }
