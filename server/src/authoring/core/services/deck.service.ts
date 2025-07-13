@@ -12,7 +12,9 @@ export class DeckService {
   ) {}
 
   async fetchById(deckId: Deck['id']): Promise<Result<Deck>> {
-    const deck = await this.deckRepository.findOne(deckId);
+    const deck = await this.deckRepository.findOne(deckId, {
+      populate: ['questions', 'questions.answerOptions'],
+    });
     if (!deck) return Result.failure('Deck not found');
     return Result.success(deck);
   }
