@@ -25,4 +25,8 @@ export class AnswerOption extends BaseEntity {
     this.isCorrect = isCorrect;
     this.question = question;
   }
+
+  clone(question: Question): AnswerOption {
+    return new AnswerOption({ ...this, question });
+  }
 }
