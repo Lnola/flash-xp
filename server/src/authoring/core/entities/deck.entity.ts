@@ -36,4 +36,17 @@ export class Deck extends BaseEntity {
     this.title = title;
     this.description = description;
   }
+
+  setQuestions(questions: Question[]) {
+    this.questions.set(questions);
+  }
+
+  clone(): Deck {
+    const clonedDeck = new Deck(this);
+    const clonedQuestions = this.questions.map((question) =>
+      question.clone(clonedDeck),
+    );
+    clonedDeck.setQuestions(clonedQuestions);
+    return clonedDeck;
+  }
 }
