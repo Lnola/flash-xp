@@ -6,7 +6,7 @@ import {
   Property,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Author, Question } from '.';
+import { Author, CreateAnswerOptionsProps, Question } from '.';
 
 type CreateDeckProps = {
   authorId: number;
@@ -41,6 +41,20 @@ export class Deck extends BaseEntity {
     this.questions.set(questions);
   }
 
+  createQuestions(questionsProps: CreateQuestionsProps): void {
+    const newQuestions = questionsProps.map((questionProps) => {
+      if (!questionProps.questionType) {
+        throw new Error('Question type is required');
+      }
+      const newQuestion = new Question({ ...questionProps, deck: this });
+      if (questionProps.answerOptionsProps) {
+        newQuestion.createAnswerOptions(questionProps.answerOptionsProps);
+      }
+      return newQuestion;
+    });
+    this.setQuestions(newQuestions);
+  }
+
   clone(): Deck {
     const clonedDeck = new Deck(this);
     const clonedQuestions = this.questions.map((question) =>
@@ -57,3 +71,9 @@ export class Deck extends BaseEntity {
     return forkedDeck;
   }
 }
+type CreateQuestionsProps = {
+  text: Question['text'];
+  answer: Question['answer'];
+  questionType: Question['questionType'];
+  answerOptionsProps?: CreateAnswerOptionsProps;
+}[];
