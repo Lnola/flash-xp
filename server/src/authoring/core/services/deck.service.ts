@@ -26,29 +26,33 @@ export class DeckService {
     authorId: Author['id'],
     dto: CreateDeckDto,
   ): Promise<Result<Deck>> {
-    const questionTypes = await this.questionTypeRepository.findAll();
-    const questionTypeMap = new Map(questionTypes.map((it) => [it.name, it]));
-    const newDeck = new Deck({
-      authorId,
-      title: dto.title,
-      description: dto.description,
-    });
-    const questionsProps = dto.questions.map((question) => {
-      const questionType = questionTypeMap.get(question.questionType)!;
-      const answerOptionsProps = question.answerOptions?.map((option) => ({
-        text: option.text,
-        isCorrect: option.isCorrect,
-      }));
-      return {
-        text: question.text,
-        answer: question.answer,
-        questionType,
-        answerOptionsProps,
-      };
-    });
-    newDeck.createQuestions(questionsProps);
-    await this.deckRepository.persistAndFlush(newDeck);
-    return Result.success(newDeck);
+    try {
+      const questionTypes = await this.questionTypeRepository.findAll();
+      const questionTypeMap = new Map(questionTypes.map((it) => [it.name, it]));
+      const newDeck = new Deck({
+        authorId,
+        title: dto.title,
+        description: dto.description,
+      });
+      const questionsProps = dto.questions.map((question) => {
+        const questionType = questionTypeMap.get(question.questionType)!;
+        const answerOptionsProps = question.answerOptions?.map((option) => ({
+          text: option.text,
+          isCorrect: option.isCorrect,
+        }));
+        return {
+          text: question.text,
+          answer: question.answer,
+          questionType,
+          answerOptionsProps,
+        };
+      });
+      newDeck.createQuestions(questionsProps);
+      await this.deckRepository.persistAndFlush(newDeck);
+      return Result.success(newDeck);
+    } catch (error) {
+      return Result.failure(`Failed to create deck: ${error}`);
+    }
   }
 
   async fork(
