@@ -43,7 +43,7 @@ export class Question extends BaseEntity {
     this.questionType = questionType;
   }
 
-  setAnswerOptions(answerOptions: AnswerOption[]) {
+  setAnswerOptions(answerOptions: AnswerOption[]): void {
     this.answerOptions.set(answerOptions);
   }
 

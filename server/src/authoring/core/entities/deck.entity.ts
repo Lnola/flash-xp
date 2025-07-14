@@ -37,7 +37,7 @@ export class Deck extends BaseEntity {
     this.description = description;
   }
 
-  setQuestions(questions: Question[]) {
+  setQuestions(questions: Question[]): void {
     this.questions.set(questions);
   }
 
