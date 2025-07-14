@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Delete,
   Get,
@@ -10,6 +11,7 @@ import {
 import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
 import { User } from 'shared/auth/decorators';
+import { CreateDeckDto } from './dto';
 
 @Controller('authoring/decks')
 export class DeckController {
@@ -19,6 +21,20 @@ export class DeckController {
   async fetchById(@Param('id') deckId: Deck['id']): Promise<Deck> {
     const { error, data } = await this.deckService.fetchById(deckId);
     if (error || !data) throw new NotFoundException(error);
+    return data;
+  }
+
+  // TODO: Add prop validation
+  @Post()
+  async create(
+    @User('id') authorId: Author['id'],
+    @Body() createDeckDto: CreateDeckDto,
+  ): Promise<Deck> {
+    const { error, data } = await this.deckService.create(
+      authorId,
+      createDeckDto,
+    );
+    if (error || !data) throw new BadRequestException(error);
     return data;
   }
 
