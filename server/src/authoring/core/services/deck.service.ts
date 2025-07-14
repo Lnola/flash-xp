@@ -1,6 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { Author, Deck } from 'authoring/core/entities';
+import { CreateDeckDto } from 'authoring/api/dto';
+import { Author, Deck, QuestionType } from 'authoring/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
 
@@ -9,6 +10,8 @@ export class DeckService {
   constructor(
     @InjectRepository(Deck)
     private readonly deckRepository: BaseEntityRepository<Deck>,
+    @InjectRepository(QuestionType)
+    private readonly questionTypeRepository: BaseEntityRepository<QuestionType>,
   ) {}
 
   async fetchById(deckId: Deck['id']): Promise<Result<Deck>> {
@@ -17,6 +20,35 @@ export class DeckService {
     });
     if (!deck) return Result.failure('Deck not found');
     return Result.success(deck);
+  }
+
+  async create(
+    authorId: Author['id'],
+    dto: CreateDeckDto,
+  ): Promise<Result<Deck>> {
+    const questionTypes = await this.questionTypeRepository.findAll();
+    const questionTypeMap = new Map(questionTypes.map((it) => [it.name, it]));
+    const newDeck = new Deck({
+      authorId,
+      title: dto.title,
+      description: dto.description,
+    });
+    const questionsProps = dto.questions.map((question) => {
+      const questionType = questionTypeMap.get(question.questionType)!;
+      const answerOptionsProps = question.answerOptions?.map((option) => ({
+        text: option.text,
+        isCorrect: option.isCorrect,
+      }));
+      return {
+        text: question.text,
+        answer: question.answer,
+        questionType,
+        answerOptionsProps,
+      };
+    });
+    newDeck.createQuestions(questionsProps);
+    await this.deckRepository.persistAndFlush(newDeck);
+    return Result.success(newDeck);
   }
 
   async fork(
