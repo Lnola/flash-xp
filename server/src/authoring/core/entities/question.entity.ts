@@ -7,7 +7,7 @@ import {
   Cascade,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { AnswerOption, Deck, QuestionType } from '.';
+import { AnswerOption, CreateAnswerOptionProps, Deck, QuestionType } from '.';
 
 @Entity({ tableName: 'question' })
 export class Question extends BaseEntity {
@@ -28,16 +28,40 @@ export class Question extends BaseEntity {
   })
   answerOptions = new Collection<AnswerOption>(this);
 
-  constructor({ text, answer, deck, questionType }: CreateQuestionProps) {
+  constructor({
+    text,
+    answer,
+    deck,
+    questionType,
+    createAnswerOptionsProps,
+  }: CreateQuestionProps) {
     super();
     this.text = text;
     this.answer = answer;
     this.deck = deck;
     this.questionType = questionType;
+    if (createAnswerOptionsProps) {
+      const newAnswerOptions = this._createAnswerOptions(
+        createAnswerOptionsProps,
+      );
+      this._setAnswerOptions(newAnswerOptions);
+    }
   }
 
-  setAnswerOptions(answerOptions: AnswerOption[]): void {
+  private _setAnswerOptions(answerOptions: AnswerOption[]): void {
     this.answerOptions.set(answerOptions);
+  }
+
+  private _createAnswerOptions(
+    answerOptionsProps: Omit<CreateAnswerOptionProps, 'question'>[],
+  ): AnswerOption[] {
+    return answerOptionsProps.map(
+      (answerOption) =>
+        new AnswerOption({
+          ...answerOption,
+          question: this,
+        }),
+    );
   }
 
   clone(deck: Deck): Question {
@@ -45,7 +69,7 @@ export class Question extends BaseEntity {
     const clonedAnswerOptions = this.answerOptions.map((answerOption) =>
       answerOption.clone(clonedQuestion),
     );
-    clonedQuestion.setAnswerOptions(clonedAnswerOptions);
+    clonedQuestion._setAnswerOptions(clonedAnswerOptions);
     return clonedQuestion;
   }
 }
@@ -55,4 +79,5 @@ type CreateQuestionProps = {
   answer?: string;
   deck: Deck;
   questionType: QuestionType;
+  createAnswerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
 };
