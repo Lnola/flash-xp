@@ -20,13 +20,19 @@ export class AnswerOption extends BaseEntity {
     this.question = question;
   }
 
+  static create(props: AnswerOptionConstructorProps): AnswerOption {
+    return new AnswerOption(props);
+  }
+
   clone(question: Question): AnswerOption {
     return new AnswerOption({ ...this, question });
   }
 }
 
-export type AnswerOptionConstructorProps = {
+type AnswerOptionConstructorProps = {
   text: string;
   isCorrect: boolean;
   question: Question;
 };
+
+export type CreateAnswerOptionProps = AnswerOptionConstructorProps;
