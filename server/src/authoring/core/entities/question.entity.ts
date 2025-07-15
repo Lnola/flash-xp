@@ -37,14 +37,13 @@ export class Question extends BaseEntity {
   }
 
   static create({
-    createAnswerOptionsProps,
+    answerOptionsProps,
     ...data
   }: CreateQuestionProps): Question {
     const newQuestion = new Question(data);
-    if (createAnswerOptionsProps) {
-      const newAnswerOptions = newQuestion._createAnswerOptions(
-        createAnswerOptionsProps,
-      );
+    if (answerOptionsProps) {
+      const newAnswerOptions =
+        newQuestion._createAnswerOptions(answerOptionsProps);
       newQuestion._setAnswerOptions(newAnswerOptions);
     }
     return newQuestion;
@@ -83,5 +82,5 @@ type QuestionConstructorProps = {
 };
 
 export type CreateQuestionProps = QuestionConstructorProps & {
-  createAnswerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
+  answerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
 };

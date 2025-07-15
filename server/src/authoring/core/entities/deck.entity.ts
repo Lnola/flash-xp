@@ -31,10 +31,10 @@ export class Deck extends BaseEntity {
     this.description = description;
   }
 
-  static create({ createQuestionsProps, ...data }: CreateDeckProps): Deck {
+  static create({ questionsProps, ...data }: CreateDeckProps): Deck {
     const newDeck = new Deck(data);
-    if (createQuestionsProps) {
-      const newQuestions = newDeck._createQuestions(createQuestionsProps);
+    if (questionsProps) {
+      const newQuestions = newDeck._createQuestions(questionsProps);
       newDeck._setQuestions(newQuestions);
     }
     return newDeck;
@@ -79,5 +79,5 @@ type DeckConstructorProps = {
 };
 
 export type CreateDeckProps = DeckConstructorProps & {
-  createQuestionsProps?: Omit<CreateQuestionProps, 'deck'>[];
+  questionsProps?: Omit<CreateQuestionProps, 'deck'>[];
 };

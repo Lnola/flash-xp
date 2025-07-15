@@ -75,7 +75,7 @@ export class DeckService {
         questionType: this.questionTypeProvider.getByName(
           question.questionType,
         )!,
-        createAnswerOptionsProps: question.answerOptions?.map((option) => ({
+        answerOptionsProps: question.answerOptions?.map((option) => ({
           ...option,
           question: null,
         })),
