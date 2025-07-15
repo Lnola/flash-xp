@@ -2,7 +2,6 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateDeckDto } from 'authoring/api/dto';
 import { Author, CreateDeckProps, Deck } from 'authoring/core/entities';
-import { CreateDeckProps, DeckFactory } from 'authoring/core/factories';
 import { QuestionTypeProvider } from 'authoring/core/providers';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
