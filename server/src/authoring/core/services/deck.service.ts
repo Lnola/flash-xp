@@ -27,10 +27,7 @@ export class DeckService {
     dto: CreateDeckDto,
   ): Promise<Result<Deck>> {
     try {
-      const payload: CreateDeckProps = this._mapCreateDeckDtoToProps(
-        dto,
-        authorId,
-      );
+      const payload: CreateDeckProps = this._mapDeckDtoToProps(dto, authorId);
       const newDeck = Deck.create(payload);
       await this.deckRepository.persistAndFlush(newDeck);
       return Result.success(newDeck);
@@ -62,14 +59,14 @@ export class DeckService {
     return Result.success();
   }
 
-  private _mapCreateDeckDtoToProps(
-    dto: CreateDeckDto,
+  private _mapDeckDtoToProps(
+    dto: CreateDeckDto | UpdateDeckDto,
     authorId: Author['id'],
-  ): CreateDeckProps {
+  ): CreateDeckProps | UpdateDeckProps {
     return {
       ...dto,
       authorId,
-      createQuestionsProps: dto.questions?.map((question) => ({
+      questionsProps: dto.questions?.map((question) => ({
         ...question,
         deck: null,
         questionType: this.questionTypeProvider.getByName(
