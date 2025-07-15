@@ -8,12 +8,6 @@ import {
 import BaseEntity from 'shared/database/base.entity';
 import { Author, CreateAnswerOptionsProps, Question } from '.';
 
-type CreateDeckProps = {
-  authorId: number;
-  title: string;
-  description: string;
-};
-
 @Entity({ tableName: 'deck' })
 export class Deck extends BaseEntity {
   @Property({ length: 50 })
@@ -71,6 +65,13 @@ export class Deck extends BaseEntity {
     return forkedDeck;
   }
 }
+
+type CreateDeckProps = {
+  authorId: number;
+  title: string;
+  description: string;
+};
+
 type CreateQuestionsProps = {
   text: Question['text'];
   answer: Question['answer'];

@@ -3,11 +3,6 @@ import { Seeder } from '@mikro-orm/seeder';
 import { QuestionType } from 'authoring/core/entities';
 import { DatabaseSeederContext } from '.';
 
-const questionTypes = [
-  { name: 'Multiple Choice' },
-  { name: 'Self Assessment' },
-];
-
 export class QuestionTypeSeeder extends Seeder {
   async run(em: EntityManager, context: DatabaseSeederContext): Promise<void> {
     const seedQuestionTypes = questionTypes.map((it) => {
@@ -17,3 +12,8 @@ export class QuestionTypeSeeder extends Seeder {
     return em.persistAndFlush(seedQuestionTypes);
   }
 }
+
+const questionTypes = [
+  { name: 'Multiple Choice' },
+  { name: 'Self Assessment' },
+];
