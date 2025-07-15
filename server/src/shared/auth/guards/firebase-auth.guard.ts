@@ -35,7 +35,7 @@ export class FirebaseAuthGuard implements CanActivate {
     }
   }
 
-  async _verifyFirebaseUser(request: Request): Promise<string> {
+  private async _verifyFirebaseUser(request: Request): Promise<string> {
     const authHeader = request.headers.authorization;
     if (!authHeader?.startsWith('Bearer ')) {
       throw new UnauthorizedException('Failed to authenticate.');
@@ -45,7 +45,7 @@ export class FirebaseAuthGuard implements CanActivate {
     return decodedToken.uid;
   }
 
-  async _verifyDatabaseUser(ssoId: string): Promise<User> {
+  private async _verifyDatabaseUser(ssoId: string): Promise<User> {
     const user = await this.userRepository.findOne({ ssoId });
     if (!user) {
       const newUser = new User({ ssoId });
