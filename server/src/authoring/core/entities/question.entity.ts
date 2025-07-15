@@ -40,16 +40,6 @@ export class Question extends BaseEntity {
     this.answerOptions.set(answerOptions);
   }
 
-  createAnswerOptions(answerOptionsProps: CreateAnswerOptionsProps): void {
-    const answerOptions = answerOptionsProps.map((answerOptionProps) => {
-      return new AnswerOption({
-        ...answerOptionProps,
-        question: this,
-      });
-    });
-    this.setAnswerOptions(answerOptions);
-  }
-
   clone(deck: Deck): Question {
     const clonedQuestion = new Question({ ...this, deck });
     const clonedAnswerOptions = this.answerOptions.map((answerOption) =>
@@ -66,8 +56,3 @@ type CreateQuestionProps = {
   deck: Deck;
   questionType: QuestionType;
 };
-
-export type CreateAnswerOptionsProps = Pick<
-  AnswerOption,
-  'text' | 'isCorrect'
->[];
