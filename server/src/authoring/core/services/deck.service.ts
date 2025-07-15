@@ -22,6 +22,7 @@ export class DeckService {
     return Result.success(deck);
   }
 
+  // TODO: Do factories instead of app service holding the creation logic
   async create(
     authorId: Author['id'],
     dto: CreateDeckDto,
