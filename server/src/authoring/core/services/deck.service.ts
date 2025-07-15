@@ -2,6 +2,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateDeckDto } from 'authoring/api/dto';
 import { Author, Deck } from 'authoring/core/entities';
+import { CreateDeckProps, DeckFactory } from 'authoring/core/factories';
 import { QuestionTypeProvider } from 'authoring/core/providers';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
@@ -22,33 +23,16 @@ export class DeckService {
     return Result.success(deck);
   }
 
-  // TODO: Do factories instead of app service holding the creation logic
   async create(
     authorId: Author['id'],
     dto: CreateDeckDto,
   ): Promise<Result<Deck>> {
     try {
-      const newDeck = new Deck({
+      const payload: CreateDeckProps = this._mapCreateDeckDtoToProps(
+        dto,
         authorId,
-        title: dto.title,
-        description: dto.description,
-      });
-      const questionsProps = dto.questions.map((question) => {
-        const questionType = this.questionTypeProvider.getByName(
-          question.questionType,
-        )!;
-        const answerOptionsProps = question.answerOptions?.map((option) => ({
-          text: option.text,
-          isCorrect: option.isCorrect,
-        }));
-        return {
-          text: question.text,
-          answer: question.answer,
-          questionType,
-          answerOptionsProps,
-        };
-      });
-      newDeck.createQuestions(questionsProps);
+      );
+      const newDeck = DeckFactory.create(payload);
       await this.deckRepository.persistAndFlush(newDeck);
       return Result.success(newDeck);
     } catch (error) {
@@ -77,5 +61,26 @@ export class DeckService {
     if (!deck) return Result.failure('Deck not found');
     await this.deckRepository.removeAndFlush(deck);
     return Result.success();
+  }
+
+  private _mapCreateDeckDtoToProps(
+    dto: CreateDeckDto,
+    authorId: Author['id'],
+  ): CreateDeckProps {
+    return {
+      ...dto,
+      authorId,
+      questions: dto.questions?.map((question) => ({
+        ...question,
+        deck: null,
+        questionType: this.questionTypeProvider.getByName(
+          question.questionType,
+        )!,
+        answerOptions: question.answerOptions?.map((option) => ({
+          ...option,
+          question: null,
+        })),
+      })),
+    };
   }
 }
