@@ -24,7 +24,7 @@ export class Deck extends BaseEntity {
   })
   questions = new Collection<Question>(this);
 
-  constructor({ authorId, title, description }: CreateDeckProps) {
+  constructor({ authorId, title, description }: DeckConstructorProps) {
     super();
     this.authorId = authorId;
     this.title = title;
@@ -52,7 +52,7 @@ export class Deck extends BaseEntity {
   }
 }
 
-type CreateDeckProps = {
+type DeckConstructorProps = {
   authorId: number;
   title: string;
   description: string;

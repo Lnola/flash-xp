@@ -13,7 +13,7 @@ export class AnswerOption extends BaseEntity {
   @ManyToOne(() => Question)
   question!: Question;
 
-  constructor({ text, isCorrect, question }: CreateAnswerOptionProps) {
+  constructor({ text, isCorrect, question }: AnswerOptionConstructorProps) {
     super();
     this.text = text;
     this.isCorrect = isCorrect;
@@ -25,7 +25,7 @@ export class AnswerOption extends BaseEntity {
   }
 }
 
-type CreateAnswerOptionProps = {
+export type AnswerOptionConstructorProps = {
   text: string;
   isCorrect: boolean;
   question: Question;

@@ -6,12 +6,12 @@ export class QuestionType extends BaseEntity {
   @Property()
   name!: string;
 
-  constructor({ name }: CreateQuestionTypeProps) {
+  constructor({ name }: QuestionTypeConstructorProps) {
     super();
     this.name = name;
   }
 }
 
-type CreateQuestionTypeProps = {
+type QuestionTypeConstructorProps = {
   name: string;
 };

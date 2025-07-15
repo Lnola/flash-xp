@@ -6,12 +6,12 @@ export class User extends BaseEntity {
   @Property()
   ssoId!: string;
 
-  constructor({ ssoId }: CreateUserProps) {
+  constructor({ ssoId }: UserConstructorProps) {
     super();
     this.ssoId = ssoId;
   }
 }
 
-type CreateUserProps = {
+type UserConstructorProps = {
   ssoId: string;
 };

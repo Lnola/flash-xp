@@ -28,13 +28,7 @@ export class Question extends BaseEntity {
   })
   answerOptions = new Collection<AnswerOption>(this);
 
-  constructor({
-    text,
-    answer,
-    deck,
-    questionType,
-    createAnswerOptionsProps,
-  }: CreateQuestionProps) {
+  constructor({ text, answer, deck, questionType }: QuestionConstructorProps) {
     super();
     this.text = text;
     this.answer = answer;
@@ -74,7 +68,7 @@ export class Question extends BaseEntity {
   }
 }
 
-type CreateQuestionProps = {
+type QuestionConstructorProps = {
   text: string;
   answer?: string;
   deck: Deck;
