@@ -1,6 +1,7 @@
 import type { EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
 import { QuestionType } from 'authoring/core/entities';
+import { QUESTION_TYPE_NAMES } from 'shared/constants';
 import { DatabaseSeederContext } from '.';
 
 export class QuestionTypeSeeder extends Seeder {
@@ -13,7 +14,4 @@ export class QuestionTypeSeeder extends Seeder {
   }
 }
 
-const questionTypes = [
-  { name: 'Multiple Choice' },
-  { name: 'Self Assessment' },
-];
+const questionTypes = QUESTION_TYPE_NAMES.map((name) => ({ name }));
