@@ -11,7 +11,9 @@ import {
 import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
 import { User } from 'shared/auth/decorators';
+import { ZodValidationPipe } from 'shared/pipes';
 import { CreateDeckDto } from './dto';
+import { createDeckSchema } from './validators';
 
 @Controller('authoring/decks')
 export class DeckController {
@@ -24,11 +26,10 @@ export class DeckController {
     return data;
   }
 
-  // TODO: Add prop validation
   @Post()
   async create(
+    @Body(new ZodValidationPipe(createDeckSchema)) createDeckDto: CreateDeckDto,
     @User('id') authorId: Author['id'],
-    @Body() createDeckDto: CreateDeckDto,
   ): Promise<Deck> {
     const { error, data } = await this.deckService.create(
       authorId,
