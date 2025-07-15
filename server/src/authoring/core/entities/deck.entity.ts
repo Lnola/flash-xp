@@ -6,7 +6,7 @@ import {
   Property,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { Author, Question } from '.';
+import { Author, CreateQuestionProps, Question } from '.';
 
 @Entity({ tableName: 'deck' })
 export class Deck extends BaseEntity {
@@ -31,8 +31,28 @@ export class Deck extends BaseEntity {
     this.description = description;
   }
 
-  setQuestions(questions: Question[]): void {
+  static create({ createQuestionsProps, ...data }: CreateDeckProps): Deck {
+    const newDeck = new Deck(data);
+    if (createQuestionsProps) {
+      const newQuestions = newDeck._createQuestions(createQuestionsProps);
+      newDeck._setQuestions(newQuestions);
+    }
+    return newDeck;
+  }
+
+  private _setQuestions(questions: Question[]): void {
     this.questions.set(questions);
+  }
+
+  private _createQuestions(
+    questionsProps: Omit<CreateQuestionProps, 'deck'>[],
+  ): Question[] {
+    return questionsProps.map((question) =>
+      Question.create({
+        ...question,
+        deck: this,
+      }),
+    );
   }
 
   clone(): Deck {
@@ -40,7 +60,7 @@ export class Deck extends BaseEntity {
     const clonedQuestions = this.questions.map((question) =>
       question.clone(clonedDeck),
     );
-    clonedDeck.setQuestions(clonedQuestions);
+    clonedDeck._setQuestions(clonedQuestions);
     return clonedDeck;
   }
 
@@ -56,4 +76,8 @@ type DeckConstructorProps = {
   authorId: number;
   title: string;
   description: string;
+};
+
+export type CreateDeckProps = DeckConstructorProps & {
+  createQuestionsProps?: Omit<CreateQuestionProps, 'deck'>[];
 };

@@ -34,12 +34,20 @@ export class Question extends BaseEntity {
     this.answer = answer;
     this.deck = deck;
     this.questionType = questionType;
+  }
+
+  static create({
+    createAnswerOptionsProps,
+    ...data
+  }: CreateQuestionProps): Question {
+    const newQuestion = new Question(data);
     if (createAnswerOptionsProps) {
-      const newAnswerOptions = this._createAnswerOptions(
+      const newAnswerOptions = newQuestion._createAnswerOptions(
         createAnswerOptionsProps,
       );
-      this._setAnswerOptions(newAnswerOptions);
+      newQuestion._setAnswerOptions(newAnswerOptions);
     }
+    return newQuestion;
   }
 
   private _setAnswerOptions(answerOptions: AnswerOption[]): void {
@@ -49,12 +57,11 @@ export class Question extends BaseEntity {
   private _createAnswerOptions(
     answerOptionsProps: Omit<CreateAnswerOptionProps, 'question'>[],
   ): AnswerOption[] {
-    return answerOptionsProps.map(
-      (answerOption) =>
-        new AnswerOption({
-          ...answerOption,
-          question: this,
-        }),
+    return answerOptionsProps.map((answerOption) =>
+      AnswerOption.create({
+        ...answerOption,
+        question: this,
+      }),
     );
   }
 
@@ -73,5 +80,8 @@ type QuestionConstructorProps = {
   answer?: string;
   deck: Deck;
   questionType: QuestionType;
+};
+
+export type CreateQuestionProps = QuestionConstructorProps & {
   createAnswerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
 };
