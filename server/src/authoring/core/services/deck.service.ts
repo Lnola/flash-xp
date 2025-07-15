@@ -1,7 +1,8 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateDeckDto } from 'authoring/api/dto';
-import { Author, Deck, QuestionType } from 'authoring/core/entities';
+import { Author, Deck } from 'authoring/core/entities';
+import { QuestionTypeProvider } from 'authoring/core/providers';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
 
@@ -10,8 +11,7 @@ export class DeckService {
   constructor(
     @InjectRepository(Deck)
     private readonly deckRepository: BaseEntityRepository<Deck>,
-    @InjectRepository(QuestionType)
-    private readonly questionTypeRepository: BaseEntityRepository<QuestionType>,
+    private readonly questionTypeProvider: QuestionTypeProvider,
   ) {}
 
   async fetchById(deckId: Deck['id']): Promise<Result<Deck>> {
@@ -28,15 +28,15 @@ export class DeckService {
     dto: CreateDeckDto,
   ): Promise<Result<Deck>> {
     try {
-      const questionTypes = await this.questionTypeRepository.findAll();
-      const questionTypeMap = new Map(questionTypes.map((it) => [it.name, it]));
       const newDeck = new Deck({
         authorId,
         title: dto.title,
         description: dto.description,
       });
       const questionsProps = dto.questions.map((question) => {
-        const questionType = questionTypeMap.get(question.questionType)!;
+        const questionType = this.questionTypeProvider.getByName(
+          question.questionType,
+        )!;
         const answerOptionsProps = question.answerOptions?.map((option) => ({
           text: option.text,
           isCorrect: option.isCorrect,
