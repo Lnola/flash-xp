@@ -1,7 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateDeckDto } from 'authoring/api/dto';
-import { Author, Deck } from 'authoring/core/entities';
+import { Author, CreateDeckProps, Deck } from 'authoring/core/entities';
 import { CreateDeckProps, DeckFactory } from 'authoring/core/factories';
 import { QuestionTypeProvider } from 'authoring/core/providers';
 import { BaseEntityRepository } from 'shared/database/base.repository';
@@ -32,7 +32,7 @@ export class DeckService {
         dto,
         authorId,
       );
-      const newDeck = DeckFactory.create(payload);
+      const newDeck = Deck.create(payload);
       await this.deckRepository.persistAndFlush(newDeck);
       return Result.success(newDeck);
     } catch (error) {
@@ -70,13 +70,13 @@ export class DeckService {
     return {
       ...dto,
       authorId,
-      questions: dto.questions?.map((question) => ({
+      createQuestionsProps: dto.questions?.map((question) => ({
         ...question,
         deck: null,
         questionType: this.questionTypeProvider.getByName(
           question.questionType,
         )!,
-        answerOptions: question.answerOptions?.map((option) => ({
+        createAnswerOptionsProps: question.answerOptions?.map((option) => ({
           ...option,
           question: null,
         })),
