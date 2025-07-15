@@ -29,6 +29,7 @@ export default tseslint.config(
   },
   {
     rules: {
+      '@typescript-eslint/no-duplicate-type-constituents': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
       'import/order': [
