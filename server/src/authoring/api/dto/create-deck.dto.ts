@@ -1,17 +1,4 @@
-class CreateAnswerOptionDto {
-  text: string;
-  isCorrect: boolean;
-}
+import z from 'zod';
+import { createDeckSchema } from 'authoring/api/validators';
 
-class CreateQuestionDto {
-  text: string;
-  answer?: string;
-  questionType: string;
-  answerOptions?: CreateAnswerOptionDto[];
-}
-
-export class CreateDeckDto {
-  title: string;
-  description: string;
-  questions: CreateQuestionDto[];
-}
+export type CreateDeckDto = z.infer<typeof createDeckSchema>;
