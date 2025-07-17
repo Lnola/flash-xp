@@ -36,6 +36,10 @@ export class Question extends BaseEntity {
     this.questionType = questionType;
   }
 
+  private _setAnswerOptions(answerOptions: AnswerOption[]): void {
+    this.answerOptions.set(answerOptions);
+  }
+
   static create({
     answerOptionsProps,
     ...data
@@ -49,10 +53,6 @@ export class Question extends BaseEntity {
     return newQuestion;
   }
 
-  private _setAnswerOptions(answerOptions: AnswerOption[]): void {
-    this.answerOptions.set(answerOptions);
-  }
-
   private _createAnswerOptions(
     answerOptionsProps: Omit<CreateAnswerOptionProps, 'question'>[],
   ): AnswerOption[] {
@@ -62,6 +62,37 @@ export class Question extends BaseEntity {
         question: this,
       }),
     );
+  }
+
+  update({
+    text,
+    answer,
+    questionType,
+    answerOptionsProps,
+  }: UpdateQuestionProps): void {
+    this.text = text;
+    this.answer = answer;
+    this.questionType = questionType;
+    if (answerOptionsProps) {
+      const newAnswerOptions = this._updateAnswerOptions(answerOptionsProps);
+      this._setAnswerOptions(newAnswerOptions);
+    }
+  }
+
+  private _updateAnswerOptions(
+    answerOptionsProps: Omit<CreateAnswerOptionProps, 'question'>[],
+  ): AnswerOption[] {
+    const existingAnswerOptions = this.answerOptions.getItems();
+    const answerOptions = answerOptionsProps.map((answerOptionProps) => {
+      const existingOption = existingAnswerOptions.find(
+        (it) => it.text === answerOptionProps.text,
+      );
+      const payload = { ...answerOptionProps, question: this };
+      if (!existingOption) return AnswerOption.create(payload);
+      existingOption.update(payload);
+      return existingOption;
+    });
+    return answerOptions;
   }
 
   clone(deck: Deck): Question {
@@ -82,5 +113,8 @@ type QuestionConstructorProps = {
 };
 
 export type CreateQuestionProps = QuestionConstructorProps & {
+  answerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
+};
+export type UpdateQuestionProps = QuestionConstructorProps & {
   answerOptionsProps?: Omit<CreateAnswerOptionProps, 'question'>[];
 };
