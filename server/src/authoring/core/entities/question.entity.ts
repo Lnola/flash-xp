@@ -25,6 +25,7 @@ export class Question extends BaseEntity {
 
   @OneToMany(() => AnswerOption, (answerOption) => answerOption.question, {
     cascade: [Cascade.REMOVE, Cascade.PERSIST],
+    orphanRemoval: true,
   })
   answerOptions = new Collection<AnswerOption>(this);
 

@@ -21,6 +21,7 @@ export class Deck extends BaseEntity {
 
   @OneToMany(() => Question, (question) => question.deck, {
     cascade: [Cascade.REMOVE, Cascade.PERSIST],
+    orphanRemoval: true,
   })
   questions = new Collection<Question>(this);
 
