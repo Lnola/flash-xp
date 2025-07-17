@@ -1,7 +1,12 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { CreateDeckDto } from 'authoring/api/dto';
-import { Author, CreateDeckProps, Deck } from 'authoring/core/entities';
+import { CreateDeckDto, UpdateDeckDto } from 'authoring/api/dto';
+import {
+  Author,
+  CreateDeckProps,
+  Deck,
+  UpdateDeckProps,
+} from 'authoring/core/entities';
 import { QuestionTypeProvider } from 'authoring/core/providers';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
@@ -33,6 +38,25 @@ export class DeckService {
       return Result.success(newDeck);
     } catch (error) {
       return Result.failure(`Failed to create deck: ${error}`);
+    }
+  }
+
+  async update(
+    authorId: Author['id'],
+    deckId: Deck['id'],
+    dto: UpdateDeckDto,
+  ): Promise<Result<Deck>> {
+    try {
+      const existingDeck = await this.deckRepository.findOne(deckId, {
+        populate: ['questions', 'questions.answerOptions'],
+      });
+      if (!existingDeck) return Result.failure('Existing deck not found');
+      const payload: UpdateDeckProps = this._mapDeckDtoToProps(dto, authorId);
+      existingDeck.update(payload);
+      await this.deckRepository.persistAndFlush(existingDeck);
+      return Result.success(existingDeck);
+    } catch (error) {
+      return Result.failure(`Failed to update deck: ${error}`);
     }
   }
 
