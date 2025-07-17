@@ -7,13 +7,14 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
 import { User } from 'shared/auth/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
-import { CreateDeckDto } from './dto';
-import { createDeckSchema } from './validators';
+import { CreateDeckDto, UpdateDeckDto } from './dto';
+import { createDeckSchema, updateDeckSchema } from './validators';
 
 @Controller('authoring/decks')
 export class DeckController {
@@ -34,6 +35,21 @@ export class DeckController {
     const { error, data } = await this.deckService.create(
       authorId,
       createDeckDto,
+    );
+    if (error || !data) throw new BadRequestException(error);
+    return data;
+  }
+
+  @Put(':id')
+  async update(
+    @Body(new ZodValidationPipe(updateDeckSchema)) updateDeckDto: UpdateDeckDto,
+    @Param('id') deckId: Deck['id'],
+    @User('id') authorId: Author['id'],
+  ): Promise<Deck> {
+    const { error, data } = await this.deckService.update(
+      authorId,
+      deckId,
+      updateDeckDto,
     );
     if (error || !data) throw new BadRequestException(error);
     return data;
