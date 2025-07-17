@@ -31,6 +31,10 @@ export class Deck extends BaseEntity {
     this.description = description;
   }
 
+  private _setQuestions(questions: Question[]): void {
+    this.questions.set(questions);
+  }
+
   static create({ questionsProps, ...data }: CreateDeckProps): Deck {
     const newDeck = new Deck(data);
     if (questionsProps) {
@@ -38,10 +42,6 @@ export class Deck extends BaseEntity {
       newDeck._setQuestions(newQuestions);
     }
     return newDeck;
-  }
-
-  private _setQuestions(questions: Question[]): void {
-    this.questions.set(questions);
   }
 
   private _createQuestions(
@@ -53,6 +53,31 @@ export class Deck extends BaseEntity {
         deck: this,
       }),
     );
+  }
+
+  update({ title, description, questionsProps }: UpdateDeckProps): void {
+    this.title = title;
+    this.description = description;
+    if (questionsProps) {
+      const newQuestions = this._updateQuestions(questionsProps);
+      this._setQuestions(newQuestions);
+    }
+  }
+
+  private _updateQuestions(
+    questionsProps: Omit<CreateQuestionProps, 'deck'>[],
+  ): Question[] {
+    const existingQuestions = this.questions.getItems();
+    const questions = questionsProps.map((questionProps) => {
+      const existingQuestion = existingQuestions.find(
+        (it) => it.text === questionProps.text,
+      );
+      const payload = { ...questionProps, deck: this };
+      if (!existingQuestion) return Question.create(payload);
+      existingQuestion.update(payload);
+      return existingQuestion;
+    });
+    return questions;
   }
 
   clone(): Deck {
@@ -79,5 +104,8 @@ type DeckConstructorProps = {
 };
 
 export type CreateDeckProps = DeckConstructorProps & {
+  questionsProps?: Omit<CreateQuestionProps, 'deck'>[];
+};
+export type UpdateDeckProps = DeckConstructorProps & {
   questionsProps?: Omit<CreateQuestionProps, 'deck'>[];
 };
