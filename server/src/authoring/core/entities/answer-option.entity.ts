@@ -24,6 +24,11 @@ export class AnswerOption extends BaseEntity {
     return new AnswerOption(props);
   }
 
+  update({ text, isCorrect }: UpdateAnswerOptionProps): void {
+    this.text = text;
+    this.isCorrect = isCorrect;
+  }
+
   clone(question: Question): AnswerOption {
     return new AnswerOption({ ...this, question });
   }
@@ -36,3 +41,4 @@ type AnswerOptionConstructorProps = {
 };
 
 export type CreateAnswerOptionProps = AnswerOptionConstructorProps;
+export type UpdateAnswerOptionProps = AnswerOptionConstructorProps;
