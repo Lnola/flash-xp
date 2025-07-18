@@ -2,21 +2,23 @@ import 'dart:convert';
 
 import 'package:flashxp/features/create/data/create.api.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 
 class CreateRepository {
   final api = CreateApi();
 
-  Future<void> createDeck() async {
+  Future<Result<void>> createDeck() async {
     try {
       final deck = mockDeck();
       final response = await api.createDeck(deck);
 
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
-        throw Exception('Failed to create deck: $message');
+        return Result.failure('Failed to create deck: $message');
       }
+      return Result.success();
     } catch (error) {
-      rethrow;
+      return Result.failure(error.toString());
     }
   }
 
