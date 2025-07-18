@@ -46,4 +46,17 @@ class CreateRepository {
       return Result.failure(error.toString());
     }
   }
+
+  Future<Result<void>> removeDeck(int deckId) async {
+    try {
+      final response = await api.removeDeck(deckId);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to remove deck: $message');
+      }
+      return Result.success();
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 }
