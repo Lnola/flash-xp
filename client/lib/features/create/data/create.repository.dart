@@ -1,18 +1,15 @@
 import 'dart:convert';
 
+import 'package:flashxp/features/create/data/create.api.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/shared/data/auth_http_client.dart';
 
 class CreateRepository {
-  final client = AuthHttpClient();
+  final api = CreateApi();
 
-  Future<void> create() async {
+  Future<void> createDeck() async {
     try {
       final deck = mockDeck();
-      final response = await client.post(
-        client.buildUri('/authoring/decks'),
-        body: jsonEncode(deck.toJson()),
-      );
+      final response = await api.createDeck(deck);
 
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
