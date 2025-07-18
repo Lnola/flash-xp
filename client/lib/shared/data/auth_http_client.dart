@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 
 class AuthHttpClient extends http.BaseClient {
   final http.Client _inner = http.Client();
+  final String _baseUrl = 'http://localhost:3000';
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
