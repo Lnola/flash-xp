@@ -21,4 +21,10 @@ class CreateApi {
       body: jsonEncode(dto.toJson()),
     );
   }
+
+  Future<http.Response> forkDeck(int deckId) {
+    return client.post(
+      client.buildUri('/authoring/decks/$deckId/fork'),
+    );
+  }
 }
