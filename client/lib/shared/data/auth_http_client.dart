@@ -12,4 +12,6 @@ class AuthHttpClient extends http.BaseClient {
     if (idToken != null) request.headers['Authorization'] = 'Bearer $idToken';
     return _inner.send(request);
   }
+
+  Uri buildUri(String path) => Uri.parse('$_baseUrl$path');
 }
