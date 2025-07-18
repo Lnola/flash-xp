@@ -8,9 +8,9 @@ const answerOptionSchema = z.object({
 
 const questionSchema = z.object({
   text: z.string(),
-  answer: z.string().optional(),
+  answer: z.string().nullable().optional(),
   questionType: z.enum(QUESTION_TYPE_NAMES),
-  answerOptions: z.array(answerOptionSchema).optional(),
+  answerOptions: z.array(answerOptionSchema).nullable().optional(),
 });
 
 export const deckSchema = z.object({

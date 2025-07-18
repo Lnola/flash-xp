@@ -15,7 +15,7 @@ export class Question extends BaseEntity {
   text!: string;
 
   @Property({ nullable: true })
-  answer?: string;
+  answer?: string | null;
 
   @ManyToOne(() => Deck, { hidden: true })
   deck!: Deck;
@@ -108,7 +108,7 @@ export class Question extends BaseEntity {
 
 type QuestionConstructorProps = {
   text: string;
-  answer?: string;
+  answer?: string | null;
   deck: Deck;
   questionType: QuestionType;
 };
