@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 class CreateApi {
   final client = AuthHttpClient();
 
-  Future<http.Response> createDeck(CreateDeckDto deck) {
+  Future<http.Response> createDeck(CreateDeckDto dto) {
     return client.post(
       client.buildUri('/authoring/decks'),
-      body: jsonEncode(deck.toJson()),
+      body: jsonEncode(dto.toJson()),
     );
   }
 }
