@@ -7,16 +7,20 @@ class CreateRepository {
   final client = AuthHttpClient();
 
   Future<void> create() async {
-    final deck = mockDeck();
+    try {
+      final deck = mockDeck();
+      final response = await client.post(
+        client.buildUri('/authoring/decks'),
+        body: jsonEncode(deck.toJson()),
+      );
 
-    // TODO: improve the fetch itself
-    final response = await client.post(
-      client.buildUri('/authoring/decks'),
-      body: jsonEncode(deck.toJson()),
-    );
-
-    // TODO: throw the correct error that comes from the server
-    if (response.statusCode != 201) throw Exception('Failed to fetch decks.');
+      if (response.statusCode != 201) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        throw Exception('Failed to create deck: $message');
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
   CreateDeckDto mockDeck() {
