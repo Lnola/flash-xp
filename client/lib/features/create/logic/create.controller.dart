@@ -1,7 +1,10 @@
+import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 class CreateController extends ChangeNotifier {
+  final CreateRepository _createRepository;
+
   final TextEditingController titleController;
   final List<TextEditingController> dynamicControllers;
   final List<(TextEditingController, TextEditingController)>
@@ -11,7 +14,7 @@ class CreateController extends ChangeNotifier {
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
-  CreateController()
+  CreateController(this._createRepository)
       : titleController = TextEditingController(),
         dynamicControllers = [],
         selfAssessmentPairs = [],
