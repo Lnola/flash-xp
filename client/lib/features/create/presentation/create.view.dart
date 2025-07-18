@@ -1,3 +1,4 @@
+import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
@@ -69,7 +70,7 @@ class CreateViewState extends State<CreateView> {
   @override
   void initState() {
     super.initState();
-    controller = CreateController();
+    controller = CreateController(CreateRepository());
     controller.addListener(_onControllerUpdated);
   }
 
