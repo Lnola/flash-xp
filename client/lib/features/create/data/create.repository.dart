@@ -11,8 +11,7 @@ class CreateRepository {
 
     // TODO: improve the fetch itself
     final response = await client.post(
-      Uri.parse('http://localhost:3000/authoring/decks'),
-      headers: {'Content-Type': 'application/json'},
+      client.buildUri('/authoring/decks'),
       body: jsonEncode(deck.toJson()),
     );
 
