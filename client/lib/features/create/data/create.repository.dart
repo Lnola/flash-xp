@@ -6,7 +6,7 @@ import 'package:flashxp/shared/data/auth_http_client.dart';
 class CreateRepository {
   final client = AuthHttpClient();
 
-  void create() async {
+  Future<void> create() async {
     final deck = mockDeck();
 
     // TODO: improve the fetch itself
