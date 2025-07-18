@@ -16,6 +16,7 @@ import { ZodValidationPipe } from 'shared/pipes';
 import { CreateDeckDto, UpdateDeckDto } from './dto';
 import { createDeckSchema, updateDeckSchema } from './validators';
 
+// TODO: add guards to ensure only the author can do certain actions
 @Controller('authoring/decks')
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
