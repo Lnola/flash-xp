@@ -27,4 +27,10 @@ class CreateApi {
       client.buildUri('/authoring/decks/$deckId/fork'),
     );
   }
+
+  Future<http.Response> removeDeck(int deckId) {
+    return client.delete(
+      client.buildUri('/authoring/decks/$deckId'),
+    );
+  }
 }
