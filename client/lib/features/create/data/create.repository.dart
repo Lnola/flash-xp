@@ -7,11 +7,9 @@ import 'package:flashxp/shared/helpers/result.dart';
 class CreateRepository {
   final api = CreateApi();
 
-  Future<Result<void>> createDeck() async {
+  Future<Result<void>> createDeck(CreateDeckDto dto) async {
     try {
-      final deck = mockDeck();
-      final response = await api.createDeck(deck);
-
+      final response = await api.createDeck(dto);
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to create deck: $message');
@@ -20,28 +18,5 @@ class CreateRepository {
     } catch (error) {
       return Result.failure(error.toString());
     }
-  }
-
-  CreateDeckDto mockDeck() {
-    return CreateDeckDto(
-      title: 'New Deck',
-      description: 'Description of the new deck',
-      questions: [
-        CreateQuestionDto(
-          text: 'What is the capital of France?',
-          answer: 'Paris',
-          questionType: 'Self Assessment',
-        ),
-        CreateQuestionDto(
-          text: 'What is 2 + 2?',
-          questionType: 'Multiple Choice',
-          answerOptions: [
-            CreateAnswerOptionDto(text: '3', isCorrect: false),
-            CreateAnswerOptionDto(text: '4', isCorrect: true),
-            CreateAnswerOptionDto(text: '5', isCorrect: false),
-          ],
-        ),
-      ],
-    );
   }
 }
