@@ -44,18 +44,16 @@ export class DeckService {
 
   async update(
     authorId: Author['id'],
-    deckId: Deck['id'],
+    existingDeck: Deck,
     dto: UpdateDeckDto,
   ): Promise<Result<Deck>> {
     try {
-      const existingDeck = await this.deckRepository.findOne(deckId, {
-        populate: ['questions', 'questions.answerOptions'],
-      });
-      if (!existingDeck) return Result.failure('Existing deck not found');
+      const { error, data: populatedDeck } = await this.populate(existingDeck);
+      if (error || !populatedDeck) return Result.failure(error!);
       const payload: UpdateDeckProps = this._mapDeckDtoToProps(dto, authorId);
-      existingDeck.update(payload);
-      await this.deckRepository.persistAndFlush(existingDeck);
-      return Result.success(existingDeck);
+      populatedDeck.update(payload);
+      await this.deckRepository.persistAndFlush(populatedDeck);
+      return Result.success(populatedDeck);
     } catch (error) {
       return Result.failure(`Failed to update deck: ${error}`);
     }
