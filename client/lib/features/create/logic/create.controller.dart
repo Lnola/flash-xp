@@ -153,8 +153,8 @@ class CreateController extends ChangeNotifier {
     (TextEditingController, List<TextEditingController>) question,
   ) {
     question.$1.dispose();
-    for (final option in question.$2) {
-      option.dispose();
+    for (final answerOption in question.$2) {
+      answerOption.dispose();
     }
     multipleChoiceQuestions.remove(question);
     notifyListeners();
@@ -174,8 +174,8 @@ class CreateController extends ChangeNotifier {
     }
     for (final question in multipleChoiceQuestions) {
       question.$1.dispose();
-      for (final option in question.$2) {
-        option.dispose();
+      for (final answerOption in question.$2) {
+        answerOption.dispose();
       }
     }
     super.dispose();
