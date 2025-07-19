@@ -82,14 +82,21 @@ class Temp {
   }
 }
 
+typedef SelfAssessmentPair = (
+  TextEditingController,
+  TextEditingController,
+);
+typedef MultipleChoiceQuestion = (
+  TextEditingController,
+  List<TextEditingController>
+);
+
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
   final TextEditingController titleController;
-  final List<(TextEditingController, TextEditingController)>
-      selfAssessmentPairs;
-  final List<(TextEditingController, List<TextEditingController>)>
-      multipleChoiceQuestions;
+  final List<SelfAssessmentPair> selfAssessmentPairs;
+  final List<MultipleChoiceQuestion> multipleChoiceQuestions;
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
@@ -140,18 +147,14 @@ class CreateController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeSelfAssessmentPair(
-    (TextEditingController, TextEditingController) pair,
-  ) {
+  void removeSelfAssessmentPair(SelfAssessmentPair pair) {
     pair.$1.dispose();
     pair.$2.dispose();
     selfAssessmentPairs.remove(pair);
     notifyListeners();
   }
 
-  void removeMultipleChoiceQuestion(
-    (TextEditingController, List<TextEditingController>) question,
-  ) {
+  void removeMultipleChoiceQuestion(MultipleChoiceQuestion question) {
     question.$1.dispose();
     for (final answerOption in question.$2) {
       answerOption.dispose();

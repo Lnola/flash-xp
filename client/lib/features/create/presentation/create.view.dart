@@ -16,8 +16,7 @@ extension on PracticeMode {
 
   // TODO: upgrade this
   Widget buildInputs(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice =>
-          FlashInputGroup<(TextEditingController, List<TextEditingController>)>(
+        PracticeMode.multipleChoice => FlashInputGroup<MultipleChoiceQuestion>(
             inputControllers: controller.multipleChoiceQuestions,
             onRemoveInputGroup: controller.removeMultipleChoiceQuestion,
             isDirty: (input) =>
@@ -35,8 +34,7 @@ extension on PracticeMode {
               ],
             ],
           ),
-        PracticeMode.selfAssessment =>
-          FlashInputGroup<(TextEditingController, TextEditingController)>(
+        PracticeMode.selfAssessment => FlashInputGroup<SelfAssessmentPair>(
             inputControllers: controller.selfAssessmentPairs,
             onRemoveInputGroup: controller.removeSelfAssessmentPair,
             isDirty: (input) =>
