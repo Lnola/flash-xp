@@ -2,11 +2,26 @@ import 'dart:convert';
 
 import 'package:flashxp/features/create/data/create.api.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
+import 'package:flashxp/features/create/data/dto/deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
 class CreateRepository {
   final api = CreateApi();
+
+  Future<Result<DeckDto>> getDeck(int deckId) async {
+    try {
+      final response = await api.getDeck(deckId);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to fetch deck: $message');
+      }
+      final data = DeckDto.fromJson(jsonDecode(response.body));
+      return Result.success(data);
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 
   Future<Result<void>> createDeck(CreateDeckDto dto) async {
     try {
