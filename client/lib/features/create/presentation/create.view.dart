@@ -84,12 +84,17 @@ class CreateViewState extends State<CreateView> {
           clipBehavior: Clip.none,
           padding: const EdgeInsets.only(top: 8, bottom: 120),
           child: Column(
+            spacing: 8,
             children: [
               FlashTextInput(
                 label: 'Full title',
                 controller: controller.titleController,
               ),
-              const SizedBox(height: 24),
+              FlashTextInput(
+                label: 'Description',
+                controller: controller.descriptionController,
+              ),
+              const SizedBox(height: 16),
               controller.mode.buildInputs(controller),
               FlashDropdown<PracticeMode>(
                 value: controller.mode,

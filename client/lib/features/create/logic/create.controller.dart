@@ -176,6 +176,7 @@ class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
   final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   final List<SelfAssessmentController> selfAssessmentControllers = [];
   final List<MultipleChoiceController> multipleChoiceControllers = [];
 
@@ -196,10 +197,9 @@ class CreateController extends ChangeNotifier {
     };
     final createQuestionsDto =
         controllers.map(_strategy.mapQuestionControllersToDto).toList();
-    // TODO: add description
     final createDeckDto = CreateDeckDto(
       title: titleController.text,
-      description: '',
+      description: descriptionController.text,
       questions: createQuestionsDto,
     );
     final result = await _createRepository.createDeck(createDeckDto);
@@ -224,6 +224,7 @@ class CreateController extends ChangeNotifier {
   @override
   void dispose() {
     titleController.dispose();
+    descriptionController.dispose();
     for (final pair in selfAssessmentControllers) {
       pair.$1.dispose();
       pair.$2.dispose();
