@@ -1,5 +1,10 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { Deck } from 'authoring/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
@@ -17,7 +22,7 @@ export class IsAuthorGuard implements CanActivate {
     const deckId = +request.params.id;
 
     const deck = await this.deckRepository.findOne(deckId);
-    if (!deck) return false;
+    if (!deck) throw new NotFoundException('Deck not found');
     if (deck.authorId !== userId) return false;
 
     request.deck = deck;
