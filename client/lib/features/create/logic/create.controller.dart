@@ -94,16 +94,13 @@ typedef MultipleChoiceQuestion = (
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
-  final TextEditingController titleController;
-  final List<SelfAssessmentPair> selfAssessmentPairs;
-  final List<MultipleChoiceQuestion> multipleChoiceQuestions;
+  final TextEditingController titleController = TextEditingController();
+  final List<SelfAssessmentPair> selfAssessmentPairs = [];
+  final List<MultipleChoiceQuestion> multipleChoiceQuestions = [];
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
-  CreateController(this._createRepository)
-      : titleController = TextEditingController(),
-        selfAssessmentPairs = [],
-        multipleChoiceQuestions = [];
+  CreateController(this._createRepository);
 
   void submit() async {
     Temp.remove(_createRepository, 19);
