@@ -77,7 +77,12 @@ class FlashInputGroup<T> extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: Column(children: buildInputs(input))),
+                Expanded(
+                  child: Column(
+                    spacing: 8,
+                    children: buildInputs(input),
+                  ),
+                ),
               ],
             ),
           ],
