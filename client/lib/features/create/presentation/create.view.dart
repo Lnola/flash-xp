@@ -35,9 +35,12 @@ extension on PracticeMode {
                         controller: input.$2[i],
                       ),
                     ),
-                    FlashCheckbox(
-                      value: controller.isChecked,
-                      onChanged: controller.toggleChecked,
+                    Tooltip(
+                      message: 'Is this answer correct?',
+                      child: FlashCheckbox(
+                        value: controller.isChecked,
+                        onChanged: controller.toggleChecked,
+                      ),
                     ),
                   ],
                 ),
