@@ -2,6 +2,7 @@ import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
+import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
@@ -25,13 +26,21 @@ extension on PracticeMode {
                 input.$2.any((c) => c.text.isNotEmpty),
             buildInputs: (input) => [
               FlashTextInput(label: 'Question', controller: input.$1),
-              const SizedBox(height: 8),
               for (var i = 0; i < 4; i++) ...[
-                FlashTextInput(
-                  label: 'Option ${String.fromCharCode(65 + i)}',
-                  controller: input.$2[i],
+                Row(
+                  children: [
+                    Expanded(
+                      child: FlashTextInput(
+                        label: 'Option ${String.fromCharCode(65 + i)}',
+                        controller: input.$2[i],
+                      ),
+                    ),
+                    FlashCheckbox(
+                      value: controller.isChecked,
+                      onChanged: controller.toggleChecked,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 8),
               ],
             ],
           ),
