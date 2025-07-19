@@ -8,12 +8,14 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
-import { User } from 'shared/auth/decorators';
+import { User, Deck as ExistingDeck } from 'shared/auth/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
 import { CreateDeckDto, UpdateDeckDto } from './dto';
+import { IsAuthorGuard } from './guards';
 import { createDeckSchema, updateDeckSchema } from './validators';
 
 // TODO: add guards to ensure only the author can do certain actions
@@ -21,9 +23,10 @@ import { createDeckSchema, updateDeckSchema } from './validators';
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
 
+  @UseGuards(IsAuthorGuard)
   @Get(':id')
-  async fetchById(@Param('id') deckId: Deck['id']): Promise<Deck> {
-    const { error, data } = await this.deckService.fetchById(deckId);
+  async fetchById(@ExistingDeck() existingDeck: Deck): Promise<Deck> {
+    const { error, data } = await this.deckService.populate(existingDeck);
     if (error || !data) throw new NotFoundException(error);
     return data;
   }
