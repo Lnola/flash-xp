@@ -14,9 +14,22 @@ class FlashCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final checkbox = Checkbox(
       value: value,
       onChanged: onChanged,
+      fillColor: WidgetStateProperty.resolveWith<Color>(
+        (states) {
+          if (states.contains(WidgetState.selected)) {
+            return theme.colorScheme.tertiary;
+          }
+          return theme.colorScheme.error;
+        },
+      ),
+      side: BorderSide(
+        color: theme.colorScheme.outline.withAlpha(77),
+        width: 1.5,
+      ),
     );
 
     if (label == null) return checkbox;
@@ -24,7 +37,7 @@ class FlashCheckbox extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       spacing: 4,
       children: [
-        Text(label!, style: Theme.of(context).textTheme.bodySmall),
+        Text(label!, style: theme.textTheme.bodySmall),
         checkbox,
       ],
     );
