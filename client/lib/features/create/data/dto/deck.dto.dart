@@ -11,6 +11,13 @@ class AnswerOptionDto {
         'text': text,
         'isCorrect': isCorrect,
       };
+
+  factory AnswerOptionDto.fromJson(Map<String, dynamic> json) {
+    return AnswerOptionDto(
+      text: json['text'] as String,
+      isCorrect: json['isCorrect'] as bool,
+    );
+  }
 }
 
 class QuestionDto {
@@ -32,6 +39,17 @@ class QuestionDto {
         'questionType': questionType,
         'answerOptions': answerOptions?.map((o) => o.toJson()).toList(),
       };
+
+  factory QuestionDto.fromJson(Map<String, dynamic> json) {
+    return QuestionDto(
+      text: json['text'] as String,
+      answer: json['answer'] as String?,
+      questionType: json['questionType']['name'] as String,
+      answerOptions: (json['answerOptions'] as List?)
+          ?.map((o) => AnswerOptionDto.fromJson(o as Map<String, dynamic>))
+          .toList(),
+    );
+  }
 }
 
 class DeckDto {
@@ -50,4 +68,14 @@ class DeckDto {
         'description': description,
         'questions': questions.map((q) => q.toJson()).toList(),
       };
+
+  factory DeckDto.fromJson(Map<String, dynamic> json) {
+    return DeckDto(
+      title: json['title'] as String,
+      description: json['description'] as String,
+      questions: (json['questions'] as List)
+          .map((q) => QuestionDto.fromJson(q as Map<String, dynamic>))
+          .toList(),
+    );
+  }
 }
