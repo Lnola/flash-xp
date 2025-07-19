@@ -18,7 +18,6 @@ import { CreateDeckDto, UpdateDeckDto } from './dto';
 import { IsAuthorGuard } from './guards';
 import { createDeckSchema, updateDeckSchema } from './validators';
 
-// TODO: add guards to ensure only the author can do certain actions
 @Controller('authoring/decks')
 export class DeckController {
   constructor(private readonly deckService: DeckService) {}
@@ -44,15 +43,16 @@ export class DeckController {
     return data;
   }
 
+  @UseGuards(IsAuthorGuard)
   @Put(':id')
   async update(
     @Body(new ZodValidationPipe(updateDeckSchema)) updateDeckDto: UpdateDeckDto,
-    @Param('id') deckId: Deck['id'],
+    @ExistingDeck() existingDeck: Deck,
     @User('id') authorId: Author['id'],
   ): Promise<Deck> {
     const { error, data } = await this.deckService.update(
       authorId,
-      deckId,
+      existingDeck,
       updateDeckDto,
     );
     if (error || !data) throw new BadRequestException(error);
