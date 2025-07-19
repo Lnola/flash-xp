@@ -143,9 +143,9 @@ class CreateController extends ChangeNotifier {
   void removeSelfAssessmentPair(
     (TextEditingController, TextEditingController) pair,
   ) {
-    selfAssessmentPairs.remove(pair);
     pair.$1.dispose();
     pair.$2.dispose();
+    selfAssessmentPairs.remove(pair);
     notifyListeners();
   }
 
