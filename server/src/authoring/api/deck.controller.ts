@@ -69,9 +69,10 @@ export class DeckController {
     return data;
   }
 
+  @UseGuards(IsAuthorGuard)
   @Delete(':id')
-  async remove(@Param('id') deckId: Deck['id']): Promise<void> {
-    const { error } = await this.deckService.remove(deckId);
+  async remove(@ExistingDeck() existingDeck: Deck): Promise<void> {
+    const { error } = await this.deckService.remove(existingDeck);
     if (error) throw new NotFoundException(error);
   }
 }
