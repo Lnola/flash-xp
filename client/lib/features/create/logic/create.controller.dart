@@ -86,7 +86,6 @@ class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
   final TextEditingController titleController;
-  final List<TextEditingController> dynamicControllers;
   final List<(TextEditingController, TextEditingController)>
       selfAssessmentPairs;
   final List<(TextEditingController, List<TextEditingController>)>
@@ -96,7 +95,6 @@ class CreateController extends ChangeNotifier {
 
   CreateController(this._createRepository)
       : titleController = TextEditingController(),
-        dynamicControllers = [],
         selfAssessmentPairs = [],
         multipleChoiceQuestions = [];
 
@@ -142,12 +140,6 @@ class CreateController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeDynamicInput(TextEditingController controller) {
-    dynamicControllers.remove(controller);
-    controller.dispose();
-    notifyListeners();
-  }
-
   void removeSelfAssessmentPair(
     (TextEditingController, TextEditingController) pair,
   ) {
@@ -176,9 +168,6 @@ class CreateController extends ChangeNotifier {
   @override
   void dispose() {
     titleController.dispose();
-    for (final controller in dynamicControllers) {
-      controller.dispose();
-    }
     for (final pair in selfAssessmentPairs) {
       pair.$1.dispose();
       pair.$2.dispose();
