@@ -67,9 +67,6 @@ export class DeckService {
       populate: ['questions', 'questions.answerOptions'],
     });
     if (!originalDeck) return Result.failure('Original deck not found');
-    if (originalDeck.authorId === authorId) {
-      return Result.failure('Cannot fork your own deck');
-    }
     const forkedDeck = originalDeck.fork(authorId);
     await this.deckRepository.persistAndFlush(forkedDeck);
     return Result.success(forkedDeck);
