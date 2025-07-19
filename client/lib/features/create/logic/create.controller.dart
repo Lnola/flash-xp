@@ -90,7 +90,7 @@ abstract class PracticeModeStrategy {
 class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   void createQuestionControllers(CreateController controller) {
-    controller.multipleChoiceQuestions.add(
+    controller.multipleChoiceControllers.add(
       (
         TextEditingController(),
         List.generate(4, (_) => TextEditingController()),
@@ -103,19 +103,19 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     CreateController controller,
     dynamic question,
   ) {
-    final item = question as MultipleChoiceQuestion;
+    final item = question as MultipleChoiceController;
     item.$1.dispose();
     for (final option in item.$2) {
       option.dispose();
     }
-    controller.multipleChoiceQuestions.remove(item);
+    controller.multipleChoiceControllers.remove(item);
   }
 }
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   void createQuestionControllers(CreateController controller) {
-    controller.selfAssessmentPairs.add(
+    controller.selfAssessmentControllers.add(
       (
         TextEditingController(),
         TextEditingController(),
@@ -128,18 +128,18 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
     CreateController controller,
     dynamic question,
   ) {
-    final pair = question as SelfAssessmentPair;
+    final pair = question as SelfAssessmentController;
     pair.$1.dispose();
     pair.$2.dispose();
-    controller.selfAssessmentPairs.remove(pair);
+    controller.selfAssessmentControllers.remove(pair);
   }
 }
 
-typedef SelfAssessmentPair = (
+typedef SelfAssessmentController = (
   TextEditingController,
   TextEditingController,
 );
-typedef MultipleChoiceQuestion = (
+typedef MultipleChoiceController = (
   TextEditingController,
   List<TextEditingController>
 );
@@ -148,8 +148,8 @@ class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
   final TextEditingController titleController = TextEditingController();
-  final List<SelfAssessmentPair> selfAssessmentPairs = [];
-  final List<MultipleChoiceQuestion> multipleChoiceQuestions = [];
+  final List<SelfAssessmentController> selfAssessmentControllers = [];
+  final List<MultipleChoiceController> multipleChoiceControllers = [];
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
@@ -165,13 +165,13 @@ class CreateController extends ChangeNotifier {
     // print('Title: ${titleController.text}');
     // print('Mode: ${mode.name}');
     // if (mode == PracticeMode.selfAssessment) {
-    //   for (int i = 0; i < selfAssessmentPairs.length; i++) {
-    //     print('Q$i: ${selfAssessmentPairs[i].$1.text}');
-    //     print('A$i: ${selfAssessmentPairs[i].$2.text}');
+    //   for (int i = 0; i < selfAssessmentControllers.length; i++) {
+    //     print('Q$i: ${selfAssessmentControllers[i].$1.text}');
+    //     print('A$i: ${selfAssessmentControllers[i].$2.text}');
     //   }
     // } else if (mode == PracticeMode.multipleChoice) {
-    //   for (int i = 0; i < multipleChoiceQuestions.length; i++) {
-    //     final question = multipleChoiceQuestions[i];
+    //   for (int i = 0; i < multipleChoiceControllers.length; i++) {
+    //     final question = multipleChoiceControllers[i];
     //     print('Question $i: ${question.$1.text}');
     //     for (int j = 0; j < question.$2.length; j++) {
     //       print(
@@ -200,11 +200,11 @@ class CreateController extends ChangeNotifier {
   @override
   void dispose() {
     titleController.dispose();
-    for (final pair in selfAssessmentPairs) {
+    for (final pair in selfAssessmentControllers) {
       pair.$1.dispose();
       pair.$2.dispose();
     }
-    for (final question in multipleChoiceQuestions) {
+    for (final question in multipleChoiceControllers) {
       question.$1.dispose();
       for (final answerOption in question.$2) {
         answerOption.dispose();
