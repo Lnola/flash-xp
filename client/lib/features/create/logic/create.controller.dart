@@ -1,4 +1,5 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
+import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
@@ -188,25 +189,21 @@ class CreateController extends ChangeNotifier {
       };
 
   void submit() async {
-    Temp.remove(_createRepository, 19);
-    // print('Title: ${titleController.text}');
-    // print('Mode: ${mode.name}');
-    // if (mode == PracticeMode.selfAssessment) {
-    //   for (int i = 0; i < selfAssessmentControllers.length; i++) {
-    //     print('Q$i: ${selfAssessmentControllers[i].$1.text}');
-    //     print('A$i: ${selfAssessmentControllers[i].$2.text}');
-    //   }
-    // } else if (mode == PracticeMode.multipleChoice) {
-    //   for (int i = 0; i < multipleChoiceControllers.length; i++) {
-    //     final question = multipleChoiceControllers[i];
-    //     print('Question $i: ${question.$1.text}');
-    //     for (int j = 0; j < question.$2.length; j++) {
-    //       print(
-    //         'Option ${String.fromCharCode(65 + j)}: ${question.$2[j].text}',
-    //       );
-    //     }
-    //   }
-    // }
+    // TODO: think about abstracting this
+    final controllers = switch (mode) {
+      PracticeMode.multipleChoice => multipleChoiceControllers,
+      PracticeMode.selfAssessment => selfAssessmentControllers,
+    };
+    final createQuestionsDto =
+        controllers.map(_strategy.mapQuestionControllersToDto).toList();
+    // TODO: add description
+    final createDeckDto = CreateDeckDto(
+      title: titleController.text,
+      description: '',
+      questions: createQuestionsDto,
+    );
+    final result = await _createRepository.createDeck(createDeckDto);
+    print(result.error ?? 'Deck created successfully');
   }
 
   void addQuestion() {
