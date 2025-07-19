@@ -85,6 +85,7 @@ class Temp {
 abstract class PracticeModeStrategy {
   void createQuestionControllers(CreateController controller);
   void removeQuestionControllers(CreateController controller, dynamic question);
+  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers);
 }
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
@@ -110,6 +111,21 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     }
     controller.multipleChoiceControllers.remove(item);
   }
+
+  @override
+  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
+    final questionControllers = controllers as MultipleChoiceController;
+    final answerOptions = questionControllers.$2.map((answerOption) {
+      // TODO: set the correct isCorrect value
+      return CreateAnswerOptionDto(text: answerOption.text, isCorrect: false);
+    }).toList();
+    // TODO: add the enum label questionType
+    return CreateQuestionDto(
+      text: questionControllers.$1.text,
+      questionType: 'Multiple Choice',
+      answerOptions: answerOptions,
+    );
+  }
 }
 
 class SelfAssessmentStrategy implements PracticeModeStrategy {
@@ -132,6 +148,17 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
     pair.$1.dispose();
     pair.$2.dispose();
     controller.selfAssessmentControllers.remove(pair);
+  }
+
+  @override
+  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
+    final questionControllers = controllers as SelfAssessmentController;
+    // TODO: add the enum label questionType
+    return CreateQuestionDto(
+      text: questionControllers.$1.text,
+      answer: questionControllers.$2.text,
+      questionType: 'Self Assessment',
+    );
   }
 }
 
