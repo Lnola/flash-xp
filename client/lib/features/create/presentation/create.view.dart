@@ -60,6 +60,31 @@ extension on PracticeMode {
             ],
           ),
       };
+
+  Widget buildLegend(CreateController controller) => switch (this) {
+        PracticeMode.multipleChoice => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Legend:'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FlashCheckbox(
+                    value: false,
+                    onChanged: (_) => {},
+                    label: 'Wrong Option',
+                  ),
+                  FlashCheckbox(
+                    value: true,
+                    onChanged: (_) => {},
+                    label: 'Correct Option',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        PracticeMode.selfAssessment => const SizedBox.shrink(),
+      };
 }
 
 class CreateView extends StatefulWidget {
@@ -107,6 +132,7 @@ class CreateViewState extends State<CreateView> {
                 controller: controller.descriptionController,
               ),
               const SizedBox(height: 16),
+              controller.mode.buildLegend(controller),
               controller.mode.buildInputs(controller),
               FlashDropdown<PracticeMode>(
                 value: controller.mode,
