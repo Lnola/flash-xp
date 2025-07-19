@@ -105,19 +105,23 @@ class CreateViewState extends State<CreateView> {
           bottom: 0,
           left: 0,
           right: 0,
-          child: _CreateActions(controller: controller),
+          child: _CreateActions(
+            addQuestion: controller.addQuestion,
+            submit: controller.submit,
+          ),
         ),
       ],
     );
   }
 }
 
-// TODO: dont pass the controller
 class _CreateActions extends StatelessWidget {
-  final CreateController controller;
+  final void Function() addQuestion;
+  final void Function() submit;
 
   const _CreateActions({
-    required this.controller,
+    required this.addQuestion,
+    required this.submit,
   });
 
   @override
@@ -126,13 +130,13 @@ class _CreateActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         FlashIconButton(
-          onPressed: () => controller.addQuestion(),
+          onPressed: addQuestion,
           label: 'Add Input',
           icon: FontAwesomeIcons.plus,
         ),
         const SizedBox(width: 12),
         FlashIconButton(
-          onPressed: controller.submit,
+          onPressed: submit,
           label: 'Submit',
           icon: FontAwesomeIcons.check,
         ),
