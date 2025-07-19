@@ -45,24 +45,13 @@ class CreateController extends ChangeNotifier {
     }
   }
 
-  void addDynamicInput() {
-    if (mode == PracticeMode.selfAssessment) {
-      selfAssessmentPairs.add(
-        (
-          TextEditingController(),
-          TextEditingController(),
-        ),
-      );
-    } else if (mode == PracticeMode.multipleChoice) {
-      multipleChoiceQuestions.add(
-        (
-          TextEditingController(),
-          List.generate(4, (_) => TextEditingController()),
-        ),
-      );
-    } else {
-      dynamicControllers.add(TextEditingController());
-    }
+  void addSelfAssessmentPair() {
+    selfAssessmentPairs.add(
+      (
+        TextEditingController(),
+        TextEditingController(),
+      ),
+    );
     notifyListeners();
   }
 

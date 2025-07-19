@@ -51,7 +51,7 @@ extension on PracticeMode {
 
   void handleAddInput(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice => controller.addMultipleChoiceQuestion(),
-        PracticeMode.selfAssessment => controller.addDynamicInput(),
+        PracticeMode.selfAssessment => controller.addSelfAssessmentPair(),
       };
 }
 
