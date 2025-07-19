@@ -82,6 +82,59 @@ class Temp {
   }
 }
 
+abstract class PracticeModeStrategy {
+  void createQuestionControllers(CreateController controller);
+  void removeQuestionControllers(CreateController controller, dynamic question);
+}
+
+class MultipleChoiceStrategy implements PracticeModeStrategy {
+  @override
+  void createQuestionControllers(CreateController controller) {
+    controller.multipleChoiceQuestions.add(
+      (
+        TextEditingController(),
+        List.generate(4, (_) => TextEditingController()),
+      ),
+    );
+  }
+
+  @override
+  void removeQuestionControllers(
+    CreateController controller,
+    dynamic question,
+  ) {
+    final item = question as MultipleChoiceQuestion;
+    item.$1.dispose();
+    for (final option in item.$2) {
+      option.dispose();
+    }
+    controller.multipleChoiceQuestions.remove(item);
+  }
+}
+
+class SelfAssessmentStrategy implements PracticeModeStrategy {
+  @override
+  void createQuestionControllers(CreateController controller) {
+    controller.selfAssessmentPairs.add(
+      (
+        TextEditingController(),
+        TextEditingController(),
+      ),
+    );
+  }
+
+  @override
+  void removeQuestionControllers(
+    CreateController controller,
+    dynamic question,
+  ) {
+    final pair = question as SelfAssessmentPair;
+    pair.$1.dispose();
+    pair.$2.dispose();
+    controller.selfAssessmentPairs.remove(pair);
+  }
+}
+
 typedef SelfAssessmentPair = (
   TextEditingController,
   TextEditingController,
@@ -101,6 +154,11 @@ class CreateController extends ChangeNotifier {
   PracticeMode mode = PracticeMode.multipleChoice;
 
   CreateController(this._createRepository);
+
+  PracticeModeStrategy get _strategy => switch (mode) {
+        PracticeMode.multipleChoice => MultipleChoiceStrategy(),
+        PracticeMode.selfAssessment => SelfAssessmentStrategy(),
+      };
 
   void submit() async {
     Temp.remove(_createRepository, 19);
@@ -124,39 +182,13 @@ class CreateController extends ChangeNotifier {
     // }
   }
 
-  void addSelfAssessmentPair() {
-    selfAssessmentPairs.add(
-      (
-        TextEditingController(),
-        TextEditingController(),
-      ),
-    );
+  void addQuestion() {
+    _strategy.createQuestionControllers(this);
     notifyListeners();
   }
 
-  void addMultipleChoiceQuestion() {
-    multipleChoiceQuestions.add(
-      (
-        TextEditingController(),
-        List.generate(4, (_) => TextEditingController()),
-      ),
-    );
-    notifyListeners();
-  }
-
-  void removeSelfAssessmentPair(SelfAssessmentPair pair) {
-    pair.$1.dispose();
-    pair.$2.dispose();
-    selfAssessmentPairs.remove(pair);
-    notifyListeners();
-  }
-
-  void removeMultipleChoiceQuestion(MultipleChoiceQuestion question) {
-    question.$1.dispose();
-    for (final answerOption in question.$2) {
-      answerOption.dispose();
-    }
-    multipleChoiceQuestions.remove(question);
+  void removeQuestion(dynamic question) {
+    _strategy.removeQuestionControllers(this, question);
     notifyListeners();
   }
 

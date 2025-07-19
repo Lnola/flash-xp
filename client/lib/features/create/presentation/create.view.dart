@@ -18,7 +18,7 @@ extension on PracticeMode {
   Widget buildInputs(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice => FlashInputGroup<MultipleChoiceQuestion>(
             inputControllers: controller.multipleChoiceQuestions,
-            onRemoveInputGroup: controller.removeMultipleChoiceQuestion,
+            onRemoveInputGroup: controller.removeQuestion,
             isDirty: (input) =>
                 input.$1.text.isNotEmpty ||
                 input.$2.any((c) => c.text.isNotEmpty),
@@ -36,7 +36,7 @@ extension on PracticeMode {
           ),
         PracticeMode.selfAssessment => FlashInputGroup<SelfAssessmentPair>(
             inputControllers: controller.selfAssessmentPairs,
-            onRemoveInputGroup: controller.removeSelfAssessmentPair,
+            onRemoveInputGroup: controller.removeQuestion,
             isDirty: (input) =>
                 input.$1.text.isNotEmpty || input.$2.text.isNotEmpty,
             buildInputs: (input) => [
@@ -45,11 +45,6 @@ extension on PracticeMode {
               FlashTextInput(label: 'Answer', controller: input.$2),
             ],
           ),
-      };
-
-  void handleAddInput(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice => controller.addMultipleChoiceQuestion(),
-        PracticeMode.selfAssessment => controller.addSelfAssessmentPair(),
       };
 }
 
@@ -129,7 +124,7 @@ class _CreateActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         FlashIconButton(
-          onPressed: () => controller.mode.handleAddInput(controller),
+          onPressed: () => controller.addQuestion(),
           label: 'Add Input',
           icon: FontAwesomeIcons.plus,
         ),
