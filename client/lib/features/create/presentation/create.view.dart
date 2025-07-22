@@ -20,8 +20,7 @@ extension on PracticeMode {
   Widget buildInputs(CreateController controller) =>
       _builder.buildInputs(controller);
 
-  Widget buildLegend(CreateController controller) =>
-      _builder.buildLegend(controller);
+  Widget buildLegend() => _builder.buildLegend();
 }
 
 class CreateView extends StatefulWidget {
@@ -75,7 +74,7 @@ class CreateViewState extends State<CreateView> {
                 controller: controller.descriptionController,
               ),
               const SizedBox(height: 16),
-              controller.mode.buildLegend(controller),
+              controller.mode.buildLegend(),
               controller.mode.buildInputs(controller),
               FlashDropdown<PracticeMode>(
                 value: controller.mode,

@@ -30,7 +30,7 @@ class SelfAssessmentQuestionFormBuilder implements QuestionFormBuilder {
   }
 
   @override
-  Widget buildLegend(CreateController controller) {
+  Widget buildLegend() {
     return const SizedBox.shrink();
   }
 }

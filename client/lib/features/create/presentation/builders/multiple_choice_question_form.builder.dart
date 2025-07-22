@@ -49,7 +49,7 @@ class MultipleChoiceQuestionFormBuilder implements QuestionFormBuilder {
   }
 
   @override
-  Widget buildLegend(CreateController controller) {
+  Widget buildLegend() {
     return const MultipleChoiceLegendWidget();
   }
 }

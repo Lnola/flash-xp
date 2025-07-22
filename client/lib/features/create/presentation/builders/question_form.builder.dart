@@ -3,5 +3,5 @@ import 'package:flutter/material.dart';
 
 abstract class QuestionFormBuilder {
   Widget buildInputs(CreateController controller);
-  Widget buildLegend(CreateController controller);
+  Widget buildLegend();
 }
