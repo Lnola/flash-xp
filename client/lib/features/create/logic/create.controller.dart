@@ -7,7 +7,7 @@ import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
-class LazyStrategyResolver {
+class LazyStrategyManager {
   final Map<PracticeMode, CreateQuestionsFormStrategy Function()>
       _strategyFactories = {
     PracticeMode.multipleChoice: () => CreateMultipleChoiceFormStrategy(),
@@ -35,7 +35,7 @@ class CreateController extends ChangeNotifier {
   final TextEditingController descriptionController = TextEditingController();
   PracticeMode mode = PracticeMode.multipleChoice;
 
-  final LazyStrategyResolver _strategyManager = LazyStrategyResolver();
+  final LazyStrategyManager _strategyManager = LazyStrategyManager();
   CreateQuestionsFormStrategy get _strategy => _strategyManager.get(mode);
 
   CreateController(this._createRepository);
