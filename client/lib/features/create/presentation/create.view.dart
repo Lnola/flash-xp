@@ -1,5 +1,6 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
+import 'package:flashxp/features/create/presentation/builders/create_form.builder.dart';
 import 'package:flashxp/features/create/presentation/builders/multiple_choice_form.builder.dart';
 import 'package:flashxp/features/create/presentation/builders/self_assessment_form.builder.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_form_actions.widget.dart';
@@ -11,19 +12,16 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart'
 import 'package:flutter/material.dart';
 
 extension on PracticeMode {
-  Widget buildInputs(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice =>
-          MultipleChoiceFormBuilder().buildInputs(controller),
-        PracticeMode.selfAssessment =>
-          SelfAssessmentFormBuilder().buildInputs(controller),
+  CreateFormBuilder get _builder => switch (this) {
+        PracticeMode.multipleChoice => MultipleChoiceFormBuilder(),
+        PracticeMode.selfAssessment => SelfAssessmentFormBuilder(),
       };
 
-  Widget buildLegend(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice =>
-          MultipleChoiceFormBuilder().buildLegend(controller),
-        PracticeMode.selfAssessment =>
-          SelfAssessmentFormBuilder().buildLegend(controller),
-      };
+  Widget buildInputs(CreateController controller) =>
+      _builder.buildInputs(controller);
+
+  Widget buildLegend(CreateController controller) =>
+      _builder.buildLegend(controller);
 }
 
 class CreateView extends StatefulWidget {
