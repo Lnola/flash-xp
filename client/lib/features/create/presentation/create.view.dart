@@ -25,7 +25,10 @@ extension on PracticeMode {
             onRemoveInputGroup: controller.removeQuestion,
             isDirty: (input) =>
                 input.questionController.text.isNotEmpty ||
-                input.answerOptionsControllers.any((c) => c.text.isNotEmpty),
+                input.answerOptionsControllers.any(
+                  (answerOptionController) =>
+                      answerOptionController.text.text.isNotEmpty,
+                ),
             buildInputs: (input) => [
               FlashTextInput(
                 label: 'Question',
@@ -37,13 +40,13 @@ extension on PracticeMode {
                     Expanded(
                       child: FlashTextInput(
                         label: 'Option ${String.fromCharCode(65 + i)}',
-                        controller: input.answerOptionsControllers[i],
+                        controller: input.answerOptionsControllers[i].text,
                       ),
                     ),
                     Tooltip(
                       message: 'Is this answer correct?',
                       child: FlashCheckbox(
-                        value: input.isCorrectAnswers[i],
+                        value: input.answerOptionsControllers[i].isCorrect,
                         onChanged: (_) => controller.toggleIsCorrect(input, i),
                       ),
                     ),

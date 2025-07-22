@@ -84,17 +84,24 @@ class Temp {
   }
 }
 
+class AnswerOptionControllers {
+  final TextEditingController text = TextEditingController();
+  bool isCorrect = false;
+
+  void toggleIsCorrect() {
+    isCorrect = !isCorrect;
+  }
+}
+
 class MultipleChoiceController {
   final TextEditingController questionController = TextEditingController();
-  // TODO: merge the two under this one
-  final List<TextEditingController> answerOptionsControllers =
-      List.generate(4, (_) => TextEditingController());
-  final List<bool> isCorrectAnswers = List.generate(4, (_) => false);
+  final List<AnswerOptionControllers> answerOptionsControllers =
+      List.generate(4, (_) => AnswerOptionControllers());
 
   void dispose() {
     questionController.dispose();
     for (final answerOption in answerOptionsControllers) {
-      answerOption.dispose();
+      answerOption.text.dispose();
     }
   }
 }
@@ -135,29 +142,25 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
     final questionControllers = controllers as MultipleChoiceController;
-    final answerOptions = questionControllers.answerOptionsControllers
-        .asMap()
-        .entries
-        .map((entry) {
-      final index = entry.key;
-      final answerOption = entry.value;
-      return CreateAnswerOptionDto(
-        text: answerOption.text,
-        isCorrect: questionControllers.isCorrectAnswers[index],
-      );
-    }).toList();
+    final answerOptions = questionControllers.answerOptionsControllers.map(
+      (answerOption) => CreateAnswerOptionDto(
+        text: answerOption.text.text,
+        isCorrect: answerOption.isCorrect,
+      ),
+    );
+
     // TODO: add the enum label questionType
     return CreateQuestionDto(
       text: questionControllers.questionController.text,
       questionType: 'Multiple Choice',
-      answerOptions: answerOptions,
+      answerOptions: answerOptions.toList(),
     );
   }
 
   @override
   void toggleIsCorrect(dynamic question, int index) {
     final item = question as MultipleChoiceController;
-    item.isCorrectAnswers[index] = !item.isCorrectAnswers[index];
+    item.answerOptionsControllers[index].toggleIsCorrect();
   }
 }
 
