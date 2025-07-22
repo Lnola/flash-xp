@@ -2,17 +2,15 @@ import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
 import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
-import 'package:flashxp/shared/helpers/result.dart';
+import 'package:flashxp/features/create/presentation/widgets/create_form_actions.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 extension on PracticeMode {
   // TODO: upgrade this
@@ -126,6 +124,12 @@ class CreateViewState extends State<CreateView> {
     super.dispose();
   }
 
+  void _submit(BuildContext context) async {
+    final result = await controller.submit();
+    if (!context.mounted) return;
+    useSnackbar(context, result.error, 'Deck successfully created!');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -161,46 +165,10 @@ class CreateViewState extends State<CreateView> {
           bottom: 0,
           left: 0,
           right: 0,
-          child: _CreateActions(
+          child: CreateFormActionsWidget(
             addQuestion: controller.addQuestion,
-            submit: controller.submit,
+            submit: _submit,
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CreateActions extends StatelessWidget {
-  final void Function() addQuestion;
-  final Future<Result> Function() submit;
-
-  const _CreateActions({
-    required this.addQuestion,
-    required this.submit,
-  });
-
-  void _submit(BuildContext context) async {
-    final result = await submit();
-    if (!context.mounted) return;
-    useSnackbar(context, result.error, 'Deck successfully created!');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        FlashIconButton(
-          onPressed: addQuestion,
-          label: 'Add Input',
-          icon: FontAwesomeIcons.plus,
-        ),
-        const SizedBox(width: 12),
-        FlashIconButton(
-          onPressed: () => _submit(context),
-          label: 'Submit',
-          icon: FontAwesomeIcons.check,
         ),
       ],
     );
