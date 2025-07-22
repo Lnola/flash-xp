@@ -99,6 +99,16 @@ class MultipleChoiceController {
   }
 }
 
+class SelfAssessmentController {
+  final TextEditingController questionController = TextEditingController();
+  final TextEditingController answerController = TextEditingController();
+
+  void dispose() {
+    questionController.dispose();
+    answerController.dispose();
+  }
+}
+
 abstract class PracticeModeStrategy {
   void createQuestionControllers(CreateController controller);
   void removeQuestionControllers(CreateController controller, dynamic question);
@@ -154,12 +164,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
 class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   void createQuestionControllers(CreateController controller) {
-    controller.selfAssessmentControllers.add(
-      (
-        TextEditingController(),
-        TextEditingController(),
-      ),
-    );
+    controller.selfAssessmentControllers.add(SelfAssessmentController());
   }
 
   @override
@@ -167,10 +172,9 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
     CreateController controller,
     dynamic question,
   ) {
-    final pair = question as SelfAssessmentController;
-    pair.$1.dispose();
-    pair.$2.dispose();
-    controller.selfAssessmentControllers.remove(pair);
+    final item = question as SelfAssessmentController;
+    item.dispose();
+    controller.selfAssessmentControllers.remove(item);
   }
 
   @override
@@ -178,8 +182,8 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
     final questionControllers = controllers as SelfAssessmentController;
     // TODO: add the enum label questionType
     return CreateQuestionDto(
-      text: questionControllers.$1.text,
-      answer: questionControllers.$2.text,
+      text: questionControllers.questionController.text,
+      answer: questionControllers.answerController.text,
       questionType: 'Self Assessment',
     );
   }
@@ -187,12 +191,6 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   void toggleIsCorrect(dynamic question, int index) {}
 }
-
-// TODO: create real types here
-typedef SelfAssessmentController = (
-  TextEditingController,
-  TextEditingController,
-);
 
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
@@ -251,9 +249,8 @@ class CreateController extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
-    for (final pair in selfAssessmentControllers) {
-      pair.$1.dispose();
-      pair.$2.dispose();
+    for (final question in selfAssessmentControllers) {
+      question.dispose();
     }
     for (final question in multipleChoiceControllers) {
       question.dispose();

@@ -28,7 +28,9 @@ extension on PracticeMode {
                 input.answerOptionsControllers.any((c) => c.text.isNotEmpty),
             buildInputs: (input) => [
               FlashTextInput(
-                  label: 'Question', controller: input.questionController),
+                label: 'Question',
+                controller: input.questionController,
+              ),
               for (var i = 0; i < 4; i++) ...[
                 Row(
                   children: [
@@ -55,11 +57,18 @@ extension on PracticeMode {
             inputControllers: controller.selfAssessmentControllers,
             onRemoveInputGroup: controller.removeQuestion,
             isDirty: (input) =>
-                input.$1.text.isNotEmpty || input.$2.text.isNotEmpty,
+                input.questionController.text.isNotEmpty ||
+                input.answerController.text.isNotEmpty,
             buildInputs: (input) => [
-              FlashTextInput(label: 'Question', controller: input.$1),
+              FlashTextInput(
+                label: 'Question',
+                controller: input.questionController,
+              ),
               const SizedBox(height: 8),
-              FlashTextInput(label: 'Answer', controller: input.$2),
+              FlashTextInput(
+                label: 'Answer',
+                controller: input.answerController,
+              ),
             ],
           ),
       };
