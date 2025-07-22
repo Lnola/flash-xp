@@ -1,30 +1,31 @@
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/create_questions_form.strategy.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 
-class CreateMultipleChoiceFormStrategy implements CreateFormStrategy {
-  final _formControllers = <MultipleChoiceController>[];
+class CreateMultipleChoiceFormStrategy implements CreateQuestionsFormStrategy {
+  final _questionsControllers = <MultipleChoiceController>[];
 
   @override
-  List<MultipleChoiceController> get formControllers => _formControllers;
+  List<MultipleChoiceController> get questionsControllers =>
+      _questionsControllers;
 
   @override
   void createQuestionControllers() {
-    _formControllers.add(MultipleChoiceController());
+    _questionsControllers.add(MultipleChoiceController());
   }
 
   @override
   void removeQuestionControllers(dynamic question) {
     final item = question as MultipleChoiceController;
     item.dispose();
-    _formControllers.remove(item);
+    _questionsControllers.remove(item);
   }
 
   @override
   List<CreateQuestionDto> mapQuestionControllersToDto() {
-    final mappedControllers = _formControllers.map((controllers) {
+    final mappedControllers = _questionsControllers.map((controllers) {
       final questionControllers = controllers;
       final answerOptions = questionControllers.answerOptionsControllers.map(
         (answerOption) => CreateAnswerOptionDto(
@@ -49,7 +50,7 @@ class CreateMultipleChoiceFormStrategy implements CreateFormStrategy {
 
   @override
   void dispose() {
-    for (final controller in _formControllers) {
+    for (final controller in _questionsControllers) {
       controller.dispose();
     }
   }

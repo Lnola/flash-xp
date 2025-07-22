@@ -11,7 +11,7 @@ class MultipleChoiceFormBuilder implements CreateFormBuilder {
   Widget buildInputs(CreateController controller) {
     return FlashInputGroup<MultipleChoiceController>(
       inputControllers:
-          controller.formControllers as List<MultipleChoiceController>,
+          controller.questionsControllers as List<MultipleChoiceController>,
       onRemoveInputGroup: controller.removeQuestion,
       isDirty: (input) =>
           input.questionController.text.isNotEmpty ||

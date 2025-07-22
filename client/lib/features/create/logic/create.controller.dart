@@ -1,7 +1,7 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_multiple_choice_form.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/create_questions_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_self_assessment_form.strategy.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
@@ -11,12 +11,13 @@ class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
   PracticeMode mode = PracticeMode.multipleChoice;
 
-  final Map<PracticeMode, CreateFormStrategy Function()> _strategyFactories = {
+  final Map<PracticeMode, CreateQuestionsFormStrategy Function()>
+      _strategyFactories = {
     PracticeMode.multipleChoice: () => CreateMultipleChoiceFormStrategy(),
     PracticeMode.selfAssessment: () => CreateSelfAssessmentFormStrategy(),
   };
-  final _strategyCache = <PracticeMode, CreateFormStrategy>{};
-  CreateFormStrategy get _strategy =>
+  final _strategyCache = <PracticeMode, CreateQuestionsFormStrategy>{};
+  CreateQuestionsFormStrategy get _strategy =>
       _strategyCache.putIfAbsent(mode, _strategyFactories[mode]!);
 
   final TextEditingController titleController = TextEditingController();
@@ -34,7 +35,7 @@ class CreateController extends ChangeNotifier {
     return await _createRepository.createDeck(createDeckDto);
   }
 
-  List<dynamic> get formControllers => _strategy.formControllers;
+  List<dynamic> get questionsControllers => _strategy.questionsControllers;
 
   void updateMode(PracticeMode newMode) {
     mode = newMode;
