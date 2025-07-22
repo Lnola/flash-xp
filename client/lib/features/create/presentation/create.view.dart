@@ -3,6 +3,7 @@ import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
@@ -12,11 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 extension on PracticeMode {
-  String get label => switch (this) {
-        PracticeMode.multipleChoice => 'Multiple Choice',
-        PracticeMode.selfAssessment => 'Self Assessment',
-      };
-
   // TODO: upgrade this
   Widget buildInputs(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice =>

@@ -4,6 +4,7 @@ import 'package:flashxp/features/create/data/dto/deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 import 'package:flutter/material.dart';
 
 class Temp {
@@ -20,11 +21,11 @@ class Temp {
         QuestionDto(
           text: 'What is the capital of France?',
           answer: 'Paris',
-          questionType: 'Self Assessment',
+          questionType: PracticeMode.selfAssessment.label,
         ),
         QuestionDto(
           text: 'What is 2 + 2?',
-          questionType: 'Multiple Choice',
+          questionType: PracticeMode.multipleChoice.label,
           answerOptions: [
             UpdateAnswerOptionDto(text: '3', isCorrect: false),
             UpdateAnswerOptionDto(text: '4', isCorrect: true),
@@ -49,11 +50,11 @@ class Temp {
         QuestionDto(
           text: 'Update What is the capital of France?',
           answer: 'Paris',
-          questionType: 'Self Assessment',
+          questionType: PracticeMode.selfAssessment.label,
         ),
         QuestionDto(
           text: 'What is 2 + 2?',
-          questionType: 'Multiple Choice',
+          questionType: PracticeMode.multipleChoice.label,
           answerOptions: [
             UpdateAnswerOptionDto(text: '3', isCorrect: false),
             UpdateAnswerOptionDto(text: '4', isCorrect: true),
@@ -149,10 +150,9 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
       ),
     );
 
-    // TODO: add the enum label questionType
     return CreateQuestionDto(
       text: questionControllers.questionController.text,
-      questionType: 'Multiple Choice',
+      questionType: PracticeMode.multipleChoice.label,
       answerOptions: answerOptions.toList(),
     );
   }
@@ -183,11 +183,10 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   @override
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
     final questionControllers = controllers as SelfAssessmentController;
-    // TODO: add the enum label questionType
     return CreateQuestionDto(
       text: questionControllers.questionController.text,
       answer: questionControllers.answerController.text,
-      questionType: 'Self Assessment',
+      questionType: PracticeMode.selfAssessment.label,
     );
   }
 
