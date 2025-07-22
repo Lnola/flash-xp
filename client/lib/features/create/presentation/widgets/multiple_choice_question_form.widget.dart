@@ -37,24 +37,46 @@ class MultipleChoiceQuestionFormWidget extends StatelessWidget {
           controller: input.questionController,
         ),
         for (var i = 0; i < 4; i++) ...[
-          Row(
-            children: [
-              Expanded(
-                child: FlashTextInput(
-                  label: 'Option ${String.fromCharCode(65 + i)}',
-                  controller: input.answerOptionsControllers[i].text,
-                ),
-              ),
-              Tooltip(
-                message: 'Is this answer correct?',
-                child: FlashCheckbox(
-                  value: input.answerOptionsControllers[i].isCorrect,
-                  onChanged: (_) => toggleIsAnswerOptionCorrect(input, i),
-                ),
-              ),
-            ],
+          _AnswerOptionForm(
+            input: input,
+            i: i,
+            toggleIsAnswerOptionCorrect: toggleIsAnswerOptionCorrect,
           ),
         ],
+      ],
+    );
+  }
+}
+
+class _AnswerOptionForm extends StatelessWidget {
+  final MultipleChoiceController input;
+  final int i;
+  final void Function(MultipleChoiceController p1, int p2)
+      toggleIsAnswerOptionCorrect;
+
+  const _AnswerOptionForm({
+    required this.input,
+    required this.i,
+    required this.toggleIsAnswerOptionCorrect,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: FlashTextInput(
+            label: 'Option ${String.fromCharCode(65 + i)}',
+            controller: input.answerOptionsControllers[i].text,
+          ),
+        ),
+        Tooltip(
+          message: 'Is this answer correct?',
+          child: FlashCheckbox(
+            value: input.answerOptionsControllers[i].isCorrect,
+            onChanged: (_) => toggleIsAnswerOptionCorrect(input, i),
+          ),
+        ),
       ],
     );
   }
