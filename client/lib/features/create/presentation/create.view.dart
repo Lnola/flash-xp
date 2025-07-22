@@ -38,8 +38,8 @@ extension on PracticeMode {
                     Tooltip(
                       message: 'Is this answer correct?',
                       child: FlashCheckbox(
-                        value: controller.isChecked,
-                        onChanged: controller.toggleChecked,
+                        value: input.$3[i],
+                        onChanged: (_) => controller.toggleIsCorrect(input, i),
                       ),
                     ),
                   ],
