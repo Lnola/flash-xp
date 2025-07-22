@@ -1,7 +1,5 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
 import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_multiple_choice_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_self_assessment_form.strategy.dart';
@@ -35,6 +33,8 @@ class CreateController extends ChangeNotifier {
     );
     return await _createRepository.createDeck(createDeckDto);
   }
+
+  List<dynamic> get formControllers => _strategy.formControllers;
 
   void updateMode(PracticeMode newMode) {
     mode = newMode;

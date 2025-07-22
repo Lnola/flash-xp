@@ -9,7 +9,8 @@ class SelfAssessmentFormBuilder implements CreateFormBuilder {
   @override
   Widget buildInputs(CreateController controller) {
     return FlashInputGroup<SelfAssessmentController>(
-      inputControllers: controller.selfAssessmentControllers,
+      inputControllers:
+          controller.formControllers as List<SelfAssessmentController>,
       onRemoveInputGroup: controller.removeQuestion,
       isDirty: (input) =>
           input.questionController.text.isNotEmpty ||
