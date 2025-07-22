@@ -42,8 +42,8 @@ class CreateController extends ChangeNotifier {
     return await _createRepository.createDeck(createDeckDto);
   }
 
-  void toggleIsCorrect(dynamic question, int index) {
-    _strategy.toggleIsCorrect(question, index);
+  void updateMode(PracticeMode newMode) {
+    mode = newMode;
     notifyListeners();
   }
 
@@ -57,8 +57,8 @@ class CreateController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateMode(PracticeMode newMode) {
-    mode = newMode;
+  void toggleIsCorrect(dynamic question, int index) {
+    _strategy.toggleIsCorrect(question, index);
     notifyListeners();
   }
 
