@@ -16,8 +16,11 @@ extension on PracticeMode {
         PracticeMode.selfAssessment => SelfAssessmentQuestionFormBuilder(),
       };
 
-  Widget buildInputs(CreateController controller) =>
-      _builder.buildInputs(controller);
+  Widget buildInputs(CreateController controller) => _builder.buildInputs(
+        controller.questionsControllers,
+        controller.removeQuestion,
+        controller.toggleIsCorrect,
+      );
 
   Widget buildLegend() => _builder.buildLegend();
 }
