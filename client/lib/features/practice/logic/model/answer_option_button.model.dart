@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TODO: rename folder to models instead of model
 enum AnswerOptionButtonState {
   defaultState,
   correct,
