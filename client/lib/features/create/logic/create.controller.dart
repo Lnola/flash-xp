@@ -1,8 +1,8 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/domain/practice_mode.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/practice_mode_multiple_choice.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/practice_mode_self_assessment.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/create_multiple_choice_form.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/create_self_assessment_form.strategy.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +51,9 @@ class CreateController extends ChangeNotifier {
 
   CreateController(this._createRepository);
 
-  PracticeModeStrategy get _strategy => switch (mode) {
-        PracticeMode.multipleChoice => MultipleChoiceStrategy(),
-        PracticeMode.selfAssessment => SelfAssessmentStrategy(),
+  CreateFormStrategy get _strategy => switch (mode) {
+        PracticeMode.multipleChoice => CreateMultipleChoiceFormStrategy(),
+        PracticeMode.selfAssessment => CreateSelfAssessmentFormStrategy(),
       };
 
   Future<Result> submit() async {
