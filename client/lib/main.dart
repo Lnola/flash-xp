@@ -11,7 +11,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
-    // TODO: assess if the provider is necessary here or if it can be a singleton
     ChangeNotifierProvider(
       create: (_) => AuthService(),
       child: const MainApp(),
