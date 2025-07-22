@@ -12,89 +12,119 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
+abstract class BuildCreateFormStrategy {
+  Widget buildInputs(CreateController controller);
+  Widget buildLegend(CreateController controller);
+}
+
+class BuildMultipleChoiceFormStrategy implements BuildCreateFormStrategy {
+  @override
+  Widget buildInputs(CreateController controller) {
+    return FlashInputGroup<MultipleChoiceController>(
+      inputControllers: controller.multipleChoiceControllers,
+      onRemoveInputGroup: controller.removeQuestion,
+      isDirty: (input) =>
+          input.questionController.text.isNotEmpty ||
+          input.answerOptionsControllers.any(
+            (answerOptionController) =>
+                answerOptionController.text.text.isNotEmpty,
+          ),
+      buildInputs: (input) => [
+        FlashTextInput(
+          label: 'Question',
+          controller: input.questionController,
+        ),
+        for (var i = 0; i < 4; i++) ...[
+          Row(
+            children: [
+              Expanded(
+                child: FlashTextInput(
+                  label: 'Option ${String.fromCharCode(65 + i)}',
+                  controller: input.answerOptionsControllers[i].text,
+                ),
+              ),
+              Tooltip(
+                message: 'Is this answer correct?',
+                child: FlashCheckbox(
+                  value: input.answerOptionsControllers[i].isCorrect,
+                  onChanged: (_) => controller.toggleIsCorrect(input, i),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  @override
+  Widget buildLegend(CreateController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Legend:'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FlashCheckbox(
+              value: false,
+              onChanged: (_) => {},
+              label: 'Wrong Option',
+            ),
+            FlashCheckbox(
+              value: true,
+              onChanged: (_) => {},
+              label: 'Correct Option',
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class BuildSelfAssessmentFormStrategy implements BuildCreateFormStrategy {
+  @override
+  Widget buildInputs(CreateController controller) {
+    return FlashInputGroup<SelfAssessmentController>(
+      inputControllers: controller.selfAssessmentControllers,
+      onRemoveInputGroup: controller.removeQuestion,
+      isDirty: (input) =>
+          input.questionController.text.isNotEmpty ||
+          input.answerController.text.isNotEmpty,
+      buildInputs: (input) => [
+        FlashTextInput(
+          label: 'Question',
+          controller: input.questionController,
+        ),
+        const SizedBox(height: 8),
+        FlashTextInput(
+          label: 'Answer',
+          controller: input.answerController,
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget buildLegend(CreateController controller) {
+    return const SizedBox.shrink();
+  }
+}
+
 extension on PracticeMode {
-  // TODO: upgrade this
   Widget buildInputs(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice =>
-          FlashInputGroup<MultipleChoiceController>(
-            inputControllers: controller.multipleChoiceControllers,
-            onRemoveInputGroup: controller.removeQuestion,
-            isDirty: (input) =>
-                input.questionController.text.isNotEmpty ||
-                input.answerOptionsControllers.any(
-                  (answerOptionController) =>
-                      answerOptionController.text.text.isNotEmpty,
-                ),
-            buildInputs: (input) => [
-              FlashTextInput(
-                label: 'Question',
-                controller: input.questionController,
-              ),
-              for (var i = 0; i < 4; i++) ...[
-                Row(
-                  children: [
-                    Expanded(
-                      child: FlashTextInput(
-                        label: 'Option ${String.fromCharCode(65 + i)}',
-                        controller: input.answerOptionsControllers[i].text,
-                      ),
-                    ),
-                    Tooltip(
-                      message: 'Is this answer correct?',
-                      child: FlashCheckbox(
-                        value: input.answerOptionsControllers[i].isCorrect,
-                        onChanged: (_) => controller.toggleIsCorrect(input, i),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ],
-          ),
+          BuildMultipleChoiceFormStrategy().buildInputs(controller),
         PracticeMode.selfAssessment =>
-          FlashInputGroup<SelfAssessmentController>(
-            inputControllers: controller.selfAssessmentControllers,
-            onRemoveInputGroup: controller.removeQuestion,
-            isDirty: (input) =>
-                input.questionController.text.isNotEmpty ||
-                input.answerController.text.isNotEmpty,
-            buildInputs: (input) => [
-              FlashTextInput(
-                label: 'Question',
-                controller: input.questionController,
-              ),
-              const SizedBox(height: 8),
-              FlashTextInput(
-                label: 'Answer',
-                controller: input.answerController,
-              ),
-            ],
-          ),
+          BuildSelfAssessmentFormStrategy().buildInputs(controller),
       };
 
   Widget buildLegend(CreateController controller) => switch (this) {
-        PracticeMode.multipleChoice => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Legend:'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FlashCheckbox(
-                    value: false,
-                    onChanged: (_) => {},
-                    label: 'Wrong Option',
-                  ),
-                  FlashCheckbox(
-                    value: true,
-                    onChanged: (_) => {},
-                    label: 'Correct Option',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        PracticeMode.selfAssessment => const SizedBox.shrink(),
+        PracticeMode.multipleChoice =>
+          BuildMultipleChoiceFormStrategy().buildLegend(controller),
+        PracticeMode.selfAssessment =>
+          BuildSelfAssessmentFormStrategy().buildLegend(controller),
       };
 }
 
