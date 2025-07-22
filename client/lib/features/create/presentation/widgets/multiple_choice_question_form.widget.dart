@@ -18,11 +18,11 @@ class MultipleChoiceQuestionFormWidget extends StatelessWidget {
   });
 
   bool _isDirty(MultipleChoiceController input) {
-    return input.questionController.text.isNotEmpty ||
-        input.answerOptionsControllers.any(
-          (answerOptionController) =>
-              answerOptionController.text.text.isNotEmpty,
-        );
+    final isTextDirty = input.questionController.text.isNotEmpty;
+    final isAnyAnswerOptionDirty = input.answerOptionsControllers.any(
+      (answerOptionController) => answerOptionController.text.text.isNotEmpty,
+    );
+    return isTextDirty || isAnyAnswerOptionDirty;
   }
 
   @override
