@@ -87,6 +87,7 @@ abstract class PracticeModeStrategy {
   void createQuestionControllers(CreateController controller);
   void removeQuestionControllers(CreateController controller, dynamic question);
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers);
+  void toggleIsCorrect(dynamic question, int index);
 }
 
 class MultipleChoiceStrategy implements PracticeModeStrategy {
@@ -96,6 +97,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
       (
         TextEditingController(),
         List.generate(4, (_) => TextEditingController()),
+        List.generate(4, (_) => false),
       ),
     );
   }
@@ -116,9 +118,13 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
     final questionControllers = controllers as MultipleChoiceController;
-    final answerOptions = questionControllers.$2.map((answerOption) {
-      // TODO: set the correct isCorrect value
-      return CreateAnswerOptionDto(text: answerOption.text, isCorrect: false);
+    final answerOptions = questionControllers.$2.asMap().entries.map((entry) {
+      final index = entry.key;
+      final answerOption = entry.value;
+      return CreateAnswerOptionDto(
+        text: answerOption.text,
+        isCorrect: questionControllers.$3[index],
+      );
     }).toList();
     // TODO: add the enum label questionType
     return CreateQuestionDto(
@@ -126,6 +132,15 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
       questionType: 'Multiple Choice',
       answerOptions: answerOptions,
     );
+  }
+
+  @override
+  void toggleIsCorrect(
+    dynamic question,
+    int index,
+  ) {
+    final item = question as MultipleChoiceController;
+    item.$3[index] = !item.$3[index];
   }
 }
 
@@ -161,6 +176,12 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
       questionType: 'Self Assessment',
     );
   }
+
+  @override
+  void toggleIsCorrect(
+    dynamic question,
+    int index,
+  ) {}
 }
 
 typedef SelfAssessmentController = (
@@ -169,7 +190,8 @@ typedef SelfAssessmentController = (
 );
 typedef MultipleChoiceController = (
   TextEditingController,
-  List<TextEditingController>
+  List<TextEditingController>,
+  List<bool>,
 );
 
 class CreateController extends ChangeNotifier {
@@ -203,7 +225,13 @@ class CreateController extends ChangeNotifier {
       questions: createQuestionsDto,
     );
     final result = await _createRepository.createDeck(createDeckDto);
+    // TODO: add a toast here
     print(result.error ?? 'Deck created successfully');
+  }
+
+  void toggleIsCorrect(dynamic question, int index) {
+    _strategy.toggleIsCorrect(question, index);
+    notifyListeners();
   }
 
   void addQuestion() {
