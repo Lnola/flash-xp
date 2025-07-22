@@ -3,49 +3,19 @@ import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_multiple_choice_form.strategy.dart';
 import 'package:flashxp/features/create/logic/domain/create_self_assessment_form.strategy.dart';
+import 'package:flashxp/features/create/logic/models/multiple_choice.controller.dart';
+import 'package:flashxp/features/create/logic/models/self_assessment.controller.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
-
-class AnswerOptionControllers {
-  final TextEditingController text = TextEditingController();
-  bool isCorrect = false;
-
-  void toggleIsCorrect() {
-    isCorrect = !isCorrect;
-  }
-}
-
-class MultipleChoiceController {
-  final TextEditingController questionController = TextEditingController();
-  final List<AnswerOptionControllers> answerOptionsControllers =
-      List.generate(4, (_) => AnswerOptionControllers());
-
-  void dispose() {
-    questionController.dispose();
-    for (final answerOption in answerOptionsControllers) {
-      answerOption.text.dispose();
-    }
-  }
-}
-
-class SelfAssessmentController {
-  final TextEditingController questionController = TextEditingController();
-  final TextEditingController answerController = TextEditingController();
-
-  void dispose() {
-    questionController.dispose();
-    answerController.dispose();
-  }
-}
 
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<SelfAssessmentController> selfAssessmentControllers = [];
   final List<MultipleChoiceController> multipleChoiceControllers = [];
+  final List<SelfAssessmentController> selfAssessmentControllers = [];
 
   PracticeMode mode = PracticeMode.multipleChoice;
 
@@ -96,10 +66,10 @@ class CreateController extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
-    for (final question in selfAssessmentControllers) {
+    for (final question in multipleChoiceControllers) {
       question.dispose();
     }
-    for (final question in multipleChoiceControllers) {
+    for (final question in selfAssessmentControllers) {
       question.dispose();
     }
     super.dispose();

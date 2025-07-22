@@ -1,6 +1,7 @@
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
+import 'package:flashxp/features/create/logic/models/self_assessment.controller.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 
