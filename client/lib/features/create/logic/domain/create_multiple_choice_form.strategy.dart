@@ -23,20 +23,22 @@ class CreateMultipleChoiceFormStrategy implements CreateFormStrategy {
   }
 
   @override
-  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
-    final questionControllers = controllers as MultipleChoiceController;
-    final answerOptions = questionControllers.answerOptionsControllers.map(
-      (answerOption) => CreateAnswerOptionDto(
-        text: answerOption.text.text,
-        isCorrect: answerOption.isCorrect,
-      ),
-    );
-
-    return CreateQuestionDto(
-      text: questionControllers.questionController.text,
-      questionType: PracticeMode.multipleChoice.label,
-      answerOptions: answerOptions.toList(),
-    );
+  List<CreateQuestionDto> mapQuestionControllersToDto() {
+    final mappedControllers = _formControllers.map((controllers) {
+      final questionControllers = controllers;
+      final answerOptions = questionControllers.answerOptionsControllers.map(
+        (answerOption) => CreateAnswerOptionDto(
+          text: answerOption.text.text,
+          isCorrect: answerOption.isCorrect,
+        ),
+      );
+      return CreateQuestionDto(
+        text: questionControllers.questionController.text,
+        questionType: PracticeMode.multipleChoice.label,
+        answerOptions: answerOptions.toList(),
+      );
+    });
+    return mappedControllers.toList();
   }
 
   @override

@@ -5,7 +5,7 @@ abstract class CreateFormStrategy {
 
   void createQuestionControllers();
   void removeQuestionControllers(dynamic question);
-  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers);
+  List<CreateQuestionDto> mapQuestionControllersToDto();
   void toggleIsCorrect(dynamic question, int index);
   void dispose();
 }

@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
+  final multipleChoiceStrategy = CreateMultipleChoiceFormStrategy();
+  final selfAssessmentStrategy = CreateSelfAssessmentFormStrategy();
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -22,18 +24,12 @@ class CreateController extends ChangeNotifier {
   CreateController(this._createRepository);
 
   CreateFormStrategy get _strategy => switch (mode) {
-        PracticeMode.multipleChoice => CreateMultipleChoiceFormStrategy(),
-        PracticeMode.selfAssessment => CreateSelfAssessmentFormStrategy(),
+        PracticeMode.multipleChoice => multipleChoiceStrategy,
+        PracticeMode.selfAssessment => selfAssessmentStrategy,
       };
 
   Future<Result> submit() async {
-    // TODO: think about abstracting this
-    final controllers = switch (mode) {
-      PracticeMode.multipleChoice => multipleChoiceControllers,
-      PracticeMode.selfAssessment => selfAssessmentControllers,
-    };
-    final createQuestionsDto =
-        controllers.map(_strategy.mapQuestionControllersToDto).toList();
+    final createQuestionsDto = _strategy.mapQuestionControllersToDto();
     final createDeckDto = CreateDeckDto(
       title: titleController.text,
       description: descriptionController.text,

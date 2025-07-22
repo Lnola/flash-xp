@@ -23,13 +23,15 @@ class CreateSelfAssessmentFormStrategy implements CreateFormStrategy {
   }
 
   @override
-  CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
-    final questionControllers = controllers as SelfAssessmentController;
-    return CreateQuestionDto(
-      text: questionControllers.questionController.text,
-      answer: questionControllers.answerController.text,
-      questionType: PracticeMode.selfAssessment.label,
-    );
+  List<CreateQuestionDto> mapQuestionControllersToDto() {
+    final mappedControllers = _formControllers.map((questionControllers) {
+      return CreateQuestionDto(
+        text: questionControllers.questionController.text,
+        answer: questionControllers.answerController.text,
+        questionType: PracticeMode.selfAssessment.label,
+      );
+    });
+    return mappedControllers.toList();
   }
 
   @override
