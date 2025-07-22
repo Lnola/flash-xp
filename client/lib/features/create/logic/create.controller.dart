@@ -11,22 +11,20 @@ import 'package:flutter/material.dart';
 
 class CreateController extends ChangeNotifier {
   final CreateRepository _createRepository;
-  final multipleChoiceStrategy = CreateMultipleChoiceFormStrategy();
-  final selfAssessmentStrategy = CreateSelfAssessmentFormStrategy();
+  PracticeMode mode = PracticeMode.multipleChoice;
+
+  final Map<PracticeMode, CreateFormStrategy Function()> _strategyFactories = {
+    PracticeMode.multipleChoice: () => CreateMultipleChoiceFormStrategy(),
+    PracticeMode.selfAssessment: () => CreateSelfAssessmentFormStrategy(),
+  };
+  final _strategyCache = <PracticeMode, CreateFormStrategy>{};
+  CreateFormStrategy get _strategy =>
+      _strategyCache.putIfAbsent(mode, _strategyFactories[mode]!);
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<MultipleChoiceController> multipleChoiceControllers = [];
-  final List<SelfAssessmentController> selfAssessmentControllers = [];
-
-  PracticeMode mode = PracticeMode.multipleChoice;
 
   CreateController(this._createRepository);
-
-  CreateFormStrategy get _strategy => switch (mode) {
-        PracticeMode.multipleChoice => multipleChoiceStrategy,
-        PracticeMode.selfAssessment => selfAssessmentStrategy,
-      };
 
   Future<Result> submit() async {
     final createQuestionsDto = _strategy.mapQuestionControllersToDto();
