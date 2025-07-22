@@ -19,6 +19,13 @@ class LazyStrategyResolver {
   CreateQuestionsFormStrategy get(PracticeMode mode) {
     return _strategyCache.putIfAbsent(mode, _strategyFactories[mode]!);
   }
+
+  void dispose() {
+    for (var strategy in _strategyCache.values) {
+      strategy.dispose();
+    }
+    _strategyCache.clear();
+  }
 }
 
 class CreateController extends ChangeNotifier {
@@ -69,7 +76,7 @@ class CreateController extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
-    _strategy.dispose();
+    _strategyManager.dispose();
     super.dispose();
   }
 }
