@@ -12,12 +12,12 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
-abstract class BuildCreateFormStrategy {
+abstract class CreateFormBuilder {
   Widget buildInputs(CreateController controller);
   Widget buildLegend(CreateController controller);
 }
 
-class BuildMultipleChoiceFormStrategy implements BuildCreateFormStrategy {
+class MultipleChoiceFormBuilder implements CreateFormBuilder {
   @override
   Widget buildInputs(CreateController controller) {
     return FlashInputGroup<MultipleChoiceController>(
@@ -83,7 +83,7 @@ class BuildMultipleChoiceFormStrategy implements BuildCreateFormStrategy {
   }
 }
 
-class BuildSelfAssessmentFormStrategy implements BuildCreateFormStrategy {
+class SelfAssessmentFormBuilder implements CreateFormBuilder {
   @override
   Widget buildInputs(CreateController controller) {
     return FlashInputGroup<SelfAssessmentController>(
@@ -115,16 +115,16 @@ class BuildSelfAssessmentFormStrategy implements BuildCreateFormStrategy {
 extension on PracticeMode {
   Widget buildInputs(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice =>
-          BuildMultipleChoiceFormStrategy().buildInputs(controller),
+          MultipleChoiceFormBuilder().buildInputs(controller),
         PracticeMode.selfAssessment =>
-          BuildSelfAssessmentFormStrategy().buildInputs(controller),
+          SelfAssessmentFormBuilder().buildInputs(controller),
       };
 
   Widget buildLegend(CreateController controller) => switch (this) {
         PracticeMode.multipleChoice =>
-          BuildMultipleChoiceFormStrategy().buildLegend(controller),
+          MultipleChoiceFormBuilder().buildLegend(controller),
         PracticeMode.selfAssessment =>
-          BuildSelfAssessmentFormStrategy().buildLegend(controller),
+          SelfAssessmentFormBuilder().buildLegend(controller),
       };
 }
 
