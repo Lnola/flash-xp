@@ -1,5 +1,6 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
@@ -160,12 +161,20 @@ class CreateViewState extends State<CreateView> {
 
 class _CreateActions extends StatelessWidget {
   final void Function() addQuestion;
-  final void Function() submit;
+  final Future<Result> Function() submit;
 
   const _CreateActions({
     required this.addQuestion,
     required this.submit,
   });
+
+  void _submit(BuildContext context) async {
+    final result = await submit();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(result.error ?? 'Deck successfully created!')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +188,7 @@ class _CreateActions extends StatelessWidget {
         ),
         const SizedBox(width: 12),
         FlashIconButton(
-          onPressed: submit,
+          onPressed: () => _submit(context),
           label: 'Submit',
           icon: FontAwesomeIcons.check,
         ),
