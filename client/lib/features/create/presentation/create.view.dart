@@ -1,116 +1,14 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
-import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
+import 'package:flashxp/features/create/presentation/builders/multiple_choice_form.builder.dart';
+import 'package:flashxp/features/create/presentation/builders/self_assessment_form.builder.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_form_actions.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
-import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
-import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
-
-abstract class CreateFormBuilder {
-  Widget buildInputs(CreateController controller);
-  Widget buildLegend(CreateController controller);
-}
-
-class MultipleChoiceFormBuilder implements CreateFormBuilder {
-  @override
-  Widget buildInputs(CreateController controller) {
-    return FlashInputGroup<MultipleChoiceController>(
-      inputControllers: controller.multipleChoiceControllers,
-      onRemoveInputGroup: controller.removeQuestion,
-      isDirty: (input) =>
-          input.questionController.text.isNotEmpty ||
-          input.answerOptionsControllers.any(
-            (answerOptionController) =>
-                answerOptionController.text.text.isNotEmpty,
-          ),
-      buildInputs: (input) => [
-        FlashTextInput(
-          label: 'Question',
-          controller: input.questionController,
-        ),
-        for (var i = 0; i < 4; i++) ...[
-          Row(
-            children: [
-              Expanded(
-                child: FlashTextInput(
-                  label: 'Option ${String.fromCharCode(65 + i)}',
-                  controller: input.answerOptionsControllers[i].text,
-                ),
-              ),
-              Tooltip(
-                message: 'Is this answer correct?',
-                child: FlashCheckbox(
-                  value: input.answerOptionsControllers[i].isCorrect,
-                  onChanged: (_) => controller.toggleIsCorrect(input, i),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ],
-    );
-  }
-
-  @override
-  Widget buildLegend(CreateController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Legend:'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FlashCheckbox(
-              value: false,
-              onChanged: (_) => {},
-              label: 'Wrong Option',
-            ),
-            FlashCheckbox(
-              value: true,
-              onChanged: (_) => {},
-              label: 'Correct Option',
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class SelfAssessmentFormBuilder implements CreateFormBuilder {
-  @override
-  Widget buildInputs(CreateController controller) {
-    return FlashInputGroup<SelfAssessmentController>(
-      inputControllers: controller.selfAssessmentControllers,
-      onRemoveInputGroup: controller.removeQuestion,
-      isDirty: (input) =>
-          input.questionController.text.isNotEmpty ||
-          input.answerController.text.isNotEmpty,
-      buildInputs: (input) => [
-        FlashTextInput(
-          label: 'Question',
-          controller: input.questionController,
-        ),
-        const SizedBox(height: 8),
-        FlashTextInput(
-          label: 'Answer',
-          controller: input.answerController,
-        ),
-      ],
-    );
-  }
-
-  @override
-  Widget buildLegend(CreateController controller) {
-    return const SizedBox.shrink();
-  }
-}
 
 extension on PracticeMode {
   Widget buildInputs(CreateController controller) => switch (this) {
