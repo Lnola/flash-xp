@@ -1,7 +1,7 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
+import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
+import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
-import 'package:flashxp/features/create/logic/models/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/logic/models/self_assessment.controller.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
