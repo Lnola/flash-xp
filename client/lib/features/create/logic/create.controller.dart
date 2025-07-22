@@ -86,9 +86,17 @@ class Temp {
 
 class MultipleChoiceController {
   final TextEditingController questionController = TextEditingController();
+  // TODO: merge the two under this one
   final List<TextEditingController> answerOptionsControllers =
       List.generate(4, (_) => TextEditingController());
   final List<bool> isCorrectAnswers = List.generate(4, (_) => false);
+
+  void dispose() {
+    questionController.dispose();
+    for (final answerOption in answerOptionsControllers) {
+      answerOption.dispose();
+    }
+  }
 }
 
 abstract class PracticeModeStrategy {
@@ -110,10 +118,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     dynamic question,
   ) {
     final item = question as MultipleChoiceController;
-    item.questionController.dispose();
-    for (final option in item.answerOptionsControllers) {
-      option.dispose();
-    }
+    item.dispose();
     controller.multipleChoiceControllers.remove(item);
   }
 
@@ -251,10 +256,7 @@ class CreateController extends ChangeNotifier {
       pair.$2.dispose();
     }
     for (final question in multipleChoiceControllers) {
-      question.questionController.dispose();
-      for (final answerOption in question.answerOptionsControllers) {
-        answerOption.dispose();
-      }
+      question.dispose();
     }
     super.dispose();
   }
