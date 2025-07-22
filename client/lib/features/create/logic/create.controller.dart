@@ -84,6 +84,13 @@ class Temp {
   }
 }
 
+class MultipleChoiceController {
+  final TextEditingController questionController = TextEditingController();
+  final List<TextEditingController> answerOptionsControllers =
+      List.generate(4, (_) => TextEditingController());
+  final List<bool> isCorrectAnswers = List.generate(4, (_) => false);
+}
+
 abstract class PracticeModeStrategy {
   void createQuestionControllers(CreateController controller);
   void removeQuestionControllers(CreateController controller, dynamic question);
@@ -94,13 +101,7 @@ abstract class PracticeModeStrategy {
 class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   void createQuestionControllers(CreateController controller) {
-    controller.multipleChoiceControllers.add(
-      (
-        TextEditingController(),
-        List.generate(4, (_) => TextEditingController()),
-        List.generate(4, (_) => false),
-      ),
-    );
+    controller.multipleChoiceControllers.add(MultipleChoiceController());
   }
 
   @override
@@ -109,8 +110,8 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
     dynamic question,
   ) {
     final item = question as MultipleChoiceController;
-    item.$1.dispose();
-    for (final option in item.$2) {
+    item.questionController.dispose();
+    for (final option in item.answerOptionsControllers) {
       option.dispose();
     }
     controller.multipleChoiceControllers.remove(item);
@@ -119,17 +120,20 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers) {
     final questionControllers = controllers as MultipleChoiceController;
-    final answerOptions = questionControllers.$2.asMap().entries.map((entry) {
+    final answerOptions = questionControllers.answerOptionsControllers
+        .asMap()
+        .entries
+        .map((entry) {
       final index = entry.key;
       final answerOption = entry.value;
       return CreateAnswerOptionDto(
         text: answerOption.text,
-        isCorrect: questionControllers.$3[index],
+        isCorrect: questionControllers.isCorrectAnswers[index],
       );
     }).toList();
     // TODO: add the enum label questionType
     return CreateQuestionDto(
-      text: questionControllers.$1.text,
+      text: questionControllers.questionController.text,
       questionType: 'Multiple Choice',
       answerOptions: answerOptions,
     );
@@ -138,7 +142,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   @override
   void toggleIsCorrect(dynamic question, int index) {
     final item = question as MultipleChoiceController;
-    item.$3[index] = !item.$3[index];
+    item.isCorrectAnswers[index] = !item.isCorrectAnswers[index];
   }
 }
 
@@ -183,11 +187,6 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
 typedef SelfAssessmentController = (
   TextEditingController,
   TextEditingController,
-);
-typedef MultipleChoiceController = (
-  TextEditingController,
-  List<TextEditingController>,
-  List<bool>,
 );
 
 class CreateController extends ChangeNotifier {
@@ -252,8 +251,8 @@ class CreateController extends ChangeNotifier {
       pair.$2.dispose();
     }
     for (final question in multipleChoiceControllers) {
-      question.$1.dispose();
-      for (final answerOption in question.$2) {
+      question.questionController.dispose();
+      for (final answerOption in question.answerOptionsControllers) {
         answerOption.dispose();
       }
     }

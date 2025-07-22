@@ -24,23 +24,24 @@ extension on PracticeMode {
             inputControllers: controller.multipleChoiceControllers,
             onRemoveInputGroup: controller.removeQuestion,
             isDirty: (input) =>
-                input.$1.text.isNotEmpty ||
-                input.$2.any((c) => c.text.isNotEmpty),
+                input.questionController.text.isNotEmpty ||
+                input.answerOptionsControllers.any((c) => c.text.isNotEmpty),
             buildInputs: (input) => [
-              FlashTextInput(label: 'Question', controller: input.$1),
+              FlashTextInput(
+                  label: 'Question', controller: input.questionController),
               for (var i = 0; i < 4; i++) ...[
                 Row(
                   children: [
                     Expanded(
                       child: FlashTextInput(
                         label: 'Option ${String.fromCharCode(65 + i)}',
-                        controller: input.$2[i],
+                        controller: input.answerOptionsControllers[i],
                       ),
                     ),
                     Tooltip(
                       message: 'Is this answer correct?',
                       child: FlashCheckbox(
-                        value: input.$3[i],
+                        value: input.isCorrectAnswers[i],
                         onChanged: (_) => controller.toggleIsCorrect(input, i),
                       ),
                     ),
