@@ -44,4 +44,11 @@ class CreateMultipleChoiceFormStrategy implements CreateFormStrategy {
     final item = question as MultipleChoiceController;
     item.answerOptionsControllers[index].toggleIsCorrect();
   }
+
+  @override
+  void dispose() {
+    for (final controller in _formControllers) {
+      controller.dispose();
+    }
+  }
 }

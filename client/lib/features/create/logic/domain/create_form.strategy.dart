@@ -7,4 +7,5 @@ abstract class CreateFormStrategy {
   void removeQuestionControllers(dynamic question);
   CreateQuestionDto mapQuestionControllersToDto(dynamic controllers);
   void toggleIsCorrect(dynamic question, int index);
+  void dispose();
 }

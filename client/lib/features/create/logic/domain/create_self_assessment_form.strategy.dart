@@ -34,4 +34,11 @@ class CreateSelfAssessmentFormStrategy implements CreateFormStrategy {
 
   @override
   void toggleIsCorrect(dynamic question, int index) {}
+
+  @override
+  void dispose() {
+    for (final controller in _formControllers) {
+      controller.dispose();
+    }
+  }
 }

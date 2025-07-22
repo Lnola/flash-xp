@@ -66,12 +66,7 @@ class CreateController extends ChangeNotifier {
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
-    for (final question in multipleChoiceControllers) {
-      question.dispose();
-    }
-    for (final question in selfAssessmentControllers) {
-      question.dispose();
-    }
+    _strategy.dispose();
     super.dispose();
   }
 }
