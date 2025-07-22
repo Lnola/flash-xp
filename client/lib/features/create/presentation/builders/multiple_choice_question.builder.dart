@@ -1,12 +1,12 @@
 import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
-import 'package:flashxp/features/create/presentation/builders/create_form.builder.dart';
+import 'package:flashxp/features/create/presentation/builders/create_question.builder.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
-class MultipleChoiceFormBuilder implements CreateFormBuilder {
+class MultipleChoiceQuestionBuilder implements CreateQuestionBuilder {
   @override
   Widget buildInputs(CreateController controller) {
     return FlashInputGroup<MultipleChoiceController>(

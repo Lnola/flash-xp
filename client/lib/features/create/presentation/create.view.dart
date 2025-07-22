@@ -1,8 +1,8 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
-import 'package:flashxp/features/create/presentation/builders/create_form.builder.dart';
-import 'package:flashxp/features/create/presentation/builders/multiple_choice_form.builder.dart';
-import 'package:flashxp/features/create/presentation/builders/self_assessment_form.builder.dart';
+import 'package:flashxp/features/create/presentation/builders/create_question.builder.dart';
+import 'package:flashxp/features/create/presentation/builders/multiple_choice_question.builder.dart';
+import 'package:flashxp/features/create/presentation/builders/self_assessment_question.builder.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_form_actions.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
@@ -12,9 +12,9 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart'
 import 'package:flutter/material.dart';
 
 extension on PracticeMode {
-  CreateFormBuilder get _builder => switch (this) {
-        PracticeMode.multipleChoice => MultipleChoiceFormBuilder(),
-        PracticeMode.selfAssessment => SelfAssessmentFormBuilder(),
+  CreateQuestionBuilder get _builder => switch (this) {
+        PracticeMode.multipleChoice => MultipleChoiceQuestionBuilder(),
+        PracticeMode.selfAssessment => SelfAssessmentQuestionBuilder(),
       };
 
   Widget buildInputs(CreateController controller) =>
