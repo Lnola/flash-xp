@@ -1,15 +1,16 @@
 import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
-import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
 class SelfAssessmentQuestionFormWidget extends StatelessWidget {
-  final CreateController controller;
+  final List<SelfAssessmentController> questionsControllers;
+  final void Function(SelfAssessmentController) onRemoveInputGroup;
 
   const SelfAssessmentQuestionFormWidget({
     super.key,
-    required this.controller,
+    required this.questionsControllers,
+    required this.onRemoveInputGroup,
   });
 
   bool _isDirty(SelfAssessmentController input) {
@@ -21,9 +22,8 @@ class SelfAssessmentQuestionFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlashInputGroup<SelfAssessmentController>(
-      inputControllers:
-          controller.questionsControllers as List<SelfAssessmentController>,
-      onRemoveInputGroup: controller.removeQuestion,
+      inputControllers: questionsControllers,
+      onRemoveInputGroup: onRemoveInputGroup,
       isDirty: _isDirty,
       buildInputs: (input) => [
         FlashTextInput(
