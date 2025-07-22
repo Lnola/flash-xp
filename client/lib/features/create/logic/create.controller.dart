@@ -135,10 +135,7 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
   }
 
   @override
-  void toggleIsCorrect(
-    dynamic question,
-    int index,
-  ) {
+  void toggleIsCorrect(dynamic question, int index) {
     final item = question as MultipleChoiceController;
     item.$3[index] = !item.$3[index];
   }
@@ -178,12 +175,10 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }
 
   @override
-  void toggleIsCorrect(
-    dynamic question,
-    int index,
-  ) {}
+  void toggleIsCorrect(dynamic question, int index) {}
 }
 
+// TODO: create real types here
 typedef SelfAssessmentController = (
   TextEditingController,
   TextEditingController,
