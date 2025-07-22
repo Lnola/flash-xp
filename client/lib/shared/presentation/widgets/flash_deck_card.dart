@@ -1,5 +1,6 @@
 import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,11 +10,6 @@ extension on PracticeMode {
   IconData get icon => switch (this) {
         PracticeMode.multipleChoice => FontAwesomeIcons.listOl,
         PracticeMode.selfAssessment => FontAwesomeIcons.solidThumbsUp,
-      };
-
-  String get label => switch (this) {
-        PracticeMode.multipleChoice => 'Multiple Choice',
-        PracticeMode.selfAssessment => 'Flashcards',
       };
 }
 
