@@ -1,6 +1,7 @@
 import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
 import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/presentation/builders/question_form.builder.dart';
+import 'package:flashxp/features/create/presentation/widgets/multiple_choice_legend.widget.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
@@ -49,26 +50,6 @@ class MultipleChoiceQuestionFormBuilder implements QuestionFormBuilder {
 
   @override
   Widget buildLegend(CreateController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Legend:'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FlashCheckbox(
-              value: false,
-              onChanged: (_) => {},
-              label: 'Wrong Option',
-            ),
-            FlashCheckbox(
-              value: true,
-              onChanged: (_) => {},
-              label: 'Correct Option',
-            ),
-          ],
-        ),
-      ],
-    );
+    return const MultipleChoiceLegendWidget();
   }
 }
