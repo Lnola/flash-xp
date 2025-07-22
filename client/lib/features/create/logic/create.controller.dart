@@ -2,6 +2,7 @@ import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/deck.dto.dart';
 import 'package:flashxp/features/create/data/dto/update_deck.dto.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
@@ -206,7 +207,7 @@ class CreateController extends ChangeNotifier {
         PracticeMode.selfAssessment => SelfAssessmentStrategy(),
       };
 
-  void submit() async {
+  Future<Result> submit() async {
     // TODO: think about abstracting this
     final controllers = switch (mode) {
       PracticeMode.multipleChoice => multipleChoiceControllers,
@@ -219,9 +220,7 @@ class CreateController extends ChangeNotifier {
       description: descriptionController.text,
       questions: createQuestionsDto,
     );
-    final result = await _createRepository.createDeck(createDeckDto);
-    // TODO: add a toast here
-    print(result.error ?? 'Deck created successfully');
+    return await _createRepository.createDeck(createDeckDto);
   }
 
   void toggleIsCorrect(dynamic question, int index) {
