@@ -1,22 +1,24 @@
 import 'package:flashxp/features/create/data/create.repository.dart';
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/domain/create_multiple_choice_form.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/create_questions_form.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/create_self_assessment_form.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/multiple_choice_questions_controllers.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/questions_controllers.strategy.dart';
+import 'package:flashxp/features/create/logic/domain/self_assessment_questions_controllers.strategy.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
 class LazyStrategyManager {
-  final Map<PracticeMode, CreateQuestionsFormStrategy Function()>
+  final Map<PracticeMode, QuestionsControllersStrategy Function()>
       _strategyFactories = {
-    PracticeMode.multipleChoice: () => CreateMultipleChoiceFormStrategy(),
-    PracticeMode.selfAssessment: () => CreateSelfAssessmentFormStrategy(),
+    PracticeMode.multipleChoice: () =>
+        MultipleChoiceQuestionsControllersStrategy(),
+    PracticeMode.selfAssessment: () =>
+        SelfAssessmentQuestionsControllersStrategy(),
   };
 
-  final _strategyCache = <PracticeMode, CreateQuestionsFormStrategy>{};
+  final _strategyCache = <PracticeMode, QuestionsControllersStrategy>{};
 
-  CreateQuestionsFormStrategy get(PracticeMode mode) {
+  QuestionsControllersStrategy get(PracticeMode mode) {
     return _strategyCache.putIfAbsent(mode, _strategyFactories[mode]!);
   }
 
@@ -36,7 +38,7 @@ class CreateController extends ChangeNotifier {
   PracticeMode mode = PracticeMode.multipleChoice;
 
   final LazyStrategyManager _strategyManager = LazyStrategyManager();
-  CreateQuestionsFormStrategy get _strategy => _strategyManager.get(mode);
+  QuestionsControllersStrategy get _strategy => _strategyManager.get(mode);
 
   CreateController(this._createRepository);
 

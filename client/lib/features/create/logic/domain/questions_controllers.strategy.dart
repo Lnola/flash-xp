@@ -1,6 +1,6 @@
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 
-abstract class CreateQuestionsFormStrategy {
+abstract class QuestionsControllersStrategy {
   List<dynamic> get questionsControllers;
 
   void createQuestionControllers();
