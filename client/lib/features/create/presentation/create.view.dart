@@ -4,10 +4,9 @@ import 'package:flashxp/features/create/presentation/builders/multiple_choice_qu
 import 'package:flashxp/features/create/presentation/builders/question_form.builder.dart';
 import 'package:flashxp/features/create/presentation/builders/self_assessment_question_form.builder.dart';
 import 'package:flashxp/features/create/presentation/widgets/create_form_actions.widget.dart';
+import 'package:flashxp/features/create/presentation/widgets/practice_mode_select.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
-import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
-import 'package:flashxp/shared/presentation/widgets/input/flash_dropdown.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 
@@ -76,11 +75,9 @@ class CreateViewState extends State<CreateView> {
               const SizedBox(height: 16),
               controller.mode.buildLegend(),
               controller.mode.buildInputs(controller),
-              FlashDropdown<PracticeMode>(
-                value: controller.mode,
-                values: PracticeMode.values,
-                labelBuilder: (mode) => mode.label,
-                onChanged: (mode) => controller.updateMode(mode!),
+              PracticeModeSelectWidget(
+                mode: controller.mode,
+                updateMode: controller.updateMode,
               ),
               const SizedBox(height: 24),
             ],
