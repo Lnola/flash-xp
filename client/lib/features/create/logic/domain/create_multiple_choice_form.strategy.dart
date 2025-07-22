@@ -1,24 +1,25 @@
 import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/logic/create.controller.dart';
 import 'package:flashxp/features/create/logic/domain/create_form.strategy.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 
 class CreateMultipleChoiceFormStrategy implements CreateFormStrategy {
+  final _formControllers = <MultipleChoiceController>[];
+
   @override
-  void createQuestionControllers(CreateController controller) {
-    controller.multipleChoiceControllers.add(MultipleChoiceController());
+  List<MultipleChoiceController> get formControllers => _formControllers;
+
+  @override
+  void createQuestionControllers() {
+    _formControllers.add(MultipleChoiceController());
   }
 
   @override
-  void removeQuestionControllers(
-    CreateController controller,
-    dynamic question,
-  ) {
+  void removeQuestionControllers(dynamic question) {
     final item = question as MultipleChoiceController;
     item.dispose();
-    controller.multipleChoiceControllers.remove(item);
+    _formControllers.remove(item);
   }
 
   @override

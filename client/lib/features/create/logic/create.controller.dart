@@ -48,12 +48,12 @@ class CreateController extends ChangeNotifier {
   }
 
   void addQuestion() {
-    _strategy.createQuestionControllers(this);
+    _strategy.createQuestionControllers();
     notifyListeners();
   }
 
   void removeQuestion(dynamic question) {
-    _strategy.removeQuestionControllers(this, question);
+    _strategy.removeQuestionControllers(question);
     notifyListeners();
   }
 
