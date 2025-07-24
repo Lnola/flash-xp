@@ -55,4 +55,19 @@ class MultipleChoiceQuestionsControllersStrategy
       controller.dispose();
     }
   }
+
+  @override
+  void populateQuestionsControllers(List questions) {
+    for (final question in questions as List<CreateQuestionDto>) {
+      final controller = MultipleChoiceController();
+      controller.questionController.text = question.text;
+      for (final answerOption in question.answerOptions!) {
+        final answerController = AnswerOptionControllers();
+        answerController.text.text = answerOption.text;
+        answerController.isCorrect = answerOption.isCorrect;
+        controller.answerOptionsControllers.add(answerController);
+      }
+      _questionsControllers.add(controller);
+    }
+  }
 }
