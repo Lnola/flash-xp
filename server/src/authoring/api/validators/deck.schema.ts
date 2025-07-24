@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { QUESTION_TYPE_NAMES } from 'shared/constants';
 
 const answerOptionSchema = z.object({
-  text: z.string().max(120),
+  text: z.string().max(120).nonempty(),
   isCorrect: z.boolean(),
 });
 
@@ -13,7 +13,7 @@ const atLeastOneAnswerOptionCorrect = (
   return answerOptions.some((option) => option.isCorrect);
 };
 const questionSchema = z.object({
-  text: z.string(),
+  text: z.string().nonempty(),
   answer: z.string().nullable().optional(),
   questionType: z.enum(QUESTION_TYPE_NAMES),
   answerOptions: z
@@ -26,7 +26,7 @@ const questionSchema = z.object({
 });
 
 export const deckSchema = z.object({
-  title: z.string().max(50),
-  description: z.string().max(300),
+  title: z.string().max(50).nonempty(),
+  description: z.string().max(300).nonempty(),
   questions: z.array(questionSchema),
 });
