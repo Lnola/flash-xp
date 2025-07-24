@@ -34,6 +34,8 @@ class CreateViewState extends State<CreateView> {
     final result = await controller.submit();
     if (!context.mounted) return;
     useSnackbar(context, result.error, 'Deck successfully created!');
+    if (result.error != null) return;
+    controller.reset();
   }
 
   @override
