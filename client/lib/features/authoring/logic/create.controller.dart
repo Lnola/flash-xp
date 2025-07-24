@@ -60,7 +60,7 @@ class CreateController extends ChangeNotifier {
   }
 
   void addQuestion() {
-    _strategy.createQuestionControllers();
+    _strategy.addQuestionControllers();
     notifyListeners();
   }
 

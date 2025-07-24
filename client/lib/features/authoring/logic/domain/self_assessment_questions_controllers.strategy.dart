@@ -13,7 +13,7 @@ class SelfAssessmentQuestionsControllersStrategy
       _questionsControllers;
 
   @override
-  void createQuestionControllers() {
+  void addQuestionControllers() {
     _questionsControllers.add(SelfAssessmentController());
   }
 
