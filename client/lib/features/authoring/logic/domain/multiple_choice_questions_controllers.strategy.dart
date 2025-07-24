@@ -61,13 +61,19 @@ class MultipleChoiceQuestionsControllersStrategy
     for (final question in questions as List<CreateQuestionDto>) {
       final controller = MultipleChoiceController();
       controller.questionController.text = question.text;
-      for (final answerOption in question.answerOptions!) {
-        final answerController = AnswerOptionControllers();
-        answerController.text.text = answerOption.text;
-        answerController.isCorrect = answerOption.isCorrect;
-        controller.answerOptionsControllers.add(answerController);
-      }
+      _populateAnswerOptions(controller, question.answerOptions!);
       _questionsControllers.add(controller);
+    }
+  }
+
+  void _populateAnswerOptions(
+    MultipleChoiceController controller,
+    List<CreateAnswerOptionDto> options,
+  ) {
+    final answers = controller.answerOptionsControllers;
+    for (var i = 0; i < answers.length && i < options.length; i++) {
+      answers[i].text.text = options[i].text;
+      answers[i].isCorrect = options[i].isCorrect;
     }
   }
 }
