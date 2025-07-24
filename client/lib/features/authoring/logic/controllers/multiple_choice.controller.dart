@@ -1,8 +1,7 @@
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flutter/material.dart';
 
-// TODO: rename so its not plural
-class AnswerOptionControllers {
+class AnswerOptionController {
   final TextEditingController text = TextEditingController();
   bool isCorrect = false;
 
@@ -10,8 +9,8 @@ class AnswerOptionControllers {
     isCorrect = !isCorrect;
   }
 
-  static AnswerOptionControllers fromDto(AnswerOptionDto answerOptionDto) {
-    final controller = AnswerOptionControllers();
+  static AnswerOptionController fromDto(AnswerOptionDto answerOptionDto) {
+    final controller = AnswerOptionController();
     controller.text.text = answerOptionDto.text;
     controller.isCorrect = answerOptionDto.isCorrect;
     return controller;
@@ -20,8 +19,8 @@ class AnswerOptionControllers {
 
 class MultipleChoiceController {
   final TextEditingController questionController = TextEditingController();
-  final List<AnswerOptionControllers> answerOptionsControllers =
-      List.generate(4, (_) => AnswerOptionControllers());
+  final List<AnswerOptionController> answerOptionsControllers =
+      List.generate(4, (_) => AnswerOptionController());
 
   void dispose() {
     questionController.dispose();
@@ -35,7 +34,7 @@ class MultipleChoiceController {
     controller.questionController.text = questionDto.text;
     controller.answerOptionsControllers.clear();
     for (final answerOption in questionDto.answerOptions!) {
-      final optionController = AnswerOptionControllers.fromDto(answerOption);
+      final optionController = AnswerOptionController.fromDto(answerOption);
       controller.answerOptionsControllers.add(optionController);
     }
     return controller;
