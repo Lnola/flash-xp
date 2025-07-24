@@ -10,7 +10,7 @@ class CreateController extends BaseAuthoringController {
 
   @override
   Future<Result> submit() async {
-    final createQuestionsDto = super.strategy.mapQuestionControllersToDto();
+    final createQuestionsDto = strategy.mapQuestionControllersToDto();
     final createDeckDto = CreateDeckDto(
       title: titleController.text,
       description: descriptionController.text,

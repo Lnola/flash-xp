@@ -15,7 +15,7 @@ class EditController extends BaseAuthoringController {
 
   @override
   Future<Result> submit() async {
-    final updateQuestionsDto = super.strategy.mapQuestionControllersToDto();
+    final updateQuestionsDto = strategy.mapQuestionControllersToDto();
     final updateDeckDto = UpdateDeckDto(
       title: titleController.text,
       description: descriptionController.text,
