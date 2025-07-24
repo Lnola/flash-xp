@@ -17,4 +17,9 @@ class RouteGuards {
 
     return child;
   }
+
+  static Page showError(BuildContext context) {
+    context.push('/404');
+    return const NoTransitionPage(child: SizedBox.shrink());
+  }
 }
