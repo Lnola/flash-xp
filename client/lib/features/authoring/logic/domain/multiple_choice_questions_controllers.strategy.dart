@@ -59,21 +59,8 @@ class MultipleChoiceQuestionsControllersStrategy
   @override
   void populateQuestionsControllers(List questions) {
     for (final question in questions as List<CreateQuestionDto>) {
-      final controller = MultipleChoiceController();
-      controller.questionController.text = question.text;
-      _populateAnswerOptions(controller, question.answerOptions!);
+      final controller = MultipleChoiceController.fromDto(question);
       _questionsControllers.add(controller);
-    }
-  }
-
-  void _populateAnswerOptions(
-    MultipleChoiceController controller,
-    List<CreateAnswerOptionDto> options,
-  ) {
-    final answers = controller.answerOptionsControllers;
-    for (var i = 0; i < answers.length && i < options.length; i++) {
-      answers[i].text.text = options[i].text;
-      answers[i].isCorrect = options[i].isCorrect;
     }
   }
 }
