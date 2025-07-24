@@ -49,9 +49,7 @@ class SelfAssessmentQuestionsControllersStrategy
   @override
   void populateQuestionsControllers(List questions) {
     for (final question in questions as List<CreateQuestionDto>) {
-      final controller = SelfAssessmentController();
-      controller.questionController.text = question.text;
-      controller.answerController.text = question.answer ?? '';
+      final controller = SelfAssessmentController.fromDto(question);
       _questionsControllers.add(controller);
     }
   }
