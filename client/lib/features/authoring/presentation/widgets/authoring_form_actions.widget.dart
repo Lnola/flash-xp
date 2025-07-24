@@ -2,11 +2,11 @@ import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CreateFormActionsWidget extends StatelessWidget {
+class AuthoringFormActionsWidget extends StatelessWidget {
   final void Function() addQuestion;
   final void Function(BuildContext) submit;
 
-  const CreateFormActionsWidget({
+  const AuthoringFormActionsWidget({
     super.key,
     required this.addQuestion,
     required this.submit,

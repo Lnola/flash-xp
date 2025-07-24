@@ -3,7 +3,7 @@ import 'package:flashxp/features/authoring/logic/create.controller.dart';
 import 'package:flashxp/features/authoring/presentation/builders/multiple_choice_question_form.builder.dart';
 import 'package:flashxp/features/authoring/presentation/builders/question_form.builder.dart';
 import 'package:flashxp/features/authoring/presentation/builders/self_assessment_question_form.builder.dart';
-import 'package:flashxp/features/authoring/presentation/widgets/create_form_actions.widget.dart';
+import 'package:flashxp/features/authoring/presentation/widgets/authoring_form_actions.widget.dart';
 import 'package:flashxp/features/authoring/presentation/widgets/practice_mode_select.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
@@ -91,7 +91,7 @@ class CreateViewState extends State<CreateView> {
           bottom: 0,
           left: 0,
           right: 0,
-          child: CreateFormActionsWidget(
+          child: AuthoringFormActionsWidget(
             addQuestion: controller.addQuestion,
             submit: _submit,
           ),
