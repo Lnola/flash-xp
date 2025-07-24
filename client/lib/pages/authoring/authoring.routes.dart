@@ -1,3 +1,4 @@
+import 'package:flashxp/features/authoring/presentation/edit.view.dart';
 import 'package:flashxp/pages/authoring/authoring.page.dart';
 import 'package:flashxp/shared/logic/route_guards.dart';
 import 'package:flashxp/shared/presentation/layout/flash_layout.dart';
@@ -14,4 +15,22 @@ final authoringRoutes = GoRoute(
       ),
     ),
   ),
+  routes: [
+    GoRoute(
+      path: ':deckId/edit',
+      pageBuilder: (context, state) {
+        final deckId = int.tryParse(state.pathParameters['deckId'] ?? '');
+        if (deckId == null) return RouteGuards.showError(context);
+        return RouteGuards.authGuard(
+          context,
+          child: NoTransitionPage(
+            child: FlashLayout(
+              title: 'Edit',
+              body: EditView(deckId: deckId),
+            ),
+          ),
+        );
+      },
+    ),
+  ],
 );
