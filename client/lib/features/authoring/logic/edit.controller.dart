@@ -1,4 +1,5 @@
 import 'package:flashxp/features/authoring/data/authoring.repository.dart';
+import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/base_authoring.controller.dart';
 import 'package:flashxp/shared/helpers/result.dart';
@@ -11,6 +12,12 @@ class EditController extends BaseAuthoringController {
 
   Future<Result> getDeck() async {
     return await _authoringRepository.getDeck(deckId);
+  }
+
+  void populateForm(DeckDto deckData) {
+    titleController.text = deckData.title;
+    descriptionController.text = deckData.description;
+    strategy.populateQuestionsControllers(deckData.questions);
   }
 
   @override
