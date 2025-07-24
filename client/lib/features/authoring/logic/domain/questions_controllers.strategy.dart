@@ -8,4 +8,5 @@ abstract class QuestionsControllersStrategy {
   List<CreateQuestionDto> mapQuestionControllersToDto();
   void toggleIsCorrect(dynamic question, int index);
   void dispose();
+  void populateQuestionsControllers(List<dynamic> questions);
 }
