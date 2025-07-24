@@ -45,4 +45,14 @@ class SelfAssessmentQuestionsControllersStrategy
       controller.dispose();
     }
   }
+
+  @override
+  void populateQuestionsControllers(List questions) {
+    for (final question in questions as List<CreateQuestionDto>) {
+      final controller = SelfAssessmentController();
+      controller.questionController.text = question.text;
+      controller.answerController.text = question.answer ?? '';
+      _questionsControllers.add(controller);
+    }
+  }
 }
