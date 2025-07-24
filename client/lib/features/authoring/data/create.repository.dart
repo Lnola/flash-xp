@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:flashxp/features/authoring/data/create.api.dart';
+import 'package:flashxp/features/authoring/data/authoring.api.dart';
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
 class CreateRepository {
-  final api = CreateApi();
+  final api = AuthoringApi();
 
   Future<Result<DeckDto>> getDeck(int deckId) async {
     try {

@@ -5,7 +5,7 @@ import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/data/auth_http_client.dart';
 import 'package:http/http.dart' as http;
 
-class CreateApi {
+class AuthoringApi {
   final client = AuthHttpClient();
 
   Future<http.Response> getDeck(int deckId) {
