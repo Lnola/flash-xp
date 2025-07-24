@@ -9,6 +9,10 @@ class EditController extends BaseAuthoringController {
 
   EditController(this.deckId, this._authoringRepository);
 
+  Future<Result> getDeck() async {
+    return await _authoringRepository.getDeck(deckId);
+  }
+
   @override
   Future<Result> submit() async {
     final updateQuestionsDto = super.strategy.mapQuestionControllersToDto();
