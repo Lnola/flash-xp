@@ -33,6 +33,7 @@ class MultipleChoiceController {
   static MultipleChoiceController fromDto(QuestionDto questionDto) {
     final controller = MultipleChoiceController();
     controller.questionController.text = questionDto.text;
+    controller.answerOptionsControllers.clear();
     for (final answerOption in questionDto.answerOptions!) {
       final optionController = AnswerOptionControllers.fromDto(answerOption);
       controller.answerOptionsControllers.add(optionController);
