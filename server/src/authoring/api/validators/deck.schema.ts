@@ -28,5 +28,5 @@ const questionSchema = z.object({
 export const deckSchema = z.object({
   title: z.string().max(50).nonempty(),
   description: z.string().max(300).nonempty(),
-  questions: z.array(questionSchema),
+  questions: z.array(questionSchema).nonempty(),
 });
