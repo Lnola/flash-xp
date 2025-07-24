@@ -1,4 +1,4 @@
-import 'package:flashxp/features/authoring/data/create.repository.dart';
+import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/logic/create.controller.dart';
 import 'package:flashxp/features/authoring/presentation/builders/multiple_choice_question_form.builder.dart';
 import 'package:flashxp/features/authoring/presentation/builders/question_form.builder.dart';
@@ -40,7 +40,7 @@ class CreateViewState extends State<CreateView> {
   @override
   void initState() {
     super.initState();
-    controller = CreateController(CreateRepository());
+    controller = CreateController(AuthoringRepository());
     controller.addListener(_onControllerUpdated);
   }
 

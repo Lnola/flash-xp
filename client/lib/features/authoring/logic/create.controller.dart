@@ -1,4 +1,4 @@
-import 'package:flashxp/features/authoring/data/create.repository.dart';
+import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/domain/multiple_choice_questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
@@ -31,7 +31,7 @@ class LazyStrategyManager {
 }
 
 class CreateController extends ChangeNotifier {
-  final CreateRepository _createRepository;
+  final AuthoringRepository _authoringRepository;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -40,7 +40,7 @@ class CreateController extends ChangeNotifier {
   final LazyStrategyManager _strategyManager = LazyStrategyManager();
   QuestionsControllersStrategy get _strategy => _strategyManager.get(mode);
 
-  CreateController(this._createRepository);
+  CreateController(this._authoringRepository);
 
   Future<Result> submit() async {
     final createQuestionsDto = _strategy.mapQuestionControllersToDto();
@@ -49,7 +49,7 @@ class CreateController extends ChangeNotifier {
       description: descriptionController.text,
       questions: createQuestionsDto,
     );
-    return await _createRepository.createDeck(createDeckDto);
+    return await _authoringRepository.createDeck(createDeckDto);
   }
 
   List<dynamic> get questionsControllers => _strategy.questionsControllers;
