@@ -1,5 +1,5 @@
 import 'package:flashxp/pages/auth/auth.routes.dart';
-import 'package:flashxp/pages/create/create.routes.dart';
+import 'package:flashxp/pages/authoring/create.routes.dart';
 import 'package:flashxp/pages/explore/explore.routes.dart';
 import 'package:flashxp/pages/home/home.routes.dart';
 import 'package:flashxp/pages/statistics/statistics.routes.dart';
