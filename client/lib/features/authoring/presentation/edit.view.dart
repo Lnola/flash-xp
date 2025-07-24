@@ -1,5 +1,5 @@
 import 'package:flashxp/features/authoring/data/authoring.repository.dart';
-import 'package:flashxp/features/authoring/logic/create.controller.dart';
+import 'package:flashxp/features/authoring/logic/edit.controller.dart';
 import 'package:flashxp/features/authoring/presentation/widgets/authoring_form.widget.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +14,14 @@ class EditView extends StatefulWidget {
 }
 
 class EditViewState extends State<EditView> {
-  late final CreateController controller;
+  late final EditController controller;
 
   void _onControllerUpdated() => setState(() {});
 
   @override
   void initState() {
     super.initState();
-    controller = CreateController(AuthoringRepository());
+    controller = EditController(widget.deckId, AuthoringRepository());
     controller.addListener(_onControllerUpdated);
   }
 
@@ -35,7 +35,7 @@ class EditViewState extends State<EditView> {
   void _submit(BuildContext context) async {
     final result = await controller.submit();
     if (!context.mounted) return;
-    useSnackbar(context, result.error, 'Deck successfully created!');
+    useSnackbar(context, result.error, 'Deck successfully edited!');
   }
 
   @override
