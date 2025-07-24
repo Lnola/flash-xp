@@ -35,6 +35,10 @@ class BaseAuthoringController extends ChangeNotifier {
   final LazyStrategyManager _strategyManager = LazyStrategyManager();
   QuestionsControllersStrategy get strategy => _strategyManager.get(mode);
 
+  void submit() {
+    throw UnimplementedError('Submit method must be implemented in subclasses');
+  }
+
   List<dynamic> get questionsControllers => strategy.questionsControllers;
 
   void updateMode(PracticeMode newMode) {
