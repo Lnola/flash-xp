@@ -68,4 +68,11 @@ class BaseAuthoringController extends ChangeNotifier {
     _strategyManager.dispose();
     super.dispose();
   }
+
+  void reset() {
+    titleController.clear();
+    descriptionController.clear();
+    _strategyManager.dispose();
+    notifyListeners();
+  }
 }
