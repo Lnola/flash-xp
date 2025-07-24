@@ -1,7 +1,7 @@
-import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
-import 'package:flashxp/features/create/presentation/builders/question_form.builder.dart';
-import 'package:flashxp/features/create/presentation/widgets/multiple_choice_legend.widget.dart';
-import 'package:flashxp/features/create/presentation/widgets/multiple_choice_question_form.widget.dart';
+import 'package:flashxp/features/authoring/logic/controllers/multiple_choice.controller.dart';
+import 'package:flashxp/features/authoring/presentation/builders/question_form.builder.dart';
+import 'package:flashxp/features/authoring/presentation/widgets/multiple_choice_legend.widget.dart';
+import 'package:flashxp/features/authoring/presentation/widgets/multiple_choice_question_form.widget.dart';
 import 'package:flutter/material.dart';
 
 class MultipleChoiceQuestionFormBuilder implements QuestionFormBuilder {

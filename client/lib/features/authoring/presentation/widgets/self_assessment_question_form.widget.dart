@@ -1,4 +1,4 @@
-import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
+import 'package:flashxp/features/authoring/logic/controllers/self_assessment.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';

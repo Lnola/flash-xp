@@ -1,4 +1,4 @@
-import 'package:flashxp/features/create/data/dto/deck.dto.dart';
+import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 
 typedef CreateAnswerOptionDto = AnswerOptionDto;
 typedef CreateQuestionDto = QuestionDto;

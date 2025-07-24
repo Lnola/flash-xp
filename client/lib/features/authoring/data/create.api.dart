@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/data/dto/update_deck.dto.dart';
+import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
+import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
 import 'package:flashxp/shared/data/auth_http_client.dart';
 import 'package:http/http.dart' as http;
 

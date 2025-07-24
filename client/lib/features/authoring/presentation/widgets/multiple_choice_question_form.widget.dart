@@ -1,4 +1,4 @@
-import 'package:flashxp/features/create/logic/controllers/multiple_choice.controller.dart';
+import 'package:flashxp/features/authoring/logic/controllers/multiple_choice.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_checkbox.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_input_group.dart';
 import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';

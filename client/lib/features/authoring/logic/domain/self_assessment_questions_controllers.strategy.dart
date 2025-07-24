@@ -1,6 +1,6 @@
-import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/controllers/self_assessment.controller.dart';
-import 'package:flashxp/features/create/logic/domain/questions_controllers.strategy.dart';
+import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
+import 'package:flashxp/features/authoring/logic/controllers/self_assessment.controller.dart';
+import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 

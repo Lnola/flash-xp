@@ -1,8 +1,8 @@
-import 'package:flashxp/features/create/data/create.repository.dart';
-import 'package:flashxp/features/create/data/dto/create_deck.dto.dart';
-import 'package:flashxp/features/create/logic/domain/multiple_choice_questions_controllers.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/questions_controllers.strategy.dart';
-import 'package:flashxp/features/create/logic/domain/self_assessment_questions_controllers.strategy.dart';
+import 'package:flashxp/features/authoring/data/create.repository.dart';
+import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
+import 'package:flashxp/features/authoring/logic/domain/multiple_choice_questions_controllers.strategy.dart';
+import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
+import 'package:flashxp/features/authoring/logic/domain/self_assessment_questions_controllers.strategy.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
