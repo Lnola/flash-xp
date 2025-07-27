@@ -6,6 +6,7 @@ import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
+import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -67,6 +68,7 @@ class PreviewViewState extends State<PreviewView> {
             deckId: widget.deckId,
             isBookmarked: controller.isBookmarked,
             toggleIsBookmarked: controller.toggleIsBookmarked,
+            isCurrentUserAuthor: controller.isCurrentUserAuthor,
           ),
         ],
       ),
@@ -127,11 +129,13 @@ class _PreviewActions extends StatelessWidget {
   final int deckId;
   final bool isBookmarked;
   final VoidCallback toggleIsBookmarked;
+  final bool isCurrentUserAuthor;
 
   const _PreviewActions({
     required this.deckId,
     required this.isBookmarked,
     required this.toggleIsBookmarked,
+    required this.isCurrentUserAuthor,
   });
 
   @override
@@ -155,11 +159,14 @@ class _PreviewActions extends StatelessWidget {
             ),
           ],
         ),
-        FlashButton(
-          label: 'Edit deck',
-          onPressed: () => context.push('/authoring/$deckId/edit'),
-          isBlock: true,
-          isSecondary: true,
+        If(
+          condition: isCurrentUserAuthor,
+          child: FlashButton(
+            label: 'Edit deck',
+            onPressed: () => context.push('/authoring/$deckId/edit'),
+            isBlock: true,
+            isSecondary: true,
+          ),
         ),
       ],
     );
