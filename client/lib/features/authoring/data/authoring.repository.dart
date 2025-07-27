@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-import 'package:flashxp/features/authoring/data/authoring.api.dart';
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
+import 'package:flashxp/shared/data/api/authoring.api.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
 class AuthoringRepository {
-  final api = AuthoringApi();
+  final _authoringApi = AuthoringApi();
 
   Future<Result<DeckDto>> getDeck(int deckId) async {
     try {
-      final response = await api.getDeck(deckId);
+      final response = await _authoringApi.getDeck(deckId);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to fetch deck: $message');
@@ -25,7 +25,7 @@ class AuthoringRepository {
 
   Future<Result<void>> createDeck(CreateDeckDto dto) async {
     try {
-      final response = await api.createDeck(dto);
+      final response = await _authoringApi.createDeck(dto);
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to create deck: $message');
@@ -38,7 +38,7 @@ class AuthoringRepository {
 
   Future<Result<void>> updateDeck(int deckId, UpdateDeckDto dto) async {
     try {
-      final response = await api.updateDeck(deckId, dto);
+      final response = await _authoringApi.updateDeck(deckId, dto);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to edit deck: $message');
@@ -51,7 +51,7 @@ class AuthoringRepository {
 
   Future<Result<void>> forkDeck(int deckId) async {
     try {
-      final response = await api.forkDeck(deckId);
+      final response = await _authoringApi.forkDeck(deckId);
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to fork deck: $message');
@@ -64,7 +64,7 @@ class AuthoringRepository {
 
   Future<Result<void>> removeDeck(int deckId) async {
     try {
-      final response = await api.removeDeck(deckId);
+      final response = await _authoringApi.removeDeck(deckId);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to remove deck: $message');
