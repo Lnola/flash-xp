@@ -2,6 +2,7 @@ import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
@@ -71,6 +72,7 @@ class PreviewViewState extends State<PreviewView> {
             isBookmarked: controller.isBookmarked,
             toggleIsBookmarked: controller.toggleIsBookmarked,
             isCurrentUserAuthor: controller.isCurrentUserAuthor,
+            forkDeck: controller.forkDeck,
           ),
         ],
       ),
@@ -132,13 +134,26 @@ class _PreviewActions extends StatelessWidget {
   final bool isBookmarked;
   final VoidCallback toggleIsBookmarked;
   final bool isCurrentUserAuthor;
+  final Future<Result<int>> Function() forkDeck;
 
   const _PreviewActions({
     required this.deckId,
     required this.isBookmarked,
     required this.toggleIsBookmarked,
     required this.isCurrentUserAuthor,
+    required this.forkDeck,
   });
+
+  Future<void> _forkDeck(BuildContext context) async {
+    final result = await forkDeck();
+    if (!context.mounted) return;
+    if (result.error != null) {
+      return useSnackbar(context, result.error, 'Failed to fork deck');
+    }
+    useSnackbar(context, null, 'Deck successfully forked!');
+    final newDeckId = result.data;
+    context.replace('/authoring/$newDeckId/edit');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +192,7 @@ class _PreviewActions extends StatelessWidget {
               Expanded(
                 child: FlashButton(
                   label: 'Fork deck',
-                  onPressed: () => {},
+                  onPressed: () => _forkDeck(context),
                   isBlock: true,
                   isSecondary: true,
                 ),
