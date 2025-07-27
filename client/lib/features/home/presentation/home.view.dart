@@ -14,8 +14,23 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late final HomeController controller;
   final scrollKey = GlobalKey();
+  bool _scrollPending = false;
 
-  void _onControllerUpdated() => setState(() {});
+  void _onControllerUpdated() {
+    setState(() {});
+    if (_scrollPending && controller.myDecks.isNotEmpty) {
+      _scrollPending = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollKey.currentContext != null) {
+          Scrollable.ensureVisible(
+            scrollKey.currentContext!,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -30,15 +45,7 @@ class _HomeViewState extends State<HomeView> {
     final uri = GoRouterState.of(context).uri;
     final shouldScrollToMyDecks = uri.queryParameters['scrollTo'] == 'myDecks';
     if (shouldScrollToMyDecks) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (scrollKey.currentContext != null) {
-          Scrollable.ensureVisible(
-            scrollKey.currentContext!,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        }
-      });
+      _scrollPending = true;
     }
   }
 
