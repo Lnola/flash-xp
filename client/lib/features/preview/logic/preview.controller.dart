@@ -52,4 +52,8 @@ class PreviewController extends ChangeNotifier {
   Future<Result<int>> forkDeck() async {
     return await _previewRepository.forkDeck(deckId);
   }
+
+  Future<Result<void>> removeDeck() async {
+    return await _previewRepository.removeDeck(deckId);
+  }
 }
