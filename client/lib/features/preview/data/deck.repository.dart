@@ -1,23 +1,23 @@
 import 'dart:convert';
 
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
-import 'package:flashxp/shared/data/auth_http_client.dart';
+import 'package:flashxp/features/preview/data/preview.api.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 
 class DeckRepository {
-  final client = AuthHttpClient();
+  final api = PreviewApi();
 
-  Future<DeckDto> fetch(int id) async {
-    // TODO: improve the fetch itself
-    final response =
-        await client.get(Uri.parse('http://localhost:3000/decks/$id'));
-
-    // TODO: throw the correct error that comes from the server
-    if (response.statusCode != 200) throw Exception('Failed to fetch deck.');
-    return parseDeck(response.body);
-  }
-
-  DeckDto parseDeck(String jsonString) {
-    final dynamic response = json.decode(jsonString);
-    return DeckDto.fromJson(response);
+  Future<Result<DeckDto>> getDeck(int deckId) async {
+    try {
+      final response = await api.getDeck(deckId);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to fetch deck: $message');
+      }
+      final data = DeckDto.fromJson(jsonDecode(response.body));
+      return Result.success(data);
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
   }
 }
