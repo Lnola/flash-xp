@@ -4,7 +4,7 @@ import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.api.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
-class DeckRepository {
+class PreviewRepository {
   final api = PreviewApi();
 
   Future<Result<DeckDto>> getDeck(int deckId) async {

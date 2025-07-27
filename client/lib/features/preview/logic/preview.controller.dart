@@ -1,9 +1,9 @@
-import 'package:flashxp/features/preview/data/deck.repository.dart';
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
+import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flutter/material.dart';
 
 class PreviewController extends ChangeNotifier {
-  final DeckRepository _deckRepository;
+  final PreviewRepository _previewRepository;
 
   late String title;
   late String description;
@@ -11,7 +11,7 @@ class PreviewController extends ChangeNotifier {
   late bool isBookmarked;
   bool isLoading = true;
 
-  PreviewController(this._deckRepository) {
+  PreviewController(this._previewRepository) {
     _initDeck();
   }
 
@@ -20,7 +20,7 @@ class PreviewController extends ChangeNotifier {
     notifyListeners();
 
     // TODO: replace with the real value
-    final result = await _deckRepository.getDeck(2);
+    final result = await _previewRepository.getDeck(2);
     if (result.error != null) {
       isLoading = false;
       print('error occured while fetching deck: ${result.error}');

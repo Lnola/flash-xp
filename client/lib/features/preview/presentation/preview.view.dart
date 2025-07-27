@@ -1,5 +1,5 @@
-import 'package:flashxp/features/preview/data/deck.repository.dart';
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
+import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
@@ -23,7 +23,7 @@ class PreviewViewState extends State<PreviewView> {
   @override
   void initState() {
     super.initState();
-    controller = PreviewController(DeckRepository());
+    controller = PreviewController(PreviewRepository());
     controller.addListener(_onControllerUpdated);
   }
 
