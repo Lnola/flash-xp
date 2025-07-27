@@ -39,6 +39,7 @@ class EditViewState extends State<EditView> {
     if (result.error != null && mounted) {
       useSnackbar(context, result.error, 'Failed to load deck');
       context.push('/404');
+      return;
     }
     controller.populateForm(result.data);
   }
