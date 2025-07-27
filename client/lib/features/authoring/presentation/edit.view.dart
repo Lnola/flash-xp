@@ -49,7 +49,7 @@ class EditViewState extends State<EditView> {
     if (!context.mounted) return;
     useSnackbar(context, result.error, 'Deck successfully edited!');
     if (result.error != null) return;
-    controller.reset();
+    context.pop();
   }
 
   @override
