@@ -75,6 +75,7 @@ class _GridLayout extends StatelessWidget {
     return decks
         .map(
           (deck) => FlashDeckCard(
+            deckId: deck.id,
             title: deck.title,
             totalQuestions: deck.totalQuestions,
             progress: deck.progress,

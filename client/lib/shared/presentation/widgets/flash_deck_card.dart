@@ -14,6 +14,7 @@ extension on PracticeMode {
 }
 
 class FlashDeckCard extends StatelessWidget {
+  final int deckId;
   final String title;
   final int totalQuestions;
   final int progress;
@@ -23,6 +24,7 @@ class FlashDeckCard extends StatelessWidget {
 
   const FlashDeckCard({
     super.key,
+    required this.deckId,
     required this.title,
     required this.totalQuestions,
     required this.progress,
