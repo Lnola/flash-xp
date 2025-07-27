@@ -1,5 +1,6 @@
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.repository.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
 class PreviewController extends ChangeNotifier {
@@ -46,5 +47,9 @@ class PreviewController extends ChangeNotifier {
     // TODO: replace with the actual implementation through repository
     isBookmarked = !isBookmarked;
     notifyListeners();
+  }
+
+  Future<Result<int>> forkDeck() async {
+    return await _previewRepository.forkDeck(deckId);
   }
 }
