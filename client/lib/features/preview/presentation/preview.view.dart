@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class PreviewView extends StatefulWidget {
-  const PreviewView({super.key});
+  final int deckId;
+
+  const PreviewView({super.key, required this.deckId});
 
   @override
   State<PreviewView> createState() => PreviewViewState();
@@ -24,7 +26,7 @@ class PreviewViewState extends State<PreviewView> {
   @override
   void initState() {
     super.initState();
-    controller = PreviewController(PreviewRepository());
+    controller = PreviewController(widget.deckId, PreviewRepository());
     controller.addListener(_onControllerUpdated);
   }
 
