@@ -99,7 +99,7 @@ class _PreviewHeader extends StatelessWidget {
 }
 
 class _PreviewQuestions extends StatelessWidget {
-  final List<Question> questions;
+  final List<QuestionDto> questions;
 
   const _PreviewQuestions({
     required this.questions,

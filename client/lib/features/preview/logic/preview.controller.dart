@@ -7,7 +7,7 @@ class PreviewController extends ChangeNotifier {
 
   late String title;
   late String description;
-  late List<Question> questions;
+  late List<QuestionDto> questions;
   late bool isBookmarked;
   bool isLoading = true;
   String? error;
