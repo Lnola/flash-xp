@@ -2,6 +2,7 @@ import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
@@ -35,6 +36,14 @@ class PreviewViewState extends State<PreviewView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.error != null && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, controller.error, 'Failed to load deck');
+        context.replace('/404');
+      });
+      return const SizedBox.shrink();
+    }
+
     if (controller.isLoading) {
       return const Center(child: FlashLoading());
     }
