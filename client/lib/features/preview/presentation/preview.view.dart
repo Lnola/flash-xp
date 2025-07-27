@@ -5,9 +5,11 @@ import 'package:flashxp/features/preview/presentation/widgets/preview_info.widge
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_button_icon.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class PreviewView extends StatefulWidget {
@@ -161,11 +163,30 @@ class _PreviewActions extends StatelessWidget {
         ),
         If(
           condition: isCurrentUserAuthor,
-          child: FlashButton(
-            label: 'Edit deck',
-            onPressed: () => context.push('/authoring/$deckId/edit'),
-            isBlock: true,
-            isSecondary: true,
+          child: Row(
+            spacing: 8,
+            children: [
+              Expanded(
+                child: FlashButton(
+                  label: 'Edit deck',
+                  onPressed: () => context.push('/authoring/$deckId/edit'),
+                  isBlock: true,
+                  isSecondary: true,
+                ),
+              ),
+              Expanded(
+                child: FlashButton(
+                  label: 'Fork deck',
+                  onPressed: () => {},
+                  isBlock: true,
+                  isSecondary: true,
+                ),
+              ),
+              FlashButtonIcon(
+                icon: FontAwesomeIcons.trash,
+                onPressed: () => {},
+              ),
+            ],
           ),
         ),
       ],
