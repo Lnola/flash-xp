@@ -18,8 +18,8 @@ class RouteGuards {
     return child;
   }
 
-  static Page showError(BuildContext context) {
+  static Widget showError(BuildContext context) {
     context.push('/404');
-    return const NoTransitionPage(child: SizedBox.shrink());
+    return const SizedBox.shrink();
   }
 }
