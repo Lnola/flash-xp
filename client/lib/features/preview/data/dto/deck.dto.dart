@@ -30,7 +30,7 @@ class DeckDto {
     required this.isBookmarked,
   });
 
-  static DeckDto fromJson(json) {
+  factory DeckDto.fromJson(Map<String, dynamic> json) {
     return DeckDto(
       id: json['id'],
       title: json['title'],
