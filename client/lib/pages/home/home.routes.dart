@@ -37,12 +37,14 @@ final homeRoutes = GoRoute(
       ),
     ),
     GoRoute(
-      path: 'preview',
+      path: ':deckId/preview',
       builder: (context, state) {
+        final deckId = int.tryParse(state.pathParameters['deckId'] ?? '');
+        if (deckId == null) return RouteGuards.showError(context);
         return FlashLayout(
           state: state,
           title: 'Preview deck',
-          body: const PreviewView(),
+          body: PreviewView(deckId: deckId),
         );
       },
     ),
