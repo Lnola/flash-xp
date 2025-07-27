@@ -23,14 +23,15 @@ class PreviewRepository {
     }
   }
 
-  Future<Result<void>> forkDeck(int deckId) async {
+  Future<Result<int>> forkDeck(int deckId) async {
     try {
       final response = await _authoringApi.forkDeck(deckId);
       if (response.statusCode != 201) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure('Failed to fork deck: $message');
       }
-      return Result.success();
+      final newDeckId = jsonDecode(response.body)['id'] as int;
+      return Result.success(newDeckId);
     } catch (error) {
       return Result.failure(error.toString());
     }
