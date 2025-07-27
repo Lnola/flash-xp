@@ -36,7 +36,7 @@ class DeckDto {
       title: json['title'],
       description: json['description'],
       questions: (json['questions'] as List)
-          .map((q) => QuestionDto(id: q['id'], text: q['text']))
+          .map((q) => QuestionDto.fromJson(q as Map<String, dynamic>))
           .toList(),
       isBookmarked: json['isBookmarked'] ?? false,
     );
