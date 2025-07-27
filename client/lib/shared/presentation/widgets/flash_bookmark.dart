@@ -1,3 +1,4 @@
+import 'package:flashxp/shared/presentation/widgets/flash_button_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,25 +16,6 @@ class FlashBookmark extends StatelessWidget {
   Widget build(BuildContext context) {
     final icon =
         isBookmarked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart;
-
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 2,
-            color: Theme.of(context).colorScheme.primaryContainer,
-          ),
-        ),
-        child: FaIcon(
-          icon,
-          color: Theme.of(context).colorScheme.primaryContainer,
-          size: 20,
-        ),
-      ),
-    );
+    return FlashButtonIcon(icon: icon, onPressed: onPressed);
   }
 }
