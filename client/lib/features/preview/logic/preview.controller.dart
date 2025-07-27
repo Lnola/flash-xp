@@ -20,7 +20,14 @@ class PreviewController extends ChangeNotifier {
     notifyListeners();
 
     // TODO: replace with the real value
-    final deck = await _deckRepository.fetch(1);
+    final result = await _deckRepository.getDeck(2);
+    if (result.error != null) {
+      isLoading = false;
+      print('error occured while fetching deck: ${result.error}');
+      notifyListeners();
+      return;
+    }
+    final deck = result.data!;
     title = deck.title;
     description = deck.description;
     questions = deck.questions;
