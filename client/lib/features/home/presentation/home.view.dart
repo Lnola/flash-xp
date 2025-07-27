@@ -18,18 +18,7 @@ class _HomeViewState extends State<HomeView> {
 
   void _onControllerUpdated() {
     setState(() {});
-    if (_scrollPending && controller.myDecks.isNotEmpty) {
-      _scrollPending = false;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (scrollKey.currentContext != null) {
-          Scrollable.ensureVisible(
-            scrollKey.currentContext!,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        }
-      });
-    }
+    _handleScroll();
   }
 
   @override
@@ -53,6 +42,21 @@ class _HomeViewState extends State<HomeView> {
   void dispose() {
     controller.removeListener(_onControllerUpdated);
     super.dispose();
+  }
+
+  void _handleScroll() {
+    if (_scrollPending && controller.myDecks.isNotEmpty) {
+      _scrollPending = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollKey.currentContext != null) {
+          Scrollable.ensureVisible(
+            scrollKey.currentContext!,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
   }
 
   @override
