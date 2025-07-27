@@ -41,7 +41,7 @@ class FlashDeckCard extends StatelessWidget {
       width: width,
       child: GestureDetector(
         onTap: () => context.push(
-          '/home/preview',
+          '/home/$deckId/preview',
           extra: RouterStateExtra(title: title),
         ),
         child: Container(
