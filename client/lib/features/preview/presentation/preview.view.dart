@@ -73,6 +73,7 @@ class PreviewViewState extends State<PreviewView> {
             toggleIsBookmarked: controller.toggleIsBookmarked,
             isCurrentUserAuthor: controller.isCurrentUserAuthor,
             forkDeck: controller.forkDeck,
+            removeDeck: controller.removeDeck,
           ),
         ],
       ),
@@ -135,6 +136,7 @@ class _PreviewActions extends StatelessWidget {
   final VoidCallback toggleIsBookmarked;
   final bool isCurrentUserAuthor;
   final Future<Result<int>> Function() forkDeck;
+  final Future<Result<void>> Function() removeDeck;
 
   const _PreviewActions({
     required this.deckId,
@@ -142,6 +144,7 @@ class _PreviewActions extends StatelessWidget {
     required this.toggleIsBookmarked,
     required this.isCurrentUserAuthor,
     required this.forkDeck,
+    required this.removeDeck,
   });
 
   Future<void> _forkDeck(BuildContext context) async {
@@ -153,6 +156,16 @@ class _PreviewActions extends StatelessWidget {
     useSnackbar(context, null, 'Deck successfully forked!');
     final newDeckId = result.data;
     context.replace('/authoring/$newDeckId/edit');
+  }
+
+  Future<void> _removeDeck(BuildContext context) async {
+    final result = await removeDeck();
+    if (!context.mounted) return;
+    if (result.error != null) {
+      return useSnackbar(context, result.error, 'Failed to remove deck');
+    }
+    useSnackbar(context, null, 'Deck successfully removed!');
+    context.replace('/home');
   }
 
   @override
@@ -199,7 +212,7 @@ class _PreviewActions extends StatelessWidget {
               ),
               FlashButtonIcon(
                 icon: FontAwesomeIcons.trash,
-                onPressed: () => {},
+                onPressed: () => _removeDeck(context),
               ),
             ],
           ),
