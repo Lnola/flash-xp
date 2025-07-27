@@ -18,11 +18,20 @@ export class CatalogDeckService {
     return this.catalogDeckRepository.findAll();
   }
 
-  fetchById(deckId: CatalogDeck['id']) {
-    // TODO: add error handling
-    return this.catalogDeckRepository.findOne(deckId, {
+  // TODO: implement this correctly
+  async fetchById(deckId: CatalogDeck['id']): Promise<
+    | (CatalogDeck & {
+        isCurrentUserAuthor: boolean;
+      })
+    | null
+  > {
+    const deck = await this.catalogDeckRepository.findOne(deckId, {
       populate: ['questions'],
     });
+    if (!deck) {
+      return null;
+    }
+    return { ...deck, isCurrentUserAuthor: true };
   }
 
   async createBookmark(
