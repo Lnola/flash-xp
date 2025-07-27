@@ -2,6 +2,7 @@ import 'package:flashxp/features/home/data/deck.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -12,6 +13,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final HomeController controller;
+  final scrollKey = GlobalKey();
 
   void _onControllerUpdated() => setState(() {});
 
@@ -20,6 +22,24 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     controller = HomeController(DeckRepository());
     controller.addListener(_onControllerUpdated);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final uri = GoRouterState.of(context).uri;
+    final shouldScrollToMyDecks = uri.queryParameters['scrollTo'] == 'myDecks';
+    if (shouldScrollToMyDecks) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollKey.currentContext != null) {
+          Scrollable.ensureVisible(
+            scrollKey.currentContext!,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
   }
 
   @override
@@ -42,6 +62,7 @@ class _HomeViewState extends State<HomeView> {
             isLoading: controller.isLoading,
           ),
           FlashDeckCardGrid(
+            key: scrollKey,
             title: 'My decks',
             decks: controller.myDecks,
             isLoading: controller.isLoading,
