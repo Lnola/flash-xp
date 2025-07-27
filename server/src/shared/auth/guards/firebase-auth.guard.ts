@@ -10,7 +10,7 @@ import * as firebaseAdmin from 'firebase-admin';
 import { User } from 'shared/auth/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 
-const SKIP_AUTH = true;
+const SKIP_AUTH = false;
 const DEFAULT_USER_SSO_ID = 'FouvnrzjyIW6NP3AixejNinkUu02';
 
 @Injectable()
