@@ -18,17 +18,12 @@ final authoringRoutes = GoRoute(
   routes: [
     GoRoute(
       path: ':deckId/edit',
-      pageBuilder: (context, state) {
+      builder: (context, state) {
         final deckId = int.tryParse(state.pathParameters['deckId'] ?? '');
         if (deckId == null) return RouteGuards.showError(context);
-        return RouteGuards.authGuard(
-          context,
-          child: NoTransitionPage(
-            child: FlashLayout(
-              title: 'Edit',
-              body: EditView(deckId: deckId),
-            ),
-          ),
+        return FlashLayout(
+          title: 'Edit',
+          body: EditView(deckId: deckId),
         );
       },
     ),
