@@ -3,8 +3,10 @@ import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flutter/material.dart';
 
 class PreviewController extends ChangeNotifier {
+  final int deckId;
   final PreviewRepository _previewRepository;
 
+  // TODO: think about replacing these fields with a model
   late String title;
   late String description;
   late List<QuestionDto> questions;
@@ -12,7 +14,7 @@ class PreviewController extends ChangeNotifier {
   bool isLoading = true;
   String? error;
 
-  PreviewController(this._previewRepository) {
+  PreviewController(this.deckId, this._previewRepository) {
     _initDeck();
   }
 
@@ -21,8 +23,7 @@ class PreviewController extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    // TODO: replace with the real value
-    final result = await _previewRepository.getDeck(2);
+    final result = await _previewRepository.getDeck(deckId);
     if (result.error != null) {
       isLoading = false;
       error = result.error;
