@@ -21,6 +21,7 @@ class DeckDto {
   final String description;
   final List<QuestionDto> questions;
   final bool isBookmarked;
+  final bool isCurrentUserAuthor;
 
   DeckDto({
     required this.id,
@@ -28,6 +29,7 @@ class DeckDto {
     required this.description,
     required this.questions,
     required this.isBookmarked,
+    required this.isCurrentUserAuthor,
   });
 
   factory DeckDto.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,7 @@ class DeckDto {
           .map((q) => QuestionDto.fromJson(q as Map<String, dynamic>))
           .toList(),
       isBookmarked: json['isBookmarked'] ?? false,
+      isCurrentUserAuthor: json['isCurrentUserAuthor'] ?? false,
     );
   }
 }
