@@ -11,6 +11,7 @@ class PreviewController extends ChangeNotifier {
   late String description;
   late List<QuestionDto> questions;
   late bool isBookmarked;
+  late bool isCurrentUserAuthor;
   bool isLoading = true;
   String? error;
 
@@ -35,6 +36,7 @@ class PreviewController extends ChangeNotifier {
     description = deck.description;
     questions = deck.questions;
     isBookmarked = deck.isBookmarked;
+    isCurrentUserAuthor = deck.isCurrentUserAuthor;
 
     isLoading = false;
     notifyListeners();
