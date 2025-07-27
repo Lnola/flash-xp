@@ -64,6 +64,7 @@ class PreviewViewState extends State<PreviewView> {
             questions: controller.questions,
           ),
           _PreviewActions(
+            deckId: widget.deckId,
             isBookmarked: controller.isBookmarked,
             toggleIsBookmarked: controller.toggleIsBookmarked,
           ),
@@ -123,10 +124,12 @@ class _PreviewQuestions extends StatelessWidget {
 }
 
 class _PreviewActions extends StatelessWidget {
+  final int deckId;
   final bool isBookmarked;
   final VoidCallback toggleIsBookmarked;
 
   const _PreviewActions({
+    required this.deckId,
     required this.isBookmarked,
     required this.toggleIsBookmarked,
   });
@@ -154,7 +157,7 @@ class _PreviewActions extends StatelessWidget {
         ),
         FlashButton(
           label: 'Edit deck',
-          onPressed: () => context.push('/create/edit'),
+          onPressed: () => context.push('/authoring/$deckId/edit'),
           isBlock: true,
           isSecondary: true,
         ),
