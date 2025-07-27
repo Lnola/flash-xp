@@ -16,6 +16,7 @@ class FlashIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      heroTag: label,
       onPressed: onPressed,
       label: Text(
         label,
