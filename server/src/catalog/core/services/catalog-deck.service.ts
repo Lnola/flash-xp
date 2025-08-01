@@ -46,6 +46,47 @@ export class CatalogDeckService {
     };
   }
 
+  async fetchInProgressByLearner(
+    learnerId: Learner['id'],
+  ): Promise<CatalogDeck[]> {
+    // TODO: Implement logic to fetch in-progress decks
+    return this.catalogDeckRepository.find({ authorId: learnerId });
+  }
+
+  async fetchAuthoredByLearner(
+    learnerId: Learner['id'],
+  ): Promise<CatalogDeck[]> {
+    return this.catalogDeckRepository.find({ authorId: learnerId });
+  }
+
+  async fetchBookmarkedByLearner(
+    learnerId: Learner['id'],
+  ): Promise<CatalogDeck[]> {
+    const bookmarks = await this.bookmarkRepository.find({ learnerId });
+    const deckIds = bookmarks.map((bookmark) => bookmark.deckId);
+    const decks = await this.catalogDeckRepository.find({ id: deckIds });
+    return decks;
+  }
+
+  async fetchMultipleChoiceDecks(): Promise<CatalogDeck[]> {
+    return this.catalogDeckRepository.find(
+      { questions: { questionType: { name: 'Multiple Choice' } } },
+      { populate: ['questions.questionType'] },
+    );
+  }
+
+  async fetchSelfAssessmentDecks(): Promise<CatalogDeck[]> {
+    return this.catalogDeckRepository.find(
+      { questions: { questionType: { name: 'Self Assessment' } } },
+      { populate: ['questions.questionType'] },
+    );
+  }
+
+  async fetchPopularDecks(): Promise<CatalogDeck[]> {
+    // TODO: Implement logic to fetch popular decks
+    return this.catalogDeckRepository.findAll();
+  }
+
   async createBookmark(
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
