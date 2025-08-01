@@ -31,7 +31,7 @@ export class CatalogDeckController {
   }
 
   // TODO: move to a separate controller
-  @Post('decks/:deckId/bookmarks')
+  @Post(':deckId/bookmarks')
   async createBookmark(
     @Param('deckId') deckId: CatalogDeck['id'],
     @User('id') learnerId: Learner['id'],
@@ -44,7 +44,7 @@ export class CatalogDeckController {
   }
 
   // TODO: move to a separate controller
-  @Delete('decks/:deckId/bookmarks')
+  @Delete(':deckId/bookmarks')
   async deleteBookmark(
     @Param('deckId') deckId: CatalogDeck['id'],
     @User('id') learnerId: Learner['id'],
