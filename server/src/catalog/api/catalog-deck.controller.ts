@@ -11,7 +11,6 @@ import {
 import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 import { User } from 'shared/auth/decorators';
-import { CreateBookmarkDto, DeleteBookmarkDto } from './dto';
 
 // TODO: think about the endpoint naming convention
 @Controller('decks')
@@ -32,9 +31,10 @@ export class CatalogDeckController {
   }
 
   // TODO: move to a separate controller
-  @Post('bookmarks')
+  @Post('decks/:deckId/bookmarks')
   async createBookmark(
-    @Body() { deckId, learnerId }: CreateBookmarkDto,
+    @Param('deckId') deckId: CatalogDeck['id'],
+    @User('id') learnerId: Learner['id'],
   ): Promise<void> {
     const { error } = await this.catalogDeckService.createBookmark(
       deckId,
@@ -44,9 +44,10 @@ export class CatalogDeckController {
   }
 
   // TODO: move to a separate controller
-  @Delete('bookmarks')
+  @Delete('decks/:deckId/bookmarks')
   async deleteBookmark(
-    @Body() { deckId, learnerId }: DeleteBookmarkDto,
+    @Param('deckId') deckId: CatalogDeck['id'],
+    @User('id') learnerId: Learner['id'],
   ): Promise<void> {
     const { error } = await this.catalogDeckService.deleteBookmark(
       deckId,
