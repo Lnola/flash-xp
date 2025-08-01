@@ -49,4 +49,30 @@ class PreviewRepository {
       return Result.failure(error.toString());
     }
   }
+
+  Future<Result<void>> createBookmark(int deckId) async {
+    try {
+      final response = await _previewApi.createBookmark(deckId);
+      if (response.statusCode != 201) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to create bookmark: $message');
+      }
+      return Result.success();
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
+
+  Future<Result<void>> removeBookmark(int deckId) async {
+    try {
+      final response = await _previewApi.removeBookmark(deckId);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to remove bookmark: $message');
+      }
+      return Result.success();
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 }
