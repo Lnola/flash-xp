@@ -75,6 +75,7 @@ class PreviewViewState extends State<PreviewView> {
             isCurrentUserAuthor: controller.isCurrentUserAuthor,
             forkDeck: controller.forkDeck,
             removeDeck: controller.removeDeck,
+            handleToggleBookmark: controller.handleToggleBookmark,
           ),
         ],
       ),
@@ -138,6 +139,7 @@ class _PreviewActions extends StatelessWidget {
   final bool isCurrentUserAuthor;
   final Future<Result<int>> Function() forkDeck;
   final Future<Result<void>> Function() removeDeck;
+  final Future<Result<void>> Function() handleToggleBookmark;
 
   const _PreviewActions({
     required this.deckId,
@@ -146,6 +148,7 @@ class _PreviewActions extends StatelessWidget {
     required this.isCurrentUserAuthor,
     required this.forkDeck,
     required this.removeDeck,
+    required this.handleToggleBookmark,
   });
 
   Future<void> _forkDeck(BuildContext context) async {
@@ -176,6 +179,15 @@ class _PreviewActions extends StatelessWidget {
     context.replace('/home');
   }
 
+  void _toggleBookmark(BuildContext context) async {
+    final result = await handleToggleBookmark();
+    if (!context.mounted) return;
+    if (result.error != null) {
+      return useSnackbar(context, result.error, 'Failed to toggle bookmark');
+    }
+    toggleIsBookmarked();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -193,7 +205,7 @@ class _PreviewActions extends StatelessWidget {
             ),
             FlashBookmark(
               isBookmarked: isBookmarked,
-              onPressed: toggleIsBookmarked,
+              onPressed: () => _toggleBookmark(context),
             ),
           ],
         ),
