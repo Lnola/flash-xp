@@ -8,8 +8,9 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { CatalogDeck } from 'catalog/core/entities';
+import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
+import { User } from 'shared/auth/decorators';
 import { CreateBookmarkDto, DeleteBookmarkDto } from './dto';
 
 // TODO: think about the endpoint naming convention
@@ -23,8 +24,11 @@ export class CatalogDeckController {
   }
 
   @Get(':id')
-  fetchById(@Param('id') deckId: CatalogDeck['id']) {
-    return this.catalogDeckService.fetchById(deckId);
+  fetchById(
+    @Param('id') deckId: CatalogDeck['id'],
+    @User('id') learnerId: Learner['id'],
+  ) {
+    return this.catalogDeckService.fetchById(deckId, learnerId);
   }
 
   // TODO: move to a separate controller
