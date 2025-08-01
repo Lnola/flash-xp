@@ -7,7 +7,6 @@ class PreviewController extends ChangeNotifier {
   final int deckId;
   final PreviewRepository _previewRepository;
 
-  // TODO: think about replacing these fields with a model
   late String title;
   late String description;
   late List<QuestionDto> questions;
