@@ -43,10 +43,6 @@ class PreviewController extends ChangeNotifier {
   }
 
   void toggleIsBookmarked() async {
-    final toggle = isBookmarked
-        ? _previewRepository.removeBookmark
-        : _previewRepository.createBookmark;
-    await toggle(deckId);
     isBookmarked = !isBookmarked;
     notifyListeners();
   }
@@ -57,5 +53,12 @@ class PreviewController extends ChangeNotifier {
 
   Future<Result<void>> removeDeck() async {
     return await _previewRepository.removeDeck(deckId);
+  }
+
+  Future<Result<void>> handleToggleBookmark() async {
+    final toggle = isBookmarked
+        ? _previewRepository.removeBookmark
+        : _previewRepository.createBookmark;
+    return await toggle(deckId);
   }
 }
