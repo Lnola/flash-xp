@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 Future<bool> useConfirmationDialog(
   BuildContext context, {
-  title,
-  text,
-  confirmLabel,
-  cancelLabel,
+  String? title,
+  String? text,
+  String? confirmLabel,
+  String? cancelLabel,
 }) async {
   final result = await showDialog<bool>(
     context: context,
