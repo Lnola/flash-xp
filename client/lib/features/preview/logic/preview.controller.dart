@@ -42,8 +42,11 @@ class PreviewController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleIsBookmarked() {
-    // TODO: replace with the actual implementation through repository
+  void toggleIsBookmarked() async {
+    final toggle = isBookmarked
+        ? _previewRepository.removeBookmark
+        : _previewRepository.createBookmark;
+    await toggle(deckId);
     isBookmarked = !isBookmarked;
     notifyListeners();
   }
