@@ -19,9 +19,13 @@ export class CatalogDeckService {
   }
 
   // TODO: implement this correctly
-  async fetchById(deckId: CatalogDeck['id']): Promise<
+  async fetchById(
+    deckId: CatalogDeck['id'],
+    learnerId: Learner['id'],
+  ): Promise<
     | (CatalogDeck & {
         isCurrentUserAuthor: boolean;
+        isBookmarked: boolean;
       })
     | null
   > {
@@ -31,7 +35,15 @@ export class CatalogDeckService {
     if (!deck) {
       return null;
     }
-    return { ...deck, isCurrentUserAuthor: true };
+    const deckBookmarkByCurrentUser = await this.bookmarkRepository.findOne({
+      deckId,
+      learnerId,
+    });
+    return {
+      ...deck,
+      isCurrentUserAuthor: true,
+      isBookmarked: !!deckBookmarkByCurrentUser,
+    };
   }
 
   async createBookmark(
