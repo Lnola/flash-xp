@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { CatalogDeck } from '.';
+import { CatalogDeck, CatalogQuestionType } from '.';
 
 @Entity({ tableName: 'question' })
 export class CatalogQuestion extends BaseEntity {
@@ -12,4 +12,7 @@ export class CatalogQuestion extends BaseEntity {
 
   @ManyToOne(() => CatalogDeck, { nullable: true })
   deck?: CatalogDeck;
+
+  @ManyToOne(() => CatalogQuestionType, { eager: true })
+  questionType!: CatalogQuestionType;
 }
