@@ -1,4 +1,4 @@
-import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
+import 'package:flashxp/features/practice/logic/models/answer_option_button.model.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_option_button.widget.dart';
 import 'package:flutter/material.dart';
 

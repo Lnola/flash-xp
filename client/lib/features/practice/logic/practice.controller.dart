@@ -3,7 +3,7 @@ import 'package:flashxp/features/practice/data/question.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_self_assessment.strategy.dart';
-import 'package:flashxp/features/practice/logic/model/answer_option_button.model.dart';
+import 'package:flashxp/features/practice/logic/models/answer_option_button.model.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
