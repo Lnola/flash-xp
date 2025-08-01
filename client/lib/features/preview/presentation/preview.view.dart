@@ -2,6 +2,7 @@ import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
 import 'package:flashxp/features/preview/presentation/widgets/preview_info.widget.dart';
+import 'package:flashxp/shared/helpers/confirmation_dialog.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
@@ -159,6 +160,13 @@ class _PreviewActions extends StatelessWidget {
   }
 
   Future<void> _removeDeck(BuildContext context) async {
+    final isConfirmed = await useConfirmationDialog(
+      context,
+      title: 'Remove deck',
+      text: 'Are you sure you want to remove this deck?',
+    );
+    if (!isConfirmed) return;
+
     final result = await removeDeck();
     if (!context.mounted) return;
     if (result.error != null) {
