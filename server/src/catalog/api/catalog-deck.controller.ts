@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
-import { User } from 'shared/auth/decorators';
+import { User } from 'shared/decorators';
 
 // TODO: think about the endpoint naming convention
 @Controller('decks')

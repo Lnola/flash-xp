@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { Author, Deck } from 'authoring/core/entities';
 import { DeckService } from 'authoring/core/services';
-import { User, Deck as ExistingDeck } from 'shared/auth/decorators';
+import { User, Deck as ExistingDeck } from 'shared/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
 import { CreateDeckDto, UpdateDeckDto } from './dto';
 import { IsAuthorGuard } from './guards';
