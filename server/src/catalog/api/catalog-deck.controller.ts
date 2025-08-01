@@ -12,7 +12,7 @@ import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 import { User } from 'shared/decorators';
 
-// TODO: think about the endpoint naming convention
+// TODO: Think about this controller name, structure and contents
 @Controller('decks')
 export class CatalogDeckController {
   constructor(private readonly catalogDeckService: CatalogDeckService) {}
@@ -30,7 +30,6 @@ export class CatalogDeckController {
     return this.catalogDeckService.fetchById(deckId, learnerId);
   }
 
-  // TODO: move to a separate controller
   @Post(':deckId/bookmarks')
   async createBookmark(
     @Param('deckId') deckId: CatalogDeck['id'],
@@ -43,7 +42,6 @@ export class CatalogDeckController {
     if (error) throw new ConflictException(error);
   }
 
-  // TODO: move to a separate controller
   @Delete(':deckId/bookmarks')
   async deleteBookmark(
     @Param('deckId') deckId: CatalogDeck['id'],
