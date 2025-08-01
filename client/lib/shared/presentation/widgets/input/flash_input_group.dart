@@ -1,38 +1,6 @@
+import 'package:flashxp/shared/helpers/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-Future<bool> showConfirmRemoveDialog(BuildContext context) async {
-  final result = await showDialog<bool>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(
-        'Remove question',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
-      content: Text(
-        'Are you sure you want to remove this question?',
-        style: Theme.of(context).textTheme.labelMedium,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: Text(
-            'Cancel',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(true),
-          child: Text(
-            'Remove',
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
-        ),
-      ],
-    ),
-  );
-  return result ?? false;
-}
 
 class FlashInputGroup<T> extends StatelessWidget {
   final List<T> inputControllers;
@@ -53,7 +21,13 @@ class FlashInputGroup<T> extends StatelessWidget {
       onRemoveInputGroup(input);
       return;
     }
-    final isConfirmed = await showConfirmRemoveDialog(context);
+    final isConfirmed = await useConfirmationDialog(
+      context,
+      title: 'Remove question',
+      text: 'Are you sure you want to remove this question?',
+      confirmLabel: 'Yes',
+      cancelLabel: 'No',
+    );
     if (isConfirmed) {
       onRemoveInputGroup(input);
     }
