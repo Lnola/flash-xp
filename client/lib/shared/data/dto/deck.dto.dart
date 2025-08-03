@@ -21,7 +21,7 @@ class DeckDto {
     return DeckDto(
       id: json['id'],
       title: json['title'],
-      totalQuestions: 5,
+      totalQuestions: json['questionCount'],
       progress: 50,
       mode: PracticeMode.multipleChoice,
     );
