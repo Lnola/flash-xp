@@ -1,4 +1,5 @@
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 
 // TODO: Remove this and any other DTOs from the shared folder
 class DeckDto {
@@ -23,7 +24,7 @@ class DeckDto {
       title: json['title'],
       totalQuestions: json['questionCount'],
       progress: 50,
-      mode: PracticeMode.multipleChoice,
+      mode: PracticeModeApiLabel.getByLabel(json['questionType']),
     );
   }
 }
