@@ -32,4 +32,14 @@ export class CatalogDeck extends BaseEntity {
         WHERE q.deck_id = ${alias}.id)`,
   )
   questionCount!: number;
+
+  @Formula(
+    (alias) =>
+      `(SELECT qt.name 
+      FROM question q 
+      JOIN question_type qt ON q.question_type_id = qt.id 
+      WHERE q.deck_id = ${alias}.id 
+      LIMIT 1)`,
+  )
+  questionType!: string;
 }
