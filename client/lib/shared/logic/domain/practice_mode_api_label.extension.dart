@@ -5,4 +5,11 @@ extension PracticeModeApiLabel on PracticeMode {
         PracticeMode.multipleChoice => 'Multiple Choice',
         PracticeMode.selfAssessment => 'Self Assessment',
       };
+
+  static PracticeMode getByLabel(String questionType) {
+    return PracticeMode.values.firstWhere(
+      (e) => e.label == questionType,
+      orElse: () => PracticeMode.multipleChoice,
+    );
+  }
 }
