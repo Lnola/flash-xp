@@ -17,13 +17,12 @@ class DeckDto {
     required this.mode,
   });
 
-// TODO: create a correct implementation of fromJson without the data mocking
   static DeckDto fromJson(json) {
     return DeckDto(
       id: json['id'],
       title: json['title'],
       totalQuestions: json['questionCount'],
-      progress: 50,
+      progress: json['progress'] ?? 0,
       mode: PracticeModeApiLabel.getByLabel(json['questionType']),
     );
   }
