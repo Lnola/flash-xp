@@ -41,6 +41,7 @@ export class CatalogDeckService {
     });
     return {
       ...deck,
+      questionType: deck.questionType,
       isCurrentUserAuthor: true,
       isBookmarked: !!deckBookmarkByCurrentUser,
     };
