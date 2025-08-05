@@ -55,8 +55,8 @@ class ExploreViewState extends State<ExploreView> {
             backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
           FlashDeckCardSwiper(
-            title: 'For You',
-            decks: controller.forYouDecks,
+            title: 'All decks',
+            decks: controller.allDecks,
             isLoading: controller.isLoading,
             backgroundColor: Theme.of(context).colorScheme.primary,
           ),

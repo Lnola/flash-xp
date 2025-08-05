@@ -8,7 +8,7 @@ class ExploreController extends ChangeNotifier {
   List<DeckDto> multipleChoiceDecks = [];
   List<DeckDto> selfAssessmentDecks = [];
   List<DeckDto> popularDecks = [];
-  List<DeckDto> forYouDecks = [];
+  List<DeckDto> allDecks = [];
   bool isLoading = true;
 
   ExploreController(this._deckRepository) {
@@ -26,7 +26,7 @@ class ExploreController extends ChangeNotifier {
       params: {'questionType': 'Self Assessment'},
     );
     popularDecks = await _deckRepository.fetch();
-    forYouDecks = await _deckRepository.fetch();
+    allDecks = await _deckRepository.fetch();
 
     isLoading = false;
     notifyListeners();
