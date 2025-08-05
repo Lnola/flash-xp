@@ -19,8 +19,12 @@ class ExploreController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    multipleChoiceDecks = await _deckRepository.fetch();
-    selfAssessmentDecks = await _deckRepository.fetch();
+    multipleChoiceDecks = await _deckRepository.fetch(
+      params: {'questionType': 'Multiple Choice'},
+    );
+    selfAssessmentDecks = await _deckRepository.fetch(
+      params: {'questionType': 'Self Assessment'},
+    );
     popularDecks = await _deckRepository.fetch();
     forYouDecks = await _deckRepository.fetch();
 
