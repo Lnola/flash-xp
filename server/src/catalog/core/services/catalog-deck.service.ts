@@ -14,6 +14,10 @@ export class CatalogDeckService {
     private readonly bookmarkRepository: BaseEntityRepository<Bookmark>,
   ) {}
 
+  get #em() {
+    return this.catalogDeckRepository.getEntityManager();
+  }
+
   fetchAll() {
     return this.catalogDeckRepository.findAll();
   }
@@ -36,7 +40,7 @@ export class CatalogDeckService {
       return null;
     }
     const deckBookmarkByCurrentUser = await this.bookmarkRepository.findOne({
-      deckId,
+      deck,
       learnerId,
     });
     return {
@@ -93,7 +97,8 @@ export class CatalogDeckService {
     learnerId: Learner['id'],
   ): Promise<Result<void>> {
     try {
-      const bookmark = new Bookmark(deckId, learnerId);
+      const deck = this.#em.getReference(CatalogDeck, deckId);
+      const bookmark = new Bookmark(deck, learnerId);
       await this.bookmarkRepository.persistAndFlush(bookmark);
       return Result.success();
     } catch (error) {
@@ -108,9 +113,10 @@ export class CatalogDeckService {
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
   ): Promise<Result<void>> {
+    const deck = this.#em.getReference(CatalogDeck, deckId);
     const bookmarkToRemove = await this.bookmarkRepository.findOne({
-      deckId: deckId,
-      learnerId: learnerId,
+      deck,
+      learnerId,
     });
     if (!bookmarkToRemove) return Result.failure('Bookmark does not exist');
     await this.bookmarkRepository.removeAndFlush(bookmarkToRemove);
