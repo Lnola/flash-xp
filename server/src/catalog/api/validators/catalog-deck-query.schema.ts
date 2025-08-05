@@ -1,5 +1,7 @@
 import { z } from 'zod';
+import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { QUESTION_TYPE_NAMES } from 'shared/constants';
+import { parseQuery, ParseQueryHandlers } from 'shared/helpers/parse-query';
 
 // TODO: think about naming and location of the CatalogDeckQuery type
 export const catalogDeckQuerySchema = z.object({
@@ -14,3 +16,28 @@ export const catalogDeckQuerySchema = z.object({
 });
 
 export type CatalogDeckQuery = z.infer<typeof catalogDeckQuerySchema>;
+
+export const parseCatalogDeckQuery = (
+  query: CatalogDeckQuery,
+  learnerId?: Learner['id'],
+) => {
+  const handlers: ParseQueryHandlers<CatalogDeckQuery, CatalogDeck> = {
+    questionType: (where, filters) => {
+      where.questions = { questionType: { name: filters.questionType } };
+    },
+    bookmarked: (where) => {
+      if (!learnerId) {
+        throw new Error('Learner ID is required to filter by bookmarks');
+      }
+      where.bookmarks = { learnerId };
+    },
+    authored: (where) => {
+      if (!learnerId) {
+        throw new Error('Learner ID is required to filter by authorship');
+      }
+      where.authorId = learnerId;
+    },
+  };
+
+  return parseQuery(query, handlers);
+};
