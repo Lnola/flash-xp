@@ -9,10 +9,10 @@ class PreviewApi {
   }
 
   Future<http.Response> createBookmark(int deckId) {
-    return client.post(client.buildUri('/decks/$deckId/bookmarks'));
+    return client.post(client.buildUri('/catalog/bookmarks/$deckId'));
   }
 
   Future<http.Response> removeBookmark(int deckId) {
-    return client.delete(client.buildUri('/decks/$deckId/bookmarks'));
+    return client.delete(client.buildUri('/catalog/bookmarks/$deckId'));
   }
 }
