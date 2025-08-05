@@ -70,17 +70,15 @@ export class CatalogDeckService {
   }
 
   async fetchMultipleChoiceDecks(): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find(
-      { questions: { questionType: { name: 'Multiple Choice' } } },
-      { populate: ['questions.questionType'] },
-    );
+    return this.catalogDeckRepository.find({
+      questions: { questionType: { name: 'Multiple Choice' } },
+    });
   }
 
   async fetchSelfAssessmentDecks(): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find(
-      { questions: { questionType: { name: 'Self Assessment' } } },
-      { populate: ['questions.questionType'] },
-    );
+    return this.catalogDeckRepository.find({
+      questions: { questionType: { name: 'Self Assessment' } },
+    });
   }
 
   async fetchPopularDecks(): Promise<CatalogDeck[]> {
