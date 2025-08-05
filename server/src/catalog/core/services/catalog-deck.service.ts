@@ -63,9 +63,9 @@ export class CatalogDeckService {
   async fetchBookmarkedByLearner(
     learnerId: Learner['id'],
   ): Promise<CatalogDeck[]> {
-    const bookmarks = await this.bookmarkRepository.find({ learnerId });
-    const deckIds = bookmarks.map((bookmark) => bookmark.deckId);
-    const decks = await this.catalogDeckRepository.find({ id: deckIds });
+    const decks = await this.catalogDeckRepository.find({
+      bookmarks: { learnerId },
+    });
     return decks;
   }
 
