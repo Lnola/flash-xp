@@ -1,20 +1,22 @@
+import { ObjectQuery } from '@mikro-orm/core';
+
 type ParseQueryPagination = {
   limit?: number;
   offset?: number;
 };
-type ParseQueryWhere = Record<string, unknown>;
+type ParseQueryWhere<K> = ObjectQuery<K>;
 
 type ParseQueryParams<T> = T & ParseQueryPagination;
-export type ParseQueryHandlers<T> = Record<
+export type ParseQueryHandlers<T, K> = Record<
   string,
-  (where: ParseQueryWhere, filters: T) => void
+  (where: ParseQueryWhere<K>, filters: T) => void
 >;
 
-export function parseQuery<T>(
+export function parseQuery<T, K>(
   { limit, offset, ...filters }: ParseQueryParams<T>,
-  handlers: ParseQueryHandlers<T>,
+  handlers: ParseQueryHandlers<T, K>,
 ) {
-  const where: ParseQueryWhere = {};
+  const where: ParseQueryWhere<K> = {};
   for (const key in filters) {
     if (handlers[key]) {
       handlers[key](where, filters as T);
