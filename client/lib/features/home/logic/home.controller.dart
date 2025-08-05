@@ -20,8 +20,8 @@ class HomeController extends ChangeNotifier {
 
     try {
       inProgressDecks = await _deckRepository.fetch();
-      myDecks = await _deckRepository.fetch();
-      savedDecks = await _deckRepository.fetch();
+      myDecks = await _deckRepository.fetch(params: {'authored': 'true'});
+      savedDecks = await _deckRepository.fetch(params: {'bookmarked': 'true'});
     } catch (e) {
       // TODO: Handle error by showing a toast
       print(e);
