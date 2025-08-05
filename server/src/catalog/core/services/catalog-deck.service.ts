@@ -49,45 +49,4 @@ export class CatalogDeckService {
       isBookmarked: !!deckBookmarkByCurrentUser,
     };
   }
-
-  // Instead of doing these fetch methods, create a more generic fetch method that accepts validated filters and options.
-  // Currently this is backend for frontend, but it can be more flexible so the backend can be reused in other environments.
-  async fetchInProgressByLearner(
-    learnerId: Learner['id'],
-  ): Promise<CatalogDeck[]> {
-    // TODO: Implement logic to fetch in-progress decks
-    return this.catalogDeckRepository.find({ authorId: learnerId });
-  }
-
-  async fetchAuthoredByLearner(
-    learnerId: Learner['id'],
-  ): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find({ authorId: learnerId });
-  }
-
-  async fetchBookmarkedByLearner(
-    learnerId: Learner['id'],
-  ): Promise<CatalogDeck[]> {
-    const decks = await this.catalogDeckRepository.find({
-      bookmarks: { learnerId },
-    });
-    return decks;
-  }
-
-  async fetchMultipleChoiceDecks(): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find({
-      questions: { questionType: { name: 'Multiple Choice' } },
-    });
-  }
-
-  async fetchSelfAssessmentDecks(): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find({
-      questions: { questionType: { name: 'Self Assessment' } },
-    });
-  }
-
-  async fetchPopularDecks(): Promise<CatalogDeck[]> {
-    // TODO: Implement logic to fetch popular decks
-    return this.catalogDeckRepository.findAll();
-  }
 }
