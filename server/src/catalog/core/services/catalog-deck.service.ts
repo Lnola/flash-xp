@@ -1,7 +1,9 @@
+import { ObjectQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
+import { ParseQueryPagination } from 'shared/helpers/parse-query';
 
 @Injectable()
 export class CatalogDeckService {
@@ -12,8 +14,11 @@ export class CatalogDeckService {
     private readonly bookmarkRepository: BaseEntityRepository<Bookmark>,
   ) {}
 
-  fetchAll() {
-    return this.catalogDeckRepository.findAll();
+  fetch(
+    where: ObjectQuery<CatalogDeck>,
+    pagination: ParseQueryPagination,
+  ): Promise<CatalogDeck[]> {
+    return this.catalogDeckRepository.find(where, { ...pagination });
   }
 
   // TODO: implement this correctly
