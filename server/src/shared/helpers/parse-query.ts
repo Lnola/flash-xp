@@ -1,6 +1,6 @@
 import { ObjectQuery } from '@mikro-orm/core';
 
-type ParseQueryPagination = {
+export type ParseQueryPagination = {
   limit?: number;
   offset?: number;
 };
