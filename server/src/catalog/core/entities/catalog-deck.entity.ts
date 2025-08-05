@@ -6,7 +6,7 @@ import {
   Property,
 } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { CatalogQuestion } from '.';
+import { Bookmark, CatalogQuestion } from '.';
 
 @Entity({ tableName: 'deck' })
 export class CatalogDeck extends BaseEntity {
@@ -18,6 +18,9 @@ export class CatalogDeck extends BaseEntity {
 
   @Property()
   authorId!: number;
+
+  @OneToMany(() => Bookmark, (bookmark) => bookmark.deck)
+  bookmarks? = new Collection<Bookmark>(this);
 
   @OneToMany(() => CatalogQuestion, (question) => question.deck)
   questions? = new Collection<CatalogQuestion>(this);
