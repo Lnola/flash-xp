@@ -1,4 +1,3 @@
-import { EntityManager } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
@@ -7,7 +6,6 @@ import { BaseEntityRepository } from 'shared/database/base.repository';
 @Injectable()
 export class CatalogDeckService {
   constructor(
-    private readonly em: EntityManager,
     @InjectRepository(CatalogDeck)
     private readonly catalogDeckRepository: BaseEntityRepository<CatalogDeck>,
     @InjectRepository(Bookmark)
