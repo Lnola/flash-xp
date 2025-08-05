@@ -1,12 +1,8 @@
-import {
-  EntityManager,
-  UniqueConstraintViolationException,
-} from '@mikro-orm/core';
+import { EntityManager } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
-import { Result } from 'shared/helpers/result';
 
 @Injectable()
 export class CatalogDeckService {
@@ -51,6 +47,8 @@ export class CatalogDeckService {
     };
   }
 
+  // Instead of doing these fetch methods, create a more generic fetch method that accepts validated filters and options.
+  // Currently this is backend for frontend, but it can be more flexible so the backend can be reused in other environments.
   async fetchInProgressByLearner(
     learnerId: Learner['id'],
   ): Promise<CatalogDeck[]> {
@@ -90,36 +88,5 @@ export class CatalogDeckService {
   async fetchPopularDecks(): Promise<CatalogDeck[]> {
     // TODO: Implement logic to fetch popular decks
     return this.catalogDeckRepository.findAll();
-  }
-
-  async createBookmark(
-    deckId: CatalogDeck['id'],
-    learnerId: Learner['id'],
-  ): Promise<Result<void>> {
-    try {
-      const deck = this.em.getReference(CatalogDeck, deckId);
-      const bookmark = new Bookmark(deck, learnerId);
-      await this.bookmarkRepository.persistAndFlush(bookmark);
-      return Result.success();
-    } catch (error) {
-      if (error instanceof UniqueConstraintViolationException) {
-        return Result.failure('Bookmark already exists');
-      }
-      throw error;
-    }
-  }
-
-  async deleteBookmark(
-    deckId: CatalogDeck['id'],
-    learnerId: Learner['id'],
-  ): Promise<Result<void>> {
-    const deck = this.em.getReference(CatalogDeck, deckId);
-    const bookmarkToRemove = await this.bookmarkRepository.findOne({
-      deck,
-      learnerId,
-    });
-    if (!bookmarkToRemove) return Result.failure('Bookmark does not exist');
-    await this.bookmarkRepository.removeAndFlush(bookmarkToRemove);
-    return Result.success();
   }
 }
