@@ -42,7 +42,6 @@ class ExploreViewState extends State<ExploreView> {
       clipBehavior: Clip.none,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 32,
         children: [
           FlashDeckCardSwiper(
             title: 'Multiple choice',

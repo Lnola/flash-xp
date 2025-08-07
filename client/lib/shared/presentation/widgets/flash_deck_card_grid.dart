@@ -23,17 +23,20 @@ class FlashDeckCardGrid extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 16),
-        _GridLayout(
-          decks: decks,
-          backgroundColor: backgroundColor,
-          isLoading: isLoading,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 16),
+          _GridLayout(
+            decks: decks,
+            backgroundColor: backgroundColor,
+            isLoading: isLoading,
+          ),
+        ],
+      ),
     );
   }
 }

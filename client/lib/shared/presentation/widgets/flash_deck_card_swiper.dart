@@ -23,19 +23,22 @@ class FlashDeckCardSwiper extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: 16),
-          _SwiperLayout(
-            decks: decks,
-            backgroundColor: backgroundColor,
-            cardWidth: (constraints.maxWidth / 2) - 6,
-            isLoading: isLoading,
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32.0),
+      child: LayoutBuilder(
+        builder: (context, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 16),
+            _SwiperLayout(
+              decks: decks,
+              backgroundColor: backgroundColor,
+              cardWidth: (constraints.maxWidth / 2) - 6,
+              isLoading: isLoading,
+            ),
+          ],
+        ),
       ),
     );
   }
