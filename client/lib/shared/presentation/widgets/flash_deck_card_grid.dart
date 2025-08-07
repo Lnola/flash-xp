@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/data/dto/deck.dto.dart';
+import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_skeleton.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class FlashDeckCardGrid extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
-  final List<DeckDto> decks;
+  final List<CatalogDeckModel> decks;
   final bool isLoading;
 
   const FlashDeckCardGrid({
@@ -39,7 +39,7 @@ class FlashDeckCardGrid extends StatelessWidget {
 }
 
 class _GridLayout extends StatelessWidget {
-  final List<DeckDto> decks;
+  final List<CatalogDeckModel> decks;
   final Color? backgroundColor;
   final bool isLoading;
 
