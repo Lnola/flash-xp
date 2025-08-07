@@ -31,6 +31,13 @@ class ExploreViewState extends State<ExploreView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.error != null && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, controller.error, 'Failed to load decks.');
+      });
+      return const SizedBox.shrink();
+    }
+
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
