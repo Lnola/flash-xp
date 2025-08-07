@@ -1,7 +1,8 @@
 import 'dart:convert';
 
+// TODO: leverage feature related Dto instead of using this explore one
+import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/data/auth_http_client.dart';
-import 'package:flashxp/shared/data/dto/deck.dto.dart';
 
 // TODO: Implement this the way other repositories do it
 class DeckRepository {

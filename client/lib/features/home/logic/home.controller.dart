@@ -1,5 +1,7 @@
+// TODO: leverage feature related Dto instead of using this explore one
+import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
 import 'package:flashxp/features/home/data/deck.repository.dart';
-import 'package:flashxp/shared/data/dto/deck.dto.dart';
+import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
 import 'package:flutter/material.dart';
 
 class HomeController extends ChangeNotifier {
