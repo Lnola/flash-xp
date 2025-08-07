@@ -1,3 +1,4 @@
+import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_skeleton.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,7 @@ import 'package:flutter/material.dart';
 class FlashDeckCardSwiper extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
-  // TODO: change this dynamic to a model
-  final List<dynamic> decks;
+  final List<CatalogDeckModel> decks;
   final bool isLoading;
 
   const FlashDeckCardSwiper({
@@ -42,7 +42,7 @@ class FlashDeckCardSwiper extends StatelessWidget {
 }
 
 class _SwiperLayout extends StatelessWidget {
-  final List<dynamic> decks;
+  final List<CatalogDeckModel> decks;
   final Color? backgroundColor;
   final double cardWidth;
   final bool isLoading;
