@@ -1,4 +1,3 @@
-// TODO: leverage feature related Dto instead of using this explore one
 import 'package:flashxp/features/home/data/dto/deck.dto.dart';
 import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
@@ -11,6 +10,7 @@ class HomeController extends ChangeNotifier {
   List<CatalogDeckModel> myDecks = [];
   List<CatalogDeckModel> savedDecks = [];
   bool isLoading = true;
+  String? error;
 
   HomeController(this._homeRepository) {
     _initDecks();
@@ -18,6 +18,7 @@ class HomeController extends ChangeNotifier {
 
   Future<void> _initDecks() async {
     isLoading = true;
+    error = null;
     notifyListeners();
 
     try {
@@ -29,8 +30,7 @@ class HomeController extends ChangeNotifier {
         {'bookmarked': 'true'},
       );
     } catch (e) {
-      // TODO: Handle error by showing a toast
-      print(e);
+      error = e.toString();
     }
 
     isLoading = false;
