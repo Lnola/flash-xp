@@ -21,47 +21,30 @@ class ExploreController extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    // TODO: Clean this up
-    final multipleChoiceResult = await _exploreRepository.getDecks(
-      queryParams: {'questionType': 'Multiple Choice'},
-    );
-    if (multipleChoiceResult.error != null) {
-      isLoading = false;
-      error = multipleChoiceResult.error;
-      notifyListeners();
-      return;
+    try {
+      multipleChoiceDecks = await _getDecks(
+        {'questionType': 'Multiple Choice'},
+      );
+      selfAssessmentDecks = await _getDecks(
+        {'questionType': 'Self Assessment'},
+      );
+      popularDecks = await _getDecks(
+        {'sort': 'popular'},
+      );
+      allDecks = await _getDecks();
+    } catch (e) {
+      error = e.toString();
     }
-    multipleChoiceDecks = multipleChoiceResult.data!;
-    final selfAssessmentResult = await _exploreRepository.getDecks(
-      queryParams: {'questionType': 'Self Assessment'},
-    );
-    if (selfAssessmentResult.error != null) {
-      isLoading = false;
-      error = selfAssessmentResult.error;
-      notifyListeners();
-      return;
-    }
-    selfAssessmentDecks = selfAssessmentResult.data!;
-    final popularResult = await _exploreRepository.getDecks(
-      queryParams: {'sort': 'popular'},
-    );
-    if (popularResult.error != null) {
-      isLoading = false;
-      error = popularResult.error;
-      notifyListeners();
-      return;
-    }
-    popularDecks = popularResult.data!;
-    final allResult = await _exploreRepository.getDecks();
-    if (allResult.error != null) {
-      isLoading = false;
-      error = allResult.error;
-      notifyListeners();
-      return;
-    }
-    allDecks = allResult.data!;
 
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<List<DeckDto>> _getDecks([Map<String, String>? queryParams]) async {
+    final result = await _exploreRepository.getDecks(
+      queryParams: queryParams ?? {},
+    );
+    if (result.error != null) throw Exception(result.error);
+    return result.data!;
   }
 }
