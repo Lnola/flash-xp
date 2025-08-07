@@ -1,5 +1,6 @@
 import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,13 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.error != null && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, controller.error, 'Failed to load decks.');
+      });
+      return const SizedBox.shrink();
+    }
+
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
