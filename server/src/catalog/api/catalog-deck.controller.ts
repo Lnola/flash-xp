@@ -1,4 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Param,
+  Query,
+} from '@nestjs/common';
 import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 import { User } from 'shared/decorators';
@@ -15,13 +21,18 @@ export class CatalogDeckController {
   constructor(private readonly catalogDeckService: CatalogDeckService) {}
 
   @Get()
-  fetch(
+  async fetch(
     @Query(new ZodValidationPipe(catalogDeckQuerySchema))
     query: CatalogDeckQuery,
     @User('id') learnerId: Learner['id'],
   ) {
     const { where, pagination } = parseCatalogDeckQuery(query, learnerId);
-    return this.catalogDeckService.fetch(where, pagination);
+    const { error, data } = await this.catalogDeckService.fetch(
+      where,
+      pagination,
+    );
+    if (error) throw new BadRequestException(error);
+    return data;
   }
 
   @Get(':id')
