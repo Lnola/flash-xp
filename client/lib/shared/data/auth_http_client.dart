@@ -17,5 +17,8 @@ class AuthHttpClient extends http.BaseClient {
     return _inner.send(request);
   }
 
-  Uri buildUri(String path) => Uri.parse('$_baseUrl$path');
+  Uri buildUri(String path, {Map<String, String> queryParams = const {}}) {
+    final uri = Uri.parse('$_baseUrl$path');
+    return uri.replace(queryParameters: queryParams);
+  }
 }
