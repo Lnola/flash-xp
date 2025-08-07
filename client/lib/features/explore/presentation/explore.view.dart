@@ -1,5 +1,6 @@
 import 'package:flashxp/features/explore/data/deck.repository.dart';
 import 'package:flashxp/features/explore/logic/explore.controller.dart';
+import 'package:flashxp/shared/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_swiper.dart';
 import 'package:flutter/material.dart';
 
@@ -38,25 +39,25 @@ class ExploreViewState extends State<ExploreView> {
         children: [
           FlashDeckCardSwiper(
             title: 'Multiple choice',
-            decks: controller.multipleChoiceDecks,
+            decks: controller.multipleChoiceDecks as List<DeckDto>,
             isLoading: controller.isLoading,
             backgroundColor: Theme.of(context).colorScheme.surfaceBright,
           ),
           FlashDeckCardSwiper(
             title: 'Flashcards',
-            decks: controller.selfAssessmentDecks,
+            decks: controller.selfAssessmentDecks as List<DeckDto>,
             isLoading: controller.isLoading,
             backgroundColor: Theme.of(context).colorScheme.tertiary,
           ),
           FlashDeckCardSwiper(
             title: 'Popular',
-            decks: controller.popularDecks,
+            decks: controller.popularDecks as List<DeckDto>,
             isLoading: controller.isLoading,
             backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
           FlashDeckCardSwiper(
             title: 'All decks',
-            decks: controller.allDecks,
+            decks: controller.allDecks as List<DeckDto>,
             isLoading: controller.isLoading,
             backgroundColor: Theme.of(context).colorScheme.primary,
           ),
