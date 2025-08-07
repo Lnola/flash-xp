@@ -10,6 +10,7 @@ class ExploreController extends ChangeNotifier {
   List<DeckDto> popularDecks = [];
   List<DeckDto> allDecks = [];
   bool isLoading = true;
+  String? error;
 
   ExploreController(this._deckRepository) {
     _initDecks();
@@ -17,6 +18,7 @@ class ExploreController extends ChangeNotifier {
 
   Future<void> _initDecks() async {
     isLoading = true;
+    error = null;
     notifyListeners();
 
     final multipleChoiceResult = await _deckRepository.getDecks(
@@ -24,7 +26,7 @@ class ExploreController extends ChangeNotifier {
     );
     if (multipleChoiceResult.error != null) {
       isLoading = false;
-      // error = multipleChoiceResult.error;
+      error = multipleChoiceResult.error;
       notifyListeners();
       return;
     }
@@ -34,7 +36,7 @@ class ExploreController extends ChangeNotifier {
     );
     if (selfAssessmentResult.error != null) {
       isLoading = false;
-      // error = selfAssessmentResult.error;
+      error = selfAssessmentResult.error;
       notifyListeners();
       return;
     }
@@ -44,7 +46,7 @@ class ExploreController extends ChangeNotifier {
     );
     if (popularResult.error != null) {
       isLoading = false;
-      // error = popularResult.error;
+      error = popularResult.error;
       notifyListeners();
       return;
     }
@@ -52,7 +54,7 @@ class ExploreController extends ChangeNotifier {
     final allResult = await _deckRepository.getDecks();
     if (allResult.error != null) {
       isLoading = false;
-      // error = allResult.error;
+      error = allResult.error;
       notifyListeners();
       return;
     }
