@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { ParseQueryPagination } from 'shared/helpers/parse-query';
+import { Result } from 'shared/helpers/result';
 
 @Injectable()
 export class CatalogDeckService {
@@ -14,11 +15,18 @@ export class CatalogDeckService {
     private readonly bookmarkRepository: BaseEntityRepository<Bookmark>,
   ) {}
 
-  fetch(
+  async fetch(
     where: ObjectQuery<CatalogDeck>,
     pagination: ParseQueryPagination,
-  ): Promise<CatalogDeck[]> {
-    return this.catalogDeckRepository.find(where, { ...pagination });
+  ): Promise<Result<CatalogDeck[]>> {
+    try {
+      const decks = await this.catalogDeckRepository.find(where, {
+        ...pagination,
+      });
+      return Result.success(decks);
+    } catch (error) {
+      return Result.failure(`Failed to fetch decks: ${error}`);
+    }
   }
 
   // TODO: implement this correctly
