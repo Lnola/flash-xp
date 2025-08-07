@@ -2,7 +2,7 @@ import { ObjectQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CatalogDeckPreview } from 'catalog/api/dto';
-import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
+import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { ParseQueryPagination } from 'shared/helpers/parse-query';
 import { Result } from 'shared/helpers/result';
@@ -12,8 +12,6 @@ export class CatalogDeckService {
   constructor(
     @InjectRepository(CatalogDeck)
     private readonly catalogDeckRepository: BaseEntityRepository<CatalogDeck>,
-    @InjectRepository(Bookmark)
-    private readonly bookmarkRepository: BaseEntityRepository<Bookmark>,
   ) {}
 
   async fetch(
