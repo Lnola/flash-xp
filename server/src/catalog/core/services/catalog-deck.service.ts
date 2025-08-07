@@ -32,12 +32,16 @@ export class CatalogDeckService {
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
   ): Promise<Result<CatalogDeckPreview>> {
-    const deck = await this.catalogDeckRepository.findOne(deckId, {
-      populate: ['questions', 'bookmarks'],
-    });
-    if (!deck) return Result.failure('Deck not found');
-    const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
-    return Result.success(previewDeck);
+    try {
+      const deck = await this.catalogDeckRepository.findOne(deckId, {
+        populate: ['questions', 'bookmarks'],
+      });
+      if (!deck) return Result.failure('Deck not found');
+      const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
+      return Result.success(previewDeck);
+    } catch (error) {
+      return Result.failure(`Failed to fetch deck: ${error}`);
+    }
   }
 
   _mapCatalogDeckForPreview(
