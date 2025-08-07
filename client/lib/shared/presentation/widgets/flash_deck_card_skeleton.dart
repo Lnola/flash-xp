@@ -29,7 +29,7 @@ class FlashDeckCardSkeleton extends StatelessWidget {
       height: 216,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
+        color: theme.colorScheme.surface.withAlpha(99),
         borderRadius: BorderRadius.circular(28),
       ),
       child: Column(
