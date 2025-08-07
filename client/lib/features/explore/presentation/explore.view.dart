@@ -1,4 +1,4 @@
-import 'package:flashxp/features/explore/data/deck.repository.dart';
+import 'package:flashxp/features/explore/data/explore.repository.dart';
 import 'package:flashxp/features/explore/logic/explore.controller.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_swiper.dart';
@@ -19,7 +19,7 @@ class ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
     super.initState();
-    controller = ExploreController(DeckRepository());
+    controller = ExploreController(ExploreRepository());
     controller.addListener(_onControllerUpdated);
   }
 

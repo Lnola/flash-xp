@@ -4,7 +4,7 @@ import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
 import 'package:flashxp/shared/data/api/catalog.api.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
-class DeckRepository {
+class ExploreRepository {
   final _catalogApi = CatalogApi();
 
   Future<Result<List<DeckDto>>> getDecks({

@@ -1,9 +1,9 @@
-import 'package:flashxp/features/explore/data/deck.repository.dart';
 import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
+import 'package:flashxp/features/explore/data/explore.repository.dart';
 import 'package:flutter/material.dart';
 
 class ExploreController extends ChangeNotifier {
-  final DeckRepository _deckRepository;
+  final ExploreRepository _exploreRepository;
 
   List<DeckDto> multipleChoiceDecks = [];
   List<DeckDto> selfAssessmentDecks = [];
@@ -12,7 +12,7 @@ class ExploreController extends ChangeNotifier {
   bool isLoading = true;
   String? error;
 
-  ExploreController(this._deckRepository) {
+  ExploreController(this._exploreRepository) {
     _initDecks();
   }
 
@@ -21,7 +21,8 @@ class ExploreController extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    final multipleChoiceResult = await _deckRepository.getDecks(
+    // TODO: Clean this up
+    final multipleChoiceResult = await _exploreRepository.getDecks(
       queryParams: {'questionType': 'Multiple Choice'},
     );
     if (multipleChoiceResult.error != null) {
@@ -31,7 +32,7 @@ class ExploreController extends ChangeNotifier {
       return;
     }
     multipleChoiceDecks = multipleChoiceResult.data!;
-    final selfAssessmentResult = await _deckRepository.getDecks(
+    final selfAssessmentResult = await _exploreRepository.getDecks(
       queryParams: {'questionType': 'Self Assessment'},
     );
     if (selfAssessmentResult.error != null) {
@@ -41,7 +42,7 @@ class ExploreController extends ChangeNotifier {
       return;
     }
     selfAssessmentDecks = selfAssessmentResult.data!;
-    final popularResult = await _deckRepository.getDecks(
+    final popularResult = await _exploreRepository.getDecks(
       queryParams: {'sort': 'popular'},
     );
     if (popularResult.error != null) {
@@ -51,7 +52,7 @@ class ExploreController extends ChangeNotifier {
       return;
     }
     popularDecks = popularResult.data!;
-    final allResult = await _deckRepository.getDecks();
+    final allResult = await _exploreRepository.getDecks();
     if (allResult.error != null) {
       isLoading = false;
       error = allResult.error;
