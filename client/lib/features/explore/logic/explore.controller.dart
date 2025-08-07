@@ -1,5 +1,5 @@
 import 'package:flashxp/features/explore/data/deck.repository.dart';
-import 'package:flashxp/shared/data/dto/deck.dto.dart';
+import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
 import 'package:flutter/material.dart';
 
 class ExploreController extends ChangeNotifier {
@@ -19,14 +19,44 @@ class ExploreController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    multipleChoiceDecks = await _deckRepository.fetch(
-      params: {'questionType': 'Multiple Choice'},
+    final multipleChoiceResult = await _deckRepository.getDecks(
+      queryParams: {'questionType': 'Multiple Choice'},
     );
-    selfAssessmentDecks = await _deckRepository.fetch(
-      params: {'questionType': 'Self Assessment'},
+    if (multipleChoiceResult.error != null) {
+      isLoading = false;
+      // error = multipleChoiceResult.error;
+      notifyListeners();
+      return;
+    }
+    multipleChoiceDecks = multipleChoiceResult.data!;
+    final selfAssessmentResult = await _deckRepository.getDecks(
+      queryParams: {'questionType': 'Self Assessment'},
     );
-    popularDecks = await _deckRepository.fetch();
-    allDecks = await _deckRepository.fetch();
+    if (selfAssessmentResult.error != null) {
+      isLoading = false;
+      // error = selfAssessmentResult.error;
+      notifyListeners();
+      return;
+    }
+    selfAssessmentDecks = selfAssessmentResult.data!;
+    final popularResult = await _deckRepository.getDecks(
+      queryParams: {'sort': 'popular'},
+    );
+    if (popularResult.error != null) {
+      isLoading = false;
+      // error = popularResult.error;
+      notifyListeners();
+      return;
+    }
+    popularDecks = popularResult.data!;
+    final allResult = await _deckRepository.getDecks();
+    if (allResult.error != null) {
+      isLoading = false;
+      // error = allResult.error;
+      notifyListeners();
+      return;
+    }
+    allDecks = allResult.data!;
 
     isLoading = false;
     notifyListeners();
