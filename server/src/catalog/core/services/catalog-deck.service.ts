@@ -1,6 +1,7 @@
 import { ObjectQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { CatalogDeckPreview } from 'catalog/api/dto';
 import { Bookmark, CatalogDeck, Learner } from 'catalog/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { ParseQueryPagination } from 'shared/helpers/parse-query';
@@ -34,16 +35,11 @@ export class CatalogDeckService {
     learnerId: Learner['id'],
   ): Promise<Result<CatalogDeckPreview>> {
     const deck = await this.catalogDeckRepository.findOne(deckId, {
-      populate: ['questions'],
+      populate: ['questions', 'bookmarks'],
     });
     if (!deck) return Result.failure('Deck not found');
-    const deckBookmarkByCurrentUser = await this.bookmarkRepository.findOne({
-      deck,
-      learnerId,
-    });
-    const isCurrentUserAuthor = deck.authorId === learnerId;
-    const isBookmarked = !!deckBookmarkByCurrentUser;
-    return Result.success({ ...deck, isCurrentUserAuthor, isBookmarked });
+    const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
+    return Result.success(previewDeck);
   }
 
   _mapCatalogDeckForPreview(
