@@ -12,7 +12,7 @@ class DeckRepository {
   }) async {
     final uri = Uri.http(
       'localhost:3000',
-      '/decks',
+      '/catalog/decks',
       params,
     );
     final response = await client.get(uri);

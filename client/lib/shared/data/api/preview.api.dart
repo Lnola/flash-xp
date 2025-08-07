@@ -5,7 +5,7 @@ class PreviewApi {
   final client = AuthHttpClient();
 
   Future<http.Response> getDeck(int deckId) {
-    return client.get(client.buildUri('/decks/$deckId'));
+    return client.get(client.buildUri('/catalog/decks/$deckId'));
   }
 
   Future<http.Response> createBookmark(int deckId) {

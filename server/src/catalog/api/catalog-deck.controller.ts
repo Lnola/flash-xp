@@ -16,8 +16,7 @@ import {
   parseCatalogDeckQuery,
 } from './validators';
 
-// TODO: Think about this controller name, structure and contents
-@Controller('decks')
+@Controller('catalog/decks')
 export class CatalogDeckController {
   constructor(private readonly catalogDeckService: CatalogDeckService) {}
 
