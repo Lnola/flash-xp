@@ -25,13 +25,13 @@ export class CatalogDeckController {
     @Query(new ZodValidationPipe(catalogDeckQuerySchema))
     query: CatalogDeckQuery,
     @User('id') learnerId: Learner['id'],
-  ) {
+  ): Promise<CatalogDeck[]> {
     const { where, pagination } = parseCatalogDeckQuery(query, learnerId);
     const { error, data } = await this.catalogDeckService.fetch(
       where,
       pagination,
     );
-    if (error) throw new BadRequestException(error);
+    if (error || !data) throw new BadRequestException(error);
     return data;
   }
 
