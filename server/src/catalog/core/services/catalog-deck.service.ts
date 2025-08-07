@@ -29,33 +29,21 @@ export class CatalogDeckService {
     }
   }
 
-  // TODO: implement this correctly
   async fetchById(
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
-  ): Promise<
-    | (CatalogDeck & {
-        isCurrentUserAuthor: boolean;
-        isBookmarked: boolean;
-      })
-    | null
-  > {
+  ): Promise<Result<CatalogDeckPreview>> {
     const deck = await this.catalogDeckRepository.findOne(deckId, {
       populate: ['questions'],
     });
-    if (!deck) {
-      return null;
-    }
+    if (!deck) return Result.failure('Deck not found');
     const deckBookmarkByCurrentUser = await this.bookmarkRepository.findOne({
       deck,
       learnerId,
     });
-    return {
-      ...deck,
-      questionType: deck.questionType,
-      isCurrentUserAuthor: true,
-      isBookmarked: !!deckBookmarkByCurrentUser,
-    };
+    const isCurrentUserAuthor = deck.authorId === learnerId;
+    const isBookmarked = !!deckBookmarkByCurrentUser;
+    return Result.success({ ...deck, isCurrentUserAuthor, isBookmarked });
   }
 }
 
