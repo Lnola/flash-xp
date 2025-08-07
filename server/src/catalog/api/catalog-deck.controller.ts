@@ -9,6 +9,7 @@ import { CatalogDeck, Learner } from 'catalog/core/entities';
 import { CatalogDeckService } from 'catalog/core/services';
 import { User } from 'shared/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
+import { CatalogDeckPreview } from './dto';
 import {
   CatalogDeckQuery,
   catalogDeckQuerySchema,
@@ -36,10 +37,15 @@ export class CatalogDeckController {
   }
 
   @Get(':id')
-  fetchById(
+  async fetchById(
     @Param('id') deckId: CatalogDeck['id'],
     @User('id') learnerId: Learner['id'],
-  ) {
-    return this.catalogDeckService.fetchById(deckId, learnerId);
+  ): Promise<CatalogDeckPreview> {
+    const { error, data } = await this.catalogDeckService.fetchById(
+      deckId,
+      learnerId,
+    );
+    if (error || !data) throw new BadRequestException(error);
+    return data;
   }
 }
