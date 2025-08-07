@@ -191,7 +191,6 @@ class _PreviewActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 12,
       children: [
         Row(
           spacing: 8,
@@ -209,6 +208,7 @@ class _PreviewActions extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 12),
         If(
           condition: isCurrentUserAuthor,
           child: Row(
@@ -235,6 +235,15 @@ class _PreviewActions extends StatelessWidget {
                 onPressed: () => _removeDeck(context),
               ),
             ],
+          ),
+        ),
+        If(
+          condition: !isCurrentUserAuthor,
+          child: FlashButton(
+            label: 'Fork deck',
+            onPressed: () => _forkDeck(context),
+            isBlock: true,
+            isSecondary: true,
           ),
         ),
       ],
