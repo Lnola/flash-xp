@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class FlashDeckCardSwiper extends StatelessWidget {
   final String title;
   final Color? backgroundColor;
+  // TODO: change this Dto to a model
   final List<DeckDto> decks;
   final bool isLoading;
 
