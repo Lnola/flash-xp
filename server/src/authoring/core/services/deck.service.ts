@@ -37,8 +37,8 @@ export class DeckService {
       const newDeck = Deck.create(payload);
       await this.deckRepository.persistAndFlush(newDeck);
       return Result.success(newDeck);
-    } catch (error) {
-      return Result.failure(`Failed to create deck: ${error}`);
+    } catch {
+      return Result.failure(`Failed to create deck.`);
     }
   }
 
@@ -54,8 +54,8 @@ export class DeckService {
       populatedDeck.update(payload);
       await this.deckRepository.persistAndFlush(populatedDeck);
       return Result.success(populatedDeck);
-    } catch (error) {
-      return Result.failure(`Failed to update deck: ${error}`);
+    } catch {
+      return Result.failure(`Failed to update deck.`);
     }
   }
 

@@ -23,8 +23,8 @@ export class CatalogDeckService {
         ...pagination,
       });
       return Result.success(decks);
-    } catch (error) {
-      return Result.failure(`Failed to fetch decks: ${error}`);
+    } catch {
+      return Result.failure(`Failed to fetch decks.`);
     }
   }
 
@@ -39,8 +39,8 @@ export class CatalogDeckService {
       if (!deck) return Result.failure('Deck not found');
       const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
       return Result.success(previewDeck);
-    } catch (error) {
-      return Result.failure(`Failed to fetch deck: ${error}`);
+    } catch {
+      return Result.failure(`Failed to fetch deck.`);
     }
   }
 
