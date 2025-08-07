@@ -25,6 +25,7 @@ export class CatalogDeck extends BaseEntity {
   @OneToMany(() => CatalogQuestion, (question) => question.deck)
   questions? = new Collection<CatalogQuestion>(this);
 
+  // Formulas are used to calculate the values without populating the questions and question types -> better performance
   // This value is calculated on every fetch. This behavior can be stopped
   // by setting { lazy: true } here. However, that will require all uses to
   // explicitly set { populate : ['questionCount'] }.
@@ -45,4 +46,9 @@ export class CatalogDeck extends BaseEntity {
       LIMIT 1)`,
   )
   questionType!: string;
+
+  isBookmarkedByLearner(learnerId: number): boolean {
+    if (!this.bookmarks) return false;
+    return this.bookmarks?.getItems().some((it) => it.learnerId === learnerId);
+  }
 }
