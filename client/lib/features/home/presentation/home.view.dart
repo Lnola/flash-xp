@@ -1,4 +1,4 @@
-import 'package:flashxp/features/home/data/deck.repository.dart';
+import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    controller = HomeController(DeckRepository());
+    controller = HomeController(HomeRepository());
     controller.addListener(_onControllerUpdated);
   }
 
