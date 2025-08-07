@@ -58,3 +58,8 @@ export class CatalogDeckService {
     };
   }
 }
+
+type CatalogDeckPreview = CatalogDeck & {
+  isCurrentUserAuthor: boolean;
+  isBookmarked: boolean;
+};
