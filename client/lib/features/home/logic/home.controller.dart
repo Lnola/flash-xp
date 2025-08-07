@@ -1,18 +1,18 @@
 // TODO: leverage feature related Dto instead of using this explore one
-import 'package:flashxp/features/explore/data/dto/deck.dto.dart';
-import 'package:flashxp/features/home/data/deck.repository.dart';
+import 'package:flashxp/features/home/data/dto/deck.dto.dart';
+import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
 import 'package:flutter/material.dart';
 
 class HomeController extends ChangeNotifier {
-  final DeckRepository _deckRepository;
+  final HomeRepository _homeRepository;
 
   List<CatalogDeckModel> inProgressDecks = [];
   List<CatalogDeckModel> myDecks = [];
   List<CatalogDeckModel> savedDecks = [];
   bool isLoading = true;
 
-  HomeController(this._deckRepository) {
+  HomeController(this._homeRepository) {
     _initDecks();
   }
 
@@ -22,8 +22,12 @@ class HomeController extends ChangeNotifier {
 
     try {
       inProgressDecks = await _getDecks();
-      myDecks = await _getDecks({'authored': 'true'});
-      savedDecks = await _getDecks({'bookmarked': 'true'});
+      myDecks = await _getDecks(
+        {'authored': 'true'},
+      );
+      savedDecks = await _getDecks(
+        {'bookmarked': 'true'},
+      );
     } catch (e) {
       // TODO: Handle error by showing a toast
       print(e);
@@ -36,8 +40,11 @@ class HomeController extends ChangeNotifier {
   Future<List<CatalogDeckModel>> _getDecks([
     Map<String, String>? queryParams,
   ]) async {
-    final dtos = await _deckRepository.fetch(params: queryParams ?? {});
-    return _mapDtosToModels(dtos);
+    final result = await _homeRepository.getDecks(
+      queryParams: queryParams ?? {},
+    );
+    if (result.error != null) throw Exception(result.error);
+    return _mapDtosToModels(result.data!);
   }
 
   List<CatalogDeckModel> _mapDtosToModels(List<DeckDto> dtos) {
