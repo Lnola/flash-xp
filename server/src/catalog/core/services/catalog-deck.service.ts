@@ -45,9 +45,15 @@ export class CatalogDeckService {
     const isBookmarked = !!deckBookmarkByCurrentUser;
     return Result.success({ ...deck, isCurrentUserAuthor, isBookmarked });
   }
-}
 
-type CatalogDeckPreview = CatalogDeck & {
-  isCurrentUserAuthor: boolean;
-  isBookmarked: boolean;
-};
+  _mapCatalogDeckForPreview(
+    deck: CatalogDeck,
+    learnerId: Learner['id'],
+  ): CatalogDeckPreview {
+    return {
+      ...deck,
+      isBookmarked: deck.isBookmarkedByLearner(learnerId),
+      isCurrentUserAuthor: deck.authorId === learnerId,
+    };
+  }
+}
