@@ -3,6 +3,7 @@ import 'package:flashxp/features/practice/logic/practice.controller.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_options.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_question.widget.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,14 @@ class _PracticeViewState extends State<PracticeView> {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.error != null && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, controller.error, 'Failed to load questions.');
+        context.pop();
+      });
+      return const SizedBox.shrink();
+    }
+
     if (controller.isLoading) {
       return const Center(child: FlashLoading());
     }
