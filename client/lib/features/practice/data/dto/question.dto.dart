@@ -20,4 +20,15 @@ class QuestionDto {
         ? PracticeMode.multipleChoice
         : PracticeMode.selfAssessment;
   }
+
+  factory QuestionDto.fromJson(Map<String, dynamic> json) {
+    return QuestionDto(
+      id: json['id'],
+      text: json['text'],
+      answer: json['answer'],
+      answerOptionDtos: (json['answerOptions'] as List?)
+          ?.map((it) => AnswerOptionDto.fromJson(it))
+          .toList(),
+    );
+  }
 }
