@@ -198,7 +198,7 @@ class _PreviewActions extends StatelessWidget {
             Expanded(
               child: FlashButton(
                 label: 'Start now',
-                onPressed: () => context.push('/home/practice'),
+                onPressed: () => context.push('/home/$deckId/practice'),
                 isBlock: true,
               ),
             ),

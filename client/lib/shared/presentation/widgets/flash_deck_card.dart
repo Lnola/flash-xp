@@ -59,7 +59,7 @@ class FlashDeckCard extends StatelessWidget {
                 totalQuestions: totalQuestions,
                 mode: mode,
               ),
-              _CardActions(progress: progress),
+              _CardActions(deckId: deckId, progress: progress),
             ],
           ),
         ),
@@ -131,9 +131,11 @@ class _CardInfo extends StatelessWidget {
 }
 
 class _CardActions extends StatelessWidget {
+  final int deckId;
   final int progress;
 
   const _CardActions({
+    required this.deckId,
     required this.progress,
   });
 
@@ -146,7 +148,7 @@ class _CardActions extends StatelessWidget {
       children: [
         FlashButton(
           label: 'Start now',
-          onPressed: () => context.push('/home/practice'),
+          onPressed: () => context.push('/home/$deckId/practice'),
         ),
         Text('$progress%', style: theme.textTheme.bodySmall),
       ],
