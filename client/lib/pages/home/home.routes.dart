@@ -1,3 +1,4 @@
+import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/features/practice/presentation/practice.view.dart';
 import 'package:flashxp/features/practice/presentation/practice_finished.view.dart';
 import 'package:flashxp/features/preview/presentation/preview.view.dart';
@@ -23,11 +24,15 @@ final homeRoutes = GoRoute(
       path: ':deckId/practice',
       builder: (context, state) {
         final deckId = int.tryParse(state.pathParameters['deckId'] ?? '');
-        if (deckId == null) return RouteGuards.showError(context);
+        final practiceType =
+            (state.extra as Map?)?['practiceType'] as PracticeType?;
+        if (deckId == null || practiceType == null) {
+          return RouteGuards.showError(context);
+        }
         return FlashLayout(
           backgroundColor: Theme.of(context).colorScheme.surface,
           title: 'Practice',
-          body: PracticeView(deckId: deckId),
+          body: PracticeView(deckId: deckId, practiceType: practiceType),
         );
       },
     ),
