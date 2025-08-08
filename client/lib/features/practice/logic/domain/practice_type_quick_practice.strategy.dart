@@ -5,6 +5,7 @@ import 'package:flashxp/shared/helpers/result.dart';
 
 class QuickPracticeStrategy implements PracticeTypeStrategy {
   final _quickPracticeRepository = QuickPracticeRepository();
+
   @override
   Future<Result<List<QuestionDto>>> getQuestions(int deckId) {
     return _quickPracticeRepository.getQuestions(deckId);
