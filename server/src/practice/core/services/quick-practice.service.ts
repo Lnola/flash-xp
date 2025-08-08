@@ -19,6 +19,9 @@ export class QuickPracticeService {
         { deckId },
         { populate: ['answerOptions'] },
       );
+      if (questions.length === 0) {
+        return Result.failure('No questions found for this deck');
+      }
       return Result.success(questions);
     } catch {
       return Result.failure('Failed to fetch practice questions');
