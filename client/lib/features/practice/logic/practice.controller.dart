@@ -3,6 +3,7 @@ import 'package:flashxp/features/practice/data/quick_practice.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_self_assessment.strategy.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/features/practice/logic/models/answer_option_button.model.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,9 @@ extension on PracticeMode {
       };
 }
 
-// TODO: add a way to run either QuickPractice or SmartPractice
 class PracticeController extends ChangeNotifier {
   final int deckId;
+  final PracticeType practiceType;
   final QuickPracticeRepository _quickPracticeRepository;
   late PracticeMode mode;
 
@@ -36,7 +37,11 @@ class PracticeController extends ChangeNotifier {
 
   int get currentQuestionIndex => _currentQuestionIndex + 1;
 
-  PracticeController(this.deckId, this._quickPracticeRepository) {
+  PracticeController(
+    this.deckId,
+    this.practiceType,
+    this._quickPracticeRepository,
+  ) {
     _initQuestions();
   }
 

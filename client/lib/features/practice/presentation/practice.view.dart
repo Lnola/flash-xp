@@ -1,4 +1,5 @@
 import 'package:flashxp/features/practice/data/quick_practice.repository.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/features/practice/logic/practice.controller.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_options.widget.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_progress.widget.dart';
@@ -10,11 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
-// TODO: add a way to denote if the mode is either QuickPractice or SmartPractice
 class PracticeView extends StatefulWidget {
   final int deckId;
+  final PracticeType practiceType;
 
-  const PracticeView({super.key, required this.deckId});
+  const PracticeView({
+    super.key,
+    required this.deckId,
+    required this.practiceType,
+  });
 
   @override
   State<PracticeView> createState() => _PracticeViewState();
@@ -28,7 +33,11 @@ class _PracticeViewState extends State<PracticeView> {
   @override
   void initState() {
     super.initState();
-    controller = PracticeController(widget.deckId, QuickPracticeRepository());
+    controller = PracticeController(
+      widget.deckId,
+      widget.practiceType,
+      QuickPracticeRepository(),
+    );
     controller.addListener(_onControllerUpdated);
   }
 
