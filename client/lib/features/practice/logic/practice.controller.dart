@@ -1,9 +1,11 @@
 import 'package:flashxp/features/practice/data/dto/question.dto.dart';
-import 'package:flashxp/features/practice/data/quick_practice.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_self_assessment.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_type.strategy.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_type_quick_practice.strategy.dart';
+import 'package:flashxp/features/practice/logic/domain/practice_type_smart_review.strategy.dart';
 import 'package:flashxp/features/practice/logic/models/answer_option_button.model.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,13 @@ extension on PracticeMode {
   PracticeModeStrategy get strategy => switch (this) {
         PracticeMode.multipleChoice => MultipleChoiceStrategy(),
         PracticeMode.selfAssessment => SelfAssessmentStrategy(),
+      };
+}
+
+extension on PracticeType {
+  PracticeTypeStrategy get strategy => switch (this) {
+        PracticeType.quickPractice => QuickPracticeStrategy(),
+        PracticeType.smartReview => SmartReviewStrategy(),
       };
 }
 
@@ -44,7 +53,7 @@ class PracticeController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final result = await _quickPracticeRepository.getQuestions(deckId);
+    final result = await practiceType.strategy.getQuestions(deckId);
     if (result.error != null) {
       error = result.error;
       isLoading = false;
