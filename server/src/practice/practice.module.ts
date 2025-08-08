@@ -1,10 +1,11 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { QuickPracticeController } from './api';
+import { PracticeQuestion } from './core/entities';
 import { QuickPracticeService } from './core/services';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([])],
+  imports: [MikroOrmModule.forFeature([PracticeQuestion])],
   providers: [QuickPracticeService],
   controllers: [QuickPracticeController],
 })
