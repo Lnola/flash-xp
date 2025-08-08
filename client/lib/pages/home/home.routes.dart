@@ -20,12 +20,16 @@ final homeRoutes = GoRoute(
   ),
   routes: [
     GoRoute(
-      path: 'practice',
-      builder: (context, __) => FlashLayout(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: 'Practice',
-        body: const PracticeView(),
-      ),
+      path: ':deckId/practice',
+      builder: (context, state) {
+        final deckId = int.tryParse(state.pathParameters['deckId'] ?? '');
+        if (deckId == null) return RouteGuards.showError(context);
+        return FlashLayout(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          title: 'Practice',
+          body: PracticeView(deckId: deckId),
+        );
+      },
     ),
     GoRoute(
       path: 'practice/finished',
