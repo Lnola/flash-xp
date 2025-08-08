@@ -28,7 +28,7 @@ class PracticeController extends ChangeNotifier {
   bool isLoadingNextQuestion = false;
   bool isFinished = false;
 
-  List<QuestionDto> _questions = [];
+  final List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
 
   int get currentQuestionIndex => _currentQuestionIndex + 1;
@@ -41,8 +41,13 @@ class PracticeController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    _questions = await _questionRepository.fetch();
-    if (_questions.isEmpty) return;
+    final result = await _questionRepository.getQuestions(1);
+    // TODO: add error handling or data being empty
+    if (result.error != null) {
+      print(result.error);
+      return;
+    }
+    _questions.addAll(result.data!);
 
     totalQuestions = _questions.length;
     _currentQuestionIndex = 0;
