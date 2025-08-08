@@ -18,7 +18,6 @@ extension on PracticeMode {
 class PracticeController extends ChangeNotifier {
   final int deckId;
   final PracticeType practiceType;
-  final QuickPracticeRepository _quickPracticeRepository;
   late PracticeMode mode;
 
   late String question;
@@ -37,11 +36,7 @@ class PracticeController extends ChangeNotifier {
 
   int get currentQuestionIndex => _currentQuestionIndex + 1;
 
-  PracticeController(
-    this.deckId,
-    this.practiceType,
-    this._quickPracticeRepository,
-  ) {
+  PracticeController(this.deckId, this.practiceType) {
     _initQuestions();
   }
 

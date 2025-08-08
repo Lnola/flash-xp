@@ -1,4 +1,3 @@
-import 'package:flashxp/features/practice/data/quick_practice.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/features/practice/logic/practice.controller.dart';
 import 'package:flashxp/features/practice/presentation/widgets/practice_answer_options.widget.dart';
@@ -33,11 +32,7 @@ class _PracticeViewState extends State<PracticeView> {
   @override
   void initState() {
     super.initState();
-    controller = PracticeController(
-      widget.deckId,
-      widget.practiceType,
-      QuickPracticeRepository(),
-    );
+    controller = PracticeController(widget.deckId, widget.practiceType);
     controller.addListener(_onControllerUpdated);
   }
 
