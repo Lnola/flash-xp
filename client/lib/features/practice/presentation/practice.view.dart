@@ -11,7 +11,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
 class PracticeView extends StatefulWidget {
-  const PracticeView({super.key});
+  final int deckId;
+
+  const PracticeView({super.key, required this.deckId});
 
   @override
   State<PracticeView> createState() => _PracticeViewState();
@@ -25,7 +27,7 @@ class _PracticeViewState extends State<PracticeView> {
   @override
   void initState() {
     super.initState();
-    controller = PracticeController(QuickPracticeRepository());
+    controller = PracticeController(widget.deckId, QuickPracticeRepository());
     controller.addListener(_onControllerUpdated);
   }
 
