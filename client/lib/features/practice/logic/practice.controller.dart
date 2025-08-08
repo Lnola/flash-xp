@@ -14,6 +14,7 @@ extension on PracticeMode {
       };
 }
 
+// TODO: add a way to run either QuickPractice or SmartPractice
 class PracticeController extends ChangeNotifier {
   final int deckId;
   final QuickPracticeRepository _quickPracticeRepository;

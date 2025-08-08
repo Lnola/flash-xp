@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
+// TODO: add a way to denote if the mode is either QuickPractice or SmartPractice
 class PracticeView extends StatefulWidget {
   final int deckId;
 
