@@ -11,7 +11,8 @@ class QuestionRepository {
     try {
       final response = await _quickPracticeApi.getQuestions(deckId);
       if (response.statusCode != 200) {
-        return Result.failure(response.body);
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure(message);
       }
       final List<dynamic> jsonList = jsonDecode(response.body);
       final data = jsonList.map((it) => QuestionDto.fromJson(it)).toList();
