@@ -4,7 +4,7 @@ import 'package:flashxp/features/practice/data/dto/question.dto.dart';
 import 'package:flashxp/shared/data/api/quick_practice.api.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 
-class QuestionRepository {
+class QuickPracticeRepository {
   final _quickPracticeApi = QuickPracticeApi();
 
   Future<Result<List<QuestionDto>>> getQuestions(int deckId) async {

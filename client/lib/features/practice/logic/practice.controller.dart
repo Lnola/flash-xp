@@ -1,5 +1,5 @@
 import 'package:flashxp/features/practice/data/dto/question.dto.dart';
-import 'package:flashxp/features/practice/data/question.repository.dart';
+import 'package:flashxp/features/practice/data/quick_practice.repository.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_multiple_choice.strategy.dart';
 import 'package:flashxp/features/practice/logic/domain/practice_mode_self_assessment.strategy.dart';
@@ -15,7 +15,7 @@ extension on PracticeMode {
 }
 
 class PracticeController extends ChangeNotifier {
-  final QuestionRepository _questionRepository;
+  final QuickPracticeRepository _quickPracticeRepository;
   late PracticeMode mode;
 
   late String question;
@@ -34,7 +34,7 @@ class PracticeController extends ChangeNotifier {
 
   int get currentQuestionIndex => _currentQuestionIndex + 1;
 
-  PracticeController(this._questionRepository) {
+  PracticeController(this._quickPracticeRepository) {
     _initQuestions();
   }
 
@@ -42,7 +42,7 @@ class PracticeController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final result = await _questionRepository.getQuestions(200);
+    final result = await _quickPracticeRepository.getQuestions(200);
     if (result.error != null) {
       error = result.error;
       isLoading = false;
