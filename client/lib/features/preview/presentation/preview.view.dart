@@ -1,3 +1,4 @@
+import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/features/preview/data/dto/deck.dto.dart';
 import 'package:flashxp/features/preview/data/preview.repository.dart';
 import 'package:flashxp/features/preview/logic/preview.controller.dart';
@@ -198,7 +199,11 @@ class _PreviewActions extends StatelessWidget {
             Expanded(
               child: FlashButton(
                 label: 'Start now',
-                onPressed: () => context.push('/home/$deckId/practice'),
+                // TODO: add a button for quickPractice
+                onPressed: () => context.push(
+                  '/home/$deckId/practice',
+                  extra: {'practiceType': PracticeType.smartReview},
+                ),
                 isBlock: true,
               ),
             ),

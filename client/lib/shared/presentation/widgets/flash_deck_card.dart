@@ -1,3 +1,4 @@
+import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
 import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
@@ -148,7 +149,10 @@ class _CardActions extends StatelessWidget {
       children: [
         FlashButton(
           label: 'Start now',
-          onPressed: () => context.push('/home/$deckId/practice'),
+          onPressed: () => context.push(
+            '/home/$deckId/practice',
+            extra: {'practiceType': PracticeType.quickPractice},
+          ),
         ),
         Text('$progress%', style: theme.textTheme.bodySmall),
       ],
