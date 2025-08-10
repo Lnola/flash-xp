@@ -27,7 +27,7 @@ export class SmartReviewService {
       return Result.success();
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
-        return Result.failure('Boxes already initialized for this deck');
+        return Result.success();
       }
       return Result.failure('Failed to initialize smart review');
     }
