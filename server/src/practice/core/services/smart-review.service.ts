@@ -14,10 +14,11 @@ export class SmartReviewService {
   //   TODO: implement the smart review logic
   async fetchQuestions(
     deckId: PracticeQuestion['deckId'],
+    learnerId: number,
   ): Promise<Result<PracticeQuestion[]>> {
     try {
       const questions = await this.practiceQuestionRepository.find(
-        { deckId },
+        { boxes: { deckId, learnerId, availableFrom: { $lte: new Date() } } },
         { populate: ['answerOptions'] },
       );
       if (questions.length === 0) {
