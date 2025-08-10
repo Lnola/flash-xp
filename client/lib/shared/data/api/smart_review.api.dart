@@ -4,6 +4,10 @@ import 'package:http/http.dart' as http;
 class SmartReviewApi {
   final client = AuthHttpClient();
 
+  Future<http.Response> start(int deckId) {
+    return client.post(client.buildUri('/practice/smart/decks/$deckId/start'));
+  }
+
   Future<http.Response> getQuestions(int deckId) {
     return client.get(
       client.buildUri(
