@@ -1,7 +1,4 @@
-import {
-  EntityManager,
-  UniqueConstraintViolationException,
-} from '@mikro-orm/core';
+import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Box, PracticeQuestion } from 'practice/core/entities';
@@ -11,7 +8,6 @@ import { Result } from 'shared/helpers/result';
 @Injectable()
 export class SmartReviewService {
   constructor(
-    private readonly em: EntityManager,
     @InjectRepository(Box)
     private readonly boxRepository: BaseEntityRepository<Box>,
     @InjectRepository(PracticeQuestion)
