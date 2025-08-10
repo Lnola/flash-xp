@@ -77,6 +77,7 @@ class PreviewViewState extends State<PreviewView> {
             forkDeck: controller.forkDeck,
             removeDeck: controller.removeDeck,
             handleToggleBookmark: controller.handleToggleBookmark,
+            startSmartReview: controller.startSmartReview,
           ),
         ],
       ),
@@ -141,6 +142,7 @@ class _PreviewActions extends StatelessWidget {
   final Future<Result<int>> Function() forkDeck;
   final Future<Result<void>> Function() removeDeck;
   final Future<Result<void>> Function() handleToggleBookmark;
+  final Future<Result<void>> Function() startSmartReview;
 
   const _PreviewActions({
     required this.deckId,
@@ -150,6 +152,7 @@ class _PreviewActions extends StatelessWidget {
     required this.forkDeck,
     required this.removeDeck,
     required this.handleToggleBookmark,
+    required this.startSmartReview,
   });
 
   Future<void> _forkDeck(BuildContext context) async {
@@ -189,6 +192,18 @@ class _PreviewActions extends StatelessWidget {
     toggleIsBookmarked();
   }
 
+  void _startSmartReview(BuildContext context) async {
+    final result = await startSmartReview();
+    if (!context.mounted) return;
+    if (result.error != null) {
+      return useSnackbar(context, result.error, 'Failed to start smart review');
+    }
+    context.push(
+      '/home/$deckId/practice',
+      extra: {'practiceType': PracticeType.smartReview},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -199,10 +214,7 @@ class _PreviewActions extends StatelessWidget {
             Expanded(
               child: FlashButton(
                 label: 'Smart review',
-                onPressed: () => context.push(
-                  '/home/$deckId/practice',
-                  extra: {'practiceType': PracticeType.smartReview},
-                ),
+                onPressed: () => _startSmartReview(context),
                 isBlock: true,
               ),
             ),
