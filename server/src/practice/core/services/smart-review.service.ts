@@ -31,7 +31,6 @@ export class SmartReviewService {
     }
   }
 
-  //   TODO: implement the smart review logic
   async fetchQuestions(
     deckId: PracticeQuestion['deckId'],
     learnerId: number,
