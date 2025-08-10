@@ -6,6 +6,7 @@ import 'package:flashxp/features/preview/presentation/widgets/preview_info.widge
 import 'package:flashxp/shared/helpers/confirmation_dialog.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/helpers/with_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_bookmark.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button_icon.dart';
@@ -193,7 +194,7 @@ class _PreviewActions extends StatelessWidget {
   }
 
   void _startSmartReview(BuildContext context) async {
-    final result = await startSmartReview();
+    final result = await withLoading(context, startSmartReview);
     if (!context.mounted) return;
     if (result.error != null) {
       return useSnackbar(context, result.error, 'Failed to start smart review');
