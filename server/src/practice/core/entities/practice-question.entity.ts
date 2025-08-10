@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core';
 import BaseEntity from 'shared/database/base.entity';
-import { PracticeAnswerOption } from '.';
+import { Box, PracticeAnswerOption } from '.';
 
 @Entity({ tableName: 'question' })
 export class PracticeQuestion extends BaseEntity {
@@ -15,4 +15,7 @@ export class PracticeQuestion extends BaseEntity {
 
   @OneToMany(() => PracticeAnswerOption, (it) => it.question)
   answerOptions = new Collection<PracticeAnswerOption>(this);
+
+  @OneToMany(() => Box, (it) => it.question)
+  boxes = new Collection<Box>(this);
 }
