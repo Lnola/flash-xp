@@ -61,4 +61,8 @@ class PreviewController extends ChangeNotifier {
         : _previewRepository.createBookmark;
     return await toggle(deckId);
   }
+
+  Future<Result<void>> startSmartReview() async {
+    return await _previewRepository.startSmartReview(deckId);
+  }
 }
