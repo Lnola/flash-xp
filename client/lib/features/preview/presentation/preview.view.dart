@@ -198,8 +198,7 @@ class _PreviewActions extends StatelessWidget {
           children: [
             Expanded(
               child: FlashButton(
-                label: 'Start now',
-                // TODO: add a button for quickPractice
+                label: 'Smart review',
                 onPressed: () => context.push(
                   '/home/$deckId/practice',
                   extra: {'practiceType': PracticeType.smartReview},
@@ -250,6 +249,16 @@ class _PreviewActions extends StatelessWidget {
             isBlock: true,
             isSecondary: true,
           ),
+        ),
+        const SizedBox(height: 12),
+        FlashButton(
+          label: 'Quick practice',
+          onPressed: () => context.push(
+            '/home/$deckId/practice',
+            extra: {'practiceType': PracticeType.quickPractice},
+          ),
+          isBlock: true,
+          isSecondary: true,
         ),
       ],
     );
