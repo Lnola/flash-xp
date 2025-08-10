@@ -1,4 +1,7 @@
-import { EntityManager } from '@mikro-orm/core';
+import {
+  EntityManager,
+  UniqueConstraintViolationException,
+} from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { Box, PracticeQuestion } from 'practice/core/entities';
@@ -26,7 +29,10 @@ export class SmartReviewService {
       });
       await this.boxRepository.persistAndFlush(boxes);
       return Result.success();
-    } catch {
+    } catch (error) {
+      if (error instanceof UniqueConstraintViolationException) {
+        return Result.failure('Boxes already initialized for this deck');
+      }
       return Result.failure('Failed to initialize smart review');
     }
   }
