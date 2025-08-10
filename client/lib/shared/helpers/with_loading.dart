@@ -8,10 +8,16 @@ Future<T> withLoading<T>(
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (_) => const _Loading(message: 'Loading...'),
+    builder: (_) => _Loading(message: message),
   );
+  final startTime = DateTime.now();
+  final minimumLoadingDuration = const Duration(seconds: 1);
   try {
     final r = await task();
+    final elapsed = DateTime.now().difference(startTime);
+    if (elapsed < minimumLoadingDuration) {
+      await Future.delayed(minimumLoadingDuration - elapsed);
+    }
     return r;
   } finally {
     if (context.mounted) Navigator.of(context, rootNavigator: true).pop();
