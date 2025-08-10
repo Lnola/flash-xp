@@ -1,3 +1,4 @@
+import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flutter/material.dart';
 
 Future<T> withLoading<T>(
@@ -30,15 +31,24 @@ class _Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Row(
+      backgroundColor: Colors.transparent,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 32,
         children: [
-          const SizedBox(
-            width: 24,
-            height: 24,
-            child: CircularProgressIndicator(strokeWidth: 2),
+          FlashLoading(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            width: 48,
+            height: 48,
           ),
-          const SizedBox(width: 12),
-          Text(message),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+          ),
         ],
       ),
     );
