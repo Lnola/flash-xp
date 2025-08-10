@@ -194,7 +194,11 @@ class _PreviewActions extends StatelessWidget {
   }
 
   void _startSmartReview(BuildContext context) async {
-    final result = await withLoading(context, startSmartReview);
+    final result = await withLoading(
+      context,
+      startSmartReview,
+      message: 'Generating smart review questions for you today...',
+    );
     if (!context.mounted) return;
     if (result.error != null) {
       return useSnackbar(context, result.error, 'Failed to start smart review');
