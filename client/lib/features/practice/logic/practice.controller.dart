@@ -39,7 +39,7 @@ class PracticeController extends ChangeNotifier {
   bool isLoadingNextQuestion = false;
   bool isFinished = false;
   String? criticalError;
-  String? answerError;
+  String? error;
 
   final List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
@@ -102,7 +102,7 @@ class PracticeController extends ChangeNotifier {
   }
 
   void _handleOptionSelected(String label) async {
-    answerError = null;
+    error = null;
     final isCorrectAnswerSelected = mode.strategy.isAnswerCorrect(
       buttonLabel: label,
       answerOptionButtons: answerOptionButtons,
@@ -113,7 +113,7 @@ class PracticeController extends ChangeNotifier {
         questionId,
       );
       if (result.error != null) {
-        answerError =
+        error =
             'Failed to submit answer, please try again. If the problem persists, restart the app.';
         notifyListeners();
         return;

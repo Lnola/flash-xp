@@ -52,9 +52,9 @@ class _PracticeViewState extends State<PracticeView> {
       return const SizedBox.shrink();
     }
 
-    if (controller.answerError != null && mounted) {
+    if (controller.error != null && mounted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        useSnackbar(context, controller.answerError, null);
+        useSnackbar(context, controller.error, null);
       });
     }
 
