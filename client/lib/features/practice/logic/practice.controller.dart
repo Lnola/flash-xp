@@ -39,6 +39,7 @@ class PracticeController extends ChangeNotifier {
   bool isLoadingNextQuestion = false;
   bool isFinished = false;
   String? error;
+  String? answerError;
 
   final List<QuestionDto> _questions = [];
   int _currentQuestionIndex = 0;
@@ -100,17 +101,28 @@ class PracticeController extends ChangeNotifier {
     });
   }
 
-  void _handleOptionSelected(String label) {
+  void _handleOptionSelected(String label) async {
+    answerError = null;
+    final isCorrectAnswerSelected = mode.strategy.isAnswerCorrect(
+      buttonLabel: label,
+      answerOptionButtons: answerOptionButtons,
+    );
+    if (isCorrectAnswerSelected) {
+      final questionId = _questions[_currentQuestionIndex].id;
+      final result = await practiceType.strategy.handleCorrectAnswer(
+        questionId,
+      );
+      if (result.error != null) {
+        answerError = result.error;
+        notifyListeners();
+        return;
+      }
+    }
     hasAnswered = true;
     answerOptionButtons = mode.strategy.updateAnswerOptionButtons(
       label: label,
       answerOptionButtons: answerOptionButtons,
     );
-    final isCorrectAnswerSelected = mode.strategy.isAnswerCorrect(
-      buttonLabel: label,
-      answerOptionButtons: answerOptionButtons,
-    );
-
     notifyListeners();
   }
 }
