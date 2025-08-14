@@ -37,4 +37,17 @@ export class SmartReviewController {
     if (error || !data) throw new BadRequestException(error);
     return data;
   }
+
+  // TODO: Update the endpoint
+  @Post('questions/:questionId/answer')
+  async answerQuestion(
+    @Param('questionId') questionId: PracticeQuestion['id'],
+    @User('id') learnerId: number,
+  ): Promise<void> {
+    const { error } = await this.smartReviewService.incrementBox(
+      questionId,
+      learnerId,
+    );
+    if (error) throw new BadRequestException(error);
+  }
 }
