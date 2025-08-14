@@ -10,4 +10,9 @@ class QuickPracticeStrategy implements PracticeTypeStrategy {
   Future<Result<List<QuestionDto>>> getQuestions(int deckId) {
     return _quickPracticeRepository.getQuestions(deckId);
   }
+
+  @override
+  Future<void> handleCorrectAnswer(int questionId) {
+    return Future.value();
+  }
 }
