@@ -72,8 +72,7 @@ export class SmartReviewService {
       box.incrementBox();
       await this.boxRepository.persistAndFlush(box);
       return Result.success();
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure('Failed to increment box');
     }
   }
