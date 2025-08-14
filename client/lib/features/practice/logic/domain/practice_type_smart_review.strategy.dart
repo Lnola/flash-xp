@@ -10,4 +10,9 @@ class SmartReviewStrategy implements PracticeTypeStrategy {
   Future<Result<List<QuestionDto>>> getQuestions(int deckId) {
     return _smartReviewRepository.getQuestions(deckId);
   }
+
+  @override
+  Future<void> handleCorrectAnswer(int questionId) {
+    return _smartReviewRepository.incrementBox(questionId);
+  }
 }
