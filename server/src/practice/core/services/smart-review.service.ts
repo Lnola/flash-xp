@@ -51,10 +51,12 @@ export class SmartReviewService {
     }
   }
 
-  async incrementBox(
+  async submitAnswer(
     questionId: PracticeQuestion['id'],
     learnerId: number,
+    isCorrect: boolean,
   ): Promise<Result<void>> {
+    if (!isCorrect) return Result.success();
     try {
       const box = await this.boxRepository.findOne({
         question: questionId,
