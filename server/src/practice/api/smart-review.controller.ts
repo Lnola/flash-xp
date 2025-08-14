@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
   Param,
@@ -41,13 +42,15 @@ export class SmartReviewController {
 
   // TODO: Update the endpoint
   @Put('questions/:questionId/answer')
-  async answerQuestion(
+  async submitAnswer(
     @Param('questionId') questionId: PracticeQuestion['id'],
     @User('id') learnerId: number,
+    @Body('isCorrect') isCorrect: boolean,
   ): Promise<void> {
-    const { error } = await this.smartReviewService.incrementBox(
+    const { error } = await this.smartReviewService.submitAnswer(
       questionId,
       learnerId,
+      isCorrect,
     );
     if (error) throw new BadRequestException(error);
   }
