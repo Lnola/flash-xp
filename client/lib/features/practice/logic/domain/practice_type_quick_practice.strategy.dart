@@ -12,7 +12,7 @@ class QuickPracticeStrategy implements PracticeTypeStrategy {
   }
 
   @override
-  Future<Result<void>> handleCorrectAnswer(int questionId) {
+  Future<Result<void>> handleSubmitAnswer(int questionId, bool isCorrect) {
     return Future.value(Result.success());
   }
 }
