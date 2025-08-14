@@ -47,4 +47,15 @@ class MultipleChoiceStrategy implements PracticeModeStrategy {
       );
     }).toList();
   }
+
+  @override
+  bool isAnswerCorrect({
+    required String buttonLabel,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
+  }) {
+    final option = answerOptionButtons.firstWhere(
+      (option) => option.label == buttonLabel,
+    );
+    return option.isCorrect;
+  }
 }
