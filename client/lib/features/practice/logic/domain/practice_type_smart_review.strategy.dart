@@ -12,7 +12,7 @@ class SmartReviewStrategy implements PracticeTypeStrategy {
   }
 
   @override
-  Future<void> handleCorrectAnswer(int questionId) {
+  Future<Result<void>> handleCorrectAnswer(int questionId) {
     return _smartReviewRepository.incrementBox(questionId);
   }
 }
