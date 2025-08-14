@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flashxp/shared/data/auth_http_client.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,9 +18,10 @@ class SmartReviewApi {
     );
   }
 
-  Future<http.Response> incrementBox(int questionId) {
+  Future<http.Response> submitAnswer(int questionId, bool isCorrect) {
     return client.put(
       client.buildUri('/practice/smart/questions/$questionId/answer'),
+      body: jsonEncode({'isCorrect': isCorrect}),
     );
   }
 }
