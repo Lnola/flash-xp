@@ -17,7 +17,7 @@ class SmartReviewApi {
   }
 
   Future<http.Response> incrementBox(int questionId) {
-    return client.post(
+    return client.put(
       client.buildUri('/practice/smart/questions/$questionId/answer'),
     );
   }
