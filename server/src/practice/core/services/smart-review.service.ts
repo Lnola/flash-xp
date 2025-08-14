@@ -19,8 +19,12 @@ export class SmartReviewService {
     learnerId: number,
   ): Promise<Result<void>> {
     try {
-      const questions = await this.practiceQuestionRepository.find({ deckId });
-      const boxes = questions.map((question) => {
+      const questionsWithoutCurrentUserBoxes =
+        await this.practiceQuestionRepository.find({
+          deckId,
+          boxes: { learnerId, id: null },
+        });
+      const boxes = questionsWithoutCurrentUserBoxes.map((question) => {
         return new Box({ deckId, learnerId, question });
       });
       await this.boxRepository.persistAndFlush(boxes);
