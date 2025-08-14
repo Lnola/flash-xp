@@ -15,4 +15,10 @@ class SmartReviewApi {
       ),
     );
   }
+
+  Future<http.Response> incrementBox(int questionId) {
+    return client.post(
+      client.buildUri('/practice/smart/questions/$questionId/answer'),
+    );
+  }
 }
