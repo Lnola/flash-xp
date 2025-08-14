@@ -22,9 +22,10 @@ class SmartReviewRepository {
     }
   }
 
-  Future<Result<void>> incrementBox(int questionId) async {
+  Future<Result<void>> submitAnswer(int questionId, bool isCorrect) async {
     try {
-      final response = await _smartReviewApi.incrementBox(questionId);
+      final response =
+          await _smartReviewApi.submitAnswer(questionId, isCorrect);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure(message);
