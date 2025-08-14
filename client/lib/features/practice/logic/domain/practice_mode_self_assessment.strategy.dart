@@ -29,4 +29,12 @@ class SelfAssessmentStrategy implements PracticeModeStrategy {
   }) {
     return answerOptionButtons;
   }
+
+  @override
+  bool isAnswerCorrect({
+    required String buttonLabel,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
+  }) {
+    return buttonLabel == 'I know';
+  }
 }
