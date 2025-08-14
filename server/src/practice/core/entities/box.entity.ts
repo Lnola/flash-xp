@@ -15,9 +15,7 @@ export class Box extends BaseEntity {
   @Property()
   index!: number;
 
-  @Property({
-    onUpdate: (it: Box) => new Date(new Date().getDate() + it.index),
-  })
+  @Property()
   availableFrom: Date = new Date();
 
   @ManyToOne(() => PracticeQuestion)
