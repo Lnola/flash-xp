@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { PracticeQuestion } from 'practice/core/entities';
 import { SmartReviewService } from 'practice/core/services';
@@ -39,7 +40,7 @@ export class SmartReviewController {
   }
 
   // TODO: Update the endpoint
-  @Post('questions/:questionId/answer')
+  @Put('questions/:questionId/answer')
   async answerQuestion(
     @Param('questionId') questionId: PracticeQuestion['id'],
     @User('id') learnerId: number,
