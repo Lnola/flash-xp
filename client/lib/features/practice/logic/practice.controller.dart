@@ -113,7 +113,8 @@ class PracticeController extends ChangeNotifier {
         questionId,
       );
       if (result.error != null) {
-        answerError = result.error;
+        answerError =
+            'Failed to submit answer, please try again. If the problem persists, restart the app.';
         notifyListeners();
         return;
       }
