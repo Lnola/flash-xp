@@ -106,6 +106,11 @@ class PracticeController extends ChangeNotifier {
       label: label,
       answerOptionButtons: answerOptionButtons,
     );
+    final isCorrectAnswerSelected = mode.strategy.isAnswerCorrect(
+      buttonLabel: label,
+      answerOptionButtons: answerOptionButtons,
+    );
+
     notifyListeners();
   }
 }
