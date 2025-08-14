@@ -21,4 +21,17 @@ class SmartReviewRepository {
       return Result.failure(error.toString());
     }
   }
+
+  Future<Result<void>> incrementBox(int questionId) async {
+    try {
+      final response = await _smartReviewApi.incrementBox(questionId);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure(message);
+      }
+      return Result.success();
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 }
