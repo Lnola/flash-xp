@@ -107,17 +107,16 @@ class PracticeController extends ChangeNotifier {
       buttonLabel: label,
       answerOptionButtons: answerOptionButtons,
     );
-    if (isCorrectAnswerSelected) {
-      final questionId = _questions[_currentQuestionIndex].id;
-      final result = await practiceType.strategy.handleCorrectAnswer(
-        questionId,
-      );
-      if (result.error != null) {
-        error =
-            'Failed to submit answer, please try again. If the problem persists, restart the app.';
-        notifyListeners();
-        return;
-      }
+    final questionId = _questions[_currentQuestionIndex].id;
+    final result = await practiceType.strategy.handleSubmitAnswer(
+      questionId,
+      isCorrectAnswerSelected,
+    );
+    if (result.error != null) {
+      error =
+          'Failed to submit answer, please try again. If the problem persists, restart the app.';
+      notifyListeners();
+      return;
     }
     hasAnswered = true;
     answerOptionButtons = mode.strategy.updateAnswerOptionButtons(
