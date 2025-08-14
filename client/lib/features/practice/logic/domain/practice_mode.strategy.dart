@@ -10,4 +10,8 @@ abstract class PracticeModeStrategy {
     required String label,
     required List<AnswerOptionButtonModel> answerOptionButtons,
   });
+  bool isAnswerCorrect({
+    required String buttonLabel,
+    required List<AnswerOptionButtonModel> answerOptionButtons,
+  });
 }
