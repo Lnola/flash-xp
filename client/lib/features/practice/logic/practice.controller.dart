@@ -38,7 +38,7 @@ class PracticeController extends ChangeNotifier {
   bool isLoading = true;
   bool isLoadingNextQuestion = false;
   bool isFinished = false;
-  String? error;
+  String? criticalError;
   String? answerError;
 
   final List<QuestionDto> _questions = [];
@@ -56,7 +56,7 @@ class PracticeController extends ChangeNotifier {
 
     final result = await practiceType.strategy.getQuestions(deckId);
     if (result.error != null) {
-      error = result.error;
+      criticalError = result.error;
       isLoading = false;
       notifyListeners();
       return;

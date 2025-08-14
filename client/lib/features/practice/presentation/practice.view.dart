@@ -44,9 +44,9 @@ class _PracticeViewState extends State<PracticeView> {
 
   @override
   Widget build(BuildContext context) {
-    if (controller.error != null && mounted) {
+    if (controller.criticalError != null && mounted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        useSnackbar(context, controller.error, 'Failed to load questions.');
+        useSnackbar(context, controller.criticalError, null);
         context.pop();
       });
       return const SizedBox.shrink();
