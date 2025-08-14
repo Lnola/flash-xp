@@ -16,7 +16,7 @@ export class Box extends BaseEntity {
   index!: number;
 
   @Property()
-  availableFrom: Date = new Date();
+  availableFrom: Date = startOfDay(new Date());
 
   @ManyToOne(() => PracticeQuestion)
   question!: PracticeQuestion;
