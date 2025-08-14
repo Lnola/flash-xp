@@ -50,4 +50,23 @@ export class SmartReviewService {
       return Result.failure('Failed to fetch practice questions');
     }
   }
+
+  async incrementBox(
+    questionId: PracticeQuestion['id'],
+    learnerId: number,
+  ): Promise<Result<void>> {
+    try {
+      const box = await this.boxRepository.findOne({
+        question: questionId,
+        learnerId,
+      });
+      if (!box) return Result.failure('Box not found');
+      box.incrementBox();
+      await this.boxRepository.persistAndFlush(box);
+      return Result.success();
+    } catch (error) {
+      console.log(error);
+      return Result.failure('Failed to increment box');
+    }
+  }
 }
