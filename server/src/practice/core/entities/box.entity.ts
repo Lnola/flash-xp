@@ -1,4 +1,6 @@
 import { Entity, Index, ManyToOne, Property, Unique } from '@mikro-orm/core';
+import { addDays, startOfDay } from 'date-fns';
+import { BOX_MAX_INDEX } from 'shared/constants/box';
 import BaseEntity from 'shared/database/base.entity';
 import { PracticeQuestion } from '.';
 
@@ -27,6 +29,13 @@ export class Box extends BaseEntity {
     this.learnerId = learnerId;
     this.index = 1;
     this.question = question;
+  }
+
+  incrementBox(): void {
+    if (this.index >= BOX_MAX_INDEX) return;
+    const today = startOfDay(new Date());
+    this.availableFrom = addDays(today, this.index);
+    this.index += 1;
   }
 }
 
