@@ -47,7 +47,9 @@ export class SmartReviewService {
         { populate: ['answerOptions'] },
       );
       if (questions.length === 0) {
-        return Result.failure('No questions found for this deck');
+        return Result.failure(
+          'No questions are available for smart review at this time.',
+        );
       }
       return Result.success(questions);
     } catch {
