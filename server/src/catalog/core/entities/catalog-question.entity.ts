@@ -22,9 +22,12 @@ export class CatalogQuestion extends BaseEntity {
   @ManyToOne(() => CatalogQuestionType, { eager: true })
   questionType!: CatalogQuestionType;
 
-  @OneToMany(() => CatalogBox, (box) => box.question)
+  @OneToMany(() => CatalogBox, (box) => box.question, { hidden: true })
   boxes? = new Collection<CatalogBox>(this);
 
+  // This is meant to be used ONLY in conjunction with the boxByLearner filter.
+  // It may be confusing to have this property on the question entity but it simplifies the logic in the service layer.
+  // Possible future improvement: consider refactoring this logic to make it more explicit.
   @Property({ persist: false })
   get boxIndex(): number {
     if (!this.boxes?.getItems().length) return 1;
