@@ -39,49 +39,36 @@ class PreviewInfoWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    content,
-                    style: theme.textTheme.bodyMedium?.copyWith(height: 1.2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 24,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          content,
+                          style:
+                              theme.textTheme.bodyMedium?.copyWith(height: 1.2),
+                        ),
+                      ),
+                      If(
+                        condition: boxIndex != null,
+                        child: Text(
+                          '$boxIndex',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurface.withAlpha(77),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-          If(
-            condition: boxIndex != null,
-            child: _BoxIndex(boxIndex: boxIndex),
-          ),
         ],
-      ),
-    );
-  }
-}
-
-class _BoxIndex extends StatelessWidget {
-  final int? boxIndex;
-
-  const _BoxIndex({
-    required this.boxIndex,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      margin: const EdgeInsets.only(left: 8),
-      width: 44,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(28),
-      ),
-      child: Text(
-        '$boxIndex',
-        style: theme.textTheme.bodySmall?.copyWith(
-          color: theme.colorScheme.onSurface.withAlpha(77),
-          fontWeight: FontWeight.w600,
-        ),
-        textAlign: TextAlign.center,
       ),
     );
   }
