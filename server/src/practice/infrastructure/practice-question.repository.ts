@@ -25,4 +25,14 @@ export class PracticeQuestionRepository extends EntityRepository<PracticeQuestio
       this.getEntityManager().map(PracticeQuestion, question),
     );
   }
+
+  async findAvailable(
+    deckId: PracticeQuestion['deckId'],
+    learnerId: number,
+  ): Promise<PracticeQuestion[]> {
+    return this.find(
+      { boxes: { deckId, learnerId, availableFrom: { $lte: new Date() } } },
+      { populate: ['answerOptions'] },
+    );
+  }
 }
