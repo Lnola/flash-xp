@@ -1,9 +1,10 @@
-import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
+import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { PracticeQuestion } from 'practice/core/entities';
+import { BaseEntityRepository } from 'shared/database/base.repository';
 
 @Injectable()
-export class PracticeQuestionRepository extends EntityRepository<PracticeQuestion> {
+export class PracticeQuestionRepository extends BaseEntityRepository<PracticeQuestion> {
   constructor(protected readonly em: EntityManager) {
     super(em, PracticeQuestion);
   }
