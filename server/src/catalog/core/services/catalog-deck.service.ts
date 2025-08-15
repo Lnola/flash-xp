@@ -34,7 +34,8 @@ export class CatalogDeckService {
   ): Promise<Result<CatalogDeckPreview>> {
     try {
       const deck = await this.catalogDeckRepository.findOne(deckId, {
-        populate: ['questions', 'bookmarks'],
+        populate: ['questions.boxes', 'bookmarks'],
+        filters: { boxByLearner: { learnerId } },
       });
       if (!deck) return Result.failure('Deck not found');
       const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
