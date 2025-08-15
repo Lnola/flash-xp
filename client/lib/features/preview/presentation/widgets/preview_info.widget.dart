@@ -49,7 +49,7 @@ class PreviewInfoWidget extends StatelessWidget {
           ),
           If(
             condition: boxIndex != null,
-            child: _BoxIndex(theme: theme, boxIndex: boxIndex),
+            child: _BoxIndex(boxIndex: boxIndex),
           ),
         ],
       ),
@@ -58,16 +58,15 @@ class PreviewInfoWidget extends StatelessWidget {
 }
 
 class _BoxIndex extends StatelessWidget {
+  final int? boxIndex;
+
   const _BoxIndex({
-    required this.theme,
     required this.boxIndex,
   });
 
-  final ThemeData theme;
-  final int? boxIndex;
-
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.only(left: 8),
       width: 44,
