@@ -67,6 +67,7 @@ class PreviewViewState extends State<PreviewView> {
             title: controller.title,
             description: controller.description,
           ),
+          _PreviewLegend(),
           _PreviewQuestions(
             questions: controller.questions,
           ),
@@ -109,6 +110,27 @@ class _PreviewHeader extends StatelessWidget {
           content: description,
         ),
       ],
+    );
+  }
+}
+
+class _PreviewLegend extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
+          fontWeight: FontWeight.w600,
+        );
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.only(top: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Questions', style: textStyle),
+          Text('Box index', style: textStyle),
+        ],
+      ),
     );
   }
 }
