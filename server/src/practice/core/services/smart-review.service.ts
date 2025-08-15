@@ -1,5 +1,6 @@
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { Box, PracticeQuestion } from 'practice/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
@@ -8,6 +9,7 @@ import { Result } from 'shared/helpers/result';
 @Injectable()
 export class SmartReviewService {
   constructor(
+    private readonly em: EntityManager,
     @InjectRepository(Box)
     private readonly boxRepository: BaseEntityRepository<Box>,
     @InjectRepository(PracticeQuestion)
@@ -19,14 +21,23 @@ export class SmartReviewService {
     learnerId: number,
   ): Promise<Result<void>> {
     try {
-      const questionsWithoutCurrentUserBoxes =
-        await this.practiceQuestionRepository.find({
-          deckId,
-          boxes: { learnerId, id: null },
-        });
-      const boxes = questionsWithoutCurrentUserBoxes.map((question) => {
-        return new Box({ deckId, learnerId, question });
-      });
+      // TODO: move this logic to a repository
+      const knex = this.em.getKnex();
+      const boxIdsSubquery = knex('box')
+        .select(1)
+        .where('box.question_id', knex.ref('question.id'))
+        .andWhere('box.learner_id', learnerId);
+      const rows = await knex('question')
+        .select('*')
+        .where('question.deck_id', deckId)
+        .whereNotExists(boxIdsSubquery);
+      if (rows.length === 0) return Result.success();
+      const questionsWithNoBoxes = rows.map((q: PracticeQuestion) =>
+        this.practiceQuestionRepository.map(q),
+      );
+      const boxes = questionsWithNoBoxes.map(
+        (question) => new Box({ deckId, learnerId, question }),
+      );
       await this.boxRepository.persistAndFlush(boxes);
       return Result.success();
     } catch (error) {
