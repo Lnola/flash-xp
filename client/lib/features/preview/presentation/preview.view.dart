@@ -151,6 +151,7 @@ class _PreviewQuestions extends StatelessWidget {
         (index) => PreviewInfoWidget(
           label: '#${index + 1}',
           content: questions[index].text,
+          boxIndex: questions[index].boxIndex,
         ),
       ),
     );
