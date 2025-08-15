@@ -1,16 +1,19 @@
 class QuestionDto {
   final int id;
   final String text;
+  final int boxIndex;
 
   QuestionDto({
     required this.id,
     required this.text,
+    required this.boxIndex,
   });
 
   factory QuestionDto.fromJson(Map<String, dynamic> json) {
     return QuestionDto(
       id: json['id'],
       text: json['text'],
+      boxIndex: json['boxIndex'],
     );
   }
 }
