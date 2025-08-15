@@ -24,4 +24,10 @@ export class CatalogQuestion extends BaseEntity {
 
   @OneToMany(() => CatalogBox, (box) => box.question)
   boxes? = new Collection<CatalogBox>(this);
+
+  @Property({ persist: false })
+  get boxIndex(): number {
+    if (!this.boxes?.getItems().length) return 1;
+    return this.boxes?.getItems()[0].index;
+  }
 }
