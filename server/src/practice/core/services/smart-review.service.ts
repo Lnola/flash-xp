@@ -43,9 +43,9 @@ export class SmartReviewService {
     learnerId: number,
   ): Promise<Result<PracticeQuestion[]>> {
     try {
-      const questions = await this.practiceQuestionRepository.find(
-        { boxes: { deckId, learnerId, availableFrom: { $lte: new Date() } } },
-        { populate: ['answerOptions'] },
+      const questions = await this.practiceQuestionRepository.findAvailable(
+        deckId,
+        learnerId,
       );
       if (questions.length === 0) {
         return Result.failure(
