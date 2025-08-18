@@ -1,4 +1,4 @@
-import { ObjectQuery } from '@mikro-orm/core';
+import { ObjectQuery, QueryOrder } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CatalogDeckPreview } from 'catalog/api/dto';
@@ -36,6 +36,7 @@ export class CatalogDeckService {
       const deck = await this.catalogDeckRepository.findOne(deckId, {
         populate: ['questions.boxes', 'bookmarks'],
         filters: { boxByLearner: { learnerId } },
+        populateOrderBy: { questions: { id: QueryOrder.ASC } },
       });
       if (!deck) return Result.failure('Deck not found');
       const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
