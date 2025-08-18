@@ -1,7 +1,7 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { initializeApp } from 'firebase-admin/app';
-import pdfParse from 'pdf-parse';
 import { logger } from 'firebase-functions';
+import { summarizeAndGenerate } from './generate-questions';
 import {
   sendErrorResponse,
   verifyContentType,
@@ -10,19 +10,6 @@ import {
 } from './helpers/http';
 
 initializeApp();
-
-async function summarizeAndGenerate(pdfBuffer: Buffer) {
-  // Placeholder implementation: parse text and generate dummy questions
-  const data = await pdfParse(pdfBuffer);
-  const text = data.text;
-
-  logger.info(text);
-  const questions = {
-    question: `Question...`,
-    answer: 'Answer...',
-  };
-  return { questions };
-}
 
 export const summarizePdf = onRequest(async (req, res) => {
   verifyRequestMethod('POST', req, res);
