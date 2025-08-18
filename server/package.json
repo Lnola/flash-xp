@@ -62,5 +62,8 @@
   },
   "mikro-orm": {
     "useTsNode": true
+  },
+  "engines": {
+    "node": "24"
   }
 }
