@@ -40,8 +40,7 @@ export class SmartReviewController {
     return data;
   }
 
-  // TODO: Update the endpoint
-  @Put('questions/:questionId/answer')
+  @Put('decks/:deckId/boxes/:questionId')
   async submitAnswer(
     @Param('questionId') questionId: PracticeQuestion['id'],
     @User('id') learnerId: number,
