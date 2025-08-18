@@ -2,6 +2,12 @@ import { onRequest } from 'firebase-functions/v2/https';
 import { initializeApp } from 'firebase-admin/app';
 import pdfParse from 'pdf-parse';
 import { logger } from 'firebase-functions';
+import {
+  sendErrorResponse,
+  verifyContentType,
+  verifyRequestPdf,
+  verifyRequestMethod,
+} from './helpers/http';
 
 initializeApp();
 
@@ -19,21 +25,9 @@ async function summarizeAndGenerate(pdfBuffer: Buffer) {
 }
 
 export const summarizePdf = onRequest(async (req, res) => {
-  if (req.method !== 'POST') {
-    res.status(405).send({ error: 'Method not allowed, use POST.' });
-    return;
-  }
-
-  if (!req.rawBody || req.rawBody.length === 0) {
-    res.status(400).send({ error: 'Missing PDF file in request body.' });
-    return;
-  }
-
-  const contentType = req.get('content-type') || '';
-  if (!contentType.includes('application/pdf')) {
-    res.status(400).send({ error: 'Content-Type must be application/pdf.' });
-    return;
-  }
+  verifyRequestMethod('POST', req, res);
+  verifyRequestPdf(req, res);
+  verifyContentType('application/pdf', req, res);
 
   try {
     const pdfBuffer = Buffer.from(req.rawBody);
@@ -41,8 +35,12 @@ export const summarizePdf = onRequest(async (req, res) => {
     res.json(result);
   } catch (error) {
     if (error instanceof Error) {
-      logger.log('Error processing PDF:', error.message);
+      logger.error('Error processing PDF:', error.message);
     }
-    res.status(500).send({ error: 'Failed to process PDF.' });
+    sendErrorResponse({
+      res,
+      statusCode: 500,
+      message: 'Failed to process PDF.',
+    });
   }
 });
