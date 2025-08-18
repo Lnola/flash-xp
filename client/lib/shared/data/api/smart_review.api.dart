@@ -7,7 +7,7 @@ class SmartReviewApi {
   final client = AuthHttpClient();
 
   Future<http.Response> start(int deckId) {
-    return client.post(client.buildUri('/practice/smart/decks/$deckId/start'));
+    return client.post(client.buildUri('/practice/smart/decks/$deckId/boxes'));
   }
 
   Future<http.Response> getQuestions(int deckId) {
