@@ -15,8 +15,8 @@ import { User } from 'shared/decorators';
 export class SmartReviewController {
   constructor(private readonly smartReviewService: SmartReviewService) {}
 
-  @Post('decks/:deckId/start')
-  async start(
+  @Post('decks/:deckId/boxes')
+  async initBoxes(
     @Param('deckId') deckId: PracticeQuestion['deckId'],
     @User('id') learnerId: number,
   ): Promise<void> {
