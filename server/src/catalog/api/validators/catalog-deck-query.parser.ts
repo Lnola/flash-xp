@@ -7,6 +7,7 @@ export const parseCatalogDeckQuery = (
   learnerId?: Learner['id'],
 ) => {
   const handlers: ParseQueryHandlers<CatalogDeckQuery, CatalogDeck> = {
+    // TODO: implement the popular handler
     questionType: (where, filters) => {
       where.questions = { questionType: { name: filters.questionType } };
     },
