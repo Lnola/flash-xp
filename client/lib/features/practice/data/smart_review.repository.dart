@@ -22,10 +22,14 @@ class SmartReviewRepository {
     }
   }
 
-  Future<Result<void>> submitAnswer(int questionId, bool isCorrect) async {
+  Future<Result<void>> submitAnswer(
+    int deckId,
+    int questionId,
+    bool isCorrect,
+  ) async {
     try {
       final response =
-          await _smartReviewApi.submitAnswer(questionId, isCorrect);
+          await _smartReviewApi.submitAnswer(deckId, questionId, isCorrect);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure(message);

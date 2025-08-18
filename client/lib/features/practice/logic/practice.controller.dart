@@ -109,6 +109,7 @@ class PracticeController extends ChangeNotifier {
     );
     final questionId = _questions[_currentQuestionIndex].id;
     final result = await practiceType.strategy.handleSubmitAnswer(
+      deckId,
       questionId,
       isCorrectAnswerSelected,
     );

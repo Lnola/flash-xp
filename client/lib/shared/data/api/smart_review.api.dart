@@ -18,9 +18,13 @@ class SmartReviewApi {
     );
   }
 
-  Future<http.Response> submitAnswer(int questionId, bool isCorrect) {
+  Future<http.Response> submitAnswer(
+    int deckId,
+    int questionId,
+    bool isCorrect,
+  ) {
     return client.put(
-      client.buildUri('/practice/smart/questions/$questionId/answer'),
+      client.buildUri('/practice/smart/decks/$deckId/boxes/$questionId'),
       body: jsonEncode({'isCorrect': isCorrect}),
     );
   }
