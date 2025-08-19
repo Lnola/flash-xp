@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/domain/multiple_choice_questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
@@ -65,7 +66,16 @@ class BaseAuthoringController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Result<List<QuestionDto>>> generateQuestions(File pdfFile) {
+  Future<File?> pickFile() async {
+    final picked = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (picked == null || picked.files.single.path == null) return null;
+    return File(picked.files.single.path!);
+  }
+
+  Future<Result<List<QuestionDto>>> generateQuestions() {
     throw UnimplementedError('Submit method must be implemented in subclasses');
   }
 
