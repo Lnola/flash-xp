@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
@@ -35,5 +37,10 @@ class EditController extends BaseAuthoringController {
       questions: updateQuestionsDto,
     );
     return await _authoringRepository.updateDeck(deckId, updateDeckDto);
+  }
+
+  @override
+  Future<Result<List<QuestionDto>>> generateQuestions(File pdfFile) async {
+    return _authoringRepository.generateQuestions(mode.label, pdfFile);
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
+import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/base_authoring.controller.dart';
 import 'package:flashxp/shared/helpers/result.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 
 class CreateController extends BaseAuthoringController {
   final AuthoringRepository _authoringRepository;
@@ -17,5 +21,10 @@ class CreateController extends BaseAuthoringController {
       questions: createQuestionsDto,
     );
     return await _authoringRepository.createDeck(createDeckDto);
+  }
+
+  @override
+  Future<Result<List<QuestionDto>>> generateQuestions(File pdfFile) async {
+    return _authoringRepository.generateQuestions(mode.label, pdfFile);
   }
 }
