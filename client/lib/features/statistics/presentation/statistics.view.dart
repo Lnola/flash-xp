@@ -1,5 +1,5 @@
 import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart_card.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/stat_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/number_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -30,12 +30,12 @@ class StatisticsView extends StatelessWidget {
             secondLabel: 'Incorrect Answers',
           ),
           const SizedBox(height: 16.0),
-          const _StatGroup(
+          const _NumberCardGroup(
             values: ['100', '50'],
             labels: ['Decks solved today', 'Total decks solved'],
           ),
           const SizedBox(height: 16.0),
-          const _StatGroup(
+          const _NumberCardGroup(
             values: ['5', '10'],
             labels: ['Cards answered today', 'Total cards answered'],
           ),
@@ -51,11 +51,11 @@ class StatisticsView extends StatelessWidget {
   }
 }
 
-class _StatGroup extends StatelessWidget {
+class _NumberCardGroup extends StatelessWidget {
   final List<String> values;
   final List<String> labels;
 
-  const _StatGroup({
+  const _NumberCardGroup({
     required this.values,
     required this.labels,
   });
@@ -67,7 +67,7 @@ class _StatGroup extends StatelessWidget {
       children: [
         for (int i = 0; i < values.length; i++)
           Expanded(
-            child: StatCardWidget(
+            child: NumberCardWidget(
               value: values[i],
               label: labels[i],
             ),
