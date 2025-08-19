@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class GroupBarChartWidget extends StatelessWidget {
+class GroupBarChartCardWidget extends StatelessWidget {
   final List<String> days;
   final List<double> first;
   final List<double> second;
@@ -10,7 +10,7 @@ class GroupBarChartWidget extends StatelessWidget {
   final double barWidth;
   final double groupSpace;
 
-  const GroupBarChartWidget({
+  const GroupBarChartCardWidget({
     super.key,
     required this.days,
     required this.first,
