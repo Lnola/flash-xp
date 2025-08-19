@@ -24,59 +24,92 @@ class GroupBarChartWidget extends StatelessWidget {
       ...second,
     ].fold<double>(0, (p, e) => e > p ? e : p);
 
-    return AspectRatio(
-      aspectRatio: 1.8,
-      child: BarChart(
-        BarChartData(
-          maxY: (maxY + 1).ceilToDouble(),
-          barTouchData: const BarTouchData(enabled: true),
-          gridData: const FlGridData(show: false),
-          borderData: FlBorderData(show: false),
-          titlesData: FlTitlesData(
-            leftTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: true, interval: 5),
-            ),
-            rightTitles:
-                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles:
-                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, meta) {
-                  final i = value.toInt();
-                  if (i < 0 || i >= days.length) return const SizedBox.shrink();
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Text(
-                      days[i],
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  );
-                },
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      padding: const EdgeInsets.only(
+        top: 24.0,
+        bottom: 16.0,
+        left: 16.0,
+        right: 8.0,
+      ),
+      child: AspectRatio(
+        aspectRatio: 1.8,
+        child: BarChart(
+          BarChartData(
+            maxY: (maxY + 1).ceilToDouble(),
+            barTouchData: const BarTouchData(enabled: true),
+            gridData: const FlGridData(show: false),
+            borderData: FlBorderData(show: false),
+            titlesData: FlTitlesData(
+              leftTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  interval: 5,
+                  getTitlesWidget: (value, meta) {
+                    return Text(
+                      value.toStringAsFixed(0),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withAlpha(77),
+                          ),
+                    );
+                  },
+                ),
+              ),
+              rightTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              topTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  getTitlesWidget: (value, meta) {
+                    final i = value.toInt();
+                    if (i < 0 || i >= days.length) {
+                      return const SizedBox.shrink();
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        days[i],
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withAlpha(77),
+                            ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
+            barGroups: List.generate(days.length, (i) {
+              return BarChartGroupData(
+                x: i,
+                barsSpace: groupSpace,
+                barRods: [
+                  BarChartRodData(
+                    toY: first[i],
+                    width: barWidth,
+                    borderRadius: BorderRadius.circular(4),
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  BarChartRodData(
+                    toY: second[i],
+                    width: barWidth,
+                    borderRadius: BorderRadius.circular(4),
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ],
+              );
+            }),
           ),
-          barGroups: List.generate(days.length, (i) {
-            return BarChartGroupData(
-              x: i,
-              barsSpace: groupSpace,
-              barRods: [
-                BarChartRodData(
-                  toY: first[i],
-                  width: barWidth,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                BarChartRodData(
-                  toY: second[i],
-                  width: barWidth,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.error,
-                ),
-              ],
-            );
-          }),
         ),
       ),
     );
