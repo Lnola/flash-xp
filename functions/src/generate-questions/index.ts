@@ -1,12 +1,7 @@
 import 'dotenv/config';
 import OpenAI from 'openai';
 import { logger } from 'firebase-functions';
-import { HttpError } from './helpers/http';
-
-type Flashcard = {
-  question: string;
-  answer: string;
-};
+import { HttpError } from '../helpers/http';
 
 export class QuestionGenerator {
   private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -73,6 +68,11 @@ export class QuestionGenerator {
 }
 
 const SUMMARY_PROMPT = `Summarize the following text into concise bullet points.`;
+
+type Flashcard = {
+  question: string;
+  answer: string;
+};
 const FLASHCARD_PROMPT = `Create a list of flashcards from the following text. 
 Respond ONLY with valid JSON in the format:
 [
