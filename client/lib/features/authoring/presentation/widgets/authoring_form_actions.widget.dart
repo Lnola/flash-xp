@@ -27,18 +27,28 @@ class AuthoringFormActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FlashIconButton(
-          onPressed: addQuestion,
-          label: 'Add Input',
-          icon: FontAwesomeIcons.plus,
+          onPressed: () => _generateQuestions(context),
+          label: 'AI',
+          icon: FontAwesomeIcons.wandMagicSparkles,
         ),
-        const SizedBox(width: 12),
-        FlashIconButton(
-          onPressed: () => submit(context),
-          label: 'Submit',
-          icon: FontAwesomeIcons.check,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FlashIconButton(
+              onPressed: addQuestion,
+              label: 'Add Input',
+              icon: FontAwesomeIcons.plus,
+            ),
+            const SizedBox(width: 12),
+            FlashIconButton(
+              onPressed: () => submit(context),
+              label: 'Submit',
+              icon: FontAwesomeIcons.check,
+            ),
+          ],
         ),
       ],
     );
