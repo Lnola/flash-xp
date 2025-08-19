@@ -3,31 +3,32 @@ import { initializeApp } from 'firebase-admin/app';
 import { logger } from 'firebase-functions';
 import { summarizeAndGenerate } from './generate-questions';
 import {
-  sendErrorResponse,
   verifyContentType,
   verifyRequestPdf,
   verifyRequestMethod,
+  HttpError,
 } from './helpers/http';
+// import { extractTextFromPdf } from './helpers/pdf';
 
 initializeApp();
 
-export const summarizePdf = onRequest(async (req, res) => {
-  verifyRequestMethod('POST', req, res);
-  verifyRequestPdf(req, res);
-  verifyContentType('application/pdf', req, res);
+// TODO: add the option to do either flashcards or multiple choice questions
+export const generateQuestions = onRequest(async (req, res) => {
+  verifyRequestMethod('POST', req);
+  verifyContentType('application/pdf', req);
+  verifyRequestPdf(req);
 
   try {
     const pdfBuffer = Buffer.from(req.rawBody);
     const result = await summarizeAndGenerate(pdfBuffer);
     res.json(result);
   } catch (error) {
-    if (error instanceof Error) {
-      logger.error('Error processing PDF:', error.message);
+    if (error instanceof HttpError) {
+      logger.error(`HTTP Error: ${error.message}`);
+      res.status(error.statusCode).send(error.message);
+      return;
     }
-    sendErrorResponse({
-      res,
-      statusCode: 500,
-      message: 'Failed to process PDF.',
-    });
+    logger.error(`Error: ${error}`);
+    res.status(500).send('Failed to process PDF.');
   }
 });
