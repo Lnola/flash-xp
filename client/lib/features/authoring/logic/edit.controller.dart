@@ -7,7 +7,7 @@ import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.da
 class EditController extends BaseAuthoringController {
   final int deckId;
 
-  EditController(this.deckId, super.authoringRepository);
+  EditController(this.deckId, super._authoringRepository);
 
   Future<Result> getDeck() async {
     return await authoringRepository.getDeck(deckId);

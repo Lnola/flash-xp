@@ -3,7 +3,7 @@ import 'package:flashxp/features/authoring/logic/base_authoring.controller.dart'
 import 'package:flashxp/shared/helpers/result.dart';
 
 class CreateController extends BaseAuthoringController {
-  CreateController(super.authoringRepository);
+  CreateController(super._authoringRepository);
 
   @override
   Future<Result> submit() async {
