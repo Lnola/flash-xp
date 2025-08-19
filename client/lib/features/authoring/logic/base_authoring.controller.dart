@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/domain/multiple_choice_questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/self_assessment_questions_controllers.strategy.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 import 'package:flutter/material.dart';
 
 class LazyStrategyManager {
@@ -80,8 +82,17 @@ class BaseAuthoringController extends ChangeNotifier {
     return File(picked.files.single.path!);
   }
 
-  Future<Result<List<QuestionDto>>> generateQuestions() {
-    throw UnimplementedError('Submit method must be implemented in subclasses');
+  Future<Result<List<QuestionDto>>> generateQuestions() async {
+    final file = await pickFile();
+    if (file == null) return Result.failure('No file selected');
+    final result = await _authoringRepository.generateQuestions(
+      mode.label,
+      file,
+    );
+    if (result.error != null) return Result.failure(result.error!);
+    strategy.populateQuestionsControllers(result.data!);
+    notifyListeners();
+    return Result.success(result.data);
   }
 
   @override

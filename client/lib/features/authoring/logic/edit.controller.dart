@@ -1,4 +1,3 @@
-import 'package:flashxp/features/authoring/data/authoring.repository.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/base_authoring.controller.dart';
@@ -7,12 +6,11 @@ import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.da
 
 class EditController extends BaseAuthoringController {
   final int deckId;
-  final AuthoringRepository _authoringRepository;
 
-  EditController(this.deckId, this._authoringRepository);
+  EditController(this.deckId, super.authoringRepository);
 
   Future<Result> getDeck() async {
-    return await _authoringRepository.getDeck(deckId);
+    return await authoringRepository.getDeck(deckId);
   }
 
   void populateForm(DeckDto deckData) {
@@ -34,20 +32,6 @@ class EditController extends BaseAuthoringController {
       description: descriptionController.text,
       questions: updateQuestionsDto,
     );
-    return await _authoringRepository.updateDeck(deckId, updateDeckDto);
-  }
-
-  @override
-  Future<Result<List<QuestionDto>>> generateQuestions() async {
-    final file = await pickFile();
-    if (file == null) return Result.failure('No file selected');
-    final result = await _authoringRepository.generateQuestions(
-      mode.label,
-      file,
-    );
-    if (result.error != null) return Result.failure(result.error!);
-    strategy.populateQuestionsControllers(result.data!);
-    notifyListeners();
-    return Result.success(result.data);
+    return await authoringRepository.updateDeck(deckId, updateDeckDto);
   }
 }
