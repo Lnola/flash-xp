@@ -12,6 +12,7 @@ import { QuestionGenerator } from './generate-questions';
 import {
   QuestionType,
   QuestionTypeKey,
+  verifyQuestionType,
 } from './generate-questions/question-type';
 
 initializeApp();
@@ -22,6 +23,7 @@ export const generateQuestions = onRequest(async (req, res) => {
   verifyContentType('application/pdf', req);
   verifyRequestPdf(req);
 
+  verifyQuestionType(req.query.type as string);
   const type = req.query.type as QuestionTypeKey;
 
   try {
