@@ -24,8 +24,9 @@ export const generateQuestions = onRequest(async (req, res) => {
 
     const questionGenerator = new QuestionGenerator();
     const summarizedText = await questionGenerator.summarizeText(fullText);
+    const questions = await questionGenerator.generate(summarizedText);
 
-    res.json(summarizedText);
+    res.json(questions);
   } catch (error) {
     if (error instanceof HttpError) {
       logger.error(`HTTP Error: ${error.message}`);
