@@ -2,12 +2,11 @@ import 'dotenv/config';
 import OpenAI from 'openai';
 import { logger } from 'firebase-functions';
 import { HttpError } from '../helpers/http';
+import { config } from './constants';
 
 export class QuestionGenerator {
   private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  private static CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE || '6000', 10);
-  private static SUMMARY_MODEL = process.env.SUMMARY_MODEL || 'gpt-3.5-turbo';
-  private static QUESTION_MODEL = process.env.QUESTION_MODEL || 'gpt-4-turbo';
+  private config = config;
 
   private async _callAi({ model, messages }: CallAiOptions): Promise<string> {
     const response = await this.ai.chat.completions.create({ model, messages });
@@ -30,16 +29,16 @@ export class QuestionGenerator {
   }
 
   async summarizeText(text: string): Promise<string> {
-    const chunks = this._chunkText(text, QuestionGenerator.CHUNK_SIZE);
+    const chunks = this._chunkText(text, this.config.CHUNK_SIZE);
     logger.info(
       `Generating summary for ${chunks.length} chunk(s).
-      Model: ${QuestionGenerator.SUMMARY_MODEL}`,
+      Model: ${this.config.SUMMARY_MODEL}`,
     );
 
     const summaryPromises = chunks.map((chunk, index) => {
       logger.info(`Processing chunk: ${index + 1}/${chunks.length}`);
       return this._callAi({
-        model: QuestionGenerator.SUMMARY_MODEL,
+        model: this.config.SUMMARY_MODEL,
         messages: [
           { role: 'system', content: SUMMARY_PROMPT },
           { role: 'user', content: chunk },
@@ -53,11 +52,11 @@ export class QuestionGenerator {
   async generate(text: string): Promise<Flashcard[]> {
     logger.info(
       `Generating questions.
-      Model: ${QuestionGenerator.QUESTION_MODEL}`,
+      Model: ${this.config.QUESTION_MODEL}`,
     );
 
     const questionsString = await this._callAi({
-      model: QuestionGenerator.QUESTION_MODEL,
+      model: this.config.QUESTION_MODEL,
       messages: [
         { role: 'system', content: FLASHCARD_PROMPT },
         { role: 'user', content: text },
