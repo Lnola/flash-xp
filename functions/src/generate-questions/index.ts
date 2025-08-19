@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import { logger } from 'firebase-functions';
 import { HttpError } from '../helpers/http';
 import { config } from './constants';
+import { chunkText } from '../helpers/text';
 
 export class QuestionGenerator {
   private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -20,16 +21,8 @@ export class QuestionGenerator {
     return response.choices[0].message.content;
   }
 
-  private _chunkText(text: string, chunkSize: number): string[] {
-    const chunks = [];
-    for (let i = 0; i < text.length; i += chunkSize) {
-      chunks.push(text.slice(i, i + chunkSize));
-    }
-    return chunks;
-  }
-
   async summarizeText(text: string): Promise<string> {
-    const chunks = this._chunkText(text, this.config.CHUNK_SIZE);
+    const chunks = chunkText(text, this.config.CHUNK_SIZE);
     logger.info(
       `Generating summary for ${chunks.length} chunk(s).
       Model: ${this.config.SUMMARY_MODEL}`,
