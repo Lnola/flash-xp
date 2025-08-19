@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
@@ -44,6 +45,24 @@ class AuthoringRepository {
         return Result.failure('Failed to edit deck: $message');
       }
       return Result.success();
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
+
+  Future<Result<List<QuestionDto>>> generateQuestions(
+    String mode,
+    File pdfFile,
+  ) async {
+    try {
+      final response = await _authoringApi.generateQuestions(mode, pdfFile);
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('Failed to generate questions: $message');
+      }
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      final data = jsonList.map((it) => QuestionDto.fromJson(it)).toList();
+      return Result.success(data);
     } catch (error) {
       return Result.failure(error.toString());
     }
