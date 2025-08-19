@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 class AuthHttpClient extends http.BaseClient {
   final http.Client _inner = http.Client();
   final String _baseUrl = 'http://localhost:3000';
+  final String _cloudFunctionsUrl = 'http://127.0.0.1:5001/flashxp/us-central1';
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
@@ -17,8 +18,13 @@ class AuthHttpClient extends http.BaseClient {
     return _inner.send(request);
   }
 
-  Uri buildUri(String path, {Map<String, String> queryParams = const {}}) {
-    final uri = Uri.parse('$_baseUrl$path');
+  Uri buildUri(
+    String path, {
+    Map<String, String> queryParams = const {},
+    bool isCloudFunction = false,
+  }) {
+    final baseUrl = isCloudFunction ? _cloudFunctionsUrl : _baseUrl;
+    final uri = Uri.parse('$baseUrl$path');
     return uri.replace(queryParameters: queryParams);
   }
 }
