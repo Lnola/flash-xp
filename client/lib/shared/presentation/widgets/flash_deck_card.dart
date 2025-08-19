@@ -131,6 +131,7 @@ class _CardInfo extends StatelessWidget {
   }
 }
 
+// TODO: think about the format here - keeping the button and adding ... or something similar
 class _CardActions extends StatelessWidget {
   final int deckId;
   final int progress;
