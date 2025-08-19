@@ -9,6 +9,10 @@ import {
 } from './helpers/http';
 import { extractTextFromPdf } from './helpers/pdf';
 import { QuestionGenerator } from './generate-questions';
+import {
+  QuestionType,
+  QuestionTypeKey,
+} from './generate-questions/question-type';
 
 initializeApp();
 
@@ -18,11 +22,13 @@ export const generateQuestions = onRequest(async (req, res) => {
   verifyContentType('application/pdf', req);
   verifyRequestPdf(req);
 
+  const type = req.query.type as QuestionTypeKey;
+
   try {
     const pdfBuffer = Buffer.from(req.rawBody);
     const fullText = await extractTextFromPdf(pdfBuffer);
 
-    const questionGenerator = new QuestionGenerator();
+    const questionGenerator = new QuestionGenerator(QuestionType[type]);
     const summarizedText = await questionGenerator.summarizeText(fullText);
     const questions = await questionGenerator.generate(summarizedText);
 

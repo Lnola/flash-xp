@@ -9,6 +9,11 @@ import { Flashcard, MultipleChoice, QuestionType } from './question-type';
 export class QuestionGenerator {
   private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   private config = config;
+  private questionType: QuestionType;
+
+  constructor(questionType: QuestionType) {
+    this.questionType = questionType;
+  }
 
   private async _callAi({ model, messages }: CallAiOptions): Promise<string> {
     const response = await this.ai.chat.completions.create({ model, messages });
@@ -52,7 +57,7 @@ export class QuestionGenerator {
     const questionsString = await this._callAi({
       model: this.config.QUESTION_MODEL,
       messages: [
-        { role: 'system', content: FLASHCARD_PROMPT },
+        { role: 'system', content: this.questionType.prompt },
         { role: 'user', content: text },
       ],
     });
