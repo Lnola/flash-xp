@@ -39,7 +39,6 @@ class AuthoringApi {
     );
   }
 
-// TODO: extract the url and make this a get instead of post
   Future<http.Response> generateQuestions(String mode, File pdfFile) {
     return client.post(
       client.buildUri(
