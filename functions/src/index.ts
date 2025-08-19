@@ -17,16 +17,15 @@ import {
 
 initializeApp();
 
-// TODO: add the option to do either flashcards or multiple choice questions
 export const generateQuestions = onRequest(async (req, res) => {
-  verifyRequestMethod('POST', req);
-  verifyContentType('application/pdf', req);
-  verifyRequestPdf(req);
-
-  verifyQuestionType(req.query.type as string);
-  const type = req.query.type as QuestionTypeKey;
-
   try {
+    verifyRequestMethod('POST', req);
+    verifyContentType('application/pdf', req);
+    verifyRequestPdf(req);
+
+    verifyQuestionType(req.query.type as string);
+    const type = req.query.type as QuestionTypeKey;
+
     const pdfBuffer = Buffer.from(req.rawBody);
     const fullText = await extractTextFromPdf(pdfBuffer);
 
