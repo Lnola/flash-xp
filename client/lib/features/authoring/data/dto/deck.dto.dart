@@ -42,7 +42,7 @@ class QuestionDto {
 
   factory QuestionDto.fromJson(Map<String, dynamic> json) {
     return QuestionDto(
-      text: json['text'] as String,
+      text: json['text'] ?? json['question'],
       answer: json['answer'] as String?,
       questionType: json['questionType']['name'] as String,
       answerOptions: (json['answerOptions'] as List?)
