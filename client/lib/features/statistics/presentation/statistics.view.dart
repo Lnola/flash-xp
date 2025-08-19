@@ -26,6 +26,8 @@ class StatisticsView extends StatelessWidget {
             days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             first: [3, 2, 5, 4, 3, 1, 2],
             second: [1, 3, 2, 5, 2, 2, 10],
+            firstLabel: 'Correct Answers',
+            secondLabel: 'Incorrect Answers',
           ),
           const SizedBox(height: 16.0),
           const _StatGroup(
