@@ -8,7 +8,7 @@ export type Flashcard = {
 export const FLASHCARD_PROMPT = `Create a list of flashcards from the following text. 
 Respond ONLY with valid JSON in the format:
 [
-  { "question": "...", "answer": "..." },
+  { "question": "...", "questionType": { "name": "Self Assessment" }, "answer": "..." },
   ...
 ]`;
 
@@ -24,7 +24,7 @@ export const MULTIPLE_CHOICE_PROMPT = `Create a list of multiple choice question
 The questions need to have exactly 4 possible answers where one of them is correct while the others are incorrect. 
 Respond ONLY with valid JSON in the format:
 [
-  { "question": "...", "answerOptions": [{ "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }] },
+  { "question": "...", "questionType": { "name": "Multiple Choice" }, "answerOptions": [{ "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }] },
   ...
 ]`;
 
