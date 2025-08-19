@@ -1,14 +1,13 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { initializeApp } from 'firebase-admin/app';
 import { logger } from 'firebase-functions';
-import { summarizeAndGenerate } from './generate-questions';
 import {
   verifyContentType,
   verifyRequestPdf,
   verifyRequestMethod,
   HttpError,
 } from './helpers/http';
-// import { extractTextFromPdf } from './helpers/pdf';
+import { extractTextFromPdf } from './helpers/pdf';
 
 initializeApp();
 
@@ -20,8 +19,8 @@ export const generateQuestions = onRequest(async (req, res) => {
 
   try {
     const pdfBuffer = Buffer.from(req.rawBody);
-    const result = await summarizeAndGenerate(pdfBuffer);
-    res.json(result);
+    const fullText = await extractTextFromPdf(pdfBuffer);
+    res.json(fullText);
   } catch (error) {
     if (error instanceof HttpError) {
       logger.error(`HTTP Error: ${error.message}`);
