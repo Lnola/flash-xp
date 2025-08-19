@@ -1,3 +1,4 @@
+import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/stat_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
@@ -21,6 +22,12 @@ class StatisticsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const GroupBarChartWidget(
+            days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            first: [3, 2, 5, 4, 3, 1, 2],
+            second: [1, 3, 2, 5, 2, 2, 10],
+          ),
+          const SizedBox(height: 16.0),
           const _StatGroup(
             values: ['100', '50'],
             labels: ['Decks solved today', 'Total decks solved'],
