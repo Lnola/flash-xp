@@ -41,6 +41,13 @@ class EditController extends BaseAuthoringController {
   Future<Result<List<QuestionDto>>> generateQuestions() async {
     final file = await pickFile();
     if (file == null) return Result.failure('No file selected');
-    return _authoringRepository.generateQuestions(mode.label, file);
+    final result = await _authoringRepository.generateQuestions(
+      mode.label,
+      file,
+    );
+    if (result.error != null) return Result.failure(result.error!);
+    strategy.populateQuestionsControllers(result.data!);
+    notifyListeners();
+    return Result.success(result.data);
   }
 }
