@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flashxp/features/authoring/data/dto/deck.dto.dart';
 import 'package:flashxp/features/authoring/logic/domain/multiple_choice_questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/questions_controllers.strategy.dart';
 import 'package:flashxp/features/authoring/logic/domain/self_assessment_questions_controllers.strategy.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +63,10 @@ class BaseAuthoringController extends ChangeNotifier {
   void toggleIsCorrect(dynamic question, int index) {
     strategy.toggleIsCorrect(question, index);
     notifyListeners();
+  }
+
+  Future<Result<List<QuestionDto>>> generateQuestions(File pdfFile) {
+    throw UnimplementedError('Submit method must be implemented in subclasses');
   }
 
   @override
