@@ -41,9 +41,11 @@ class AuthoringApi {
 
 // TODO: extract the url and make this a get instead of post
   Future<http.Response> generateQuestions(String mode, File pdfFile) {
-    return http.post(
-      Uri.parse(
-        'http://127.0.0.1:5001/flashxp/us-central1/generateQuestions?type=$mode',
+    return client.post(
+      client.buildUri(
+        '/generateQuestions',
+        queryParams: {'type': mode},
+        isCloudFunction: true,
       ),
       headers: {'Content-Type': 'application/pdf'},
       body: pdfFile.readAsBytesSync(),
