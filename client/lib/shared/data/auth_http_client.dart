@@ -9,7 +9,10 @@ class AuthHttpClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     if (request is http.Request && request.bodyBytes.isNotEmpty) {
-      request.headers['Content-Type'] = 'application/json';
+      final contentType = request.headers['Content-Type'];
+      if (contentType == null || contentType.startsWith('text/plain')) {
+        request.headers['Content-Type'] = 'application/json';
+      }
     }
 
     final user = FirebaseAuth.instance.currentUser;
