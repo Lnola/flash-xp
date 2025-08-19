@@ -31,12 +31,14 @@ class StatCardWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: textColor,
                 ),
+            textAlign: TextAlign.center,
           ),
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: textColor.withAlpha(77),
                 ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
