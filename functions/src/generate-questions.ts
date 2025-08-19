@@ -237,4 +237,34 @@ export class QuestionGenerator {
     const summaries = await Promise.all(summaryPromises);
     return summaries.join('\n\n');
   }
+
+  async generate(text: string): Promise<Flashcard[]> {
+    logger.info(
+      `Generating questions.
+      Model: ${QuestionGenerator.QUESTION_MODEL}`,
+    );
+    const prompt = `
+Create a list of flashcards from the following text.
+Respond ONLY with valid JSON in the format:
+[
+  { "question": "...", "answer": "..." },
+  ...
+]`;
+
+    const response = await this.ai.chat.completions.create({
+      model: QuestionGenerator.QUESTION_MODEL,
+      messages: [
+        { role: 'system', content: prompt },
+        { role: 'user', content: text },
+      ],
+    });
+    if (
+      !response.choices ||
+      response.choices.length === 0 ||
+      !response.choices[0].message.content
+    ) {
+      throw new HttpError(403, 'No response from GPT');
+    }
+    return JSON.parse(response.choices[0].message.content);
+  }
 }
