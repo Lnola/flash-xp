@@ -69,6 +69,7 @@ class AuthoringFormWidget extends StatelessWidget {
           left: 0,
           right: 0,
           child: AuthoringFormActionsWidget(
+            generateQuestions: controller.generateQuestions,
             addQuestion: controller.addQuestion,
             submit: submit,
           ),

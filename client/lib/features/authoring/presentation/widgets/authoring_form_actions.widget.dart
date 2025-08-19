@@ -1,16 +1,28 @@
+import 'package:flashxp/shared/helpers/result.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AuthoringFormActionsWidget extends StatelessWidget {
+  final Future<Result<void>> Function() generateQuestions;
   final void Function() addQuestion;
   final void Function(BuildContext) submit;
 
   const AuthoringFormActionsWidget({
     super.key,
+    required this.generateQuestions,
     required this.addQuestion,
     required this.submit,
   });
+
+  void _generateQuestions(BuildContext context) async {
+    final result = await generateQuestions();
+    if (!context.mounted) return;
+    if (result.error != null) {
+      return useSnackbar(context, result.error, 'Failed to generate questions');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
