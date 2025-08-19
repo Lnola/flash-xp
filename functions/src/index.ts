@@ -8,6 +8,7 @@ import {
   HttpError,
 } from './helpers/http';
 import { extractTextFromPdf } from './helpers/pdf';
+import { QuestionGenerator } from './generate-questions';
 
 initializeApp();
 
@@ -20,7 +21,11 @@ export const generateQuestions = onRequest(async (req, res) => {
   try {
     const pdfBuffer = Buffer.from(req.rawBody);
     const fullText = await extractTextFromPdf(pdfBuffer);
-    res.json(fullText);
+
+    const questionGenerator = new QuestionGenerator();
+    const summarizedText = await questionGenerator.summarizeText(fullText);
+
+    res.json(summarizedText);
   } catch (error) {
     if (error instanceof HttpError) {
       logger.error(`HTTP Error: ${error.message}`);
