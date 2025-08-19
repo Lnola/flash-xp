@@ -2,7 +2,7 @@ import 'dotenv/config';
 import OpenAI from 'openai';
 import { logger } from 'firebase-functions';
 import { HttpError } from '../helpers/http';
-import { config } from './constants';
+import { config, SUMMARY_PROMPT } from './constants';
 import { chunkText } from '../helpers/text';
 
 export class QuestionGenerator {
@@ -58,8 +58,6 @@ export class QuestionGenerator {
     return JSON.parse(questionsString);
   }
 }
-
-const SUMMARY_PROMPT = `Summarize the following text into concise bullet points.`;
 
 type Flashcard = {
   question: string;
