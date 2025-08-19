@@ -30,11 +30,11 @@ class GroupBarChartWidget extends StatelessWidget {
         BarChartData(
           maxY: (maxY + 1).ceilToDouble(),
           barTouchData: const BarTouchData(enabled: true),
-          gridData: const FlGridData(show: true, horizontalInterval: 1),
+          gridData: const FlGridData(show: false),
+          borderData: FlBorderData(show: false),
           titlesData: FlTitlesData(
             leftTitles: const AxisTitles(
-              sideTitles:
-                  SideTitles(showTitles: true, interval: 1, reservedSize: 30),
+              sideTitles: SideTitles(showTitles: true, interval: 5),
             ),
             rightTitles:
                 const AxisTitles(sideTitles: SideTitles(showTitles: false)),
