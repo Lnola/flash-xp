@@ -17,6 +17,7 @@ import {
 
 initializeApp();
 
+// This is not secured with auth, but could be easily implemented using Firebase Auth.
 export const generateQuestions = onRequest(async (req, res) => {
   try {
     verifyRequestMethod('POST', req);
