@@ -1,3 +1,4 @@
+import 'package:flashxp/features/statistics/presentation/widgets/stat_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,53 @@ class StatisticsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FlashButton(
-        onPressed: () => _signOut(context),
-        label: 'Sign Out',
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const _StatGroup(
+            values: ['100', '50'],
+            labels: ['Decks solved today', 'Total decks solved'],
+          ),
+          const SizedBox(height: 16.0),
+          const _StatGroup(
+            values: ['5', '10'],
+            labels: ['Cards answered today', 'Total cards answered'],
+          ),
+          const SizedBox(height: 16.0),
+          FlashButton(
+            onPressed: () => _signOut(context),
+            label: 'Sign Out',
+            isBlock: true,
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _StatGroup extends StatelessWidget {
+  final List<String> values;
+  final List<String> labels;
+
+  const _StatGroup({
+    required this.values,
+    required this.labels,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 16,
+      children: [
+        for (int i = 0; i < values.length; i++)
+          Expanded(
+            child: StatCardWidget(
+              value: values[i],
+              label: labels[i],
+            ),
+          ),
+      ],
     );
   }
 }
