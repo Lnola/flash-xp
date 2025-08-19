@@ -4,6 +4,7 @@ import { logger } from 'firebase-functions';
 import { HttpError } from '../helpers/http';
 import { config, SUMMARY_PROMPT } from './constants';
 import { chunkText } from '../helpers/text';
+import { Flashcard, MultipleChoice, QuestionType } from './question-type';
 
 export class QuestionGenerator {
   private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -42,7 +43,7 @@ export class QuestionGenerator {
     return summaries.join('\n\n');
   }
 
-  async generate(text: string): Promise<Flashcard[]> {
+  async generate(text: string): Promise<Flashcard[] | MultipleChoice[]> {
     logger.info(
       `Generating questions.
       Model: ${this.config.QUESTION_MODEL}`,
@@ -58,17 +59,6 @@ export class QuestionGenerator {
     return JSON.parse(questionsString);
   }
 }
-
-type Flashcard = {
-  question: string;
-  answer: string;
-};
-const FLASHCARD_PROMPT = `Create a list of flashcards from the following text. 
-Respond ONLY with valid JSON in the format:
-[
-  { "question": "...", "answer": "..." },
-  ...
-]`;
 
 type CallAiOptions =
   OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
