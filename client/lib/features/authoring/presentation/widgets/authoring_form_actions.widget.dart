@@ -1,5 +1,6 @@
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/helpers/with_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +18,11 @@ class AuthoringFormActionsWidget extends StatelessWidget {
   });
 
   void _generateQuestions(BuildContext context) async {
-    final result = await generateQuestions();
+    final result = await withLoading(
+      context,
+      generateQuestions,
+      message: 'Generating questions from your pdf file...',
+    );
     if (!context.mounted) return;
     if (result.error != null) {
       return useSnackbar(context, result.error, 'Failed to generate questions');
