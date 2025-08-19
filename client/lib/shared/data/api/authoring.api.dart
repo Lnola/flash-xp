@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flashxp/features/authoring/data/dto/create_deck.dto.dart';
 import 'package:flashxp/features/authoring/data/dto/update_deck.dto.dart';
@@ -35,6 +36,17 @@ class AuthoringApi {
   Future<http.Response> removeDeck(int deckId) {
     return client.delete(
       client.buildUri('/authoring/decks/$deckId'),
+    );
+  }
+
+// TODO: extract the url and make this a get instead of post
+  Future<http.Response> generateQuestions(String mode, File pdfFile) {
+    return http.post(
+      Uri.parse(
+        'http://127.0.0.1:5001/flashxp/us-central1/generateQuestions?type=$mode',
+      ),
+      headers: {'Content-Type': 'application/pdf'},
+      body: pdfFile.readAsBytesSync(),
     );
   }
 }
