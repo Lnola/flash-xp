@@ -29,10 +29,10 @@ Respond ONLY with valid JSON in the format:
 ]`;
 
 export const QuestionType = {
-  flashcard: {
+  Flashcards: {
     prompt: FLASHCARD_PROMPT,
   },
-  multipleChoice: {
+  'Multiple Choice': {
     prompt: MULTIPLE_CHOICE_PROMPT,
   },
 } as const;
