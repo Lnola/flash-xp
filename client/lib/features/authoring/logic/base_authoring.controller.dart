@@ -33,9 +33,12 @@ class LazyStrategyManager {
 }
 
 class BaseAuthoringController extends ChangeNotifier {
+  final AuthoringRepository _authoringRepository;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   PracticeMode mode = PracticeMode.multipleChoice;
+
+  BaseAuthoringController(this._authoringRepository);
 
   final LazyStrategyManager _strategyManager = LazyStrategyManager();
   QuestionsControllersStrategy get strategy => _strategyManager.get(mode);
@@ -43,6 +46,8 @@ class BaseAuthoringController extends ChangeNotifier {
   void submit() {
     throw UnimplementedError('Submit method must be implemented in subclasses');
   }
+
+  AuthoringRepository get authoringRepository => _authoringRepository;
 
   List<dynamic> get questionsControllers => strategy.questionsControllers;
 
