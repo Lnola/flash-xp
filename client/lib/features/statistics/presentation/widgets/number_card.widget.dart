@@ -1,10 +1,13 @@
+import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NumberCardWidget extends StatelessWidget {
   final String value;
   final String label;
   final Color? backgroundColor;
   final Color? textColor;
+  final IconData? icon;
 
   const NumberCardWidget({
     super.key,
@@ -12,6 +15,7 @@ class NumberCardWidget extends StatelessWidget {
     required this.label,
     this.backgroundColor,
     this.textColor,
+    this.icon,
   });
 
   @override
@@ -26,22 +30,68 @@ class NumberCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: textColor,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: textColor.withAlpha(77),
-                ),
-            textAlign: TextAlign.center,
-          ),
+          _Value(icon: icon, value: value, textColor: textColor),
+          _Label(label: label, textColor: textColor),
         ],
       ),
+    );
+  }
+}
+
+class _Value extends StatelessWidget {
+  final IconData? icon;
+  final String value;
+  final Color textColor;
+
+  const _Value({
+    required this.icon,
+    required this.value,
+    required this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        If(
+          condition: icon != null,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: FaIcon(icon, size: 16),
+          ),
+        ),
+        Text(
+          value,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(color: textColor),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+}
+
+class _Label extends StatelessWidget {
+  final String label;
+  final Color textColor;
+
+  const _Label({
+    required this.label,
+    required this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: Theme.of(context)
+          .textTheme
+          .bodySmall
+          ?.copyWith(color: textColor.withAlpha(77)),
+      textAlign: TextAlign.center,
     );
   }
 }
