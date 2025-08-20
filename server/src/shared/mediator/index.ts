@@ -1,1 +1,1 @@
-export { Mediator } from './mediator.service';
+export * from './mediator.service';
