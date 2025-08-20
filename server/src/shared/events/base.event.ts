@@ -1,4 +1,4 @@
-export abstract class IntegrationEvent<T> {
+export abstract class BaseEvent<T> {
   createdAt: Date = new Date();
 
   constructor(public payload: T) {}

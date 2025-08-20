@@ -1,14 +1,14 @@
 import { EventEmitter } from 'events';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { IntegrationEvent } from 'shared/events';
+import { BaseEvent } from 'shared/events';
 
-export type EventHandler<T> = (event: IntegrationEvent<T>) => void;
+export type EventHandler<T> = (event: BaseEvent<T>) => void;
 
 @Injectable()
 export class Mediator implements OnModuleDestroy {
   private readonly bus = new EventEmitter();
 
-  publish<T>(event: IntegrationEvent<T>): void {
+  publish<T>(event: BaseEvent<T>): void {
     this.bus.emit(event.name, event);
   }
 

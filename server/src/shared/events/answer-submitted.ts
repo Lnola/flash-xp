@@ -1,6 +1,6 @@
-import { IntegrationEvent } from './integration.event';
+import { BaseEvent } from './base.event';
 
-export class AnswerSubmittedEvent extends IntegrationEvent<{
+export class AnswerSubmittedEvent extends BaseEvent<{
   questionId: number;
   learnerId: number;
   isCorrect: boolean;

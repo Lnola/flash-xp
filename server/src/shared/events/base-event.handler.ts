@@ -1,9 +1,9 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { Mediator } from 'shared/mediator';
-import { IntegrationEvent } from './integration.event';
+import { BaseEvent } from '.';
 
 @Injectable()
-export abstract class BaseEventHandler<T extends IntegrationEvent<unknown>>
+export abstract class BaseEventHandler<T extends BaseEvent<unknown>>
   implements OnModuleInit, OnModuleDestroy
 {
   protected abstract readonly eventName: string;
