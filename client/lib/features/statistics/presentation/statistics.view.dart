@@ -4,6 +4,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/percentage_card
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,12 @@ class StatisticsView extends StatelessWidget {
             label: 'Accuracy rate',
             radius: 56,
             lineWidth: 12,
+          ),
+          const SizedBox(height: 16.0),
+          const NumberCardWidget(
+            value: '4',
+            label: 'Streak',
+            icon: FontAwesomeIcons.fire,
           ),
           const SizedBox(height: 16.0),
           FlashButton(
