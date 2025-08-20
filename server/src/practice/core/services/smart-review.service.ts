@@ -63,13 +63,13 @@ export class SmartReviewService {
     learnerId: number,
     isCorrect: boolean,
   ): Promise<Result<void>> {
-    if (!isCorrect) return Result.success();
     try {
       const box = await this.boxRepository.findOne({
         question: questionId,
         learnerId,
       });
       if (!box) return Result.failure('Box not found');
+      if (!isCorrect) return Result.success();
       box.incrementBox();
       await this.boxRepository.persistAndFlush(box);
       return Result.success();
