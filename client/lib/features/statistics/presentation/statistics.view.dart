@@ -1,5 +1,6 @@
 import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/number_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/percentage_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,13 @@ class StatisticsView extends StatelessWidget {
           const _NumberCardGroup(
             values: ['5', '10'],
             labels: ['Cards answered today', 'Total cards answered'],
+          ),
+          const SizedBox(height: 16.0),
+          const PercentageCardWidget(
+            percent: 0.75,
+            label: 'Accuracy rate',
+            radius: 56,
+            lineWidth: 12,
           ),
           const SizedBox(height: 16.0),
           FlashButton(
