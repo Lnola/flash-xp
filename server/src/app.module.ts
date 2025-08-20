@@ -4,6 +4,7 @@ import { CatalogModule } from 'catalog/catalog.module';
 import { PracticeModule } from 'practice/practice.module';
 import { AuthModule } from 'shared/auth/auth.module';
 import { DbConfigModule, OrmConfigModule } from 'shared/config';
+import { MediatorModule } from 'shared/mediator/mediator.module';
 import { FirebaseProvider } from 'shared/providers';
 
 @Module({
@@ -11,6 +12,7 @@ import { FirebaseProvider } from 'shared/providers';
     DbConfigModule,
     OrmConfigModule,
     AuthModule,
+    MediatorModule,
     CatalogModule,
     AuthoringModule,
     PracticeModule,
