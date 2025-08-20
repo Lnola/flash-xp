@@ -6,11 +6,13 @@ import { BaseEvent } from '.';
 export abstract class BaseEventHandler<T extends BaseEvent<unknown>>
   implements OnModuleInit, OnModuleDestroy
 {
-  protected abstract readonly eventName: string;
   protected abstract handle(event: T): void;
   private unsubscribe?: () => void;
 
-  constructor(private readonly mediator: Mediator) {}
+  constructor(
+    private readonly mediator: Mediator,
+    private readonly eventName: string,
+  ) {}
 
   onModuleInit() {
     const handler = (event: T) => this.handle(event);
