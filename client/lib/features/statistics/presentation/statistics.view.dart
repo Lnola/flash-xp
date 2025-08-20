@@ -1,6 +1,7 @@
 import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/number_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/percentage_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/pie_chart_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,21 @@ class StatisticsView extends StatelessWidget {
             value: '4',
             label: 'Streak',
             icon: FontAwesomeIcons.fire,
+          ),
+          const SizedBox(height: 16.0),
+          PieChartCardWidget(
+            slices: [
+              PieSlice(
+                label: 'Self Assessment',
+                value: 30,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              PieSlice(
+                label: 'Multiple Choice',
+                value: 70,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+            ],
           ),
           const SizedBox(height: 16.0),
           FlashButton(
