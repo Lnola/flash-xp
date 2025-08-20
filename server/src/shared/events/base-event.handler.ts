@@ -3,9 +3,7 @@ import { Mediator } from 'shared/mediator';
 import { IntegrationEvent } from './integration.event';
 
 @Injectable()
-export abstract class IntegrationEventHandler<
-    T extends IntegrationEvent<unknown>,
-  >
+export abstract class BaseEventHandler<T extends IntegrationEvent<unknown>>
   implements OnModuleInit, OnModuleDestroy
 {
   protected abstract readonly eventName: string;
