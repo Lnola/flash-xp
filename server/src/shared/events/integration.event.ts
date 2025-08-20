@@ -1,6 +1,9 @@
-export interface IntegrationEvent<T = unknown> {
-  id: string;
-  type: string;
-  payload: T;
-  occurredAt: Date;
+export abstract class IntegrationEvent<T> {
+  createdAt: Date = new Date();
+
+  constructor(public payload: T) {}
+
+  static get name() {
+    return this.constructor.name;
+  }
 }

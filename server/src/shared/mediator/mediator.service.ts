@@ -9,12 +9,12 @@ export class Mediator implements OnModuleDestroy {
   private readonly bus = new EventEmitter();
 
   publish<T>(event: IntegrationEvent<T>): void {
-    this.bus.emit(event.type, event);
+    this.bus.emit(event.name, event);
   }
 
-  subscribe<T>(type: string, handler: EventHandler<T>): () => void {
-    this.bus.on(type, handler);
-    return () => this.bus.off(type, handler);
+  subscribe<T>(name: string, handler: EventHandler<T>): () => void {
+    this.bus.on(name, handler);
+    return () => this.bus.off(name, handler);
   }
 
   onModuleDestroy() {
