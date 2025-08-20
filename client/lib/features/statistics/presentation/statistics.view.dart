@@ -23,12 +23,20 @@ class StatisticsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const GroupBarChartCardWidget(
+          GroupBarChartCardWidget(
             days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            first: [3, 2, 5, 4, 3, 1, 2],
-            second: [1, 3, 2, 5, 2, 2, 10],
-            firstLabel: 'Correct Answers',
-            secondLabel: 'Incorrect Answers',
+            series: [
+              BarSeries(
+                label: 'Correct Answers',
+                color: Theme.of(context).colorScheme.tertiary,
+                values: [3, 2, 5, 4, 3, 1, 2],
+              ),
+              BarSeries(
+                label: 'Incorrect Answers',
+                color: Theme.of(context).colorScheme.error,
+                values: [1, 3, 2, 5, 2, 2, 10],
+              ),
+            ],
           ),
           const SizedBox(height: 16.0),
           const _NumberCardGroup(

@@ -1,32 +1,36 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+class BarSeries {
+  final String label;
+  final Color color;
+  final List<double> values;
+
+  const BarSeries({
+    required this.label,
+    required this.color,
+    required this.values,
+  });
+}
+
 class GroupBarChartCardWidget extends StatelessWidget {
   final List<String> days;
-  final List<double> first;
-  final List<double> second;
-  final String firstLabel;
-  final String secondLabel;
+  final List<BarSeries> series;
   final double barWidth;
   final double groupSpace;
 
   const GroupBarChartCardWidget({
     super.key,
     required this.days,
-    required this.first,
-    required this.second,
-    required this.firstLabel,
-    required this.secondLabel,
+    required this.series,
     this.barWidth = 12,
     this.groupSpace = 4,
   });
 
   @override
   Widget build(BuildContext context) {
-    final maxY = [
-      ...first,
-      ...second,
-    ].fold<double>(0, (p, e) => e > p ? e : p);
+    final maxY =
+        series.expand((s) => s.values).fold<double>(0, (p, e) => e > p ? e : p);
 
     return Container(
       decoration: BoxDecoration(
@@ -43,17 +47,15 @@ class GroupBarChartCardWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _Legend(
-            firstLabel: firstLabel,
-            secondLabel: secondLabel,
+            series: series,
           ),
           const SizedBox(height: 20),
           _Chart(
             maxY: maxY,
             days: days,
             groupSpace: groupSpace,
-            first: first,
+            series: series,
             barWidth: barWidth,
-            second: second,
           ),
         ],
       ),
@@ -62,12 +64,10 @@ class GroupBarChartCardWidget extends StatelessWidget {
 }
 
 class _Legend extends StatelessWidget {
-  final String firstLabel;
-  final String secondLabel;
+  final List<BarSeries> series;
 
   const _Legend({
-    required this.firstLabel,
-    required this.secondLabel,
+    required this.series,
   });
 
   @override
@@ -75,33 +75,22 @@ class _Legend extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.tertiary,
-            borderRadius: BorderRadius.circular(2),
+        for (int i = 0; i < series.length; i++) ...[
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              color: series[i].color,
+              borderRadius: BorderRadius.circular(2),
+            ),
           ),
-        ),
-        const SizedBox(width: 6),
-        Text(
-          firstLabel,
-          style: Theme.of(context).textTheme.labelSmall,
-        ),
-        const SizedBox(width: 24),
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.error,
-            borderRadius: BorderRadius.circular(2),
+          const SizedBox(width: 6),
+          Text(
+            series[i].label,
+            style: Theme.of(context).textTheme.labelSmall,
           ),
-        ),
-        const SizedBox(width: 6),
-        Text(
-          secondLabel,
-          style: Theme.of(context).textTheme.labelSmall,
-        ),
+          if (i != series.length - 1) const SizedBox(width: 24),
+        ],
       ],
     );
   }
@@ -112,17 +101,15 @@ class _Chart extends StatelessWidget {
     required this.maxY,
     required this.days,
     required this.groupSpace,
-    required this.first,
+    required this.series,
     required this.barWidth,
-    required this.second,
   });
 
   final double maxY;
   final List<String> days;
   final double groupSpace;
-  final List<double> first;
+  final List<BarSeries> series;
   final double barWidth;
-  final List<double> second;
 
   @override
   Widget build(BuildContext context) {
@@ -187,18 +174,13 @@ class _Chart extends StatelessWidget {
               x: i,
               barsSpace: groupSpace,
               barRods: [
-                BarChartRodData(
-                  toY: first[i],
-                  width: barWidth,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                BarChartRodData(
-                  toY: second[i],
-                  width: barWidth,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.error,
-                ),
+                for (final s in series)
+                  BarChartRodData(
+                    toY: s.values[i],
+                    width: barWidth,
+                    borderRadius: BorderRadius.circular(4),
+                    color: s.color,
+                  ),
               ],
             );
           }),
