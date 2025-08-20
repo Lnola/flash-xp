@@ -6,4 +6,8 @@ export abstract class IntegrationEvent<T> {
   static get name() {
     return this.constructor.name;
   }
+
+  get name() {
+    return this.constructor.name;
+  }
 }
