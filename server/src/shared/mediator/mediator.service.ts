@@ -1,12 +1,6 @@
 import { EventEmitter } from 'events';
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-
-export interface IntegrationEvent<T = unknown> {
-  id: string;
-  type: string;
-  payload: T;
-  occurredAt: Date;
-}
+import { IntegrationEvent } from 'shared/events';
 
 type EventHandler<T> = (event: IntegrationEvent<T>) => void;
 
