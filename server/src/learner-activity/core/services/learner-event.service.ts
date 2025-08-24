@@ -1,6 +1,9 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
-import { LearnerEvent } from 'learner-activity/core/entities';
+import {
+  CreateLearnerEventProps,
+  LearnerEvent,
+} from 'learner-activity/core/entities';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
 
@@ -11,23 +14,17 @@ export class LearnerEventService {
     private readonly learnerEventRepository: BaseEntityRepository<LearnerEvent>,
   ) {}
 
-  create({
-    questionId,
+  async create({
     learnerId,
-    isCorrect,
-  }: CreateLearnerEventPayload): Result<void> {
+    type,
+    payload,
+  }: CreateLearnerEventProps): Promise<Result<void>> {
     try {
-      console.log(questionId, learnerId, isCorrect);
+      const newLearnerEvent = new LearnerEvent({ learnerId, type, payload });
+      await this.learnerEventRepository.persistAndFlush(newLearnerEvent);
       return Result.success();
     } catch {
       return Result.failure(`Failed to create learner event.`);
     }
   }
 }
-
-// TODO: update once LearnerEvent entity is updated
-type CreateLearnerEventPayload = {
-  questionId: number;
-  learnerId: number;
-  isCorrect: boolean;
-};
