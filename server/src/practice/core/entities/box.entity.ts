@@ -1,6 +1,6 @@
 import { Entity, Index, ManyToOne, Property, Unique } from '@mikro-orm/core';
 import { addDays, startOfDay } from 'date-fns';
-import { BOX_MAX_INDEX } from 'shared/constants/box';
+import { BOX_MAX_INDEX } from 'shared/constants';
 import BaseEntity from 'shared/database/base.entity';
 import { PracticeQuestion } from '.';
 
