@@ -13,11 +13,10 @@ export class AnswerSubmittedEventHandler extends BaseEventHandler<AnswerSubmitte
     super(mediator, AnswerSubmittedEvent.name);
   }
 
-  // TODO: Handle the floating promises issue
   handle(event: AnswerSubmittedEvent) {
     const { learnerId, questionId, isCorrect } = event.payload;
     const payload = { questionId, isCorrect };
-    this.learnerEventService.create({
+    void this.learnerEventService.create({
       learnerId,
       payload,
       type: LearnerEventTypes.ANSWER_SUBMITTED,
