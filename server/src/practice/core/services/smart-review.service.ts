@@ -4,7 +4,9 @@ import { Injectable } from '@nestjs/common';
 import { Box, PracticeQuestion } from 'practice/core/entities';
 import { PracticeQuestionRepository } from 'practice/infrastructure';
 import { BaseEntityRepository } from 'shared/database/base.repository';
+import { AnswerSubmittedEvent } from 'shared/events';
 import { Result } from 'shared/helpers/result';
+import { Mediator } from 'shared/mediator';
 
 @Injectable()
 export class SmartReviewService {
@@ -12,6 +14,7 @@ export class SmartReviewService {
     @InjectRepository(Box)
     private readonly boxRepository: BaseEntityRepository<Box>,
     private readonly practiceQuestionRepository: PracticeQuestionRepository,
+    private readonly mediator: Mediator,
   ) {}
 
   async initBoxes(
@@ -69,6 +72,8 @@ export class SmartReviewService {
         learnerId,
       });
       if (!box) return Result.failure('Box not found');
+      const payload = { questionId, learnerId, isCorrect };
+      this.mediator.publish(new AnswerSubmittedEvent(payload));
       if (!isCorrect) return Result.success();
       box.incrementBox();
       await this.boxRepository.persistAndFlush(box);
