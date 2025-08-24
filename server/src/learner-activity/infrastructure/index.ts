@@ -1,1 +1,1 @@
-export * from './learner-event.repository';
+export * from './learner-statistics.repository';

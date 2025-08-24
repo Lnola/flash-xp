@@ -1,15 +1,10 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
-import { LearnerEvent } from 'learner-activity/core/entities';
 import { DailyCorrectIncorrect } from 'learner-activity/core/models';
-import { BaseEntityRepository } from 'shared/database/base.repository';
 
-// TODO: rename to statistics
 @Injectable()
-export class LearnerEventRepository extends BaseEntityRepository<LearnerEvent> {
-  constructor(protected readonly em: EntityManager) {
-    super(em, LearnerEvent);
-  }
+export class LearnerStatisticsRepository {
+  constructor(protected readonly em: EntityManager) {}
 
   async getDailyCorrectIncorrect(
     learnerId: number,
@@ -17,7 +12,7 @@ export class LearnerEventRepository extends BaseEntityRepository<LearnerEvent> {
   ): Promise<DailyCorrectIncorrect[]> {
     if (learnerId == null) throw new Error('learnerId required');
 
-    const knex = this.getKnex();
+    const knex = this.em.getKnex();
 
     const daysBack = Math.max(0, numberOfDays - 1);
     const daysCte = knex.raw(

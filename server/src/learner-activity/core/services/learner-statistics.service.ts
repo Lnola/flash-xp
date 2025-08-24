@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
-import { LearnerEventRepository } from 'learner-activity/infrastructure';
+import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { Result } from 'shared/helpers/result';
 import { DailyCorrectIncorrect } from '../models';
 
 @Injectable()
 export class LearnerStatisticsService {
   constructor(
-    private readonly learnerEventRepository: LearnerEventRepository,
+    private readonly learnerStatisticsRepository: LearnerStatisticsRepository,
   ) {}
 
   async fetchDailyCorrectIncorrect(
@@ -15,7 +15,9 @@ export class LearnerStatisticsService {
   ): Promise<Result<DailyCorrectIncorrect[]>> {
     try {
       const dailyCorrectIncorrect =
-        await this.learnerEventRepository.getDailyCorrectIncorrect(learnerId);
+        await this.learnerStatisticsRepository.getDailyCorrectIncorrect(
+          learnerId,
+        );
       return Result.success(dailyCorrectIncorrect);
     } catch (error) {
       console.log(error);
