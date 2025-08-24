@@ -18,21 +18,31 @@ export class LearnerEventRepository extends BaseEntityRepository<LearnerEvent> {
     if (learnerId == null) throw new Error('learnerId required');
 
     const knex = this.getKnex();
-    const rows = await knex<DailyCorrectIncorrect>('learner_event')
-      .select({
-        day: knex.raw(`TO_CHAR(created_at, 'Dy')`),
-        correct: knex.raw(
-          `COUNT(*) FILTER (WHERE (payload->>'isCorrect')::boolean = TRUE)`,
-        ),
-        incorrect: knex.raw(
-          `COUNT(*) FILTER (WHERE (payload->>'isCorrect')::boolean = FALSE)`,
-        ),
-      })
-      .where('learner_id', learnerId)
-      .andWhereRaw(`created_at >= NOW() - INTERVAL '${numberOfDays} days'`)
-      .groupBy('day')
-      .orderBy('day', 'asc');
 
-    return rows.map((row) => new DailyCorrectIncorrect(row));
+    const daysBack = Math.max(0, numberOfDays - 1);
+    const daysCte = knex.raw(
+      `SELECT generate_series(CURRENT_DATE - (${daysBack} || ' days')::interval, CURRENT_DATE, INTERVAL '1 day')::date AS day`,
+    );
+    const day = knex.raw(`TO_CHAR(days.day, 'Dy')`);
+    const correct = knex.raw(
+      `COALESCE(COUNT(*) FILTER (WHERE (learner_event.payload->>'isCorrect')::boolean = TRUE), 0)`,
+    );
+    const incorrect = knex.raw(
+      `COALESCE(COUNT(*) FILTER (WHERE (learner_event.payload->>'isCorrect')::boolean = FALSE), 0)`,
+    );
+    const on = knex.raw(
+      `DATE(learner_event.created_at) = days.day AND learner_event.learner_id = ${learnerId}`,
+    );
+    const rows = await knex
+      .with('days', daysCte)
+      .select({ day, correct, incorrect })
+      .from('days')
+      .leftJoin('learner_event', on)
+      .groupBy('days.day')
+      .orderBy('days.day', 'asc');
+
+    return rows.map(
+      (row: DailyCorrectIncorrect) => new DailyCorrectIncorrect(row),
+    );
   }
 }
