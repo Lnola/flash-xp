@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { LearnerEventService } from 'learner-activity/core/services';
+import { LearnerEventTypes } from 'shared/constants';
 import { AnswerSubmittedEvent, BaseEventHandler } from 'shared/events';
 import { Mediator } from 'shared/mediator';
 
@@ -12,8 +13,14 @@ export class AnswerSubmittedEventHandler extends BaseEventHandler<AnswerSubmitte
     super(mediator, AnswerSubmittedEvent.name);
   }
 
-  // TODO: check if this needs to be async
-  handle({ payload }: AnswerSubmittedEvent) {
-    this.learnerEventService.create(payload);
+  // TODO: Handle the floating promises issue
+  handle(event: AnswerSubmittedEvent) {
+    const { learnerId, questionId, isCorrect } = event.payload;
+    const payload = { questionId, isCorrect };
+    this.learnerEventService.create({
+      learnerId,
+      payload,
+      type: LearnerEventTypes.ANSWER_SUBMITTED,
+    });
   }
 }
