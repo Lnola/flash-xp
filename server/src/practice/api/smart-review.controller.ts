@@ -47,7 +47,7 @@ export class SmartReviewController {
     @Body('isCorrect') isCorrect: boolean,
   ): Promise<void> {
     const { error } = await this.smartReviewService.submitAnswer(
-      questionId,
+      +questionId,
       learnerId,
       isCorrect,
     );
