@@ -1,6 +1,6 @@
 import { Controller, Get, NotFoundException } from '@nestjs/common';
+import { DailyCorrectIncorrect } from 'learner-activity/core/models';
 import { LearnerStatisticsService } from 'learner-activity/core/services';
-import { DailyCorrectIncorrect } from 'learner-activity/infrastructure';
 import { User } from 'shared/decorators';
 
 @Controller('statistics')

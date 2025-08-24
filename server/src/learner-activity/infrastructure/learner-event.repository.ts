@@ -1,6 +1,7 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
+import { DailyCorrectIncorrect } from 'learner-activity/core/models';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 
 // TODO: rename to statistics
@@ -32,18 +33,6 @@ export class LearnerEventRepository extends BaseEntityRepository<LearnerEvent> {
       .groupBy('day')
       .orderBy('day', 'asc');
 
-    const result = rows.map((row) => ({
-      day: String(row.day as string),
-      correct: Number(row.correct),
-      incorrect: Number(row.incorrect),
-    }));
-
-    return result;
+    return rows.map((row) => new DailyCorrectIncorrect(row));
   }
 }
-
-export type DailyCorrectIncorrect = {
-  day: string;
-  correct: number;
-  incorrect: number;
-};

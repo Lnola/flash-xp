@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
-import {
-  DailyCorrectIncorrect,
-  LearnerEventRepository,
-} from 'learner-activity/infrastructure';
+import { LearnerEventRepository } from 'learner-activity/infrastructure';
 import { Result } from 'shared/helpers/result';
+import { DailyCorrectIncorrect } from '../models';
 
 @Injectable()
 export class LearnerStatisticsService {
