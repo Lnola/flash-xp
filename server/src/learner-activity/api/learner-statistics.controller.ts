@@ -38,6 +38,21 @@ export class LearnerStatisticsController {
     return data;
   }
 
+  @Get('deck-count')
+  async fetchDeckCount(
+    @Query(new ZodValidationPipe(answersCountQuerySchema))
+    { interval }: AnswersCountQuery,
+    @User('id')
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<number> {
+    const { error, data } = await this.learnerStatisticsService.fetchDeckCount(
+      learnerId,
+      interval,
+    );
+    if (error || (!data && data !== 0)) throw new NotFoundException(error);
+    return data;
+  }
+
   @Get('daily-correct-incorrect')
   async fetchDailyCorrectIncorrect(
     @User('id') learnerId: LearnerEvent['learnerId'],
