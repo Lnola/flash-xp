@@ -13,18 +13,30 @@ class DailyCorrectIncorrectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (dailyCorrectIncorrect.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final days = dailyCorrectIncorrect.data?.map((it) => it.day).toList();
+    final correct = dailyCorrectIncorrect.data
+        ?.map((it) => double.tryParse(it.correct.toString()) ?? 0)
+        .toList();
+    final incorrect = dailyCorrectIncorrect.data
+        ?.map((it) => double.tryParse(it.incorrect.toString()) ?? 0)
+        .toList();
+
     return GroupBarChartCardWidget(
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      days: days!,
       series: [
         BarSeries(
           label: 'Correct Answers',
           color: Theme.of(context).colorScheme.tertiary,
-          values: [3, 2, 5, 4, 3, 1, 2],
+          values: correct!,
         ),
         BarSeries(
           label: 'Incorrect Answers',
           color: Theme.of(context).colorScheme.error,
-          values: [1, 3, 2, 5, 2, 2, 10],
+          values: incorrect!,
         ),
       ],
     );
