@@ -1,13 +1,12 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart_card.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/number_card.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/percentage_card.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/pie_chart_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/cards/number_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
