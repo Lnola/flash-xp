@@ -15,6 +15,16 @@ export class LearnerStatisticsController {
     private readonly learnerStatisticsService: LearnerStatisticsService,
   ) {}
 
+  @Get('streak')
+  async fetchDailyStreak(
+    @User('id') learnerId: LearnerEvent['learnerId'],
+  ): Promise<number> {
+    const { error, data } =
+      await this.learnerStatisticsService.fetchDailyStreak(learnerId);
+    if (error || (!data && data !== 0)) throw new NotFoundException(error);
+    return data;
+  }
+
   @Get('answers/count')
   async fetchAnswersCount(
     @Query(new ZodValidationPipe(answersCountQuerySchema))
