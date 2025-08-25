@@ -1,3 +1,5 @@
+import 'package:flashxp/features/statistics/data/statistics.repository.dart';
+import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/group_bar_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/number_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/percentage_card.widget.dart';
@@ -9,8 +11,30 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class StatisticsView extends StatelessWidget {
+class StatisticsView extends StatefulWidget {
   const StatisticsView({super.key});
+
+  @override
+  State<StatisticsView> createState() => StatisticsViewState();
+}
+
+class StatisticsViewState extends State<StatisticsView> {
+  late final StatisticsController controller;
+
+  void _onControllerUpdated() => setState(() {});
+
+  @override
+  void initState() {
+    super.initState();
+    controller = StatisticsController(StatisticsRepository());
+    controller.addListener(_onControllerUpdated);
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_onControllerUpdated);
+    super.dispose();
+  }
 
   void _signOut(BuildContext context) async {
     final authService = context.read<AuthService>();
