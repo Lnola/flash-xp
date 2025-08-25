@@ -50,6 +50,23 @@ export class LearnerStatisticsRepository {
     return result[0].count || 0;
   }
 
+  async getDeckCount(learnerId: number, interval?: number): Promise<number> {
+    if (learnerId == null) throw new Error('learnerId required');
+
+    const knex = this.em.getKnex();
+    const query = knex('learner_event')
+      .countDistinct(knex.raw(`payload->>'deckId'`))
+      .where({ learner_id: learnerId });
+
+    if (interval) {
+      const from = new Date();
+      from.setDate(from.getDate() - interval + 1);
+      query.andWhere('created_at', '>=', from);
+    }
+    const result = (await query) as { count: number }[];
+    return result[0].count || 0;
+  }
+
   async getDailyCorrectIncorrect(
     learnerId: number,
     numberOfDays: number = 7,
