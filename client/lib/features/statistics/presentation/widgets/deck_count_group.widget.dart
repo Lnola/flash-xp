@@ -19,11 +19,13 @@ class DeckCountGroupWidget extends StatelessWidget {
         NumberCardGroup(
           value: deckCountToday.data,
           isLoading: deckCountToday.isLoading,
+          error: deckCountToday.error,
           label: 'Decks solved today',
         ),
         NumberCardGroup(
           value: deckCountTotal.data,
           isLoading: deckCountTotal.isLoading,
+          error: deckCountTotal.error,
           label: 'Total decks solved',
         ),
       ],
