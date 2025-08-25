@@ -1,6 +1,7 @@
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class DailyCorrectIncorrectWidget extends StatelessWidget {
@@ -13,6 +14,13 @@ class DailyCorrectIncorrectWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (dailyCorrectIncorrect.error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, dailyCorrectIncorrect.error, null);
+      });
+      return const SizedBox.shrink();
+    }
+
     final days = dailyCorrectIncorrect.data?.map((it) => it.day).toList();
     final correct = dailyCorrectIncorrect.data
         ?.map((it) => double.tryParse(it.correct.toString()) ?? 0)
