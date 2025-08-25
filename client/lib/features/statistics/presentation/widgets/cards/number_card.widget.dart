@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NumberCardWidget extends StatelessWidget {
-  final String value;
+  final int? value;
   final String label;
   final Color? backgroundColor;
   final Color? textColor;
@@ -33,6 +33,7 @@ class NumberCardWidget extends StatelessWidget {
     }
 
     final textColor = this.textColor ?? Theme.of(context).colorScheme.onSurface;
+    final localValue = value?.toString() ?? '0';
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor ?? Theme.of(context).colorScheme.surface,
@@ -42,7 +43,7 @@ class NumberCardWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _Value(icon: icon, value: value, textColor: textColor),
+          _Value(icon: icon, value: localValue, textColor: textColor),
           _Label(label: label, textColor: textColor),
         ],
       ),

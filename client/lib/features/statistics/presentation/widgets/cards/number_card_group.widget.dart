@@ -2,7 +2,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/cards/number_ca
 import 'package:flutter/material.dart';
 
 class NumberCardGroup {
-  final String value;
+  final int? value;
   final String label;
   final bool isLoading;
   final String? error;

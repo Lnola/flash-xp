@@ -17,12 +17,12 @@ class DeckCountGroupWidget extends StatelessWidget {
     return NumberCardGroupWidget(
       groups: [
         NumberCardGroup(
-          value: deckCountToday.data.toString(),
+          value: deckCountToday.data,
           isLoading: deckCountToday.isLoading,
           label: 'Decks solved today',
         ),
         NumberCardGroup(
-          value: deckCountTotal.data.toString(),
+          value: deckCountTotal.data,
           isLoading: deckCountTotal.isLoading,
           label: 'Total decks solved',
         ),

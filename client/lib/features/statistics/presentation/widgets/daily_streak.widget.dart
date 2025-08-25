@@ -11,7 +11,7 @@ class DailyStreakWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NumberCardWidget(
-      value: dailyStreak.data.toString(),
+      value: dailyStreak.data,
       isLoading: dailyStreak.isLoading,
       label: 'Streak',
       icon: FontAwesomeIcons.fire,
