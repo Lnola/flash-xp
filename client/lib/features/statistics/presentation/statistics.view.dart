@@ -6,7 +6,6 @@ import 'package:flashxp/features/statistics/presentation/widgets/percentage_card
 import 'package:flashxp/features/statistics/presentation/widgets/pie_chart_card.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
-import 'package:flashxp/shared/presentation/widgets/flash_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -47,10 +46,6 @@ class StatisticsViewState extends State<StatisticsView> {
 
   @override
   Widget build(BuildContext context) {
-    if (controller.dailyStreak.isLoading) {
-      return const Center(child: FlashLoading());
-    }
-
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
@@ -91,6 +86,7 @@ class StatisticsViewState extends State<StatisticsView> {
           const SizedBox(height: 16.0),
           NumberCardWidget(
             value: controller.dailyStreak.data.toString(),
+            isLoading: controller.dailyStreak.isLoading,
             label: 'Streak',
             icon: FontAwesomeIcons.fire,
           ),
