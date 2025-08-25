@@ -1,4 +1,5 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
+import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
@@ -51,11 +52,13 @@ class StatisticsController extends ChangeNotifier {
   final answerCountTotal = StatStore<int>();
   final deckCountToday = StatStore<int>();
   final deckCountTotal = StatStore<int>();
+  final dailyCorrectIncorrect = StatStore<DailyCorrectIncorrect>();
 
   StatisticsController(this._statisticsRepository) {
     _initDailyStreak();
     _initAnswerCount();
     _initDeckCount();
+    _initDailyCorrectIncorrect();
   }
 
   Future<void> _initDailyStreak() async {
@@ -81,6 +84,13 @@ class StatisticsController extends ChangeNotifier {
     );
     await deckCountTotal.load(
       () => _statisticsRepository.getDeckCount(),
+    );
+    notifyListeners();
+  }
+
+  Future<void> _initDailyCorrectIncorrect() async {
+    await dailyCorrectIncorrect.load(
+      _statisticsRepository.getDailyCorrectIncorrect,
     );
     notifyListeners();
   }
