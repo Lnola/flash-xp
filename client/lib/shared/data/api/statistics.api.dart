@@ -16,7 +16,6 @@ class StatisticsApi {
     );
   }
 
-  // TODO: Implement this
   Future<http.Response> getDeckCount({
     Map<String, String> queryParams = const {},
   }) {
