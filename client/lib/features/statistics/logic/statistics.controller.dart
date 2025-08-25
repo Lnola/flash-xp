@@ -2,7 +2,7 @@ import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
-class StatStore<T> extends ChangeNotifier {
+class StatStore<T> {
   bool isLoading = true;
   String? error;
   T? data;
@@ -11,21 +11,18 @@ class StatStore<T> extends ChangeNotifier {
     this.isLoading = true;
     this.error = null;
     this.data = null;
-    notifyListeners();
   }
 
   void setError(String error) {
     this.isLoading = false;
     this.error = error;
     this.data = null;
-    notifyListeners();
   }
 
   void setData(T data) {
     this.isLoading = false;
     this.error = null;
     this.data = data;
-    notifyListeners();
   }
 
   Future<void> load(Future<Result<T>> Function() fetch) async {
