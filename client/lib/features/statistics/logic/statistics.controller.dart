@@ -1,4 +1,5 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
+import 'package:flashxp/features/statistics/logic/models/accuracy_rate.model.dart';
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class StatisticsController extends ChangeNotifier {
   final deckCountToday = StatStore<int>();
   final deckCountTotal = StatStore<int>();
   final dailyCorrectIncorrect = StatStore<List<DailyCorrectIncorrect>>();
+  final accuracyRate = StatStore<AccuracyRate>();
 
   StatisticsController(this._statisticsRepository) {
     // Future.delayed(const Duration(milliseconds: 1000), () {
@@ -60,6 +62,7 @@ class StatisticsController extends ChangeNotifier {
     _initAnswerCount();
     _initDeckCount();
     _initDailyCorrectIncorrect();
+    _initAccuracyRate();
     // });
   }
 
@@ -94,6 +97,11 @@ class StatisticsController extends ChangeNotifier {
     await dailyCorrectIncorrect.load(
       _statisticsRepository.getDailyCorrectIncorrect,
     );
+    notifyListeners();
+  }
+
+  Future<void> _initAccuracyRate() async {
+    await accuracyRate.load(_statisticsRepository.getAccuracyRate);
     notifyListeners();
   }
 }
