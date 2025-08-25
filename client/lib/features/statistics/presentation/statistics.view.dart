@@ -70,6 +70,7 @@ class StatisticsViewState extends State<StatisticsView> {
           const SizedBox(height: 16.0),
           DailyStreakWidget(dailyStreak: controller.dailyStreak),
           const SizedBox(height: 16.0),
+          // TODO: implement this
           PieChartCardWidget(
             slices: [
               PieSlice(
