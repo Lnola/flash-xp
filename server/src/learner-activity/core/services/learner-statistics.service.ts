@@ -7,6 +7,7 @@ import {
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { Result } from 'shared/helpers/result';
 
+// TODO: Remove the console.logs
 @Injectable()
 export class LearnerStatisticsService {
   constructor(
@@ -39,6 +40,22 @@ export class LearnerStatisticsService {
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch answers count.`);
+    }
+  }
+
+  async fetchDeckCount(
+    learnerId: LearnerEvent['learnerId'],
+    interval?: number,
+  ): Promise<Result<number>> {
+    try {
+      const count = await this.learnerStatisticsRepository.getDeckCount(
+        learnerId,
+        interval,
+      );
+      return Result.success(count);
+    } catch (error) {
+      console.log(error);
+      return Result.failure(`Failed to fetch decks count.`);
     }
   }
 
