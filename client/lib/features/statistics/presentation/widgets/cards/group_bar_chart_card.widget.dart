@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_skeleton_box.dart';
 import 'package:flutter/material.dart';
 
 class BarSeries {
@@ -18,6 +21,7 @@ class GroupBarChartCardWidget extends StatelessWidget {
   final List<BarSeries> series;
   final double barWidth;
   final double groupSpace;
+  final bool isLoading;
 
   const GroupBarChartCardWidget({
     super.key,
@@ -25,10 +29,13 @@ class GroupBarChartCardWidget extends StatelessWidget {
     required this.series,
     this.barWidth = 12,
     this.groupSpace = 4,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) return _SkeletonLoader();
+
     final maxY =
         series.expand((s) => s.values).fold<double>(0, (p, e) => e > p ? e : p);
 
@@ -185,6 +192,39 @@ class _Chart extends StatelessWidget {
             );
           }),
         ),
+      ),
+    );
+  }
+}
+
+class _SkeletonLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withAlpha(99),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 16.0),
+      height: 276,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(14, (i) {
+                return FlashSkeletonBox(
+                  width: 12,
+                  height: Random().nextInt(60) + 40,
+                  rounded: true,
+                );
+              }),
+            ),
+          ),
+        ],
       ),
     );
   }
