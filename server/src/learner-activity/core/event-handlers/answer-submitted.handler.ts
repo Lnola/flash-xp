@@ -14,8 +14,8 @@ export class AnswerSubmittedEventHandler extends BaseEventHandler<AnswerSubmitte
   }
 
   handle(event: AnswerSubmittedEvent) {
-    const { learnerId, questionId, isCorrect } = event.payload;
-    const payload = { questionId, isCorrect };
+    const { learnerId, questionId, deckId, isCorrect } = event.payload;
+    const payload = { questionId, deckId, isCorrect };
     void this.learnerEventService.create({
       learnerId,
       payload,

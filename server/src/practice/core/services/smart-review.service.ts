@@ -72,7 +72,8 @@ export class SmartReviewService {
         learnerId,
       });
       if (!box) return Result.failure('Box not found');
-      const payload = { questionId, learnerId, isCorrect };
+      const { deckId } = box;
+      const payload = { questionId, learnerId, deckId, isCorrect };
       this.mediator.publish(new AnswerSubmittedEvent(payload));
       if (!isCorrect) return Result.success();
       box.incrementBox();
