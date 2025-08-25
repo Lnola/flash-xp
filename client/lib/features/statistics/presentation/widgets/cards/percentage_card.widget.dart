@@ -1,3 +1,4 @@
+import 'package:flashxp/shared/presentation/widgets/flash_skeleton_box.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -8,6 +9,7 @@ class PercentageCardWidget extends StatelessWidget {
   final double lineWidth;
   final Color? backgroundColor;
   final Color? progressColor;
+  final bool isLoading;
 
   const PercentageCardWidget({
     super.key,
@@ -17,10 +19,13 @@ class PercentageCardWidget extends StatelessWidget {
     this.lineWidth = 12,
     this.backgroundColor,
     this.progressColor,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) return _SkeletonLoader();
+
     final theme = Theme.of(context);
     final bgColor =
         backgroundColor ?? theme.colorScheme.onSurface.withAlpha(33);
@@ -54,6 +59,36 @@ class PercentageCardWidget extends StatelessWidget {
               style: theme.textTheme.bodySmall,
             ),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+class _SkeletonLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface.withAlpha(99),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FlashSkeletonBox(
+            width: 120,
+            height: 120,
+            rounded: true,
+          ),
+          SizedBox(height: 12),
+          FlashSkeletonBox(
+            width: 60,
+            height: 12,
+            rounded: true,
+          ),
         ],
       ),
     );
