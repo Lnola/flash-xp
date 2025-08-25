@@ -8,7 +8,11 @@ class StatisticsApi {
     return client.get(client.buildUri('/statistics/streak'));
   }
 
-  Future<http.Response> getAnswerCount() {
-    return client.get(client.buildUri('/statistics/answer-count'));
+  Future<http.Response> getAnswerCount({
+    Map<String, String> queryParams = const {},
+  }) {
+    return client.get(
+      client.buildUri('/statistics/answer-count', queryParams: queryParams),
+    );
   }
 }
