@@ -1,4 +1,3 @@
-import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
 import {
@@ -6,14 +5,11 @@ import {
   DailyCorrectIncorrect,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
-import { BaseEntityRepository } from 'shared/database/base.repository';
 import { Result } from 'shared/helpers/result';
 
 @Injectable()
 export class LearnerStatisticsService {
   constructor(
-    @InjectRepository(LearnerEvent)
-    private readonly learnerEventRepository: BaseEntityRepository<LearnerEvent>,
     private readonly learnerStatisticsRepository: LearnerStatisticsRepository,
   ) {}
 
