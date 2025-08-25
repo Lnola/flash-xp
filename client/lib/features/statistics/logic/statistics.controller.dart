@@ -2,6 +2,7 @@ import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
+// TODO: HANDLE ERRORS IN UI
 class StatStore<T> {
   bool isLoading = true;
   String? error;
