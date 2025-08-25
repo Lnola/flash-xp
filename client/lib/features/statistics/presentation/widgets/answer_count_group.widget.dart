@@ -19,12 +19,12 @@ class AnswerCountGroupWidget extends StatelessWidget {
         NumberCardGroup(
           value: answerCountToday.data.toString(),
           isLoading: answerCountToday.isLoading,
-          label: 'Cards answered today',
+          label: 'Answers today',
         ),
         NumberCardGroup(
           value: answerCountTotal.data.toString(),
           isLoading: answerCountTotal.isLoading,
-          label: 'Total cards answered',
+          label: 'Total answers',
         ),
       ],
     );
