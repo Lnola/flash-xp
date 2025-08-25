@@ -1,7 +1,7 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/accuracy_rate.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
@@ -66,12 +66,7 @@ class StatisticsViewState extends State<StatisticsView> {
             answerCountTotal: controller.answerCountTotal,
           ),
           const SizedBox(height: 16.0),
-          const PercentageCardWidget(
-            percent: 0.75,
-            label: 'Accuracy rate',
-            radius: 56,
-            lineWidth: 12,
-          ),
+          AccuracyRateWidget(accuracyRate: controller.accuracyRate),
           const SizedBox(height: 16.0),
           DailyStreakWidget(dailyStreak: controller.dailyStreak),
           const SizedBox(height: 16.0),
