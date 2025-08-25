@@ -33,7 +33,7 @@ export class LearnerStatisticsRepository {
     return rows[0]?.streak || 0;
   }
 
-  async getAnswersCount(learnerId: number, interval?: number): Promise<number> {
+  async getAnswerCount(learnerId: number, interval?: number): Promise<number> {
     if (learnerId == null) throw new Error('learnerId required');
 
     const knex = this.em.getKnex();

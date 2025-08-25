@@ -26,12 +26,12 @@ export class LearnerStatisticsService {
     }
   }
 
-  async fetchAnswersCount(
+  async fetchAnswerCount(
     learnerId: LearnerEvent['learnerId'],
     interval?: number,
   ): Promise<Result<number>> {
     try {
-      const count = await this.learnerStatisticsRepository.getAnswersCount(
+      const count = await this.learnerStatisticsRepository.getAnswerCount(
         learnerId,
         interval,
       );

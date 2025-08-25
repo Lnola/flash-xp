@@ -26,17 +26,14 @@ export class LearnerStatisticsController {
   }
 
   @Get('answer-count')
-  async fetchAnswersCount(
+  async fetchAnswerCount(
     @Query(new ZodValidationPipe(answersCountQuerySchema))
     { interval }: AnswersCountQuery,
     @User('id')
     learnerId: LearnerEvent['learnerId'],
   ): Promise<number> {
     const { error, data } =
-      await this.learnerStatisticsService.fetchAnswersCount(
-        learnerId,
-        interval,
-      );
+      await this.learnerStatisticsService.fetchAnswerCount(learnerId, interval);
     if (error || (!data && data !== 0)) throw new NotFoundException(error);
     return data;
   }
