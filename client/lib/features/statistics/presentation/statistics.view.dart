@@ -47,7 +47,7 @@ class StatisticsViewState extends State<StatisticsView> {
 
   @override
   Widget build(BuildContext context) {
-    if (controller.dailyStreakController.isLoading) {
+    if (controller.dailyStreak.isLoading) {
       return const Center(child: FlashLoading());
     }
 
@@ -90,7 +90,7 @@ class StatisticsViewState extends State<StatisticsView> {
           ),
           const SizedBox(height: 16.0),
           NumberCardWidget(
-            value: controller.dailyStreakController.data.toString(),
+            value: controller.dailyStreak.data.toString(),
             label: 'Streak',
             icon: FontAwesomeIcons.fire,
           ),

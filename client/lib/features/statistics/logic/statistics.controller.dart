@@ -1,21 +1,45 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
-class StatController<T> {
+class StatStore<T> extends ChangeNotifier {
   bool isLoading = true;
   String? error;
   T? data;
 
-  StatController.loading()
-      : isLoading = true,
-        error = null,
-        data = null;
-  StatController.error(this.error)
-      : isLoading = false,
-        data = null;
-  StatController.data(this.data)
-      : isLoading = false,
-        error = null;
+  void setLoading() {
+    isLoading = true;
+    error = null;
+    data = null;
+    notifyListeners();
+  }
+
+  void setError(String error) {
+    this.isLoading = false;
+    this.error = error;
+    this.data = null;
+    notifyListeners();
+  }
+
+  void setData(T data) {
+    this.isLoading = false;
+    this.error = null;
+    this.data = data;
+    notifyListeners();
+  }
+
+  Future<void> load(Future<Result<T>> Function() fetch) async {
+    setLoading();
+    try {
+      final result = await fetch();
+      if (result.error != null || result.data == null) {
+        return setError(result.error ?? 'Unknown error');
+      }
+      setData(result.data as T);
+    } catch (e) {
+      setError(e.toString());
+    }
+  }
 }
 
 // To improve performance it would be great to break this
@@ -24,24 +48,14 @@ class StatController<T> {
 class StatisticsController extends ChangeNotifier {
   final StatisticsRepository _statisticsRepository;
 
-  StatController<int> dailyStreakController = StatController.loading();
+  final dailyStreak = StatStore<int>();
 
   StatisticsController(this._statisticsRepository) {
     _init();
   }
 
   Future<void> _init() async {
-    dailyStreakController = StatController.loading();
-    notifyListeners();
-
-    final result = await _statisticsRepository.getDailyStreak();
-    if (result.error != null || result.data == null) {
-      dailyStreakController = StatController.error(result.error);
-      notifyListeners();
-      return;
-    }
-
-    dailyStreakController = StatController.data(result.data!);
+    dailyStreak.load(_statisticsRepository.getDailyStreak);
     notifyListeners();
   }
 }
