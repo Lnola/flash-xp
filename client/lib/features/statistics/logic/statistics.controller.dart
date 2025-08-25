@@ -46,13 +46,27 @@ class StatisticsController extends ChangeNotifier {
   final StatisticsRepository _statisticsRepository;
 
   final dailyStreak = StatStore<int>();
+  final answerCountToday = StatStore<int>();
+  final answerCountTotal = StatStore<int>();
 
   StatisticsController(this._statisticsRepository) {
     _initDailyStreak();
+    _initAnswerCount();
   }
 
   Future<void> _initDailyStreak() async {
     await dailyStreak.load(_statisticsRepository.getDailyStreak);
+    notifyListeners();
+  }
+
+  Future<void> _initAnswerCount() async {
+    final todayQueryParams = {'interval': '1'};
+    await answerCountToday.load(
+      () => _statisticsRepository.getAnswerCount(queryParams: todayQueryParams),
+    );
+    await answerCountTotal.load(
+      () => _statisticsRepository.getAnswerCount(),
+    );
     notifyListeners();
   }
 }
