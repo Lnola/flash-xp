@@ -14,8 +14,8 @@ export class LearnerStatisticsRepository {
 
     const knex = this.em.getKnex();
     const query = knex('learner_event')
-      .where({ learner_id: learnerId })
-      .count('* as count');
+      .count('*')
+      .where({ learner_id: learnerId });
 
     if (interval) {
       const from = new Date();
