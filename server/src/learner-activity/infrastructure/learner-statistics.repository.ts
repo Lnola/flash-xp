@@ -91,7 +91,7 @@ export class LearnerStatisticsRepository {
     const correct = knex.raw(
       `COUNT(*) FILTER (WHERE (payload ->> 'isCorrect')::boolean = TRUE)`,
     );
-    const total = knex.count('*');
+    const total = knex.raw(`COUNT(*)`);
     const rows = await knex
       .select({ correct, total })
       .from('learner_event')
