@@ -8,9 +8,9 @@ class StatStore<T> extends ChangeNotifier {
   T? data;
 
   void setLoading() {
-    isLoading = true;
-    error = null;
-    data = null;
+    this.isLoading = true;
+    this.error = null;
+    this.data = null;
     notifyListeners();
   }
 
@@ -51,11 +51,11 @@ class StatisticsController extends ChangeNotifier {
   final dailyStreak = StatStore<int>();
 
   StatisticsController(this._statisticsRepository) {
-    _init();
+    _initDailyStreak();
   }
 
-  Future<void> _init() async {
-    dailyStreak.load(_statisticsRepository.getDailyStreak);
+  Future<void> _initDailyStreak() async {
+    await dailyStreak.load(_statisticsRepository.getDailyStreak);
     notifyListeners();
   }
 }
