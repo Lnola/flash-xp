@@ -24,5 +24,24 @@ class StatController<T> {
 class StatisticsController extends ChangeNotifier {
   final StatisticsRepository _statisticsRepository;
 
-  StatisticsController(this._statisticsRepository);
+  StatController<int> dailyStreakController = StatController.loading();
+
+  StatisticsController(this._statisticsRepository) {
+    _init();
+  }
+
+  Future<void> _init() async {
+    dailyStreakController = StatController.loading();
+    notifyListeners();
+
+    final result = await _statisticsRepository.getDailyStreak();
+    if (result.error != null || result.data == null) {
+      dailyStreakController = StatController.error(result.error);
+      notifyListeners();
+      return;
+    }
+
+    dailyStreakController = StatController.data(result.data!);
+    notifyListeners();
+  }
 }
