@@ -23,4 +23,8 @@ class StatisticsApi {
       client.buildUri('/statistics/deck-count', queryParams: queryParams),
     );
   }
+
+  Future<http.Response> getDailyCorrectIncorrect() {
+    return client.get(client.buildUri('/statistics/daily-correct-incorrect'));
+  }
 }
