@@ -8,6 +8,7 @@ class NumberCardWidget extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final IconData? icon;
+  final bool isLoading;
 
   const NumberCardWidget({
     super.key,
@@ -16,10 +17,15 @@ class NumberCardWidget extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.icon,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return _SkeletonLoader();
+    }
+
     final textColor = this.textColor ?? Theme.of(context).colorScheme.onSurface;
     return Container(
       decoration: BoxDecoration(
@@ -92,6 +98,46 @@ class _Label extends StatelessWidget {
           .bodySmall
           ?.copyWith(color: textColor.withAlpha(77)),
       textAlign: TextAlign.center,
+    );
+  }
+}
+
+class _SkeletonLoader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    Widget skeletonBox({double? height, double? width, bool rounded = false}) {
+      return Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: theme.colorScheme.primaryContainer.withAlpha(33),
+          borderRadius:
+              rounded ? BorderRadius.circular(1000) : BorderRadius.circular(8),
+        ),
+      );
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface.withAlpha(99),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              skeletonBox(height: 28, width: 60),
+              const SizedBox(height: 13),
+              skeletonBox(height: 16, width: 80),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
