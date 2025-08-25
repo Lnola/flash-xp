@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
+import {
+  AccuracyRate,
+  DailyCorrectIncorrect,
+} from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { Result } from 'shared/helpers/result';
-import { DailyCorrectIncorrect } from '../models';
 
 @Injectable()
 export class LearnerStatisticsService {
@@ -22,6 +25,19 @@ export class LearnerStatisticsService {
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch daily correct/incorrect answers.`);
+    }
+  }
+
+  async fetchAccuracyRate(
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<Result<AccuracyRate>> {
+    try {
+      const accuracyRate =
+        await this.learnerStatisticsRepository.getAccuracyRate(learnerId);
+      return Result.success(accuracyRate);
+    } catch (error) {
+      console.log(error);
+      return Result.failure(`Failed to fetch accuracy rate.`);
     }
   }
 }
