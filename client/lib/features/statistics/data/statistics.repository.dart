@@ -57,14 +57,16 @@ class StatisticsRepository {
     }
   }
 
-  Future<Result<DailyCorrectIncorrect>> getDailyCorrectIncorrect() async {
+  Future<Result<List<DailyCorrectIncorrect>>> getDailyCorrectIncorrect() async {
     try {
       final response = await _statisticsApi.getDailyCorrectIncorrect();
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure(message);
       }
-      final data = DailyCorrectIncorrect.fromJson(jsonDecode(response.body));
+      final data = (jsonDecode(response.body) as List)
+          .map((item) => DailyCorrectIncorrect.fromJson(item))
+          .toList();
       return Result.success(data);
     } catch (error) {
       return Result.failure(error.toString());

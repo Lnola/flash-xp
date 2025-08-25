@@ -52,7 +52,7 @@ class StatisticsController extends ChangeNotifier {
   final answerCountTotal = StatStore<int>();
   final deckCountToday = StatStore<int>();
   final deckCountTotal = StatStore<int>();
-  final dailyCorrectIncorrect = StatStore<DailyCorrectIncorrect>();
+  final dailyCorrectIncorrect = StatStore<List<DailyCorrectIncorrect>>();
 
   StatisticsController(this._statisticsRepository) {
     _initDailyStreak();

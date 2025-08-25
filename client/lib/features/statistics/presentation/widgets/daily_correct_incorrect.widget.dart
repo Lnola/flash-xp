@@ -4,7 +4,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar
 import 'package:flutter/material.dart';
 
 class DailyCorrectIncorrectWidget extends StatelessWidget {
-  final StatStore<DailyCorrectIncorrect> dailyCorrectIncorrect;
+  final StatStore<List<DailyCorrectIncorrect>> dailyCorrectIncorrect;
 
   const DailyCorrectIncorrectWidget({
     super.key,
