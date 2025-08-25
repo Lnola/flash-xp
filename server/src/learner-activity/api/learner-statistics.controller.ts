@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Query } from '@nestjs/common';
 import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
@@ -6,12 +6,30 @@ import {
 } from 'learner-activity/core/models';
 import { LearnerStatisticsService } from 'learner-activity/core/services';
 import { User } from 'shared/decorators';
+import { ZodValidationPipe } from 'shared/pipes';
+import { AnswersCountQuery, answersCountQuerySchema } from './validators';
 
 @Controller('statistics')
 export class LearnerStatisticsController {
   constructor(
     private readonly learnerStatisticsService: LearnerStatisticsService,
   ) {}
+
+  @Get('answers/count')
+  async fetchAnswersCount(
+    @Query(new ZodValidationPipe(answersCountQuerySchema))
+    { interval }: AnswersCountQuery,
+    @User('id')
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<number> {
+    const { error, data } =
+      await this.learnerStatisticsService.fetchAnswersCount(
+        learnerId,
+        interval,
+      );
+    if (error || (!data && data !== 0)) throw new NotFoundException(error);
+    return data;
+  }
 
   @Get('daily-correct-incorrect')
   async fetchDailyCorrectIncorrect(
