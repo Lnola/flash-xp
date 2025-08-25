@@ -9,6 +9,30 @@ import {
 export class LearnerStatisticsRepository {
   constructor(protected readonly em: EntityManager) {}
 
+  async getDailyStreak(learnerId: number): Promise<number> {
+    if (learnerId == null) throw new Error('learnerId required');
+
+    const knex = this.em.getKnex();
+    const daysCte = knex
+      .select(knex.raw('DATE(created_at) AS day'))
+      .from('learner_event')
+      .where('learner_id', learnerId)
+      .andWhereRaw('DATE(created_at) <= CURRENT_DATE')
+      .distinct();
+    const indexedDaysCte = knex
+      .select('day')
+      .select(knex.raw('ROW_NUMBER() OVER (ORDER BY day DESC) AS rn'))
+      .from('days');
+    const rows: { streak: number }[] = await knex
+      .with('days', daysCte)
+      .with('indexed_days', indexedDaysCte)
+      .select({ streak: knex.raw('COUNT(*)') })
+      .from('indexed_days')
+      .whereRaw(`day >= CURRENT_DATE - (rn - 1) * INTERVAL '1 day'`);
+
+    return rows[0]?.streak || 0;
+  }
+
   async getAnswersCount(learnerId: number, interval?: number): Promise<number> {
     if (learnerId == null) throw new Error('learnerId required');
 
