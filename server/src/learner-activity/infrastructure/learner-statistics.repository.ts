@@ -1,6 +1,9 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
-import { DailyCorrectIncorrect } from 'learner-activity/core/models';
+import {
+  AccuracyRate,
+  DailyCorrectIncorrect,
+} from 'learner-activity/core/models';
 
 @Injectable()
 export class LearnerStatisticsRepository {
@@ -13,7 +16,6 @@ export class LearnerStatisticsRepository {
     if (learnerId == null) throw new Error('learnerId required');
 
     const knex = this.em.getKnex();
-
     const daysBack = Math.max(0, numberOfDays - 1);
     const daysCte = knex.raw(
       `SELECT generate_series(CURRENT_DATE - (${daysBack} || ' days')::interval, CURRENT_DATE, INTERVAL '1 day')::date AS day`,
@@ -39,5 +41,21 @@ export class LearnerStatisticsRepository {
     return rows.map(
       (row: DailyCorrectIncorrect) => new DailyCorrectIncorrect(row),
     );
+  }
+
+  async getAccuracyRate(learnerId: number): Promise<AccuracyRate> {
+    if (learnerId == null) throw new Error('learnerId required');
+
+    const knex = this.em.getKnex();
+    const correct = knex.raw(
+      `COUNT(*) FILTER (WHERE (payload ->> 'isCorrect')::boolean = TRUE)`,
+    );
+    const total = knex.count('*');
+    const rows = await knex
+      .select({ correct, total })
+      .from('learner_event')
+      .where({ learner_id: learnerId });
+
+    return new AccuracyRate(rows[0] as AccuracyRate);
   }
 }
