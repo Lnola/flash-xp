@@ -13,6 +13,7 @@ class DailyStreakWidget extends StatelessWidget {
     return NumberCardWidget(
       value: dailyStreak.data,
       isLoading: dailyStreak.isLoading,
+      error: dailyStreak.error,
       label: 'Streak',
       icon: FontAwesomeIcons.fire,
     );
