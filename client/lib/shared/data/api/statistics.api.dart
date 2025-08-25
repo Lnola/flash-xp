@@ -7,4 +7,8 @@ class StatisticsApi {
   Future<http.Response> getDailyStreak() {
     return client.get(client.buildUri('/statistics/streak'));
   }
+
+  Future<http.Response> getAnswerCount() {
+    return client.get(client.buildUri('/statistics/answer-count'));
+  }
 }
