@@ -15,7 +15,8 @@ class AccuracyRateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PercentageCardWidget(
       isLoading: accuracyRate.isLoading,
-      percent: accuracyRate.data!.value,
+      error: accuracyRate.error,
+      percent: accuracyRate.data?.value,
       label: 'Accuracy rate',
       radius: 56,
       lineWidth: 12,
