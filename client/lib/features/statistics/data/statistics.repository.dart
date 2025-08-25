@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flashxp/features/statistics/logic/models/accuracy_rate.model.dart';
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/shared/data/api/statistics.api.dart';
 import 'package:flashxp/shared/helpers/result.dart';
@@ -68,6 +69,20 @@ class StatisticsRepository {
           .map((item) => DailyCorrectIncorrect.fromJson(item))
           .toList();
       return Result.success(data);
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
+
+  Future<Result<AccuracyRate>> getAccuracyRate() async {
+    try {
+      final response = await _statisticsApi.getAccuracyRate();
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure(message);
+      }
+      final data = jsonDecode(response.body);
+      return Result.success(AccuracyRate.fromJson(data));
     } catch (error) {
       return Result.failure(error.toString());
     }
