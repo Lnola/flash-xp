@@ -13,11 +13,8 @@ class AccuracyRateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (accuracyRate.isLoading) {
-      return const SizedBox.shrink();
-    }
-
     return PercentageCardWidget(
+      isLoading: accuracyRate.isLoading,
       percent: accuracyRate.data!.value,
       label: 'Accuracy rate',
       radius: 56,
