@@ -25,7 +25,7 @@ export class LearnerStatisticsController {
     return data;
   }
 
-  @Get('answers/count')
+  @Get('answer-count')
   async fetchAnswersCount(
     @Query(new ZodValidationPipe(answersCountQuerySchema))
     { interval }: AnswersCountQuery,
