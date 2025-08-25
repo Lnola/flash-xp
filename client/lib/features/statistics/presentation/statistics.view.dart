@@ -2,10 +2,10 @@ import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/cards/number_card_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -68,17 +68,9 @@ class StatisticsViewState extends State<StatisticsView> {
             ],
           ),
           const SizedBox(height: 16.0),
-          NumberCardGroupWidget(
-            groups: [
-              NumberCardGroup(
-                value: '100',
-                label: 'Decks solved today',
-              ),
-              NumberCardGroup(
-                value: '50',
-                label: 'Total decks solved',
-              ),
-            ],
+          DeckCountGroupWidget(
+            deckCountToday: controller.deckCountToday,
+            deckCountTotal: controller.deckCountTotal,
           ),
           const SizedBox(height: 16.0),
           AnswerCountGroupWidget(
