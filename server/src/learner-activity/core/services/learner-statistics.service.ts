@@ -13,6 +13,19 @@ export class LearnerStatisticsService {
     private readonly learnerStatisticsRepository: LearnerStatisticsRepository,
   ) {}
 
+  async fetchDailyStreak(
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<Result<number>> {
+    try {
+      const streak =
+        await this.learnerStatisticsRepository.getDailyStreak(learnerId);
+      return Result.success(streak);
+    } catch (error) {
+      console.log(error);
+      return Result.failure(`Failed to fetch daily streak.`);
+    }
+  }
+
   async fetchAnswersCount(
     learnerId: LearnerEvent['learnerId'],
     interval?: number,
