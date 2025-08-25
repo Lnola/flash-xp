@@ -1,5 +1,6 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/number_card_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
@@ -72,9 +73,9 @@ class StatisticsViewState extends State<StatisticsView> {
             labels: ['Decks solved today', 'Total decks solved'],
           ),
           const SizedBox(height: 16.0),
-          const NumberCardGroupWidget(
-            values: ['5', '10'],
-            labels: ['Cards answered today', 'Total cards answered'],
+          AnswerCountGroupWidget(
+            answerCountToday: controller.answerCountToday,
+            answerCountTotal: controller.answerCountTotal,
           ),
           const SizedBox(height: 16.0),
           const PercentageCardWidget(
