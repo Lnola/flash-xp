@@ -68,9 +68,17 @@ class StatisticsViewState extends State<StatisticsView> {
             ],
           ),
           const SizedBox(height: 16.0),
-          const NumberCardGroupWidget(
-            values: ['100', '50'],
-            labels: ['Decks solved today', 'Total decks solved'],
+          NumberCardGroupWidget(
+            groups: [
+              NumberCardGroup(
+                value: '100',
+                label: 'Decks solved today',
+              ),
+              NumberCardGroup(
+                value: '50',
+                label: 'Total decks solved',
+              ),
+            ],
           ),
           const SizedBox(height: 16.0),
           AnswerCountGroupWidget(

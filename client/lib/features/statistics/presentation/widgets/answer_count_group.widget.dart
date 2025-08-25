@@ -15,11 +15,18 @@ class AnswerCountGroupWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NumberCardGroupWidget(
-      values: [
-        answerCountToday.data.toString(),
-        answerCountTotal.data.toString(),
+      groups: [
+        NumberCardGroup(
+          value: answerCountToday.data.toString(),
+          isLoading: answerCountToday.isLoading,
+          label: 'Cards answered today',
+        ),
+        NumberCardGroup(
+          value: answerCountTotal.data.toString(),
+          isLoading: answerCountTotal.isLoading,
+          label: 'Total cards answered',
+        ),
       ],
-      labels: ['Cards answered today', 'Total cards answered'],
     );
   }
 }
