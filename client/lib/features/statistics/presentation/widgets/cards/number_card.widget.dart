@@ -1,3 +1,4 @@
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ class NumberCardWidget extends StatelessWidget {
   final Color? textColor;
   final IconData? icon;
   final bool isLoading;
+  final String? error;
 
   const NumberCardWidget({
     super.key,
@@ -18,12 +20,16 @@ class NumberCardWidget extends StatelessWidget {
     this.textColor,
     this.icon,
     this.isLoading = false,
+    this.error,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return _SkeletonLoader();
+    if (isLoading) return _SkeletonLoader();
+    if (error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, error, null);
+      });
     }
 
     final textColor = this.textColor ?? Theme.of(context).colorScheme.onSurface;

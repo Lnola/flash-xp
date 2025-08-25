@@ -5,11 +5,13 @@ class NumberCardGroup {
   final String value;
   final String label;
   final bool isLoading;
+  final String? error;
 
   NumberCardGroup({
     required this.value,
     required this.label,
     this.isLoading = false,
+    this.error,
   });
 }
 
@@ -32,6 +34,7 @@ class NumberCardGroupWidget extends StatelessWidget {
               value: group.value,
               label: group.label,
               isLoading: group.isLoading,
+              error: group.error,
             ),
           ),
       ],
