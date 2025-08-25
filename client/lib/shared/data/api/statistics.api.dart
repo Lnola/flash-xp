@@ -27,4 +27,8 @@ class StatisticsApi {
   Future<http.Response> getDailyCorrectIncorrect() {
     return client.get(client.buildUri('/statistics/daily-correct-incorrect'));
   }
+
+  Future<http.Response> getAccuracyRate() {
+    return client.get(client.buildUri('/statistics/accuracy-rate'));
+  }
 }
