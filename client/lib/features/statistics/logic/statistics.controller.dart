@@ -56,13 +56,13 @@ class StatisticsController extends ChangeNotifier {
   final accuracyRate = StatStore<AccuracyRate>();
 
   StatisticsController(this._statisticsRepository) {
-    // Future.delayed(const Duration(milliseconds: 1000), () {
-    _initDailyStreak();
-    _initAnswerCount();
-    _initDeckCount();
-    _initDailyCorrectIncorrect();
-    _initAccuracyRate();
-    // });
+    Future.delayed(const Duration(milliseconds: 400), () {
+      _initDailyStreak();
+      _initAnswerCount();
+      _initDeckCount();
+      _initDailyCorrectIncorrect();
+      _initAccuracyRate();
+    });
   }
 
   Future<void> _initDailyStreak() async {
