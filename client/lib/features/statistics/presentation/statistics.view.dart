@@ -4,6 +4,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar
 import 'package:flashxp/features/statistics/presentation/widgets/cards/number_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -83,12 +84,7 @@ class StatisticsViewState extends State<StatisticsView> {
             lineWidth: 12,
           ),
           const SizedBox(height: 16.0),
-          NumberCardWidget(
-            value: controller.dailyStreak.data.toString(),
-            isLoading: controller.dailyStreak.isLoading,
-            label: 'Streak',
-            icon: FontAwesomeIcons.fire,
-          ),
+          DailyStreakWidget(dailyStreak: controller.dailyStreak),
           const SizedBox(height: 16.0),
           PieChartCardWidget(
             slices: [
