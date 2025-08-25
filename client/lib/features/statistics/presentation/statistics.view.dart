@@ -1,9 +1,9 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/percentage_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
@@ -52,20 +52,8 @@ class StatisticsViewState extends State<StatisticsView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GroupBarChartCardWidget(
-            days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            series: [
-              BarSeries(
-                label: 'Correct Answers',
-                color: Theme.of(context).colorScheme.tertiary,
-                values: [3, 2, 5, 4, 3, 1, 2],
-              ),
-              BarSeries(
-                label: 'Incorrect Answers',
-                color: Theme.of(context).colorScheme.error,
-                values: [1, 3, 2, 5, 2, 2, 10],
-              ),
-            ],
+          DailyCorrectIncorrectWidget(
+            dailyCorrectIncorrect: controller.dailyCorrectIncorrect,
           ),
           const SizedBox(height: 16.0),
           DeckCountGroupWidget(
