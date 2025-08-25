@@ -55,10 +55,12 @@ class StatisticsController extends ChangeNotifier {
   final dailyCorrectIncorrect = StatStore<List<DailyCorrectIncorrect>>();
 
   StatisticsController(this._statisticsRepository) {
+    // Future.delayed(const Duration(milliseconds: 1000), () {
     _initDailyStreak();
     _initAnswerCount();
     _initDeckCount();
     _initDailyCorrectIncorrect();
+    // });
   }
 
   Future<void> _initDailyStreak() async {
