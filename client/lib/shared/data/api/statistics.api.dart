@@ -15,4 +15,12 @@ class StatisticsApi {
       client.buildUri('/statistics/answer-count', queryParams: queryParams),
     );
   }
+
+  Future<http.Response> getDeckCount({
+    Map<String, String> queryParams = const {},
+  }) {
+    return client.get(
+      client.buildUri('/statistics/deck-count', queryParams: queryParams),
+    );
+  }
 }
