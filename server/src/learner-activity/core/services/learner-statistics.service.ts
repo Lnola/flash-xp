@@ -3,10 +3,12 @@ import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
-  IncorrectlyAnsweredQuestionModel,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
-import { QuestionSummary } from 'learner-activity/integration';
+import {
+  CatalogIntegrationService,
+  QuestionSummary,
+} from 'learner-activity/integration';
 import { Result } from 'shared/helpers/result';
 
 // TODO: Remove the console.logs
@@ -14,6 +16,7 @@ import { Result } from 'shared/helpers/result';
 export class LearnerStatisticsService {
   constructor(
     private readonly learnerStatisticsRepository: LearnerStatisticsRepository,
+    private readonly catalogIntegrationService: CatalogIntegrationService,
   ) {}
 
   async fetchDailyStreak(
@@ -97,7 +100,10 @@ export class LearnerStatisticsService {
         await this.learnerStatisticsRepository.getCommonIncorrectlyAnsweredQuestionIds(
           learnerId,
         );
-      return Result.success(answers);
+      const questionIds = answers.map((answer) => answer.questionId);
+      const questionSummaries =
+        await this.catalogIntegrationService.getQuestionSummaries(questionIds);
+      return Result.success(questionSummaries);
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch most common wrong answers.`);
