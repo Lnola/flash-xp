@@ -1,4 +1,5 @@
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_skeleton_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,9 +13,8 @@ class PerformanceAnalysisWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (performanceAnalysis.isLoading ||
-        performanceAnalysis.error != null ||
-        performanceAnalysis.data == null) {
+    if (performanceAnalysis.error != null ||
+        (!performanceAnalysis.isLoading && performanceAnalysis.data == null)) {
       return const SizedBox();
     }
 
@@ -32,13 +32,19 @@ class PerformanceAnalysisWidget extends StatelessWidget {
             ),
           ],
         ),
-        Text(
-          performanceAnalysis.data!,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
-                fontWeight: FontWeight.w600,
-              ),
-        ),
+        if (performanceAnalysis.isLoading)
+          const FlashSkeletonBox(
+            width: double.infinity,
+            height: 80,
+          )
+        else
+          Text(
+            performanceAnalysis.data!,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
       ],
     );
   }
