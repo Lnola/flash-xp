@@ -8,7 +8,7 @@ import {
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { CatalogIntegrationService } from 'learner-activity/integration';
-import { QUESTION_TYPE_MAP } from 'shared/constants';
+import { QUESTION_TYPE_MAP, QuestionTypeName } from 'shared/constants';
 import { Result } from 'shared/helpers/result';
 
 // TODO: Remove the console.logs
@@ -86,7 +86,7 @@ export class LearnerStatisticsService {
   // treating it as raw SQL in the repository without ORM mapping the models being interacted with.
   async fetchAccuracyRate(
     learnerId: LearnerEvent['learnerId'],
-    questionType?: string,
+    questionType?: QuestionTypeName,
   ): Promise<Result<AccuracyRate>> {
     try {
       let questionIds: number[] | undefined;
