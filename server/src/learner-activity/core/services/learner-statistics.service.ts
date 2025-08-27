@@ -6,6 +6,7 @@ import {
   IncorrectlyAnsweredQuestionModel,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
+import { QuestionSummary } from 'learner-activity/integration';
 import { Result } from 'shared/helpers/result';
 
 // TODO: Remove the console.logs
@@ -90,7 +91,7 @@ export class LearnerStatisticsService {
 
   async fetchCommonIncorrectlyAnsweredQuestions(
     learnerId: LearnerEvent['learnerId'],
-  ): Promise<Result<IncorrectlyAnsweredQuestionModel[]>> {
+  ): Promise<Result<QuestionSummary[]>> {
     try {
       const answers =
         await this.learnerStatisticsRepository.getCommonIncorrectlyAnsweredQuestionIds(

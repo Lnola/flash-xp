@@ -3,9 +3,9 @@ import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
-  IncorrectlyAnsweredQuestionModel,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsService } from 'learner-activity/core/services';
+import { QuestionSummary } from 'learner-activity/integration';
 import { User } from 'shared/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
 import { AnswersCountQuery, answersCountQuerySchema } from './validators';
@@ -77,7 +77,7 @@ export class LearnerStatisticsController {
   @Get('common-incorrect-questions')
   async fetchCommonIncorrectlyAnsweredQuestions(
     @User('id') learnerId: LearnerEvent['learnerId'],
-  ): Promise<IncorrectlyAnsweredQuestionModel[]> {
+  ): Promise<QuestionSummary[]> {
     const { error, data } =
       await this.learnerStatisticsService.fetchCommonIncorrectlyAnsweredQuestions(
         learnerId,
