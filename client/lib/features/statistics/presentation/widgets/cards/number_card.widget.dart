@@ -103,7 +103,7 @@ class _Label extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .bodySmall
-          ?.copyWith(color: textColor.withAlpha(77)),
+          ?.copyWith(color: textColor.withAlpha(77), letterSpacing: 0.15),
       textAlign: TextAlign.center,
     );
   }
