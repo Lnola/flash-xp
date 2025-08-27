@@ -1,12 +1,18 @@
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { BookmarkController, CatalogDeckController } from './api';
-import { Bookmark, CatalogDeck } from './core/entities';
-import { BookmarkService, CatalogDeckService } from './core/services';
+import { Bookmark, CatalogDeck, CatalogQuestion } from './core/entities';
+import {
+  BookmarkService,
+  CatalogDeckService,
+  CatalogQuestionService,
+} from './core/services';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Bookmark, CatalogDeck])],
-  providers: [BookmarkService, CatalogDeckService],
+  imports: [
+    MikroOrmModule.forFeature([Bookmark, CatalogDeck, CatalogQuestion]),
+  ],
+  providers: [BookmarkService, CatalogDeckService, CatalogQuestionService],
   controllers: [BookmarkController, CatalogDeckController],
 })
 export class CatalogModule {}
