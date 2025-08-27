@@ -2,11 +2,11 @@ import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/accuracy_rate.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
-import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/common_incorrectly_answered_questions.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/question_type_occurrence_count.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
@@ -113,19 +113,8 @@ class _PerformanceAnalysisSection extends StatelessWidget {
       children: [
         AccuracyRateWidget(accuracyRate: controller.accuracyRate),
         const SizedBox(height: 16),
-        PieChartCardWidget(
-          slices: [
-            PieSlice(
-              label: 'Self Assessment',
-              value: 30,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            PieSlice(
-              label: 'Multiple Choice',
-              value: 70,
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
-          ],
+        QuestionTypeOccurrenceCountWidget(
+          questionTypeOccurrenceCount: controller.questionTypeOccurrenceCount,
         ),
       ],
     );
