@@ -31,4 +31,9 @@ class StatisticsApi {
   Future<http.Response> getAccuracyRate() {
     return client.get(client.buildUri('/statistics/accuracy-rate'));
   }
+
+  Future<http.Response> getCommonIncorrectlyAnsweredQuestions() {
+    return client
+        .get(client.buildUri('/statistics/common-incorrect-questions'));
+  }
 }
