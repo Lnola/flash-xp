@@ -1,13 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CatalogExternalService } from 'catalog/external';
 
-type QuestionSummary = {
-  id: number;
-  text: string;
-  deckId: number;
-  deckTitle: string;
-};
-
 @Injectable()
 export class CatalogIntegrationService {
   constructor(
@@ -27,3 +20,10 @@ export class CatalogIntegrationService {
     }));
   }
 }
+
+type QuestionSummary = {
+  id: number;
+  text: string;
+  deckId: number;
+  deckTitle: string;
+};
