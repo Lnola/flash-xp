@@ -2,6 +2,7 @@ import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/models/accuracy_rate.model.dart';
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/features/statistics/logic/models/incorrectly_answered_questions.model.dart';
+import 'package:flashxp/features/statistics/logic/models/question_type_occurrence_count.model.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
@@ -57,6 +58,7 @@ class StatisticsController extends ChangeNotifier {
   final accuracyRate = StatStore<AccuracyRate>();
   final commonIncorrectlyAnsweredQuestions =
       StatStore<List<IncorrectlyAnsweredQuestions>>();
+  final questionTypeOccurrenceCount = StatStore<QuestionTypeOccurrenceCount>();
 
   StatisticsController(this._statisticsRepository) {
     Future.delayed(const Duration(milliseconds: 400), () {
@@ -66,6 +68,7 @@ class StatisticsController extends ChangeNotifier {
       _initDailyCorrectIncorrect();
       _initAccuracyRate();
       _initCommonIncorrectlyAnsweredQuestions();
+      _initQuestionTypeOccurrenceCount();
     });
   }
 
@@ -113,5 +116,13 @@ class StatisticsController extends ChangeNotifier {
       _statisticsRepository.getCommonIncorrectlyAnsweredQuestions,
     );
     notifyListeners();
+  }
+
+  Future<void> _initQuestionTypeOccurrenceCount() async {
+    await questionTypeOccurrenceCount.load(
+      _statisticsRepository.getQuestionTypeOccurrenceCount,
+    );
+    notifyListeners();
+    print(questionTypeOccurrenceCount.error);
   }
 }
