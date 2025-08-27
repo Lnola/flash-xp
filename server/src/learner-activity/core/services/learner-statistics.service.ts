@@ -100,11 +100,17 @@ export class LearnerStatisticsService {
         );
       const questionIds = answers.map((answer) => answer.questionId);
       const questionSummaries =
-        await this.catalogIntegrationService.getQuestionSummaries(questionIds);
+        await this.catalogIntegrationService.getQuestions({ id: questionIds });
       const incorrectlyAnsweredQuestions = questionSummaries.map((summary) => {
         const count =
           answers.find((it) => it.questionId === summary.id)?.count || 0;
-        return new IncorrectlyAnsweredQuestion({ ...summary, count });
+        return new IncorrectlyAnsweredQuestion({
+          id: summary.id,
+          text: summary.text,
+          deckId: summary.deck!.id,
+          deckTitle: summary.deck!.title,
+          count,
+        });
       });
       return Result.success(incorrectlyAnsweredQuestions);
     } catch (error) {
