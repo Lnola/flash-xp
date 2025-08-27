@@ -1,5 +1,6 @@
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { startOfDay } from 'date-fns';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
@@ -44,7 +45,7 @@ export class LearnerStatisticsRepository {
     if (interval) {
       const from = new Date();
       from.setDate(from.getDate() - interval + 1);
-      query.andWhere('created_at', '>=', from);
+      query.andWhere('created_at', '>=', startOfDay(from));
     }
     const result = (await query) as { count: number }[];
     return result[0].count || 0;
@@ -61,7 +62,7 @@ export class LearnerStatisticsRepository {
     if (interval) {
       const from = new Date();
       from.setDate(from.getDate() - interval + 1);
-      query.andWhere('created_at', '>=', from);
+      query.andWhere('created_at', '>=', startOfDay(from));
     }
     const result = (await query) as { count: number }[];
     return result[0].count || 0;
