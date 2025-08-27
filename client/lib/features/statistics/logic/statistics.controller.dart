@@ -73,13 +73,13 @@ class StatisticsController extends ChangeNotifier {
 
   Future<void> _init() async {
     Future.delayed(const Duration(milliseconds: 400), () async {
+      _initDailyStreak();
+      _initAnswerCount();
+      _initDeckCount();
+      _initDailyCorrectIncorrect();
+      _initCommonIncorrectlyAnsweredQuestions();
       await Future.wait([
-        _initDailyStreak(),
-        _initAnswerCount(),
-        _initDeckCount(),
-        _initDailyCorrectIncorrect(),
         _initAccuracyRate(),
-        _initCommonIncorrectlyAnsweredQuestions(),
         _initQuestionTypeOccurrenceCount(),
       ]);
 
