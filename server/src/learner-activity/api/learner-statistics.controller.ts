@@ -4,6 +4,7 @@ import {
   AccuracyRate,
   DailyCorrectIncorrect,
   IncorrectlyAnsweredQuestion,
+  QuestionTypeStatistics,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsService } from 'learner-activity/core/services';
 import { User } from 'shared/decorators';
@@ -80,6 +81,18 @@ export class LearnerStatisticsController {
   ): Promise<IncorrectlyAnsweredQuestion[]> {
     const { error, data } =
       await this.learnerStatisticsService.fetchCommonIncorrectlyAnsweredQuestions(
+        learnerId,
+      );
+    if (error || !data) throw new NotFoundException(error);
+    return data;
+  }
+
+  @Get('question-type-occurrence-count')
+  async fetchQuestionTypeStatistics(
+    @User('id') learnerId: LearnerEvent['learnerId'],
+  ): Promise<QuestionTypeStatistics[]> {
+    const { error, data } =
+      await this.learnerStatisticsService.fetchQuestionTypeStatistics(
         learnerId,
       );
     if (error || !data) throw new NotFoundException(error);
