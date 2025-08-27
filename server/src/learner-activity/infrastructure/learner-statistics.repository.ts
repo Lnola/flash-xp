@@ -102,7 +102,10 @@ export class LearnerStatisticsRepository {
     );
   }
 
-  async getAccuracyRate(learnerId: number): Promise<AccuracyRate> {
+  async getAccuracyRate(
+    learnerId: number,
+    questionIds?: number[],
+  ): Promise<AccuracyRate> {
     if (learnerId == null) throw new Error('learnerId required');
 
     const knex = this.em.getKnex();
@@ -110,10 +113,18 @@ export class LearnerStatisticsRepository {
       `COUNT(*) FILTER (WHERE (payload ->> 'isCorrect')::boolean = TRUE)`,
     );
     const total = knex.raw(`COUNT(*)`);
-    const rows = await knex
+    const query = knex
       .select({ correct, total })
       .from('learner_event')
       .where({ learner_id: learnerId });
+
+    if (questionIds) {
+      const questoinIdsWhere = knex.raw(
+        `(payload->>'questionId')::int IN (${questionIds.join(',')})`,
+      );
+      query.andWhere(questoinIdsWhere);
+    }
+    const rows = await query;
 
     return new AccuracyRate(rows[0] as AccuracyRate);
   }
