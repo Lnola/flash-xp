@@ -7,6 +7,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/common_incorrec
 import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/performance_analysis.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/question_type_occurrence_count.widget.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
@@ -170,6 +171,10 @@ class _TipsSection extends StatelessWidget {
         AccuracyRateTipsWidget(
           multipleChoiceAccuracyRate: controller.multipleChoiceAccuracyRate,
           selfAssessmentAccuracyRate: controller.selfAssessmentAccuracyRate,
+        ),
+        const SizedBox(height: 16),
+        PerformanceAnalysisWidget(
+          performanceAnalysis: controller.performanceAnalysis,
         ),
       ],
     );
