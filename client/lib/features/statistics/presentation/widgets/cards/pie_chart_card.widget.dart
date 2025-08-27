@@ -1,9 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class PieSlice {
   final String label;
-  final double value;
+  final int value;
   final Color color;
 
   PieSlice({
@@ -15,14 +16,25 @@ class PieSlice {
 
 class PieChartCardWidget extends StatelessWidget {
   final List<PieSlice> slices;
+  final bool isLoading;
+  final String? error;
 
   const PieChartCardWidget({
     super.key,
     required this.slices,
+    this.isLoading = false,
+    this.error,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) return const _SkeletonLoader();
+    if (error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        useSnackbar(context, error, null);
+      });
+    }
+
     final total = slices.fold<double>(0, (sum, item) => sum + item.value);
     return Container(
       decoration: BoxDecoration(
@@ -99,7 +111,7 @@ class _Chart extends StatelessWidget {
             final percentage = total == 0 ? 0 : (slice.value / total * 100);
             return PieChartSectionData(
               color: slice.color,
-              value: slice.value,
+              value: slice.value.toDouble(),
               showTitle: true,
               title: '${percentage.toStringAsFixed(1)}%',
               titleStyle: Theme.of(context).textTheme.bodySmall,
@@ -110,5 +122,14 @@ class _Chart extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _SkeletonLoader extends StatelessWidget {
+  const _SkeletonLoader();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
   }
 }
