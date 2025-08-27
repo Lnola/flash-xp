@@ -90,7 +90,7 @@ export class LearnerStatisticsController {
   @Get('question-type-occurrence-count')
   async fetchQuestionTypeStatistics(
     @User('id') learnerId: LearnerEvent['learnerId'],
-  ): Promise<QuestionTypeStatistics[]> {
+  ): Promise<QuestionTypeStatistics> {
     const { error, data } =
       await this.learnerStatisticsService.fetchQuestionTypeStatistics(
         learnerId,

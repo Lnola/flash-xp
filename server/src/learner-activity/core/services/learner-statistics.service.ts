@@ -124,7 +124,7 @@ export class LearnerStatisticsService {
 
   async fetchQuestionTypeStatistics(
     learnerId: LearnerEvent['learnerId'],
-  ): Promise<Result<QuestionTypeStatistics[]>> {
+  ): Promise<Result<QuestionTypeStatistics>> {
     try {
       const questionIds =
         await this.learnerStatisticsRepository.getAnsweredQuestionIds(
@@ -140,7 +140,7 @@ export class LearnerStatisticsService {
         multipleChoiceCount: multipleChoiceQuestions.length,
         selfAssessmentCount: questions.length - multipleChoiceQuestions.length,
       });
-      return Result.success([stats]);
+      return Result.success(stats);
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch question type statistics.`);
