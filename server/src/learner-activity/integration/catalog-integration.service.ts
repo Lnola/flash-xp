@@ -30,6 +30,7 @@ type Question = {
 };
 
 type GetQuestionsPayload = {
-  id: number | number[];
+  id?: number | number[];
+  questionType?: { name: string };
 };
 type GetQuestionsResult = Question[];
