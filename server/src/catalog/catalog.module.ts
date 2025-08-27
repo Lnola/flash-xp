@@ -14,5 +14,6 @@ import {
   ],
   providers: [BookmarkService, CatalogDeckService, CatalogQuestionService],
   controllers: [BookmarkController, CatalogDeckController],
+  exports: [CatalogQuestionService],
 })
 export class CatalogModule {}
