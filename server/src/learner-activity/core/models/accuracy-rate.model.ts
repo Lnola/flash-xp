@@ -3,14 +3,14 @@ export class AccuracyRate {
   total!: number;
   value!: number;
 
-  constructor({ correct, total }: AccuracyRateConstructorProps) {
+  constructor({ correct, total }: ConstructorProps) {
     this.correct = Number(correct);
     this.total = Number(total);
     this.value = this.total > 0 ? this.correct / this.total : 0;
   }
 }
 
-type AccuracyRateConstructorProps = {
+type ConstructorProps = {
   correct: number;
   total: number;
 };

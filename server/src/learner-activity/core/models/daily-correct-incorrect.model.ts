@@ -3,14 +3,14 @@ export class DailyCorrectIncorrect {
   correct!: number;
   incorrect!: number;
 
-  constructor({ day, correct, incorrect }: DailyCorrectConstructorProps) {
+  constructor({ day, correct, incorrect }: ConstructorProps) {
     this.day = String(day);
     this.correct = Number(correct);
     this.incorrect = Number(incorrect);
   }
 }
 
-type DailyCorrectConstructorProps = {
+type ConstructorProps = {
   day: string;
   correct: number;
   incorrect: number;
