@@ -30,6 +30,7 @@ export class CatalogQuestion extends BaseEntity {
   // Possible future improvement: consider refactoring this logic to make it more explicit.
   @Property({ persist: false })
   get boxIndex(): number {
+    if (!this.boxes?.isInitialized()) return 1;
     if (!this.boxes?.getItems().length) return 1;
     return this.boxes?.getItems()[0].index;
   }
