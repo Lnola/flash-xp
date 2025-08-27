@@ -1,6 +1,7 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/models/accuracy_rate.model.dart';
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
+import 'package:flashxp/features/statistics/logic/models/incorrectly_answered_questions.model.dart';
 import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
@@ -54,6 +55,8 @@ class StatisticsController extends ChangeNotifier {
   final deckCountTotal = StatStore<int>();
   final dailyCorrectIncorrect = StatStore<List<DailyCorrectIncorrect>>();
   final accuracyRate = StatStore<AccuracyRate>();
+  final commonIncorrectlyAnsweredQuestions =
+      StatStore<List<IncorrectlyAnsweredQuestions>>();
 
   StatisticsController(this._statisticsRepository) {
     Future.delayed(const Duration(milliseconds: 400), () {
@@ -62,6 +65,7 @@ class StatisticsController extends ChangeNotifier {
       _initDeckCount();
       _initDailyCorrectIncorrect();
       _initAccuracyRate();
+      _initCommonIncorrectlyAnsweredQuestions();
     });
   }
 
@@ -101,6 +105,13 @@ class StatisticsController extends ChangeNotifier {
 
   Future<void> _initAccuracyRate() async {
     await accuracyRate.load(_statisticsRepository.getAccuracyRate);
+    notifyListeners();
+  }
+
+  Future<void> _initCommonIncorrectlyAnsweredQuestions() async {
+    await commonIncorrectlyAnsweredQuestions.load(
+      _statisticsRepository.getCommonIncorrectlyAnsweredQuestions,
+    );
     notifyListeners();
   }
 }
