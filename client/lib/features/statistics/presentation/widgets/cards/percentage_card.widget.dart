@@ -46,8 +46,9 @@ class PercentageCardWidget extends StatelessWidget {
         color: theme.colorScheme.surfaceBright,
         borderRadius: BorderRadius.circular(20),
       ),
+      height: 184,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           CircularPercentIndicator(
             radius: radius,
@@ -85,7 +86,7 @@ class _SkeletonLoader extends StatelessWidget {
         color: theme.colorScheme.surface.withAlpha(99),
         borderRadius: BorderRadius.circular(20),
       ),
-      height: 180,
+      height: 184,
       child: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
