@@ -1,11 +1,11 @@
-// import { Ai } from '../helpers/ai';
-
+import { logger } from 'firebase-functions';
+import { Ai } from '../helpers/ai';
 import { AccuracyRate, QuestionTypeOccurrenceCount } from './types';
 import { config } from './config';
 
 export class PerformanceAnalyser {
-  // private ai = new Ai();
-private config = config;
+  private ai = new Ai();
+  private config = config;
   private accuracyRate: AccuracyRate;
   private multipleChoiceAccuracyRate: AccuracyRate;
   private selfAssessmentAccuracyRate: AccuracyRate;
@@ -18,8 +18,26 @@ private config = config;
     this.questionTypeOccurrenceCount = params.questionTypeOccurrenceCount;
   }
 
-  analyse(): string {
-    return '';
+  async analyse(): Promise<string> {
+    logger.info(
+      `Generating performance analysis.
+      Model: ${this.config.performanceAnalysisModel}`,
+    );
+
+    const payload = {
+      accuracyRate: this.accuracyRate,
+      multipleChoiceAccuracyRate: this.multipleChoiceAccuracyRate,
+      selfAssessmentAccuracyRate: this.selfAssessmentAccuracyRate,
+      questionTypeOccurrenceCount: this.questionTypeOccurrenceCount,
+    };
+    const analysis = await this.ai.call({
+      model: this.config.performanceAnalysisModel,
+      messages: [
+        { role: 'system', content: this.config.performanceAnalysisPrompt },
+        { role: 'user', content: JSON.stringify(payload) },
+      ],
+    });
+    return analysis;
   }
 }
 
