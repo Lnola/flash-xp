@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 
 class AccuracyRateWidget extends StatelessWidget {
   final StatStore<AccuracyRate> accuracyRate;
+  final String label;
 
   const AccuracyRateWidget({
     super.key,
     required this.accuracyRate,
+    required this.label,
   });
 
   @override
@@ -17,7 +19,7 @@ class AccuracyRateWidget extends StatelessWidget {
       isLoading: accuracyRate.isLoading,
       error: accuracyRate.error,
       percent: accuracyRate.data?.value,
-      label: 'Accuracy rate',
+      label: label,
       radius: 50,
       lineWidth: 12,
     );
