@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 export const config = {
   CHUNK_SIZE: parseInt(process.env.CHUNK_SIZE || '6000', 10),
   SUMMARY_MODEL: process.env.SUMMARY_MODEL || 'gpt-3.5-turbo',
