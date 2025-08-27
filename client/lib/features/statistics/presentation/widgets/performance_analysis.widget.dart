@@ -22,30 +22,53 @@ class PerformanceAnalysisWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
-        Row(
-          spacing: 8,
-          children: [
-            const FaIcon(FontAwesomeIcons.wandMagicSparkles, size: 16),
-            Text(
-              'AI performance analysis.',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-          ],
-        ),
-        if (performanceAnalysis.isLoading)
-          const FlashSkeletonBox(
-            width: double.infinity,
-            height: 80,
-          )
-        else
-          Text(
-            performanceAnalysis.data!,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
+        const _Heading(),
+        _Content(performanceAnalysis: performanceAnalysis),
       ],
+    );
+  }
+}
+
+class _Heading extends StatelessWidget {
+  const _Heading();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 8,
+      children: [
+        const FaIcon(FontAwesomeIcons.wandMagicSparkles, size: 16),
+        Text(
+          'AI performance analysis.',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+      ],
+    );
+  }
+}
+
+class _Content extends StatelessWidget {
+  const _Content({
+    required this.performanceAnalysis,
+  });
+
+  final StatStore<String> performanceAnalysis;
+
+  @override
+  Widget build(BuildContext context) {
+    if (performanceAnalysis.isLoading) {
+      return const FlashSkeletonBox(
+        width: double.infinity,
+        height: 80,
+      );
+    }
+
+    return Text(
+      performanceAnalysis.data!,
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
+            fontWeight: FontWeight.w600,
+          ),
     );
   }
 }
