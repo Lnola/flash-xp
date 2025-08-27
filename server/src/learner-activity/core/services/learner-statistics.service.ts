@@ -3,6 +3,7 @@ import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
+  IncorrectlyAnsweredQuestionModel,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { Result } from 'shared/helpers/result';
@@ -84,6 +85,21 @@ export class LearnerStatisticsService {
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch accuracy rate.`);
+    }
+  }
+
+  async fetchCommonIncorrectlyAnsweredQuestions(
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<Result<IncorrectlyAnsweredQuestionModel[]>> {
+    try {
+      const answers =
+        await this.learnerStatisticsRepository.getCommonIncorrectlyAnsweredQuestionIds(
+          learnerId,
+        );
+      return Result.success(answers);
+    } catch (error) {
+      console.log(error);
+      return Result.failure(`Failed to fetch most common wrong answers.`);
     }
   }
 }
