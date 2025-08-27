@@ -11,7 +11,6 @@ import { CatalogIntegrationService } from 'learner-activity/integration';
 import { QUESTION_TYPE_MAP, QuestionTypeName } from 'shared/constants';
 import { Result } from 'shared/helpers/result';
 
-// TODO: Remove the console.logs
 @Injectable()
 export class LearnerStatisticsService {
   constructor(
@@ -26,8 +25,7 @@ export class LearnerStatisticsService {
       const streak =
         await this.learnerStatisticsRepository.getDailyStreak(learnerId);
       return Result.success(streak);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch daily streak.`);
     }
   }
@@ -42,8 +40,7 @@ export class LearnerStatisticsService {
         interval,
       );
       return Result.success(count);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch answers count.`);
     }
   }
@@ -58,8 +55,7 @@ export class LearnerStatisticsService {
         interval,
       );
       return Result.success(count);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch decks count.`);
     }
   }
@@ -73,8 +69,7 @@ export class LearnerStatisticsService {
           learnerId,
         );
       return Result.success(dailyCorrectIncorrect);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch daily correct/incorrect answers.`);
     }
   }
@@ -102,8 +97,7 @@ export class LearnerStatisticsService {
           questionIds,
         );
       return Result.success(accuracyRate);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch accuracy rate.`);
     }
   }
@@ -132,8 +126,7 @@ export class LearnerStatisticsService {
         });
       });
       return Result.success(incorrectlyAnsweredQuestions);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch most common wrong answers.`);
     }
   }
@@ -157,8 +150,7 @@ export class LearnerStatisticsService {
         selfAssessmentCount: questions.length - multipleChoiceQuestions.length,
       });
       return Result.success(stats);
-    } catch (error) {
-      console.log(error);
+    } catch {
       return Result.failure(`Failed to fetch question type statistics.`);
     }
   }
