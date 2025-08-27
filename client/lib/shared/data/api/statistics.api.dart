@@ -36,4 +36,9 @@ class StatisticsApi {
     return client
         .get(client.buildUri('/statistics/common-incorrect-questions'));
   }
+
+  Future<http.Response> getQuestionTypeOccurrenceCount() {
+    return client
+        .get(client.buildUri('/statistics/question-type-occurrence-count'));
+  }
 }
