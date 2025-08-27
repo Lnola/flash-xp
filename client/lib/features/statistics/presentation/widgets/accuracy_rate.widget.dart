@@ -18,7 +18,7 @@ class AccuracyRateWidget extends StatelessWidget {
       error: accuracyRate.error,
       percent: accuracyRate.data?.value,
       label: 'Accuracy rate',
-      radius: 56,
+      radius: 50,
       lineWidth: 12,
     );
   }
