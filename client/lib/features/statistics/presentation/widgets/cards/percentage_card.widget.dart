@@ -85,6 +85,7 @@ class _SkeletonLoader extends StatelessWidget {
         color: theme.colorScheme.surface.withAlpha(99),
         borderRadius: BorderRadius.circular(20),
       ),
+      height: 180,
       child: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
