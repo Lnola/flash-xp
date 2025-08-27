@@ -111,10 +111,38 @@ class _PerformanceAnalysisSection extends StatelessWidget {
     return _Section(
       title: 'Performance analysis',
       children: [
-        AccuracyRateWidget(accuracyRate: controller.accuracyRate),
-        const SizedBox(height: 16),
         QuestionTypeOccurrenceCountWidget(
           questionTypeOccurrenceCount: controller.questionTypeOccurrenceCount,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Your accuracy rate',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: AccuracyRateWidget(
+                accuracyRate: controller.accuracyRate,
+                label: 'Total',
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AccuracyRateWidget(
+                accuracyRate: controller.accuracyRate,
+                label: 'Multiple choice',
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AccuracyRateWidget(
+                accuracyRate: controller.accuracyRate,
+                label: 'Flashcards',
+              ),
+            ),
+          ],
         ),
       ],
     );
