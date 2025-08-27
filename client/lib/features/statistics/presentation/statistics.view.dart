@@ -1,6 +1,7 @@
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/accuracy_rate.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/accuracy_rate_tips.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/common_incorrectly_answered_questions.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
@@ -164,6 +165,11 @@ class _TipsSection extends StatelessWidget {
         CommonIncorrectlyAnsweredQuestionsWidget(
           incorrectlyAnsweredQuestions:
               controller.commonIncorrectlyAnsweredQuestions,
+        ),
+        const SizedBox(height: 16),
+        AccuracyRateTipsWidget(
+          multipleChoiceAccuracyRate: controller.multipleChoiceAccuracyRate,
+          selfAssessmentAccuracyRate: controller.selfAssessmentAccuracyRate,
         ),
       ],
     );
