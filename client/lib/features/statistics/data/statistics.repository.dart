@@ -126,4 +126,21 @@ class StatisticsRepository {
       return Result.failure(error.toString());
     }
   }
+
+  Future<Result<String>> analysePerformance({
+    Map<String, String> queryParams = const {},
+  }) async {
+    try {
+      final response = await _statisticsApi.analysePerformance(
+        queryParams: queryParams,
+      );
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure(message);
+      }
+      return Result.success(jsonDecode(response.body)['analysis']);
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 }
