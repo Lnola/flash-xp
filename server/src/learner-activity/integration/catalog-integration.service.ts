@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CatalogExternalService } from 'catalog/external';
 
-export type QuestionSummary = { id: number; text: string };
+export type QuestionSummary = {
+  id: number;
+  text: string;
+  deckTitle: string;
+};
 
 @Injectable()
 export class CatalogIntegrationService {
@@ -14,6 +18,10 @@ export class CatalogIntegrationService {
     const where = { id: { $in: ids } };
     const { error, data } = await this.catalogExternalService.fetch(where);
     if (error) throw new Error(error);
-    return data!;
+    return data!.map((item) => ({
+      id: item.id,
+      text: item.text,
+      deckTitle: item.deck!.title,
+    }));
   }
 }
