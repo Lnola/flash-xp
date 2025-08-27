@@ -123,7 +123,7 @@ export class LearnerStatisticsRepository {
     const knex = this.em.getKnex();
     const rows = await knex
       .select({
-        questionId: knex.raw(`payload->>'questionId'`),
+        questionId: knex.raw(`(payload->>'questionId')::int`),
         count: knex.raw(`COUNT(*)`),
       })
       .from('learner_event')
