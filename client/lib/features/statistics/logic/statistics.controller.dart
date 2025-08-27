@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
 import 'package:flashxp/features/statistics/logic/models/accuracy_rate.model.dart';
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
@@ -63,16 +65,25 @@ class StatisticsController extends ChangeNotifier {
   final commonIncorrectlyAnsweredQuestions =
       StatStore<List<IncorrectlyAnsweredQuestions>>();
   final questionTypeOccurrenceCount = StatStore<QuestionTypeOccurrenceCount>();
+  final performanceAnalysis = StatStore<String>();
 
   StatisticsController(this._statisticsRepository) {
-    Future.delayed(const Duration(milliseconds: 400), () {
-      _initDailyStreak();
-      _initAnswerCount();
-      _initDeckCount();
-      _initDailyCorrectIncorrect();
-      _initAccuracyRate();
-      _initCommonIncorrectlyAnsweredQuestions();
-      _initQuestionTypeOccurrenceCount();
+    _init();
+  }
+
+  Future<void> _init() async {
+    Future.delayed(const Duration(milliseconds: 400), () async {
+      await Future.wait([
+        _initDailyStreak(),
+        _initAnswerCount(),
+        _initDeckCount(),
+        _initDailyCorrectIncorrect(),
+        _initAccuracyRate(),
+        _initCommonIncorrectlyAnsweredQuestions(),
+        _initQuestionTypeOccurrenceCount(),
+      ]);
+
+      await _analysePerformance();
     });
   }
 
