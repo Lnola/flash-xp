@@ -45,4 +45,16 @@ class StatisticsApi {
     return client
         .get(client.buildUri('/statistics/question-type-occurrence-count'));
   }
+
+  Future<http.Response> analysePerformance({
+    Map<String, String> queryParams = const {},
+  }) {
+    return client.get(
+      client.buildUri(
+        '/analysePerformance',
+        queryParams: queryParams,
+        isCloudFunction: true,
+      ),
+    );
+  }
 }
