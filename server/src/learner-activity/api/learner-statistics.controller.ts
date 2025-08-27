@@ -9,7 +9,12 @@ import {
 import { LearnerStatisticsService } from 'learner-activity/core/services';
 import { User } from 'shared/decorators';
 import { ZodValidationPipe } from 'shared/pipes';
-import { AnswersCountQuery, answersCountQuerySchema } from './validators';
+import {
+  AccuracyRateQuery,
+  accuracyRateQuerySchema,
+  AnswersCountQuery,
+  answersCountQuerySchema,
+} from './validators';
 
 @Controller('statistics')
 export class LearnerStatisticsController {
@@ -68,9 +73,14 @@ export class LearnerStatisticsController {
   @Get('accuracy-rate')
   async fetchAccuracyRate(
     @User('id') learnerId: LearnerEvent['learnerId'],
+    @Query(new ZodValidationPipe(accuracyRateQuerySchema))
+    query: AccuracyRateQuery,
   ): Promise<AccuracyRate> {
     const { error, data } =
-      await this.learnerStatisticsService.fetchAccuracyRate(learnerId);
+      await this.learnerStatisticsService.fetchAccuracyRate(
+        learnerId,
+        query.questionType,
+      );
     if (error || !data) throw new NotFoundException(error);
     return data;
   }
