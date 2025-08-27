@@ -9,6 +9,7 @@ import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.wi
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
+import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -53,44 +54,11 @@ class StatisticsViewState extends State<StatisticsView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DailyCorrectIncorrectWidget(
-            dailyCorrectIncorrect: controller.dailyCorrectIncorrect,
-          ),
-          const SizedBox(height: 16.0),
-          DeckCountGroupWidget(
-            deckCountToday: controller.deckCountToday,
-            deckCountTotal: controller.deckCountTotal,
-          ),
-          const SizedBox(height: 16.0),
-          AnswerCountGroupWidget(
-            answerCountToday: controller.answerCountToday,
-            answerCountTotal: controller.answerCountTotal,
-          ),
-          const SizedBox(height: 16.0),
-          AccuracyRateWidget(accuracyRate: controller.accuracyRate),
-          const SizedBox(height: 16.0),
-          DailyStreakWidget(dailyStreak: controller.dailyStreak),
-          const SizedBox(height: 16.0),
-          CommonIncorrectlyAnsweredQuestionsWidget(
-            incorrectlyAnsweredQuestions:
-                controller.commonIncorrectlyAnsweredQuestions,
-          ),
-          const SizedBox(height: 16.0),
-          // TODO: implement this
-          PieChartCardWidget(
-            slices: [
-              PieSlice(
-                label: 'Self Assessment',
-                value: 30,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              PieSlice(
-                label: 'Multiple Choice',
-                value: 70,
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-            ],
-          ),
+          _GeneralStatisticsSection(controller: controller),
+          const SizedBox(height: 32),
+          _PerformanceAnalysisSection(controller: controller),
+          const SizedBox(height: 32),
+          _TipsSection(controller: controller),
           const SizedBox(height: 16.0),
           FlashButton(
             onPressed: () => _signOut(context),
@@ -99,6 +67,112 @@ class StatisticsViewState extends State<StatisticsView> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _GeneralStatisticsSection extends StatelessWidget {
+  const _GeneralStatisticsSection({required this.controller});
+
+  final StatisticsController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      children: [
+        DailyCorrectIncorrectWidget(
+          dailyCorrectIncorrect: controller.dailyCorrectIncorrect,
+        ),
+        const SizedBox(height: 16.0),
+        DailyStreakWidget(dailyStreak: controller.dailyStreak),
+        const SizedBox(height: 16.0),
+        AnswerCountGroupWidget(
+          answerCountToday: controller.answerCountToday,
+          answerCountTotal: controller.answerCountTotal,
+        ),
+        const SizedBox(height: 16.0),
+        DeckCountGroupWidget(
+          deckCountToday: controller.deckCountToday,
+          deckCountTotal: controller.deckCountTotal,
+        ),
+        const SizedBox(height: 16.0),
+      ],
+    );
+  }
+}
+
+class _PerformanceAnalysisSection extends StatelessWidget {
+  final StatisticsController controller;
+
+  const _PerformanceAnalysisSection({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Performance analysis',
+      children: [
+        AccuracyRateWidget(accuracyRate: controller.accuracyRate),
+        const SizedBox(height: 16),
+        PieChartCardWidget(
+          slices: [
+            PieSlice(
+              label: 'Self Assessment',
+              value: 30,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            PieSlice(
+              label: 'Multiple Choice',
+              value: 70,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _TipsSection extends StatelessWidget {
+  final StatisticsController controller;
+
+  const _TipsSection({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return _Section(
+      title: 'Tips to improve',
+      children: [
+        CommonIncorrectlyAnsweredQuestionsWidget(
+          incorrectlyAnsweredQuestions:
+              controller.commonIncorrectlyAnsweredQuestions,
+        ),
+      ],
+    );
+  }
+}
+
+class _Section extends StatelessWidget {
+  final String? title;
+  final List<Widget> children;
+
+  const _Section({
+    this.title,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        If(
+          condition: title != null,
+          builder: (context) =>
+              Text(title!, style: Theme.of(context).textTheme.titleLarge),
+        ),
+        const SizedBox(height: 16),
+        ...children,
+      ],
     );
   }
 }
