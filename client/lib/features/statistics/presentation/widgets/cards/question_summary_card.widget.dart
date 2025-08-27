@@ -1,5 +1,7 @@
+import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_skeleton_box.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class QuestionSummaryCardWidget extends StatelessWidget {
   final String text;
@@ -18,34 +20,40 @@ class QuestionSummaryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
+    return InkWell(
+      onTap: () => context.push(
+        '/home/$deckId/preview',
+        extra: RouterStateExtra(title: deckTitle),
       ),
-      child: Row(
-        spacing: 12,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _PrefixNumber(prefixNumber: prefixNumber),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  deckTitle,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withAlpha(99),
-                    height: 1.2,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          spacing: 12,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _PrefixNumber(prefixNumber: prefixNumber),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    deckTitle,
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withAlpha(99),
+                      height: 1.2,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(text, style: theme.textTheme.bodySmall),
-              ],
+                  const SizedBox(height: 4),
+                  Text(text, style: theme.textTheme.bodySmall),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
