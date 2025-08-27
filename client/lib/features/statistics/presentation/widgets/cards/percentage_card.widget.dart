@@ -66,6 +66,7 @@ class PercentageCardWidget extends StatelessWidget {
             Text(
               label!,
               style: theme.textTheme.bodySmall,
+              textAlign: TextAlign.center,
             ),
           ],
         ],
