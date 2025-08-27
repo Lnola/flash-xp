@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CatalogExternalService } from 'catalog/external';
 
-export type QuestionSummary = {
+type QuestionSummary = {
   id: number;
   text: string;
   deckTitle: string;
