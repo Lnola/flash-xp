@@ -123,6 +123,5 @@ class StatisticsController extends ChangeNotifier {
       _statisticsRepository.getQuestionTypeOccurrenceCount,
     );
     notifyListeners();
-    print(questionTypeOccurrenceCount.error);
   }
 }
