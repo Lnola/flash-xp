@@ -28,8 +28,12 @@ class StatisticsApi {
     return client.get(client.buildUri('/statistics/daily-correct-incorrect'));
   }
 
-  Future<http.Response> getAccuracyRate() {
-    return client.get(client.buildUri('/statistics/accuracy-rate'));
+  Future<http.Response> getAccuracyRate({
+    Map<String, String> queryParams = const {},
+  }) {
+    return client.get(
+      client.buildUri('/statistics/accuracy-rate', queryParams: queryParams),
+    );
   }
 
   Future<http.Response> getCommonIncorrectlyAnsweredQuestions() {

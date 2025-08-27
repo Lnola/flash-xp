@@ -76,9 +76,12 @@ class StatisticsRepository {
     }
   }
 
-  Future<Result<AccuracyRate>> getAccuracyRate() async {
+  Future<Result<AccuracyRate>> getAccuracyRate({
+    Map<String, String> queryParams = const {},
+  }) async {
     try {
-      final response = await _statisticsApi.getAccuracyRate();
+      final response =
+          await _statisticsApi.getAccuracyRate(queryParams: queryParams);
       if (response.statusCode != 200) {
         final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
         return Result.failure(message);
