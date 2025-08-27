@@ -4,6 +4,8 @@ import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect
 import 'package:flashxp/features/statistics/logic/models/incorrectly_answered_questions.model.dart';
 import 'package:flashxp/features/statistics/logic/models/question_type_occurrence_count.model.dart';
 import 'package:flashxp/shared/helpers/result.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_api_label.extension.dart';
 import 'package:flutter/material.dart';
 
 class StatStore<T> {
@@ -56,6 +58,8 @@ class StatisticsController extends ChangeNotifier {
   final deckCountTotal = StatStore<int>();
   final dailyCorrectIncorrect = StatStore<List<DailyCorrectIncorrect>>();
   final accuracyRate = StatStore<AccuracyRate>();
+  final multipleChoiceAccuracyRate = StatStore<AccuracyRate>();
+  final selfAssessmentAccuracyRate = StatStore<AccuracyRate>();
   final commonIncorrectlyAnsweredQuestions =
       StatStore<List<IncorrectlyAnsweredQuestions>>();
   final questionTypeOccurrenceCount = StatStore<QuestionTypeOccurrenceCount>();
@@ -107,7 +111,23 @@ class StatisticsController extends ChangeNotifier {
   }
 
   Future<void> _initAccuracyRate() async {
+    final multipleChoiceQueryParams = {
+      'questionType': PracticeMode.multipleChoice.label,
+    };
+    final selfAssessmentQueryParams = {
+      'questionType': PracticeMode.selfAssessment.label,
+    };
     await accuracyRate.load(_statisticsRepository.getAccuracyRate);
+    await multipleChoiceAccuracyRate.load(
+      () => _statisticsRepository.getAccuracyRate(
+        queryParams: multipleChoiceQueryParams,
+      ),
+    );
+    await selfAssessmentAccuracyRate.load(
+      () => _statisticsRepository.getAccuracyRate(
+        queryParams: selfAssessmentQueryParams,
+      ),
+    );
     notifyListeners();
   }
 
