@@ -3,12 +3,10 @@ import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
+  IncorrectlyAnsweredQuestion,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
-import {
-  CatalogIntegrationService,
-  QuestionSummary,
-} from 'learner-activity/integration';
+import { CatalogIntegrationService } from 'learner-activity/integration';
 import { Result } from 'shared/helpers/result';
 
 // TODO: Remove the console.logs
@@ -94,7 +92,7 @@ export class LearnerStatisticsService {
 
   async fetchCommonIncorrectlyAnsweredQuestions(
     learnerId: LearnerEvent['learnerId'],
-  ): Promise<Result<QuestionSummary[]>> {
+  ): Promise<Result<IncorrectlyAnsweredQuestion[]>> {
     try {
       const answers =
         await this.learnerStatisticsRepository.getCommonIncorrectlyAnsweredQuestionIds(
@@ -103,7 +101,12 @@ export class LearnerStatisticsService {
       const questionIds = answers.map((answer) => answer.questionId);
       const questionSummaries =
         await this.catalogIntegrationService.getQuestionSummaries(questionIds);
-      return Result.success(questionSummaries);
+      const incorrectlyAnsweredQuestions = questionSummaries.map((summary) => {
+        const count =
+          answers.find((it) => it.questionId === summary.id)?.count || 0;
+        return new IncorrectlyAnsweredQuestion({ ...summary, count });
+      });
+      return Result.success(incorrectlyAnsweredQuestions);
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch most common wrong answers.`);
