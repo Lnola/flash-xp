@@ -1,30 +1,16 @@
-import 'dotenv/config';
-import OpenAI from 'openai';
 import { logger } from 'firebase-functions';
-import { HttpError } from '../helpers/http';
 import { config, SUMMARY_PROMPT } from './constants';
 import { chunkText } from '../helpers/text';
 import { Flashcard, MultipleChoice, QuestionType } from './question-type';
+import { Ai } from '../helpers/ai';
 
 export class QuestionGenerator {
-  private ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  private ai = new Ai();
   private config = config;
   private questionType: QuestionType;
 
   constructor(questionType: QuestionType) {
     this.questionType = questionType;
-  }
-
-  private async _callAi({ model, messages }: CallAiOptions): Promise<string> {
-    const response = await this.ai.chat.completions.create({ model, messages });
-    if (
-      !response.choices ||
-      response.choices.length === 0 ||
-      !response.choices[0].message.content
-    ) {
-      throw new HttpError(403, 'No response from GPT');
-    }
-    return response.choices[0].message.content;
   }
 
   async summarizeText(text: string): Promise<string> {
@@ -36,7 +22,7 @@ export class QuestionGenerator {
 
     const summaryPromises = chunks.map((chunk, index) => {
       logger.info(`Processing chunk: ${index + 1}/${chunks.length}`);
-      return this._callAi({
+      return this.ai.call({
         model: this.config.SUMMARY_MODEL,
         messages: [
           { role: 'system', content: SUMMARY_PROMPT },
@@ -54,7 +40,7 @@ export class QuestionGenerator {
       Model: ${this.config.QUESTION_MODEL}`,
     );
 
-    const questionsString = await this._callAi({
+    const questionsString = await this.ai.call({
       model: this.config.QUESTION_MODEL,
       messages: [
         { role: 'system', content: this.questionType.prompt },
@@ -64,6 +50,3 @@ export class QuestionGenerator {
     return JSON.parse(questionsString);
   }
 }
-
-type CallAiOptions =
-  OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
