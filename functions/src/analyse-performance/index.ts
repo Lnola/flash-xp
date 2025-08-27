@@ -1,9 +1,11 @@
 // import { Ai } from '../helpers/ai';
 
 import { AccuracyRate, QuestionTypeOccurrenceCount } from './types';
+import { config } from './config';
 
 export class PerformanceAnalyser {
   // private ai = new Ai();
+private config = config;
   private accuracyRate: AccuracyRate;
   private multipleChoiceAccuracyRate: AccuracyRate;
   private selfAssessmentAccuracyRate: AccuracyRate;
