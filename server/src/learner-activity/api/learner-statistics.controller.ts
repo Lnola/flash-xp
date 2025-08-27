@@ -3,6 +3,7 @@ import { LearnerEvent } from 'learner-activity/core/entities';
 import {
   AccuracyRate,
   DailyCorrectIncorrect,
+  IncorrectlyAnsweredQuestionModel,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsService } from 'learner-activity/core/services';
 import { User } from 'shared/decorators';
@@ -69,6 +70,18 @@ export class LearnerStatisticsController {
   ): Promise<AccuracyRate> {
     const { error, data } =
       await this.learnerStatisticsService.fetchAccuracyRate(learnerId);
+    if (error || !data) throw new NotFoundException(error);
+    return data;
+  }
+
+  @Get('common-incorrect-questions')
+  async fetchCommonIncorrectlyAnsweredQuestions(
+    @User('id') learnerId: LearnerEvent['learnerId'],
+  ): Promise<IncorrectlyAnsweredQuestionModel[]> {
+    const { error, data } =
+      await this.learnerStatisticsService.fetchCommonIncorrectlyAnsweredQuestions(
+        learnerId,
+      );
     if (error || !data) throw new NotFoundException(error);
     return data;
   }
