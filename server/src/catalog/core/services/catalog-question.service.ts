@@ -1,3 +1,4 @@
+import { ObjectQuery } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CatalogQuestion } from 'catalog/core/entities';
@@ -11,11 +12,11 @@ export class CatalogQuestionService {
     private readonly catalogQuestionRepository: BaseEntityRepository<CatalogQuestion>,
   ) {}
 
-  async fetchSummaries(
-    ids: Array<CatalogQuestion['id']>,
+  async fetch(
+    where: ObjectQuery<CatalogQuestion>,
   ): Promise<Result<CatalogQuestion[]>> {
     try {
-      const questions = await this.catalogQuestionRepository.find(ids, {
+      const questions = await this.catalogQuestionRepository.find(where, {
         populate: ['deck'],
       });
       if (!questions || questions.length === 0) {
@@ -23,7 +24,7 @@ export class CatalogQuestionService {
       }
       return Result.success(questions);
     } catch {
-      return Result.failure(`Failed to fetch summaries for the questions.`);
+      return Result.failure(`Failed to fetch the questions.`);
     }
   }
 }

@@ -1,3 +1,4 @@
+import { ObjectQuery } from '@mikro-orm/core';
 import { Injectable } from '@nestjs/common';
 import { CatalogQuestion } from 'catalog/core/entities';
 import { CatalogQuestionService } from 'catalog/core/services';
@@ -9,9 +10,9 @@ export class CatalogExternalService {
     private readonly catalogQuestionService: CatalogQuestionService,
   ) {}
 
-  async fetchSummaries(
-    ids: Array<CatalogQuestion['id']>,
+  async fetch(
+    where: ObjectQuery<CatalogQuestion>,
   ): Promise<Result<CatalogQuestion[]>> {
-    return this.catalogQuestionService.fetchSummaries(ids);
+    return this.catalogQuestionService.fetch(where);
   }
 }
