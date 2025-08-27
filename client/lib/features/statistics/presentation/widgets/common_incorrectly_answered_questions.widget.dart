@@ -19,6 +19,7 @@ class CommonIncorrectlyAnsweredQuestionsWidget extends StatelessWidget {
           (it) => QuestionSummary(
             id: it.id,
             text: it.text,
+            deckId: it.deckId,
             deckTitle: it.deckTitle,
             incorrectAnswerCount: it.count,
           ),

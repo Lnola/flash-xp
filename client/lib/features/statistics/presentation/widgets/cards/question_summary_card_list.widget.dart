@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class QuestionSummary {
   final int id;
   final String text;
+  final int deckId;
   final String deckTitle;
   final int incorrectAnswerCount;
 
   const QuestionSummary({
     required this.id,
     required this.text,
+    required this.deckId,
     required this.deckTitle,
     required this.incorrectAnswerCount,
   });
@@ -48,6 +50,7 @@ class QuestionSummaryListWidget extends StatelessWidget {
             (q) => QuestionSummaryCardWidget(
               text: q.text,
               deckTitle: q.deckTitle,
+              deckId: q.deckId,
               prefixNumber: q.incorrectAnswerCount,
             ),
           )

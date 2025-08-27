@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 class QuestionSummaryCardWidget extends StatelessWidget {
   final String text;
+  final int deckId;
   final String deckTitle;
   final int? prefixNumber;
 
   const QuestionSummaryCardWidget({
     super.key,
     required this.text,
+    required this.deckId,
     required this.deckTitle,
     this.prefixNumber,
   });
