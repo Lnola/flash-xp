@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_skeleton_box.dart';
 import 'package:flutter/material.dart';
 
 class PieSlice {
@@ -28,7 +29,7 @@ class PieChartCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) return const _SkeletonLoader();
+    if (isLoading) return _SkeletonLoader();
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         useSnackbar(context, error, null);
@@ -126,10 +127,27 @@ class _Chart extends StatelessWidget {
 }
 
 class _SkeletonLoader extends StatelessWidget {
-  const _SkeletonLoader();
-
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
+    final theme = Theme.of(context);
+    return Container(
+      height: 264,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface.withAlpha(99),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(),
+          FlashSkeletonBox(
+            width: 200,
+            height: 200,
+            rounded: true,
+          ),
+        ],
+      ),
+    );
   }
 }
