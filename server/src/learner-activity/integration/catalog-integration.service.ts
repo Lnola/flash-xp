@@ -4,6 +4,7 @@ import { CatalogExternalService } from 'catalog/external';
 type QuestionSummary = {
   id: number;
   text: string;
+  deckId: number;
   deckTitle: string;
 };
 
@@ -21,6 +22,7 @@ export class CatalogIntegrationService {
     return data!.map((item) => ({
       id: item.id,
       text: item.text,
+      deckId: item.deck!.id,
       deckTitle: item.deck!.title,
     }));
   }

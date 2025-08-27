@@ -1,12 +1,14 @@
 export class IncorrectlyAnsweredQuestion {
   id!: number;
   text!: string;
+  deckId!: number;
   deckTitle!: string;
   count!: number;
 
-  constructor({ count, id, text, deckTitle }: ConstructorProps) {
+  constructor({ count, id, text, deckId, deckTitle }: ConstructorProps) {
     this.id = Number(id);
     this.text = String(text);
+    this.deckId = Number(deckId);
     this.deckTitle = String(deckTitle);
     this.count = Number(count);
   }
@@ -15,6 +17,7 @@ export class IncorrectlyAnsweredQuestion {
 type ConstructorProps = {
   id: number;
   text: string;
+  deckId: number;
   deckTitle: string;
   count: number;
 };
