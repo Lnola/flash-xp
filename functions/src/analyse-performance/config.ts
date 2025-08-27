@@ -32,13 +32,13 @@ Analysis requirements:
   4. Recommendations
 - Address the learner directly throughout.
 - Provide approximately 200 words.
-- Use clear paragraphs and bullet points for readability.
-- Do not use any markdown formatting.
+- Use paragraphs and bullet points for readability, but do not use bold, italic, markdown or any similar ways of typing other than bullet points and paragraphs.
+- Do not use any markdown formatting, do not use ###, do not use **. STRICTLY DON'T USE THEM!
 - Highlight differences in accuracy and question frequency between multiple choice and self assessment.
 - Emphasize data reliability when interpreting accuracy rates.
 - Offer specific, evidence-based recommendations for improvement.
 
-This report will be shown directly to the learner; ensure it is informative, balanced, and motivating.`;
+This report will be shown directly to the learner; ensure it is informative, balanced and to the point.`;
 
 export const config = {
   performanceAnalysisPrompt: PERFORMANCE_ANALYSIS_PROMPT,
