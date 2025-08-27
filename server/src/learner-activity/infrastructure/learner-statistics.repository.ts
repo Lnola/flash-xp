@@ -116,4 +116,24 @@ export class LearnerStatisticsRepository {
 
     return new AccuracyRate(rows[0] as AccuracyRate);
   }
+
+  async getCommonIncorrectlyAnsweredQuestionIds(
+    learnerId: number,
+  ): Promise<Array<{ questionId: number; count: number }>> {
+    const knex = this.em.getKnex();
+    const rows = await knex
+      .select({
+        questionId: knex.raw(`payload->>'questionId'`),
+        count: knex.raw(`COUNT(*)`),
+      })
+      .from('learner_event')
+      .where({ learner_id: learnerId })
+      .andWhere(knex.raw(`(payload->>'isCorrect')::boolean = FALSE`))
+      .groupBy('questionId')
+      .havingRaw(`COUNT(*) > 3`)
+      .orderBy('count', 'desc')
+      .limit(3);
+
+    return rows as Array<{ questionId: number; count: number }>;
+  }
 }
