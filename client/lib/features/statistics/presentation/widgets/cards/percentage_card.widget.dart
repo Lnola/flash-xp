@@ -5,6 +5,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 class PercentageCardWidget extends StatelessWidget {
   final double? percent;
+  final int? correct;
+  final int? total;
   final String? label;
   final double radius;
   final double lineWidth;
@@ -16,6 +18,8 @@ class PercentageCardWidget extends StatelessWidget {
   const PercentageCardWidget({
     super.key,
     this.percent,
+    this.correct,
+    this.total,
     this.label,
     this.radius = 60,
     this.lineWidth = 12,
@@ -40,37 +44,41 @@ class PercentageCardWidget extends StatelessWidget {
     final progColor = progressColor ?? theme.colorScheme.onSurface;
 
     final localPercent = percent ?? 0;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceBright,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      height: 184,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CircularPercentIndicator(
-            radius: radius,
-            lineWidth: lineWidth,
-            percent: localPercent.clamp(0.0, 1.0),
-            backgroundColor: bgColor,
-            progressColor: progColor,
-            circularStrokeCap: CircularStrokeCap.round,
-            center: Text(
-              '${(localPercent * 100).round()}%',
-              style: theme.textTheme.titleLarge,
+    return Tooltip(
+      message:
+          'Total number of questions answered = $total\nCorrectly answered = $correct\nThat gives an accuracy rate of $percent',
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceBright,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        height: 184,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            CircularPercentIndicator(
+              radius: radius,
+              lineWidth: lineWidth,
+              percent: localPercent.clamp(0.0, 1.0),
+              backgroundColor: bgColor,
+              progressColor: progColor,
+              circularStrokeCap: CircularStrokeCap.round,
+              center: Text(
+                '${(localPercent * 100).round()}%',
+                style: theme.textTheme.titleLarge,
+              ),
             ),
-          ),
-          if (label != null) ...[
-            const SizedBox(height: 8),
-            Text(
-              label!,
-              style: theme.textTheme.bodySmall,
-              textAlign: TextAlign.center,
-            ),
+            if (label != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                label!,
+                style: theme.textTheme.bodySmall,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

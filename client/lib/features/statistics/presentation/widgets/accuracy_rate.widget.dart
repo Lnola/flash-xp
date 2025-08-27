@@ -19,6 +19,8 @@ class AccuracyRateWidget extends StatelessWidget {
       isLoading: accuracyRate.isLoading,
       error: accuracyRate.error,
       percent: accuracyRate.data?.value,
+      correct: accuracyRate.data?.correct,
+      total: accuracyRate.data?.total,
       label: label,
       radius: 50,
       lineWidth: 12,
