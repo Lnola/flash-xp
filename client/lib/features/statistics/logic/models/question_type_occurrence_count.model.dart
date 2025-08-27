@@ -13,4 +13,11 @@ class QuestionTypeOccurrenceCount {
       selfAssessmentCount: json['selfAssessmentCount'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'multipleChoiceCount': multipleChoiceCount,
+      'selfAssessmentCount': selfAssessmentCount,
+    };
+  }
 }

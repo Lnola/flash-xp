@@ -16,4 +16,12 @@ class AccuracyRate {
       value: json['value']?.toDouble(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'correct': correct,
+      'total': total,
+      'value': value,
+    };
+  }
 }
