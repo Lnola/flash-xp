@@ -83,7 +83,7 @@ export const analysePerformance = onRequest(async (req, res) => {
       selfAssessmentAccuracyRate,
       questionTypeOccurrenceCount,
     });
-    const analysis = performanceAnalyser.analyse();
+    const analysis = await performanceAnalyser.analyse();
 
     res.json({ analysis });
   } catch (error) {
