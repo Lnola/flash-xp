@@ -7,24 +7,26 @@ export class CatalogIntegrationService {
     private readonly catalogExternalService: CatalogExternalService,
   ) {}
 
-  async getQuestionSummaries(ids: number[]): Promise<QuestionSummary[]> {
-    if (!ids.length) throw new Error('No IDs provided');
-    const where = { id: { $in: ids } };
+  async getQuestions(
+    payload: GetQuestionsPayload,
+  ): Promise<GetQuestionsResult> {
     const { error, data } =
-      await this.catalogExternalService.fetchQuestions(where);
+      await this.catalogExternalService.fetchQuestions(payload);
     if (error) throw new Error(error);
-    return data!.map((item) => ({
-      id: item.id,
-      text: item.text,
-      deckId: item.deck!.id,
-      deckTitle: item.deck!.title,
-    }));
+    return data!;
   }
 }
 
-type QuestionSummary = {
+type Question = {
   id: number;
   text: string;
-  deckId: number;
-  deckTitle: string;
+  deck?: {
+    id: number;
+    title: string;
+  };
 };
+
+type GetQuestionsPayload = {
+  id: number | number[];
+};
+type GetQuestionsResult = Question[];
