@@ -59,7 +59,7 @@ class StatisticsViewState extends State<StatisticsView> {
           _PerformanceAnalysisSection(controller: controller),
           const SizedBox(height: 32),
           _TipsSection(controller: controller),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 48),
           FlashButton(
             onPressed: () => _signOut(context),
             label: 'Sign Out',
