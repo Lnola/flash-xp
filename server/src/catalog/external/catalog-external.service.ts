@@ -10,7 +10,7 @@ export class CatalogExternalService {
     private readonly catalogQuestionService: CatalogQuestionService,
   ) {}
 
-  async fetch(
+  async fetchQuestions(
     where: ObjectQuery<CatalogQuestion>,
   ): Promise<Result<CatalogQuestion[]>> {
     return this.catalogQuestionService.fetch(where);

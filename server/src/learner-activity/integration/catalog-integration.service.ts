@@ -10,7 +10,8 @@ export class CatalogIntegrationService {
   async getQuestionSummaries(ids: number[]): Promise<QuestionSummary[]> {
     if (!ids.length) throw new Error('No IDs provided');
     const where = { id: { $in: ids } };
-    const { error, data } = await this.catalogExternalService.fetch(where);
+    const { error, data } =
+      await this.catalogExternalService.fetchQuestions(where);
     if (error) throw new Error(error);
     return data!.map((item) => ({
       id: item.id,
