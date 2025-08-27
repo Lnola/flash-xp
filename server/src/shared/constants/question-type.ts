@@ -7,3 +7,5 @@ export const QUESTION_TYPE_MAP = {
   multipleChoice: QUESTION_TYPE_NAMES[0],
   selfAssessment: QUESTION_TYPE_NAMES[1],
 } as const;
+
+export type QuestionTypeName = (typeof QUESTION_TYPE_NAMES)[number];
