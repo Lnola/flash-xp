@@ -4,9 +4,11 @@ import {
   AccuracyRate,
   DailyCorrectIncorrect,
   IncorrectlyAnsweredQuestion,
+  QuestionTypeStatistics,
 } from 'learner-activity/core/models';
 import { LearnerStatisticsRepository } from 'learner-activity/infrastructure';
 import { CatalogIntegrationService } from 'learner-activity/integration';
+import { QUESTION_TYPE_MAP } from 'shared/constants';
 import { Result } from 'shared/helpers/result';
 
 // TODO: Remove the console.logs
@@ -99,9 +101,10 @@ export class LearnerStatisticsService {
           learnerId,
         );
       const questionIds = answers.map((answer) => answer.questionId);
-      const questionSummaries =
-        await this.catalogIntegrationService.getQuestions({ id: questionIds });
-      const incorrectlyAnsweredQuestions = questionSummaries.map((summary) => {
+      const questions = await this.catalogIntegrationService.getQuestions({
+        id: questionIds,
+      });
+      const incorrectlyAnsweredQuestions = questions.map((summary) => {
         const count =
           answers.find((it) => it.questionId === summary.id)?.count || 0;
         return new IncorrectlyAnsweredQuestion({
@@ -116,6 +119,31 @@ export class LearnerStatisticsService {
     } catch (error) {
       console.log(error);
       return Result.failure(`Failed to fetch most common wrong answers.`);
+    }
+  }
+
+  async fetchQuestionTypeStatistics(
+    learnerId: LearnerEvent['learnerId'],
+  ): Promise<Result<QuestionTypeStatistics[]>> {
+    try {
+      const questionIds =
+        await this.learnerStatisticsRepository.getAnsweredQuestionIds(
+          learnerId,
+        );
+      const questions = await this.catalogIntegrationService.getQuestions({
+        id: questionIds,
+      });
+      const multipleChoiceQuestions = questions.filter((question) => {
+        return QUESTION_TYPE_MAP.multipleChoice === question.questionType.name;
+      });
+      const stats = new QuestionTypeStatistics({
+        multipleChoiceCount: multipleChoiceQuestions.length,
+        selfAssessmentCount: questions.length - multipleChoiceQuestions.length,
+      });
+      return Result.success([stats]);
+    } catch (error) {
+      console.log(error);
+      return Result.failure(`Failed to fetch question type statistics.`);
     }
   }
 }
