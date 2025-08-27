@@ -24,6 +24,9 @@ type Question = {
     id: number;
     title: string;
   };
+  questionType: {
+    name: string;
+  };
 };
 
 type GetQuestionsPayload = {
