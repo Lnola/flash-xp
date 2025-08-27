@@ -144,4 +144,26 @@ class StatisticsController extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  Future<void> _analysePerformance() async {
+    if (accuracyRate.data == null ||
+        multipleChoiceAccuracyRate.data == null ||
+        selfAssessmentAccuracyRate.data == null ||
+        questionTypeOccurrenceCount.data == null) {
+      return;
+    }
+    final queryParams = {
+      'accuracyRate': jsonEncode(accuracyRate.data!.toJson()),
+      'multipleChoiceAccuracyRate':
+          jsonEncode(multipleChoiceAccuracyRate.data!.toJson()),
+      'selfAssessmentAccuracyRate':
+          jsonEncode(selfAssessmentAccuracyRate.data!.toJson()),
+      'questionTypeOccurrenceCount':
+          jsonEncode(questionTypeOccurrenceCount.data!.toJson()),
+    };
+    await performanceAnalysis.load(
+      () => _statisticsRepository.analysePerformance(queryParams: queryParams),
+    );
+    notifyListeners();
+  }
 }
