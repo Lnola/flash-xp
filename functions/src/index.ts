@@ -14,6 +14,15 @@ import {
   QuestionTypeKey,
   verifyQuestionType,
 } from './generate-questions/question-type';
+import { PerformanceAnalyser } from './analyse-performance';
+import {
+  verifyAccuracyRate,
+  verifyQuestionTypeOccurrenceCount,
+} from './analyse-performance/validators';
+import {
+  AccuracyRate,
+  QuestionTypeOccurrenceCount,
+} from './analyse-performance/types';
 
 initializeApp();
 
@@ -35,6 +44,48 @@ export const generateQuestions = onRequest(async (req, res) => {
     const questions = await questionGenerator.generate(summarizedText);
 
     res.json(questions);
+  } catch (error) {
+    if (error instanceof HttpError) {
+      logger.error(`HTTP Error: ${error.message}`);
+      res.status(error.statusCode).send(error.message);
+      return;
+    }
+    logger.error(`Error: ${error}`);
+    res.status(500).send('Failed to process PDF.');
+  }
+});
+
+export const analysePerformance = onRequest(async (req, res) => {
+  try {
+    verifyRequestMethod('GET', req);
+
+    const accuracyRate = JSON.parse(
+      req.query.accuracyRate as string,
+    ) as AccuracyRate;
+    const multipleChoiceAccuracyRate = JSON.parse(
+      req.query.multipleChoiceAccuracyRate as string,
+    ) as AccuracyRate;
+    const selfAssessmentAccuracyRate = JSON.parse(
+      req.query.selfAssessmentAccuracyRate as string,
+    ) as AccuracyRate;
+    const questionTypeOccurrenceCount = JSON.parse(
+      req.query.questionTypeOccurrenceCount as string,
+    ) as QuestionTypeOccurrenceCount;
+
+    verifyAccuracyRate(accuracyRate);
+    verifyAccuracyRate(multipleChoiceAccuracyRate);
+    verifyAccuracyRate(selfAssessmentAccuracyRate);
+    verifyQuestionTypeOccurrenceCount(questionTypeOccurrenceCount);
+
+    const performanceAnalyser = new PerformanceAnalyser({
+      accuracyRate,
+      multipleChoiceAccuracyRate,
+      selfAssessmentAccuracyRate,
+      questionTypeOccurrenceCount,
+    });
+    const analysis = performanceAnalyser.analyse();
+
+    res.json({ analysis });
   } catch (error) {
     if (error instanceof HttpError) {
       logger.error(`HTTP Error: ${error.message}`);
