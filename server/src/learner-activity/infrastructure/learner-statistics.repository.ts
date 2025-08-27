@@ -137,4 +137,16 @@ export class LearnerStatisticsRepository {
 
     return rows as Array<{ questionId: number; count: number }>;
   }
+
+  async getAnsweredQuestionIds(learnerId: number): Promise<number[]> {
+    if (learnerId == null) throw new Error('learnerId required');
+
+    const knex = this.em.getKnex();
+    const result = await knex('learner_event')
+      .select({ questionId: knex.raw(`(payload->>'questionId')::int`) })
+      .where({ learner_id: learnerId })
+      .distinct();
+
+    return result.map((row: { questionId: number }) => row.questionId);
+  }
 }
