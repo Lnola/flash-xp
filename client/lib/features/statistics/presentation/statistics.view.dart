@@ -7,6 +7,8 @@ import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_i
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/question_type_occurrence_count.widget.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
+import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
@@ -131,15 +133,15 @@ class _PerformanceAnalysisSection extends StatelessWidget {
             const SizedBox(width: 16),
             Expanded(
               child: AccuracyRateWidget(
-                accuracyRate: controller.accuracyRate,
-                label: 'Multiple choice',
+                accuracyRate: controller.multipleChoiceAccuracyRate,
+                label: PracticeMode.multipleChoice.label,
               ),
             ),
             const SizedBox(width: 16),
             Expanded(
               child: AccuracyRateWidget(
-                accuracyRate: controller.accuracyRate,
-                label: 'Flashcards',
+                accuracyRate: controller.selfAssessmentAccuracyRate,
+                label: PracticeMode.multipleChoice.label,
               ),
             ),
           ],
