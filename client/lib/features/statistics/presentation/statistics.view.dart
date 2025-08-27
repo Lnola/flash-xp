@@ -3,6 +3,7 @@ import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/accuracy_rate.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/answer_count_group.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/pie_chart_card.widget.dart';
+import 'package:flashxp/features/statistics/presentation/widgets/common_incorrectly_answered_questions.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_correct_incorrect.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/daily_streak.widget.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/deck_count_group.widget.dart';
@@ -69,6 +70,11 @@ class StatisticsViewState extends State<StatisticsView> {
           AccuracyRateWidget(accuracyRate: controller.accuracyRate),
           const SizedBox(height: 16.0),
           DailyStreakWidget(dailyStreak: controller.dailyStreak),
+          const SizedBox(height: 16.0),
+          CommonIncorrectlyAnsweredQuestionsWidget(
+            incorrectlyAnsweredQuestions:
+                controller.commonIncorrectlyAnsweredQuestions,
+          ),
           const SizedBox(height: 16.0),
           // TODO: implement this
           PieChartCardWidget(
