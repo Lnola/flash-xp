@@ -79,12 +79,28 @@ export class LearnerStatisticsService {
     }
   }
 
+  // Question type accuracy rate can be extracted as a separate query but that would require
+  // introduction of LearnerActivityQuestion and LearnerActivityQuestionType entities.
+  // If performance is a big concern and adding new entities would be costly,
+  // an alternative would be to implement the repository without the entity mapping;
+  // treating it as raw SQL in the repository without ORM mapping the models being interacted with.
   async fetchAccuracyRate(
     learnerId: LearnerEvent['learnerId'],
+    questionType?: string,
   ): Promise<Result<AccuracyRate>> {
     try {
+      let questionIds: number[] | undefined;
+      if (questionType) {
+        const payload = { questionType: { name: questionType } };
+        const questionsOfType =
+          await this.catalogIntegrationService.getQuestions(payload);
+        questionIds = questionsOfType.map((question) => question.id);
+      }
       const accuracyRate =
-        await this.learnerStatisticsRepository.getAccuracyRate(learnerId);
+        await this.learnerStatisticsRepository.getAccuracyRate(
+          learnerId,
+          questionIds,
+        );
       return Result.success(accuracyRate);
     } catch (error) {
       console.log(error);
