@@ -8,8 +8,8 @@ export class PracticeIntegrationService {
   ) {}
 
   async getProgressByLearner(
-    payload: GetInProgressDecksPayload,
-  ): Promise<GetInProgressDecksResult> {
+    payload: GetProgressByLearnerPayload,
+  ): Promise<GetProgressByLearnerResult> {
     const { error, data } =
       await this.practiceExternalService.fetchProgressByLearner(payload);
     if (error) throw new Error(error);
@@ -23,5 +23,5 @@ type PracticeProgress = {
   progress: number;
 };
 
-type GetInProgressDecksPayload = number;
-type GetInProgressDecksResult = PracticeProgress[];
+type GetProgressByLearnerPayload = number;
+type GetProgressByLearnerResult = PracticeProgress[];
