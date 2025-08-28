@@ -14,6 +14,12 @@ class CommonIncorrectlyAnsweredQuestionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (incorrectlyAnsweredQuestions.data != null &&
+        incorrectlyAnsweredQuestions.data!.isEmpty &&
+        !incorrectlyAnsweredQuestions.isLoading) {
+      return const SizedBox.shrink();
+    }
+
     final items = incorrectlyAnsweredQuestions.data
         ?.map(
           (it) => QuestionSummary(
