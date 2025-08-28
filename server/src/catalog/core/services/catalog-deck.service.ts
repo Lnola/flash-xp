@@ -56,6 +56,23 @@ export class CatalogDeckService {
     }
   }
 
+  async fetchPopular(learnerId: Learner['id']): Promise<Result<CatalogDeck[]>> {
+    try {
+      const deckIds = await this.practiceIntegrationService.getPopularDeckIds();
+      const decks = await this.catalogDeckRepository.find(deckIds);
+
+      for (const deck of decks) {
+        const payload = { learnerId, deckId: deck.id };
+        const progress =
+          await this.practiceIntegrationService.getProgress(payload);
+        if (progress) deck.setProgress(progress.progress);
+      }
+      return Result.success(decks);
+    } catch {
+      return Result.failure(`Failed to fetch decks.`);
+    }
+  }
+
   async fetchById(
     deckId: CatalogDeck['id'],
     learnerId: Learner['id'],
