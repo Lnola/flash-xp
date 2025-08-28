@@ -46,6 +46,16 @@ export class CatalogDeckController {
     return data;
   }
 
+  @Get('popular')
+  async fetchPopular(
+    @User('id') learnerId: Learner['id'],
+  ): Promise<CatalogDeck[]> {
+    const { error, data } =
+      await this.catalogDeckService.fetchPopular(learnerId);
+    if (error || !data) throw new BadRequestException(error);
+    return data;
+  }
+
   @Get(':id')
   async fetchById(
     @Param('id') deckId: CatalogDeck['id'],
