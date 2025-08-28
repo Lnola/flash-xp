@@ -27,6 +27,13 @@ class PercentageCardWidget extends StatelessWidget {
     this.error,
   });
 
+  Color getBackgroundColor(BuildContext context) {
+    if (percent == null) return Theme.of(context).colorScheme.surface;
+    if (percent! >= 0.75) return Theme.of(context).colorScheme.tertiary;
+    if (percent! >= 0.5) return Theme.of(context).colorScheme.surfaceBright;
+    return Theme.of(context).colorScheme.error;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoading) return _SkeletonLoader();
@@ -44,7 +51,7 @@ class PercentageCardWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: backgroundColor ?? theme.colorScheme.surfaceBright,
+          color: getBackgroundColor(context),
           borderRadius: BorderRadius.circular(20),
         ),
         height: 184,
