@@ -13,4 +13,9 @@ class CatalogApi {
     final uri = client.buildUri('/catalog/decks/in-progress');
     return client.get(uri);
   }
+
+  Future<http.Response> getPopularDecks() {
+    final uri = client.buildUri('/catalog/decks/popular');
+    return client.get(uri);
+  }
 }
