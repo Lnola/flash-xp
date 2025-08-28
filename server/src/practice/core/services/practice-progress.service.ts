@@ -16,7 +16,8 @@ export class PracticeProgressService {
     deckId?: PracticeProgress['deckId'],
   ): Promise<Result<PracticeProgress[]>> {
     try {
-      const payload = { learnerId, deckId };
+      const payload = { learnerId };
+      if (deckId) Object.assign(payload, { deckId });
       const progress = await this.practiceProgressService.find(payload);
       return Result.success(progress);
     } catch {
