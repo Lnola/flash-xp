@@ -9,9 +9,9 @@ export class PracticeExternalService {
     private readonly practiceProgressService: PracticeProgressService,
   ) {}
 
-  async fetchInProgressDecksProgress(
+  async fetchProgressByLearner(
     learnerId: PracticeProgress['learnerId'],
   ): Promise<Result<PracticeProgress[]>> {
-    return this.practiceProgressService.fetchInProgressDecksProgress(learnerId);
+    return this.practiceProgressService.fetchByLearner(learnerId);
   }
 }

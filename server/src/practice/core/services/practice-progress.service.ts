@@ -11,7 +11,7 @@ export class PracticeProgressService {
     private readonly practiceProgressService: BaseEntityRepository<PracticeProgress>,
   ) {}
 
-  async fetchInProgressDecksProgress(
+  async fetchByLearner(
     learnerId: PracticeProgress['learnerId'],
   ): Promise<Result<PracticeProgress[]>> {
     try {

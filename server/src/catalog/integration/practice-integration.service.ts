@@ -7,11 +7,11 @@ export class PracticeIntegrationService {
     private readonly practiceExternalService: PracticeExternalService,
   ) {}
 
-  async getInProgressDecksProgress(
+  async getProgressByLearner(
     payload: GetInProgressDecksPayload,
   ): Promise<GetInProgressDecksResult> {
     const { error, data } =
-      await this.practiceExternalService.fetchInProgressDecksProgress(payload);
+      await this.practiceExternalService.fetchProgressByLearner(payload);
     if (error) throw new Error(error);
     return data!;
   }
