@@ -8,4 +8,9 @@ class CatalogApi {
     final uri = client.buildUri('/catalog/decks/', queryParams: queryParams);
     return client.get(uri);
   }
+
+  Future<http.Response> getInProgressDecks() {
+    final uri = client.buildUri('/catalog/decks/in-progress');
+    return client.get(uri);
+  }
 }
