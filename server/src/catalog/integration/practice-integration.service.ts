@@ -7,6 +7,18 @@ export class PracticeIntegrationService {
     private readonly practiceExternalService: PracticeExternalService,
   ) {}
 
+  async getProgress({
+    learnerId,
+    deckId,
+  }: GetProgressPayload): Promise<GetProgressResult> {
+    const { error, data } = await this.practiceExternalService.fetchProgress(
+      learnerId,
+      deckId,
+    );
+    if (error) throw new Error(error);
+    return data!;
+  }
+
   async getProgressByLearner(
     payload: GetProgressByLearnerPayload,
   ): Promise<GetProgressByLearnerResult> {
@@ -22,6 +34,12 @@ type PracticeProgress = {
   learnerId: number;
   progress: number;
 };
+
+type GetProgressPayload = {
+  learnerId: number;
+  deckId: number;
+};
+type GetProgressResult = PracticeProgress[];
 
 type GetProgressByLearnerPayload = number;
 type GetProgressByLearnerResult = PracticeProgress[];
