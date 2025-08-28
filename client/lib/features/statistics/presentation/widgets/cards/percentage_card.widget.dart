@@ -10,7 +10,6 @@ class PercentageCardWidget extends StatelessWidget {
   final String? label;
   final double radius;
   final double lineWidth;
-  final Color? backgroundColor;
   final bool isLoading;
   final String? error;
 
@@ -22,7 +21,6 @@ class PercentageCardWidget extends StatelessWidget {
     this.label,
     this.radius = 60,
     this.lineWidth = 12,
-    this.backgroundColor,
     this.isLoading = false,
     this.error,
   });
