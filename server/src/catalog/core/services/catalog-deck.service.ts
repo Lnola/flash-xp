@@ -3,6 +3,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CatalogDeckPreview } from 'catalog/api/dto';
 import { CatalogDeck, Learner } from 'catalog/core/entities';
+import { PracticeIntegrationService } from 'catalog/integration';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { ParseQueryPagination } from 'shared/helpers/parse-query';
 import { Result } from 'shared/helpers/result';
@@ -12,6 +13,7 @@ export class CatalogDeckService {
   constructor(
     @InjectRepository(CatalogDeck)
     private readonly catalogDeckRepository: BaseEntityRepository<CatalogDeck>,
+    private readonly practiceIntegrationService: PracticeIntegrationService,
   ) {}
 
   async fetch(
@@ -22,6 +24,20 @@ export class CatalogDeckService {
       const decks = await this.catalogDeckRepository.find(where, {
         ...pagination,
       });
+      return Result.success(decks);
+    } catch {
+      return Result.failure(`Failed to fetch decks.`);
+    }
+  }
+
+  async fetchInProgress(
+    learnerId: Learner['id'],
+  ): Promise<Result<CatalogDeck[]>> {
+    try {
+      const learnerProgress =
+        await this.practiceIntegrationService.getProgressByLearner(learnerId);
+      const inProgressDeckIds = learnerProgress.map((it) => it.deckId);
+      const decks = await this.catalogDeckRepository.find(inProgressDeckIds);
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
