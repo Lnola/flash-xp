@@ -1,7 +1,7 @@
 import { Entity, Property } from '@mikro-orm/core';
 
 @Entity({ expression: 'select * from learner_deck_progress_view' })
-export class LearnerDeckProgress {
+export class PracticeProgress {
   @Property()
   learnerId!: number;
 
