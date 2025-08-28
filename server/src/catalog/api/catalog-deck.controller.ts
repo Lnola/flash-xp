@@ -28,6 +28,7 @@ export class CatalogDeckController {
   ): Promise<CatalogDeck[]> {
     const { where, pagination } = parseCatalogDeckQuery(query, learnerId);
     const { error, data } = await this.catalogDeckService.fetch(
+      learnerId,
       where,
       pagination,
     );

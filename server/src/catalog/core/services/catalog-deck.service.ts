@@ -17,6 +17,7 @@ export class CatalogDeckService {
   ) {}
 
   async fetch(
+    learnerId: Learner['id'],
     where: ObjectQuery<CatalogDeck>,
     pagination: ParseQueryPagination,
   ): Promise<Result<CatalogDeck[]>> {
