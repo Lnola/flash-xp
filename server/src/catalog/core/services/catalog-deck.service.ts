@@ -24,13 +24,7 @@ export class CatalogDeckService {
     try {
       const options = { ...pagination };
       const decks = await this.catalogDeckRepository.find(where, options);
-
-      for (const deck of decks) {
-        const payload = { learnerId, deckId: deck.id };
-        const progress =
-          await this.practiceIntegrationService.getProgress(payload);
-        if (progress) deck.setProgress(progress.progress);
-      }
+      await this._assignProgress(decks, learnerId);
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
@@ -60,13 +54,7 @@ export class CatalogDeckService {
     try {
       const deckIds = await this.practiceIntegrationService.getPopularDeckIds();
       const decks = await this.catalogDeckRepository.find(deckIds);
-
-      for (const deck of decks) {
-        const payload = { learnerId, deckId: deck.id };
-        const progress =
-          await this.practiceIntegrationService.getProgress(payload);
-        if (progress) deck.setProgress(progress.progress);
-      }
+      await this._assignProgress(decks, learnerId);
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
@@ -88,6 +76,18 @@ export class CatalogDeckService {
       return Result.success(previewDeck);
     } catch {
       return Result.failure(`Failed to fetch deck.`);
+    }
+  }
+
+  async _assignProgress(
+    decks: CatalogDeck[],
+    learnerId: Learner['id'],
+  ): Promise<void> {
+    for (const deck of decks) {
+      const payload = { learnerId, deckId: deck.id };
+      const progress =
+        await this.practiceIntegrationService.getProgress(payload);
+      if (progress) deck.setProgress(progress.progress);
     }
   }
 
