@@ -175,6 +175,7 @@ class StatisticsController extends ChangeNotifier {
     await performanceAnalysis.load(
       () => _statisticsRepository.analysePerformance(queryParams: queryParams),
     );
+    // TODO: fix problem where this is called after controller is disposed
     notifyListeners();
   }
 }

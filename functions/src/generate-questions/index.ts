@@ -4,6 +4,7 @@ import { chunkText } from '../helpers/text';
 import { Flashcard, MultipleChoice, QuestionType } from './question-type';
 import { Ai } from '../helpers/ai';
 
+// TODO: Do a bit of a cleanup
 export class QuestionGenerator {
   private ai = new Ai();
   private config = config;
