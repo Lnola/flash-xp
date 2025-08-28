@@ -21,7 +21,7 @@ class DeckDto {
       id: json['id'],
       title: json['title'],
       totalQuestions: json['questionCount'],
-      progress: json['progress'] ?? 0,
+      progress: json['progress']?.round() ?? 0,
       mode: PracticeModeApiLabel.getByLabel(json['questionType']),
     );
   }
