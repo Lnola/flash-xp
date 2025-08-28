@@ -120,6 +120,21 @@ class _Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isThereCorrectAnswers =
+        series[0].values.every((value) => value == 0.0);
+    final isThereIncorrectAnswers =
+        (series[1].values.every((value) => value == 0.0));
+    if (isThereCorrectAnswers && isThereIncorrectAnswers) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 82.0, horizontal: 8.0),
+        child: Text(
+          'No data available.\nStart practicing to generate statistics.',
+          style: Theme.of(context).textTheme.bodySmall,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
     return AspectRatio(
       aspectRatio: 1.8,
       child: BarChart(
