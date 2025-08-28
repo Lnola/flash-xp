@@ -140,6 +140,13 @@ export class LearnerStatisticsService {
         await this.learnerStatisticsRepository.getAnsweredQuestionIds(
           learnerId,
         );
+      if (!questionIds.length)
+        return Result.success(
+          new QuestionTypeStatistics({
+            multipleChoiceCount: 0,
+            selfAssessmentCount: 0,
+          }),
+        );
       const questions = await this.catalogIntegrationService.getQuestions({
         id: questionIds,
       });
