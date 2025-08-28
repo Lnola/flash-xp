@@ -2,7 +2,11 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { QuickPracticeController, SmartReviewController } from './api';
 import { Box, PracticeProgress, PracticeQuestion } from './core/entities';
-import { QuickPracticeService, SmartReviewService } from './core/services';
+import {
+  PracticeProgressService,
+  QuickPracticeService,
+  SmartReviewService,
+} from './core/services';
 import { PracticeQuestionRepository } from './infrastructure';
 
 @Module({
@@ -12,8 +16,10 @@ import { PracticeQuestionRepository } from './infrastructure';
   providers: [
     QuickPracticeService,
     SmartReviewService,
+    PracticeProgressService,
     PracticeQuestionRepository,
   ],
   controllers: [QuickPracticeController, SmartReviewController],
+  exports: [PracticeProgressService],
 })
 export class PracticeModule {}
