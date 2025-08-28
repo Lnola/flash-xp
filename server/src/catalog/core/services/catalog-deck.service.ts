@@ -22,9 +22,15 @@ export class CatalogDeckService {
     pagination: ParseQueryPagination,
   ): Promise<Result<CatalogDeck[]>> {
     try {
-      const decks = await this.catalogDeckRepository.find(where, {
-        ...pagination,
-      });
+      const options = { ...pagination };
+      const decks = await this.catalogDeckRepository.find(where, options);
+
+      for (const deck of decks) {
+        const payload = { learnerId, deckId: deck.id };
+        const progress =
+          await this.practiceIntegrationService.getProgress(payload);
+        if (progress) deck.setProgress(progress.progress);
+      }
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
