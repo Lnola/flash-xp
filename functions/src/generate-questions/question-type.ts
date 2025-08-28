@@ -1,5 +1,3 @@
-import { HttpError } from '../helpers/http';
-
 export type Flashcard = {
   question: string;
   answer: string;
@@ -38,11 +36,3 @@ export const QuestionType = {
 } as const;
 export type QuestionTypeKey = keyof typeof QuestionType;
 export type QuestionType = (typeof QuestionType)[QuestionTypeKey];
-
-export function verifyQuestionType(
-  type: string,
-): asserts type is QuestionTypeKey {
-  if (!(type in QuestionType)) {
-    throw new HttpError(400, `Invalid question type: ${type}`);
-  }
-}

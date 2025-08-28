@@ -12,7 +12,6 @@ import { QuestionGenerator } from './generate-questions';
 import {
   QuestionType,
   QuestionTypeKey,
-  verifyQuestionType,
 } from './generate-questions/question-type';
 import { PerformanceAnalyser } from './analyse-performance';
 import {
@@ -23,6 +22,7 @@ import {
   AccuracyRate,
   QuestionTypeOccurrenceCount,
 } from './analyse-performance/types';
+import { verifyQuestionType } from './generate-questions/validators';
 
 initializeApp();
 
