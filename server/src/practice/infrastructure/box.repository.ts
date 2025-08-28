@@ -9,14 +9,17 @@ export class BoxRepository extends BaseEntityRepository<Box> {
     super(em, Box);
   }
 
-  async findPopularDeckIds(): Promise<void> {
+  async findPopularDeckIds(): Promise<number[]> {
     const knex = this.getKnex();
     const rows = await knex('box')
-      .select({ deckId: 'deck_id', count: knex.count('learner_id').distinct() })
-      // .where('index', '>', 1)
+      .select({
+        deckId: 'deck_id',
+        count: knex.raw('COUNT(DISTINCT(learner_id))::int'),
+      })
+      .where('index', '>', 1)
       .groupBy('deck_id')
       .orderBy('count', QueryOrder.DESC);
 
-    console.log(rows);
+    return rows.map((it: { deckId: number }) => it.deckId);
   }
 }
