@@ -1,16 +1,16 @@
 import { Migration } from '@mikro-orm/migrations';
 
-const LEARNER_DECK_PROGRESS_VIEW = 'learner_deck_progress_view';
+const PRACTICE_PROGRESS_VIEW = 'practice_progress_view';
 const WEIGHTS = [0, 0.25, 0.5, 0.75, 1];
 const ROUNDING_PRECISION = 2;
 
-export class CreateLearnerDeckProgressView extends Migration {
+export class CreatePracticeProgressView extends Migration {
   override up(): void {
     const weights = WEIGHTS.map(
       (value, index) => `(${index + 1}, ${value})`,
     ).join(', ');
-    const createLearnerDeckProgressView = `
-      CREATE OR REPLACE VIEW learner_deck_progress_view AS
+    const createPracticeProgressView = `
+      CREATE OR REPLACE VIEW ${PRACTICE_PROGRESS_VIEW} AS
       WITH weights AS (
         SELECT * 
         FROM (VALUES ${weights}) AS t (index, value)
@@ -41,14 +41,14 @@ export class CreateLearnerDeckProgressView extends Migration {
         ROUND(SUM(qp.progress) / SUM(qp.count) * 100, ${ROUNDING_PRECISION}) AS progress
       FROM question_progress_per_box AS qp
       GROUP BY qp.learner_id, qp.deck_id;`;
-    this.addSql(createLearnerDeckProgressView);
+    this.addSql(createPracticeProgressView);
   }
 
   override down(): void {
     const knex = this.getKnex();
-    const dropLearnerDeckProgressView = knex.schema.dropView(
-      LEARNER_DECK_PROGRESS_VIEW,
+    const dropPracticeProgressView = knex.schema.dropView(
+      PRACTICE_PROGRESS_VIEW,
     );
-    this.addSql(dropLearnerDeckProgressView.toQuery());
+    this.addSql(dropPracticeProgressView.toQuery());
   }
 }
