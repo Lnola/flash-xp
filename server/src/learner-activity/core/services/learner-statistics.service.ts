@@ -110,6 +110,7 @@ export class LearnerStatisticsService {
         await this.learnerStatisticsRepository.getCommonIncorrectlyAnsweredQuestionIds(
           learnerId,
         );
+      if (!answers.length) return Result.success([]);
       const questionIds = answers.map((answer) => answer.questionId);
       const questions = await this.catalogIntegrationService.getQuestions({
         id: questionIds,
