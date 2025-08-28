@@ -11,11 +11,12 @@ export class PracticeProgressService {
     private readonly practiceProgressService: BaseEntityRepository<PracticeProgress>,
   ) {}
 
-  async fetchByLearner(
+  async fetch(
     learnerId: PracticeProgress['learnerId'],
+    deckId?: PracticeProgress['deckId'],
   ): Promise<Result<PracticeProgress[]>> {
     try {
-      const payload = { learnerId };
+      const payload = { learnerId, deckId };
       const progress = await this.practiceProgressService.find(payload);
       return Result.success(progress);
     } catch {

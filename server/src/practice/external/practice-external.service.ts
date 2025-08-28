@@ -12,6 +12,6 @@ export class PracticeExternalService {
   async fetchProgressByLearner(
     learnerId: PracticeProgress['learnerId'],
   ): Promise<Result<PracticeProgress[]>> {
-    return this.practiceProgressService.fetchByLearner(learnerId);
+    return this.practiceProgressService.fetch(learnerId);
   }
 }
