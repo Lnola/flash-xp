@@ -7,7 +7,7 @@ import {
   QuickPracticeService,
   SmartReviewService,
 } from './core/services';
-import { PracticeQuestionRepository } from './infrastructure';
+import { BoxRepository, PracticeQuestionRepository } from './infrastructure';
 
 @Module({
   imports: [
@@ -17,6 +17,7 @@ import { PracticeQuestionRepository } from './infrastructure';
     QuickPracticeService,
     SmartReviewService,
     PracticeProgressService,
+    BoxRepository,
     PracticeQuestionRepository,
   ],
   controllers: [QuickPracticeController, SmartReviewController],
