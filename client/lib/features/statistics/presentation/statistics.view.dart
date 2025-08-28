@@ -143,7 +143,7 @@ class _PerformanceAnalysisSection extends StatelessWidget {
             Expanded(
               child: AccuracyRateWidget(
                 accuracyRate: controller.selfAssessmentAccuracyRate,
-                label: PracticeMode.multipleChoice.label,
+                label: PracticeMode.selfAssessment.label,
               ),
             ),
           ],
