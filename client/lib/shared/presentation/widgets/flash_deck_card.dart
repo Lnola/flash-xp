@@ -1,5 +1,4 @@
 import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
-import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
@@ -40,29 +39,23 @@ class FlashDeckCard extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: GestureDetector(
-        onTap: () => context.push(
-          '/home/$deckId/preview',
-          extra: RouterStateExtra(title: title),
+      child: Container(
+        height: 216,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: backgroundColor ?? theme.colorScheme.surfaceBright,
+          borderRadius: BorderRadius.circular(28),
         ),
-        child: Container(
-          height: 216,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: backgroundColor ?? theme.colorScheme.surfaceBright,
-            borderRadius: BorderRadius.circular(28),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _CardInfo(
-                title: title,
-                totalQuestions: totalQuestions,
-                mode: mode,
-              ),
-              _CardActions(deckId: deckId, progress: progress),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _CardInfo(
+              title: title,
+              totalQuestions: totalQuestions,
+              mode: mode,
+            ),
+            _CardActions(deckId: deckId, progress: progress),
+          ],
         ),
       ),
     );
@@ -131,7 +124,6 @@ class _CardInfo extends StatelessWidget {
   }
 }
 
-// TODO: think about the format here - keeping the button and adding ... or something similar
 class _CardActions extends StatelessWidget {
   final int deckId;
   final int progress;
