@@ -7,10 +7,12 @@ import {
   CatalogDeckService,
   CatalogQuestionService,
 } from './core/services';
+import { PracticeIntegrationModule } from './integration';
 
 @Module({
   imports: [
     MikroOrmModule.forFeature([Bookmark, CatalogDeck, CatalogQuestion]),
+    PracticeIntegrationModule,
   ],
   providers: [BookmarkService, CatalogDeckService, CatalogQuestionService],
   controllers: [BookmarkController, CatalogDeckController],
