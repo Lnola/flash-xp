@@ -72,19 +72,17 @@ class StatisticsController extends ChangeNotifier {
   }
 
   Future<void> _init() async {
-    Future.delayed(const Duration(milliseconds: 400), () async {
-      _initDailyStreak();
-      _initAnswerCount();
-      _initDeckCount();
-      _initDailyCorrectIncorrect();
-      _initCommonIncorrectlyAnsweredQuestions();
-      await Future.wait([
-        _initAccuracyRate(),
-        _initQuestionTypeOccurrenceCount(),
-      ]);
+    _initDailyStreak();
+    _initAnswerCount();
+    _initDeckCount();
+    _initDailyCorrectIncorrect();
+    _initCommonIncorrectlyAnsweredQuestions();
+    await Future.wait([
+      _initAccuracyRate(),
+      _initQuestionTypeOccurrenceCount(),
+    ]);
 
-      await _analysePerformance();
-    });
+    await _analysePerformance();
   }
 
   Future<void> _initDailyStreak() async {
@@ -175,7 +173,6 @@ class StatisticsController extends ChangeNotifier {
     await performanceAnalysis.load(
       () => _statisticsRepository.analysePerformance(queryParams: queryParams),
     );
-    // TODO: fix problem where this is called after controller is disposed
     notifyListeners();
   }
 }
