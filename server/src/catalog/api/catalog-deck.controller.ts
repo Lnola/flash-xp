@@ -35,6 +35,16 @@ export class CatalogDeckController {
     return data;
   }
 
+  @Get('in-progress')
+  async fetchInProgress(
+    @User('id') learnerId: Learner['id'],
+  ): Promise<CatalogDeck[]> {
+    const { error, data } =
+      await this.catalogDeckService.fetchInProgress(learnerId);
+    if (error || !data) throw new BadRequestException(error);
+    return data;
+  }
+
   @Get(':id')
   async fetchById(
     @Param('id') deckId: CatalogDeck['id'],
