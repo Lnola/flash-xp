@@ -1,5 +1,5 @@
 import { logger } from 'firebase-functions';
-import { config } from './constants';
+import { config } from './config';
 import { chunkText } from '../helpers/text';
 import { Flashcard, MultipleChoice, QuestionType } from './question-type';
 import { Ai } from '../helpers/ai';
