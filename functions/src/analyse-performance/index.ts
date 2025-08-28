@@ -3,6 +3,8 @@ import { Ai } from '../helpers/ai';
 import { AccuracyRate, QuestionTypeOccurrenceCount } from './types';
 import { config } from './config';
 
+const SKIP_ANALYSIS = process.env.SKIP_ANALYSIS === 'true';
+
 export class PerformanceAnalyser {
   private ai = new Ai();
   private config = config;
@@ -19,6 +21,8 @@ export class PerformanceAnalyser {
   }
 
   async analyse(): Promise<string> {
+    if (SKIP_ANALYSIS) return 'Performance analysis is currently disabled.';
+
     logger.info(
       `Generating performance analysis.
       Model: ${this.config.performanceAnalysisModel}`,
