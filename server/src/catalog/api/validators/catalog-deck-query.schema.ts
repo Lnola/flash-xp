@@ -7,7 +7,6 @@ export const catalogDeckQuerySchema = z.object({
   popular: z.stringbool().optional(),
   bookmarked: z.stringbool().optional(),
   authored: z.stringbool().optional(),
-  inProgress: z.stringbool().optional(),
   limit: z.coerce.number().int().min(1).optional().default(100),
   offset: z.coerce.number().int().min(0).optional().default(0),
 });
