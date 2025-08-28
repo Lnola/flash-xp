@@ -8,7 +8,7 @@ import { Result } from 'shared/helpers/result';
 export class PracticeProgressService {
   constructor(
     @InjectRepository(PracticeProgress)
-    private readonly practiceProgressService: BaseEntityRepository<PracticeProgress>,
+    private readonly practiceProgressRepository: BaseEntityRepository<PracticeProgress>,
   ) {}
 
   async fetch(
@@ -18,7 +18,7 @@ export class PracticeProgressService {
     try {
       const payload = { learnerId };
       if (deckId) Object.assign(payload, { deckId });
-      const progress = await this.practiceProgressService.find(payload);
+      const progress = await this.practiceProgressRepository.find(payload);
       return Result.success(progress);
     } catch {
       return Result.failure('Failed to fetch learner deck progress');
