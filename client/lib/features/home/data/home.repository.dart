@@ -23,4 +23,19 @@ class HomeRepository {
       return Result.failure(error.toString());
     }
   }
+
+  Future<Result<List<DeckDto>>> getInProgressDecks() async {
+    try {
+      final response = await _catalogApi.getInProgressDecks();
+      if (response.statusCode != 200) {
+        final message = jsonDecode(response.body)['message'] ?? 'Unknown error';
+        return Result.failure('$message');
+      }
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      final data = jsonList.map((it) => DeckDto.fromJson(it)).toList();
+      return Result.success(data);
+    } catch (error) {
+      return Result.failure(error.toString());
+    }
+  }
 }
