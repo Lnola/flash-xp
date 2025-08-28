@@ -35,6 +35,9 @@ class PieChartCardWidget extends StatelessWidget {
         useSnackbar(context, error, null);
       });
     }
+    if (slices[0].value == 0 && slices[1].value == 0) {
+      return const SizedBox.shrink();
+    }
 
     final total = slices.fold<double>(0, (sum, item) => sum + item.value);
     return Container(
