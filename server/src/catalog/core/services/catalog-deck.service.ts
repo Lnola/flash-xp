@@ -3,7 +3,10 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CatalogDeckPreview } from 'catalog/api/dto';
 import { CatalogDeck, Learner } from 'catalog/core/entities';
-import { PracticeIntegrationService } from 'catalog/integration';
+import {
+  CatalogPracticeProgress,
+  PracticeIntegrationService,
+} from 'catalog/integration';
 import { BaseEntityRepository } from 'shared/database/base.repository';
 import { ParseQueryPagination } from 'shared/helpers/parse-query';
 import { Result } from 'shared/helpers/result';
@@ -35,15 +38,11 @@ export class CatalogDeckService {
     learnerId: Learner['id'],
   ): Promise<Result<CatalogDeck[]>> {
     try {
-      const learnerProgress =
+      const progressList =
         await this.practiceIntegrationService.getProgressByLearner(learnerId);
-      const inProgressDeckIds = learnerProgress.map((it) => it.deckId);
+      const inProgressDeckIds = progressList.map((it) => it.deckId);
       const decks = await this.catalogDeckRepository.find(inProgressDeckIds);
-
-      for (const deck of decks) {
-        const progress = learnerProgress.find((it) => it.deckId === deck.id);
-        if (progress) deck.setProgress(progress.progress);
-      }
+      this._assignExistingProgress(decks, progressList);
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
@@ -87,6 +86,16 @@ export class CatalogDeckService {
       const payload = { learnerId, deckId: deck.id };
       const progress =
         await this.practiceIntegrationService.getProgress(payload);
+      if (progress) deck.setProgress(progress.progress);
+    }
+  }
+
+  _assignExistingProgress(
+    decks: CatalogDeck[],
+    progressList: CatalogPracticeProgress[],
+  ): void {
+    for (const deck of decks) {
+      const progress = progressList.find((it) => it.deckId === deck.id);
       if (progress) deck.setProgress(progress.progress);
     }
   }
