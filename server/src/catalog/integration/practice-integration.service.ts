@@ -16,7 +16,7 @@ export class PracticeIntegrationService {
       deckId,
     );
     if (error) throw new Error(error);
-    return data!;
+    return data![0];
   }
 
   async getProgressByLearner(
@@ -39,7 +39,7 @@ type GetProgressPayload = {
   learnerId: number;
   deckId: number;
 };
-type GetProgressResult = PracticeProgress[];
+type GetProgressResult = PracticeProgress;
 
 type GetProgressByLearnerPayload = number;
 type GetProgressByLearnerResult = PracticeProgress[];
