@@ -27,6 +27,13 @@ export class PracticeIntegrationService {
     if (error) throw new Error(error);
     return data!;
   }
+
+  async getPopularDeckIds(): Promise<GetPopularDeckIdsResult> {
+    const { error, data } =
+      await this.practiceExternalService.fetchPopularDeckIds();
+    if (error) throw new Error(error);
+    return data!;
+  }
 }
 
 type PracticeProgress = {
@@ -43,5 +50,7 @@ type GetProgressResult = PracticeProgress;
 
 type GetProgressByLearnerPayload = number;
 type GetProgressByLearnerResult = PracticeProgress[];
+
+type GetPopularDeckIdsResult = number[];
 
 export type CatalogPracticeProgress = PracticeProgress;
