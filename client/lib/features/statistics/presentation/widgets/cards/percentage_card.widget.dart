@@ -44,7 +44,7 @@ class PercentageCardWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceBright,
+          color: backgroundColor ?? theme.colorScheme.surfaceBright,
           borderRadius: BorderRadius.circular(20),
         ),
         height: 184,
