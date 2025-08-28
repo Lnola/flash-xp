@@ -43,3 +43,5 @@ type GetProgressResult = PracticeProgress[];
 
 type GetProgressByLearnerPayload = number;
 type GetProgressByLearnerResult = PracticeProgress[];
+
+export type CatalogPracticeProgress = PracticeProgress;
