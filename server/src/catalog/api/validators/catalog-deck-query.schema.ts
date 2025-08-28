@@ -4,7 +4,6 @@ import { QUESTION_TYPE_NAMES } from 'shared/constants';
 export const catalogDeckQuerySchema = z.object({
   questionType: z.enum(QUESTION_TYPE_NAMES).optional(),
   title: z.string().min(1).optional(),
-  popular: z.stringbool().optional(),
   bookmarked: z.stringbool().optional(),
   authored: z.stringbool().optional(),
   limit: z.coerce.number().int().min(1).optional().default(100),
