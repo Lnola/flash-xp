@@ -1,6 +1,7 @@
 import 'package:flashxp/features/home/data/dto/deck.dto.dart';
 import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/shared/data/models/catalog_deck.model.dart';
+import 'package:flashxp/shared/helpers/result.dart';
 import 'package:flutter/material.dart';
 
 class HomeController extends ChangeNotifier {
@@ -21,13 +22,17 @@ class HomeController extends ChangeNotifier {
     error = null;
     notifyListeners();
 
+    final myDecksQueryParams = {'authored': 'true'};
+    final savedDecksQueryParams = {'bookmarked': 'true'};
     try {
-      inProgressDecks = await _getDecks();
+      inProgressDecks = await _getDecks(
+        () => _homeRepository.getInProgressDecks(),
+      );
       myDecks = await _getDecks(
-        {'authored': 'true'},
+        () => _homeRepository.getDecks(queryParams: myDecksQueryParams),
       );
       savedDecks = await _getDecks(
-        {'bookmarked': 'true'},
+        () => _homeRepository.getDecks(queryParams: savedDecksQueryParams),
       );
     } catch (e) {
       error = e.toString();
@@ -37,12 +42,10 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<CatalogDeckModel>> _getDecks([
-    Map<String, String>? queryParams,
-  ]) async {
-    final result = await _homeRepository.getDecks(
-      queryParams: queryParams ?? {},
-    );
+  Future<List<CatalogDeckModel>> _getDecks(
+    Future<Result<List<DeckDto>>> Function() fetchFunction,
+  ) async {
+    final result = await fetchFunction();
     if (result.error != null) throw Exception(result.error);
     return _mapDtosToModels(result.data!);
   }
