@@ -4,6 +4,7 @@ import 'package:flashxp/shared/helpers/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';
 
+// TODO: show something if empty
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
