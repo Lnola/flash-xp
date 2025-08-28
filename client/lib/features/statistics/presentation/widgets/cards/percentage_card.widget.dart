@@ -39,10 +39,6 @@ class PercentageCardWidget extends StatelessWidget {
     }
 
     final theme = Theme.of(context);
-    final bgColor =
-        backgroundColor ?? theme.colorScheme.onSurface.withAlpha(33);
-    final progColor = progressColor ?? theme.colorScheme.onSurface;
-
     final localPercent = percent ?? 0;
     return Tooltip(
       message:
@@ -61,8 +57,8 @@ class PercentageCardWidget extends StatelessWidget {
               radius: radius,
               lineWidth: lineWidth,
               percent: localPercent.clamp(0.0, 1.0),
-              backgroundColor: bgColor,
-              progressColor: progColor,
+              backgroundColor: theme.colorScheme.onSurface.withAlpha(33),
+              progressColor: theme.colorScheme.onSurface,
               circularStrokeCap: CircularStrokeCap.round,
               center: Text(
                 '${(localPercent * 100).round()}%',
