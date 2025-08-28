@@ -18,7 +18,8 @@ export class BoxRepository extends BaseEntityRepository<Box> {
       })
       .where('index', '>', 1)
       .groupBy('deck_id')
-      .orderBy('count', QueryOrder.DESC);
+      .orderBy('count', QueryOrder.DESC)
+      .limit(10);
 
     return rows.map((it: { deckId: number }) => it.deckId);
   }
