@@ -27,6 +27,9 @@ class AccuracyRateTipsWidget extends StatelessWidget {
     if (selfAssessmentValue > 0.75 && multipleChoiceValue < 0.5) {
       return 'You can recall answers freely, but slip on multiple choice. Focus on reading questions carefully and avoiding distractors.';
     }
+    if (multipleChoiceValue == 0 && selfAssessmentValue == 0) {
+      return 'There are no values to analyze. Start practicing!';
+    }
     if (multipleChoiceValue < 0.5 && selfAssessmentValue < 0.5) {
       return 'Both recognition and recall are challenging right now. Revisit the basics for a stronger foundations.';
     }
