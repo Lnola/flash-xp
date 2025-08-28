@@ -19,6 +19,9 @@ export class CatalogDeck extends BaseEntity {
   @Property()
   authorId!: number;
 
+  @Property({ persist: false })
+  progress?: number;
+
   @OneToMany(() => Bookmark, (bookmark) => bookmark.deck)
   bookmarks? = new Collection<Bookmark>(this);
 
@@ -50,5 +53,9 @@ export class CatalogDeck extends BaseEntity {
   isBookmarkedByLearner(learnerId: number): boolean {
     if (!this.bookmarks) return false;
     return this.bookmarks?.getItems().some((it) => it.learnerId === learnerId);
+  }
+
+  setProgress(progress: number) {
+    this.progress = progress;
   }
 }
