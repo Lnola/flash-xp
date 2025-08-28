@@ -25,6 +25,7 @@ export class CatalogQuestion extends BaseEntity {
   @OneToMany(() => CatalogBox, (box) => box.question, { hidden: true })
   boxes? = new Collection<CatalogBox>(this);
 
+  // TODO: move this to the Practice bounded context
   // This is meant to be used ONLY in conjunction with the boxByLearner filter.
   // It may be confusing to have this property on the question entity but it simplifies the logic in the service layer.
   // Possible future improvement: consider refactoring this logic to make it more explicit.
