@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PracticeProgress } from 'practice/core/entities';
-import { PracticeProgressService } from 'practice/core/services';
+import {
+  PracticeAnalyticsService,
+  PracticeProgressService,
+} from 'practice/core/services';
 import { Result } from 'shared/helpers/result';
 
 @Injectable()
 export class PracticeExternalService {
   constructor(
     private readonly practiceProgressService: PracticeProgressService,
+    private readonly practiceAnalyticsService: PracticeAnalyticsService,
   ) {}
 
   async fetchProgress(
@@ -20,5 +24,9 @@ export class PracticeExternalService {
     learnerId: PracticeProgress['learnerId'],
   ): Promise<Result<PracticeProgress[]>> {
     return this.practiceProgressService.fetch(learnerId);
+  }
+
+  async fetchPopularDeckIds(): Promise<Result<number[]>> {
+    return this.practiceAnalyticsService.fetchPopularDeckIds();
   }
 }
