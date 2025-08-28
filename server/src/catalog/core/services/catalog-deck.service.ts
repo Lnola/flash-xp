@@ -45,6 +45,11 @@ export class CatalogDeckService {
         await this.practiceIntegrationService.getProgressByLearner(learnerId);
       const inProgressDeckIds = learnerProgress.map((it) => it.deckId);
       const decks = await this.catalogDeckRepository.find(inProgressDeckIds);
+
+      for (const deck of decks) {
+        const progress = learnerProgress.find((it) => it.deckId === deck.id);
+        if (progress) deck.setProgress(progress.progress);
+      }
       return Result.success(decks);
     } catch {
       return Result.failure(`Failed to fetch decks.`);
