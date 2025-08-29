@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { QuickPracticeController, SmartReviewController } from './api';
 import { Box, PracticeProgress, PracticeQuestion } from './core/entities';
 import {
+  BoxService,
   PracticeAnalyticsService,
   PracticeProgressService,
   QuickPracticeService,
@@ -17,12 +18,13 @@ import { BoxRepository, PracticeQuestionRepository } from './infrastructure';
   providers: [
     QuickPracticeService,
     SmartReviewService,
+    BoxService,
     PracticeProgressService,
     PracticeAnalyticsService,
     BoxRepository,
     PracticeQuestionRepository,
   ],
   controllers: [QuickPracticeController, SmartReviewController],
-  exports: [PracticeProgressService, PracticeAnalyticsService],
+  exports: [BoxService, PracticeProgressService, PracticeAnalyticsService],
 })
 export class PracticeModule {}
