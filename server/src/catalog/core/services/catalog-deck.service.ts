@@ -70,6 +70,9 @@ export class CatalogDeckService {
         populateOrderBy: { questions: { id: QueryOrder.ASC } },
       });
       if (!deck) return Result.failure('Deck not found');
+      const payload = { learnerId, deckId };
+      const boxes = await this.practiceIntegrationService.getBoxes(payload);
+      deck.assignBoxes(boxes);
       const previewDeck = this._mapCatalogDeckForPreview(deck, learnerId);
       return Result.success(previewDeck);
     } catch {
