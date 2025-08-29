@@ -1,4 +1,5 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
+import { CatalogBox } from 'catalog/integration';
 import BaseEntity from 'shared/database/base.entity';
 import { CatalogDeck, CatalogQuestionType } from '.';
 
@@ -18,4 +19,8 @@ export class CatalogQuestion extends BaseEntity {
 
   @ManyToOne(() => CatalogQuestionType, { eager: true })
   questionType!: CatalogQuestionType;
+
+  setBoxIndex(boxIndex: CatalogBox['index']) {
+    this.boxIndex = boxIndex;
+  }
 }
