@@ -1,10 +1,11 @@
 import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
 import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-// TODO: show something if empty
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -39,6 +40,13 @@ class _HomeViewState extends State<HomeView> {
       return const SizedBox.shrink();
     }
 
+    if (!controller.isLoading &&
+        controller.inProgressDecks.isEmpty &&
+        controller.myDecks.isEmpty &&
+        controller.savedDecks.isEmpty) {
+      return const _EmptyPage();
+    }
+
     return SingleChildScrollView(
       clipBehavior: Clip.none,
       child: Column(
@@ -61,6 +69,38 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _EmptyPage extends StatelessWidget {
+  const _EmptyPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Welcome aboard!',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Your home page is empty (for now)!\n\nStart exploring to find new content and come back to this page once you started practicing and creating decks.\n\nThey will be waiting for you here ;)',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(99),
+              ),
+        ),
+        const SizedBox(height: 32),
+        FlashButton(
+          onPressed: () => context.go('/explore'),
+          label: 'Start exploring decks',
+          isBlock: true,
+        ),
+      ],
     );
   }
 }
