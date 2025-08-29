@@ -48,30 +48,35 @@ class _AuthViewState extends State<AuthView> {
                 .textTheme
                 .displaySmall
                 ?.copyWith(color: Colors.red),
+            textAlign: TextAlign.center,
           )
         : const SizedBox(height: 15);
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          spacing: 16,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SwitchMode(controller: controller),
-            _buildAnimation(
-              child: controller.isRegister
-                  ? RegisterForm(controller: controller)
-                  : SignInForm(controller: controller),
-            ),
-            errorLabel,
-            FlashButton(
-              onPressed: () => authenticate(context),
-              label: controller.isRegister ? 'Register' : 'Sign In',
-              isBlock: true,
-              isLoading: controller.isLoading,
-            ),
-          ],
+        child: Transform.translate(
+          offset: const Offset(0, -64),
+          child: Column(
+            spacing: 16,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SwitchMode(controller: controller),
+              _buildAnimation(
+                child: controller.isRegister
+                    ? RegisterForm(controller: controller)
+                    : SignInForm(controller: controller),
+              ),
+              FlashButton(
+                onPressed: () => authenticate(context),
+                label: controller.isRegister ? 'Register' : 'Sign In',
+                isBlock: true,
+                isLoading: controller.isLoading,
+              ),
+              errorLabel,
+            ],
+          ),
         ),
       ),
     );
