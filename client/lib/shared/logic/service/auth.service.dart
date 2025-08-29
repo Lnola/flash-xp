@@ -40,7 +40,14 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _register(String email, String password) async {
+  Future<void> _register(
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    if (password != confirmPassword) {
+      throw const AuthException('Passwords do not match.');
+    }
     await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
