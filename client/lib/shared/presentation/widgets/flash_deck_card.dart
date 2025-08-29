@@ -1,4 +1,4 @@
-import 'package:flashxp/features/practice/logic/domain/practice_type.enum.dart';
+import 'package:flashxp/router.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode.enum.dart';
 import 'package:flashxp/shared/logic/domain/practice_mode_client_label.extension.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
@@ -54,7 +54,7 @@ class FlashDeckCard extends StatelessWidget {
               totalQuestions: totalQuestions,
               mode: mode,
             ),
-            _CardActions(deckId: deckId, progress: progress),
+            _CardActions(deckId: deckId, progress: progress, title: title),
           ],
         ),
       ),
@@ -127,10 +127,12 @@ class _CardInfo extends StatelessWidget {
 class _CardActions extends StatelessWidget {
   final int deckId;
   final int progress;
+  final String title;
 
   const _CardActions({
     required this.deckId,
     required this.progress,
+    required this.title,
   });
 
   @override
@@ -141,10 +143,10 @@ class _CardActions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FlashButton(
-          label: 'Start now',
+          label: 'See more',
           onPressed: () => context.push(
-            '/home/$deckId/practice',
-            extra: {'practiceType': PracticeType.quickPractice},
+            '/home/$deckId/preview',
+            extra: RouterStateExtra(title: title),
           ),
         ),
         Text('$progress%', style: theme.textTheme.bodySmall),
