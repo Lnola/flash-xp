@@ -16,8 +16,6 @@ class AuthView extends StatefulWidget {
 class _AuthViewState extends State<AuthView> {
   late final AuthController controller;
   bool _isRegister = false;
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   void _onControllerUpdated() => setState(() {});
 
@@ -30,7 +28,6 @@ class _AuthViewState extends State<AuthView> {
 
   @override
   void dispose() {
-    _confirmPasswordController.dispose();
     controller.removeListener(_onControllerUpdated);
     controller.dispose();
     super.dispose();

@@ -6,6 +6,7 @@ class AuthController extends ChangeNotifier {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   String? error;
   bool isLoading = false;
 
