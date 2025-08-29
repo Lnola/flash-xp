@@ -19,6 +19,24 @@ class SwitchMode extends StatelessWidget {
       selected: {controller.isRegister},
       onSelectionChanged: (s) => controller.toggleMode(s.first),
       showSelectedIcon: false,
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return Theme.of(context).colorScheme.primary;
+            }
+            return Theme.of(context).colorScheme.primaryContainer;
+          },
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith<Color?>(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return Theme.of(context).colorScheme.onPrimary;
+            }
+            return Theme.of(context).colorScheme.onPrimaryContainer;
+          },
+        ),
+      ),
     );
   }
 }
