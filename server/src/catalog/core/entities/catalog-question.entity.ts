@@ -10,6 +10,9 @@ export class CatalogQuestion extends BaseEntity {
   @Property({ nullable: true })
   answer?: string;
 
+  @Property({ persist: false })
+  boxIndex?: number;
+
   @ManyToOne(() => CatalogDeck, { nullable: true })
   deck?: CatalogDeck;
 
