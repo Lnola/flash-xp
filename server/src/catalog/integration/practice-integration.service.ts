@@ -36,6 +36,11 @@ export class PracticeIntegrationService {
   }
 }
 
+type PracticeBox = {
+  questionId?: number;
+  index: number;
+};
+
 type PracticeProgress = {
   deckId: number;
   learnerId: number;
@@ -54,3 +59,4 @@ type GetProgressByLearnerResult = PracticeProgress[];
 type GetPopularDeckIdsResult = number[];
 
 export type CatalogPracticeProgress = PracticeProgress;
+export type CatalogBox = PracticeBox;
