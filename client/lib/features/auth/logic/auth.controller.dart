@@ -25,7 +25,11 @@ class AuthController extends ChangeNotifier {
       );
       return true;
     } catch (e) {
+      if (e is AuthException) {
+        error = e.toString();
+      } else {
       error = 'Unable to authenticate. Please try again.';
+      }
       return false;
     } finally {
       isLoading = false;
