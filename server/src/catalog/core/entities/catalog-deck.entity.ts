@@ -5,6 +5,7 @@ import {
   OneToMany,
   Property,
 } from '@mikro-orm/core';
+import { CatalogBox } from 'catalog/integration';
 import BaseEntity from 'shared/database/base.entity';
 import { Bookmark, CatalogQuestion } from '.';
 
@@ -57,5 +58,12 @@ export class CatalogDeck extends BaseEntity {
 
   setProgress(progress: number) {
     this.progress = progress;
+  }
+
+  assignBoxes(boxes: CatalogBox[]) {
+    this.questions?.getItems().forEach((question) => {
+      const box = boxes.find(({ questionId }) => questionId === question.id);
+      if (box) question.setBoxIndex(box.index);
+    });
   }
 }
