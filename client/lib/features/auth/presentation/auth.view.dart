@@ -1,6 +1,7 @@
 import 'package:flashxp/features/auth/logic/auth.controller.dart';
 import 'package:flashxp/features/auth/presentation/widgets/register_form.widget.dart';
 import 'package:flashxp/features/auth/presentation/widgets/sign_in_form.widget.dart';
+import 'package:flashxp/features/auth/presentation/widgets/switch_mode.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flutter/material.dart';
@@ -57,15 +58,7 @@ class _AuthViewState extends State<AuthView> {
           spacing: 16,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SegmentedButton<bool>(
-              segments: const [
-                ButtonSegment<bool>(value: false, label: Text('Login')),
-                ButtonSegment<bool>(value: true, label: Text('Register')),
-              ],
-              selected: {controller.isRegister},
-              onSelectionChanged: (s) => controller.toggleMode(s.first),
-              showSelectedIcon: false,
-            ),
+            SwitchMode(controller: controller),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 250),
               transitionBuilder: (child, anim) {

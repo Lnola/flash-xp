@@ -13,7 +13,7 @@ class SignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      key: const ValueKey('login'),
+      key: const ValueKey('sign_in'),
       spacing: 16,
       children: [
         FlashTextInput(
