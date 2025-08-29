@@ -59,15 +59,7 @@ class _AuthViewState extends State<AuthView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SwitchMode(controller: controller),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              transitionBuilder: (child, anim) {
-                final offsetAnimation = Tween<Offset>(
-                  begin: const Offset(1.0, 0.0),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut));
-                return SlideTransition(position: offsetAnimation, child: child);
-              },
+            _buildAnimation(
               child: controller.isRegister
                   ? RegisterForm(controller: controller)
                   : SignInForm(controller: controller),
@@ -82,6 +74,20 @@ class _AuthViewState extends State<AuthView> {
           ],
         ),
       ),
+    );
+  }
+
+  AnimatedSwitcher _buildAnimation({Widget child = const SizedBox()}) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 250),
+      transitionBuilder: (child, anim) {
+        final offsetAnimation = Tween<Offset>(
+          begin: const Offset(1.0, 0.0),
+          end: Offset.zero,
+        ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut));
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+      child: child,
     );
   }
 }
