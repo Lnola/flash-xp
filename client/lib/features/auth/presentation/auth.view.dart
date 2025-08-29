@@ -15,6 +15,9 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   late final AuthController controller;
+  bool _isRegister = false;
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   void _onControllerUpdated() => setState(() {});
 
@@ -27,6 +30,7 @@ class _AuthViewState extends State<AuthView> {
 
   @override
   void dispose() {
+    _confirmPasswordController.dispose();
     controller.removeListener(_onControllerUpdated);
     controller.dispose();
     super.dispose();
@@ -54,21 +58,69 @@ class _AuthViewState extends State<AuthView> {
         padding: const EdgeInsets.all(16),
         child: Column(
           spacing: 16,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FlashTextInput(
-              controller: controller.emailController,
-              label: 'Email',
-              keyboardType: TextInputType.emailAddress,
+            SegmentedButton<bool>(
+              segments: const [
+                ButtonSegment<bool>(value: false, label: Text('Login')),
+                ButtonSegment<bool>(value: true, label: Text('Register')),
+              ],
+              selected: {_isRegister},
+              onSelectionChanged: (s) => setState(() => _isRegister = s.first),
+              showSelectedIcon: false,
             ),
-            FlashTextInput(
-              controller: controller.passwordController,
-              label: 'Password',
-              isPassword: true,
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              transitionBuilder: (child, anim) {
+                final offsetAnimation = Tween<Offset>(
+                  begin: const Offset(1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut));
+                return SlideTransition(position: offsetAnimation, child: child);
+              },
+              child: _isRegister
+                  ? Column(
+                      key: const ValueKey('register'),
+                      spacing: 16,
+                      children: [
+                        FlashTextInput(
+                          controller: controller.emailController,
+                          label: 'Email',
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        FlashTextInput(
+                          controller: controller.passwordController,
+                          label: 'Password',
+                          isPassword: true,
+                        ),
+                        FlashTextInput(
+                          controller: _confirmPasswordController,
+                          label: 'Confirm Password',
+                          isPassword: true,
+                        ),
+                      ],
+                    )
+                  : Column(
+                      key: const ValueKey('login'),
+                      spacing: 16,
+                      children: [
+                        FlashTextInput(
+                          controller: controller.emailController,
+                          label: 'Email',
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        FlashTextInput(
+                          controller: controller.passwordController,
+                          label: 'Password',
+                          isPassword: true,
+                        ),
+                      ],
+                    ),
             ),
             errorLabel,
             FlashButton(
               onPressed: () => authenticate(context),
-              label: 'Sign In',
+              label: _isRegister ? 'Register' : 'Sign In',
               isBlock: true,
               isLoading: controller.isLoading,
             ),
