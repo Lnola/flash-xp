@@ -66,8 +66,7 @@ export class CatalogDeckService {
   ): Promise<Result<CatalogDeckPreview>> {
     try {
       const deck = await this.catalogDeckRepository.findOne(deckId, {
-        populate: ['questions.boxes', 'bookmarks'],
-        filters: { boxByLearner: { learnerId } },
+        populate: ['questions', 'bookmarks'],
         populateOrderBy: { questions: { id: QueryOrder.ASC } },
       });
       if (!deck) return Result.failure('Deck not found');
