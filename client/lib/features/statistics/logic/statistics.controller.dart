@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flashxp/features/statistics/data/statistics.repository.dart';
@@ -67,6 +68,14 @@ class StatisticsController extends ChangeNotifier {
   final questionTypeOccurrenceCount = StatStore<QuestionTypeOccurrenceCount>();
   final performanceAnalysis = StatStore<String>();
 
+  bool _isDisposed = false;
+
+  @override
+  void notifyListeners() {
+    if (_isDisposed) return;
+    super.notifyListeners();
+  }
+
   StatisticsController(this._statisticsRepository) {
     _init();
   }
@@ -81,7 +90,7 @@ class StatisticsController extends ChangeNotifier {
       _initAccuracyRate(),
       _initQuestionTypeOccurrenceCount(),
     ]);
-
+    if (_isDisposed) return;
     await _analysePerformance();
   }
 
@@ -174,5 +183,11 @@ class StatisticsController extends ChangeNotifier {
       () => _statisticsRepository.analysePerformance(queryParams: queryParams),
     );
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
