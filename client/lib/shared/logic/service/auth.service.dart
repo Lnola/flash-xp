@@ -1,6 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+class AuthException implements Exception {
+  final String message;
+  const AuthException(this.message);
+
+  @override
+  String toString() => message;
+}
+
 class AuthService with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
 
