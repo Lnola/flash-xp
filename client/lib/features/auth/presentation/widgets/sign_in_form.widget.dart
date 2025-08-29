@@ -26,6 +26,7 @@ class SignInForm extends StatelessWidget {
           label: 'Password',
           isPassword: true,
         ),
+        const SizedBox(height: 63),
       ],
     );
   }
