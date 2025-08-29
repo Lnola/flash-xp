@@ -23,6 +23,11 @@ export class Box extends BaseEntity {
   @ManyToOne(() => PracticeQuestion)
   question!: PracticeQuestion;
 
+  @Property({ persist: false })
+  get questionId(): number | undefined {
+    return this.question.id;
+  }
+
   constructor({ deckId, learnerId, question }: BoxConstructorProps) {
     super();
     this.deckId = deckId;
