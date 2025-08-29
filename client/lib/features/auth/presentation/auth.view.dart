@@ -58,6 +58,7 @@ class _AuthViewState extends State<AuthView> {
             FlashTextInput(
               controller: controller.emailController,
               label: 'Email',
+              keyboardType: TextInputType.emailAddress,
             ),
             FlashTextInput(
               controller: controller.passwordController,
