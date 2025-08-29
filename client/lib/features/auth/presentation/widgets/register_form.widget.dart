@@ -3,14 +3,12 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart'
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatelessWidget {
+  final AuthController controller;
+
   const RegisterForm({
     super.key,
     required this.controller,
-    required TextEditingController confirmPasswordController,
-  }) : _confirmPasswordController = confirmPasswordController;
-
-  final AuthController controller;
-  final TextEditingController _confirmPasswordController;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,7 @@ class RegisterForm extends StatelessWidget {
           isPassword: true,
         ),
         FlashTextInput(
-          controller: _confirmPasswordController,
+          controller: controller.confirmPasswordController,
           label: 'Confirm Password',
           isPassword: true,
         ),

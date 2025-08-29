@@ -69,11 +69,7 @@ class _AuthViewState extends State<AuthView> {
                 return SlideTransition(position: offsetAnimation, child: child);
               },
               child: controller.isRegister
-                  ? RegisterForm(
-                      controller: controller,
-                      confirmPasswordController:
-                          controller.confirmPasswordController,
-                    )
+                  ? RegisterForm(controller: controller)
                   : SignInForm(controller: controller),
             ),
             errorLabel,
