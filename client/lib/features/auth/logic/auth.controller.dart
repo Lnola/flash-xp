@@ -9,6 +9,7 @@ class AuthController extends ChangeNotifier {
   final confirmPasswordController = TextEditingController();
   String? error;
   bool isLoading = false;
+  bool isRegister = false;
 
   AuthController(this.authService);
 
@@ -30,6 +31,11 @@ class AuthController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  void toggleMode(bool value) {
+    isRegister = value;
+    notifyListeners();
   }
 
   @override

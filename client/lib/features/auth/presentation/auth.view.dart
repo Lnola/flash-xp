@@ -16,7 +16,6 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   late final AuthController controller;
-  bool _isRegister = false;
 
   void _onControllerUpdated() => setState(() {});
 
@@ -63,8 +62,8 @@ class _AuthViewState extends State<AuthView> {
                 ButtonSegment<bool>(value: false, label: Text('Login')),
                 ButtonSegment<bool>(value: true, label: Text('Register')),
               ],
-              selected: {_isRegister},
-              onSelectionChanged: (s) => setState(() => _isRegister = s.first),
+              selected: {controller.isRegister},
+              onSelectionChanged: (s) => controller.toggleMode(s.first),
               showSelectedIcon: false,
             ),
             AnimatedSwitcher(
@@ -76,7 +75,7 @@ class _AuthViewState extends State<AuthView> {
                 ).animate(CurvedAnimation(parent: anim, curve: Curves.easeOut));
                 return SlideTransition(position: offsetAnimation, child: child);
               },
-              child: _isRegister
+              child: controller.isRegister
                   ? RegisterForm(
                       controller: controller,
                       confirmPasswordController:
@@ -87,7 +86,7 @@ class _AuthViewState extends State<AuthView> {
             errorLabel,
             FlashButton(
               onPressed: () => authenticate(context),
-              label: _isRegister ? 'Register' : 'Sign In',
+              label: controller.isRegister ? 'Register' : 'Sign In',
               isBlock: true,
               isLoading: controller.isLoading,
             ),
