@@ -4,11 +4,13 @@ class FlashTextInput extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final bool isPassword;
+  final TextInputType keyboardType;
 
   const FlashTextInput({
     super.key,
     required this.label,
     required this.controller,
+    this.keyboardType = TextInputType.multiline,
     this.isPassword = false,
   });
 
@@ -47,7 +49,7 @@ class _FlashTextInputState extends State<FlashTextInput> {
     final theme = Theme.of(context);
     final passwordConfig = widget.isPassword
         ? (keyboardType: TextInputType.text, maxLines: 1)
-        : (keyboardType: TextInputType.multiline, maxLines: null);
+        : (keyboardType: widget.keyboardType, maxLines: null);
 
     return GestureDetector(
       onTap: () => _focusNode.requestFocus(),
