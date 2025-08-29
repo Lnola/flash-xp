@@ -20,15 +20,17 @@ class AuthController extends ChangeNotifier {
 
     try {
       await authService.authenticate(
+        isRegister,
         emailController.text,
         passwordController.text,
+        confirmPasswordController.text,
       );
       return true;
     } catch (e) {
       if (e is AuthException) {
         error = e.toString();
       } else {
-      error = 'Unable to authenticate. Please try again.';
+        error = 'Unable to authenticate. Please try again.';
       }
       return false;
     } finally {
@@ -46,6 +48,7 @@ class AuthController extends ChangeNotifier {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 }

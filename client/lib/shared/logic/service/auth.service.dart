@@ -16,20 +16,16 @@ class AuthService with ChangeNotifier {
 
   bool get isSignedIn => user != null;
 
-  Future<void> authenticate(String email, String password) async {
-    try {
-      await _signIn(email, password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-credential') {
-        try {
-          await _register(email, password);
-        } on FirebaseAuthException catch (_) {
-          rethrow;
-        }
-      } else {
-        rethrow;
-      }
+  Future<void> authenticate(
+    bool isRegister,
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    if (isRegister) {
+      return await _register(email, password, confirmPassword);
     }
+    return await _signIn(email, password);
   }
 
   Future<void> _signIn(String email, String password) async {
