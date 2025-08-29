@@ -3,12 +3,12 @@ import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart'
 import 'package:flutter/material.dart';
 
 class SignInForm extends StatelessWidget {
+  final AuthController controller;
+
   const SignInForm({
     super.key,
     required this.controller,
   });
-
-  final AuthController controller;
 
   @override
   Widget build(BuildContext context) {
