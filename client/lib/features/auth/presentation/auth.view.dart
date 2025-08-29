@@ -1,7 +1,8 @@
 import 'package:flashxp/features/auth/logic/auth.controller.dart';
+import 'package:flashxp/features/auth/presentation/widgets/register_form.widget.dart';
+import 'package:flashxp/features/auth/presentation/widgets/sign_in_form.widget.dart';
 import 'package:flashxp/shared/logic/service/auth.service.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
-import 'package:flashxp/shared/presentation/widgets/input/flash_text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -76,43 +77,12 @@ class _AuthViewState extends State<AuthView> {
                 return SlideTransition(position: offsetAnimation, child: child);
               },
               child: _isRegister
-                  ? Column(
-                      key: const ValueKey('register'),
-                      spacing: 16,
-                      children: [
-                        FlashTextInput(
-                          controller: controller.emailController,
-                          label: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        FlashTextInput(
-                          controller: controller.passwordController,
-                          label: 'Password',
-                          isPassword: true,
-                        ),
-                        FlashTextInput(
-                          controller: _confirmPasswordController,
-                          label: 'Confirm Password',
-                          isPassword: true,
-                        ),
-                      ],
+                  ? RegisterForm(
+                      controller: controller,
+                      confirmPasswordController:
+                          controller.confirmPasswordController,
                     )
-                  : Column(
-                      key: const ValueKey('login'),
-                      spacing: 16,
-                      children: [
-                        FlashTextInput(
-                          controller: controller.emailController,
-                          label: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        FlashTextInput(
-                          controller: controller.passwordController,
-                          label: 'Password',
-                          isPassword: true,
-                        ),
-                      ],
-                    ),
+                  : SignInForm(controller: controller),
             ),
             errorLabel,
             FlashButton(
