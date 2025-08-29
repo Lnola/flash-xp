@@ -25,7 +25,7 @@ class SwitchMode extends StatelessWidget {
             if (states.contains(WidgetState.selected)) {
               return Theme.of(context).colorScheme.primary;
             }
-            return Theme.of(context).colorScheme.primaryContainer;
+            return Theme.of(context).colorScheme.inverseSurface;
           },
         ),
         foregroundColor: WidgetStateProperty.resolveWith<Color?>(
@@ -33,7 +33,7 @@ class SwitchMode extends StatelessWidget {
             if (states.contains(WidgetState.selected)) {
               return Theme.of(context).colorScheme.onPrimary;
             }
-            return Theme.of(context).colorScheme.onPrimaryContainer;
+            return Theme.of(context).colorScheme.onInverseSurface;
           },
         ),
       ),
