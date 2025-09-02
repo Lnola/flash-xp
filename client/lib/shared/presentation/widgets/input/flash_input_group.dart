@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/helpers/confirmation_dialog.dart';
+import 'package:flashxp/shared/presentation/composables/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

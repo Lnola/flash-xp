@@ -1,6 +1,6 @@
 import 'package:flashxp/features/home/data/home.repository.dart';
 import 'package:flashxp/features/home/logic/home.controller.dart';
-import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/composables/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_button.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_deck_card_grid.dart';
 import 'package:flutter/material.dart';

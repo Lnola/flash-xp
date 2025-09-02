@@ -1,5 +1,5 @@
 import 'package:flashxp/features/statistics/presentation/widgets/cards/question_summary_card.widget.dart';
-import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/composables/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class QuestionSummary {

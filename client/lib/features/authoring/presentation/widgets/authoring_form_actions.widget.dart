@@ -1,6 +1,6 @@
 import 'package:flashxp/shared/helpers/result.dart';
-import 'package:flashxp/shared/helpers/snackbar.dart';
-import 'package:flashxp/shared/helpers/with_loading.dart';
+import 'package:flashxp/shared/presentation/composables/snackbar.dart';
+import 'package:flashxp/shared/presentation/composables/with_loading.dart';
 import 'package:flashxp/shared/presentation/widgets/flash_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

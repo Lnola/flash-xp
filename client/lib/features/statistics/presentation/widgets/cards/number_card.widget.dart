@@ -1,4 +1,4 @@
-import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/composables/snackbar.dart';
 import 'package:flashxp/shared/presentation/widgets/utils/if.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

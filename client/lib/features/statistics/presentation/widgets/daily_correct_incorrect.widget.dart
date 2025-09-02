@@ -1,7 +1,7 @@
 import 'package:flashxp/features/statistics/logic/models/daily_correct_incorrect.model.dart';
 import 'package:flashxp/features/statistics/logic/statistics.controller.dart';
 import 'package:flashxp/features/statistics/presentation/widgets/cards/group_bar_chart_card.widget.dart';
-import 'package:flashxp/shared/helpers/snackbar.dart';
+import 'package:flashxp/shared/presentation/composables/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class DailyCorrectIncorrectWidget extends StatelessWidget {
