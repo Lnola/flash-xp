@@ -12,6 +12,4 @@ class Result<T> {
   factory Result.failure(String error, [T? data]) {
     return Result._(success: false, data: data, error: error);
   }
-
-  void doSmn() {}
 }
