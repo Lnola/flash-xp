@@ -11,7 +11,10 @@ export class CreateBox extends Migration {
       table.integer('learner_id').notNullable();
       table.foreign('learner_id').references('user.id');
       table.integer('question_id').notNullable();
-      table.foreign('question_id').references('question.id');
+      table
+        .foreign('question_id')
+        .references('question.id')
+        .onDelete('CASCADE');
       table.integer('deck_id').notNullable();
       table.integer('index').notNullable();
       table.timestamp('available_from').notNullable();
