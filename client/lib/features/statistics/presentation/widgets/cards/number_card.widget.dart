@@ -39,7 +39,7 @@ class NumberCardWidget extends StatelessWidget {
         color: backgroundColor ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
