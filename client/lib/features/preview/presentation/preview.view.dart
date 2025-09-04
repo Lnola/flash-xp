@@ -195,7 +195,7 @@ class _PreviewActions extends StatelessWidget {
       context,
       title: 'Remove deck',
       text:
-          'Are you sure you want to remove this deck? That will remove ALL progress.',
+          'Are you sure you want to remove this deck? If there are users studying this deck, you will not be able to do so.',
     );
     if (!isConfirmed) return;
 
