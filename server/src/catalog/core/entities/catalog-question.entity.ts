@@ -20,7 +20,7 @@ export class CatalogQuestion extends BaseEntity {
   @ManyToOne(() => CatalogQuestionType, { eager: true })
   questionType!: CatalogQuestionType;
 
-  setBoxIndex(boxIndex: CatalogBox['index']) {
+  setBoxIndex(boxIndex: CatalogBox['index'] = 1) {
     this.boxIndex = boxIndex;
   }
 }
