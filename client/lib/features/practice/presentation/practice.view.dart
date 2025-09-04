@@ -81,6 +81,8 @@ class _PracticeViewState extends State<PracticeView> {
             child: PracticeQuestion(
               question: controller.question,
               answer: controller.answer,
+              isAnswerShown: controller.isAnswerShown,
+              toggleIsAnswerShown: controller.toggleIsAnswerShown,
             ),
           )
               .animate(target: !controller.isLoadingNextQuestion ? 1 : 0)

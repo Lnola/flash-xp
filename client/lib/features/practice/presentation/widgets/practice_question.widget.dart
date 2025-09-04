@@ -2,39 +2,27 @@ import 'package:flashxp/shared/presentation/widgets/utils/flip_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PracticeQuestion extends StatefulWidget {
+class PracticeQuestion extends StatelessWidget {
   final String question;
   final String? answer;
+  final bool isAnswerShown;
+  final Function() toggleIsAnswerShown;
 
   const PracticeQuestion({
     super.key,
     required this.question,
     this.answer,
+    required this.isAnswerShown,
+    required this.toggleIsAnswerShown,
   });
-
-  @override
-  State<PracticeQuestion> createState() => _PracticeQuestionState();
-}
-
-class _PracticeQuestionState extends State<PracticeQuestion> {
-  bool _isAnswerShown = false;
-
-  void _toggleIsAnswerShown() {
-    setState(() {
-      _isAnswerShown = !_isAnswerShown;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final String question = widget.question;
-    final String? answer = widget.answer;
     final isAnswerAvailable = answer != null;
 
     final front = _QuestionCardSide(
       title: isAnswerAvailable ? 'Question' : null,
       body: question,
-      onTap: isAnswerAvailable ? _toggleIsAnswerShown : null,
+      onTap: isAnswerAvailable ? toggleIsAnswerShown : null,
       backgroundColor: Theme.of(context).colorScheme.inverseSurface,
     );
 
@@ -42,13 +30,13 @@ class _PracticeQuestionState extends State<PracticeQuestion> {
 
     final back = _QuestionCardSide(
       title: 'Answer',
-      body: answer,
-      onTap: _toggleIsAnswerShown,
+      body: answer!,
+      onTap: toggleIsAnswerShown,
       backgroundColor: Theme.of(context).colorScheme.surfaceBright,
     );
 
     return FlipContent(
-      flipped: _isAnswerShown,
+      flipped: isAnswerShown,
       front: front,
       back: back,
     );

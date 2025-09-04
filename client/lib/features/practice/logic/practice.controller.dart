@@ -29,6 +29,8 @@ class PracticeController extends ChangeNotifier {
   final PracticeType practiceType;
   late PracticeMode mode;
 
+  bool isAnswerShown = false;
+
   late String question;
   late String? answer;
   late List<AnswerOptionButtonModel> answerOptionButtons;
@@ -124,6 +126,11 @@ class PracticeController extends ChangeNotifier {
       label: label,
       answerOptionButtons: answerOptionButtons,
     );
+    notifyListeners();
+  }
+
+  void toggleIsAnswerShown() {
+    isAnswerShown = !isAnswerShown;
     notifyListeners();
   }
 }
