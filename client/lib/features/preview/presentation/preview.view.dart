@@ -194,7 +194,8 @@ class _PreviewActions extends StatelessWidget {
     final isConfirmed = await useConfirmationDialog(
       context,
       title: 'Remove deck',
-      text: 'Are you sure you want to remove this deck?',
+      text:
+          'Are you sure you want to remove this deck? That will remove ALL progress.',
     );
     if (!isConfirmed) return;
 
