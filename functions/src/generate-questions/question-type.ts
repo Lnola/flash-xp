@@ -19,7 +19,7 @@ export type MultipleChoice = {
 };
 
 export const MULTIPLE_CHOICE_PROMPT = `Create a list of multiple choice questions from the following text. 
-The questions need to have exactly 4 possible answers where one of them is correct while the others are incorrect. 
+The questions need to have exactly 4 possible answers where one of them is correct while the others are incorrect. Randomize the correct option position, don't keep it in the same place always.
 Respond ONLY with valid JSON in the format:
 [
   { "question": "...", "questionType": { "name": "Multiple Choice" }, "answerOptions": [{ "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }, { "text": "...", "isCorrect": <boolean> }] },
