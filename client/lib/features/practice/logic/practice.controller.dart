@@ -79,6 +79,7 @@ class PracticeController extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    isAnswerShown = false;
     _currentQuestionIndex++;
     _loadCurrentQuestion();
   }
