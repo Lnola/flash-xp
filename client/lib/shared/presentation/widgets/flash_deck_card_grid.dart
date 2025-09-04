@@ -61,10 +61,13 @@ class _GridLayout extends StatelessWidget {
             ? _buildDeckCardsSkeleton(cardWidth)
             : _buildDeckCards(cardWidth);
 
-        return Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: cards,
+        return SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: cards,
+          ),
         );
       },
     );
