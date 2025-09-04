@@ -63,7 +63,7 @@ export class CatalogDeck extends BaseEntity {
   assignBoxes(boxes: CatalogBox[]) {
     this.questions?.getItems().forEach((question) => {
       const box = boxes.find(({ questionId }) => questionId === question.id);
-      if (box) question.setBoxIndex(box.index);
+      question.setBoxIndex(box?.index || 1);
     });
   }
 }
