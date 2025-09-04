@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-const SUMMARY_PROMPT = `Summarize the following text into concise bullet points.`;
+const SUMMARY_PROMPT = `Summarize the following text into concise bullet points. Make sure to be thorough and cover all key aspects of the text. You are allowed to create as many bullets as you see fit.`;
 
 export const config = {
   chunkSize: parseInt(process.env.CHUNK_SIZE || '6000', 10),
