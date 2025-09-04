@@ -141,6 +141,11 @@ export class LearnerStatisticsRepository {
       .from('learner_event')
       .where({ learner_id: learnerId })
       .andWhere(knex.raw(`(payload->>'isCorrect')::boolean = FALSE`))
+      .andWhere(
+        'createdAt',
+        '>=',
+        knex.raw(`CURRENT_DATE - INTERVAL '30 days'`),
+      )
       .groupBy('questionId')
       .havingRaw(`COUNT(*) > 3`)
       .orderBy('count', 'desc')
