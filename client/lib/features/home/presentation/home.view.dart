@@ -88,7 +88,7 @@ class _EmptyPage extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'Your home page is empty (for now)!\n\nStart exploring to find new content and come back to this page once you started practicing and creating decks.\n\nThey will be waiting for you here ;)',
+          'Your home page is empty (for now).\n\nStart exploring to find new content and come back to this page once you started practicing and creating decks.\n\nThey will be waiting for you here ;)',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withAlpha(99),
