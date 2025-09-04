@@ -27,6 +27,7 @@ class MainApp extends StatelessWidget {
       title: 'flash-xp',
       theme: AppTheme.light,
       routerConfig: AppRouter.router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
