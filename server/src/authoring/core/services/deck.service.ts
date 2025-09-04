@@ -1,4 +1,5 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { ForeignKeyConstraintViolationException } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 import { CreateDeckDto, UpdateDeckDto } from 'authoring/api/dto';
 import {
@@ -73,9 +74,16 @@ export class DeckService {
   }
 
   async remove(deck: Deck): Promise<Result<void>> {
-    if (!deck) return Result.failure('Deck not found');
-    await this.deckRepository.removeAndFlush(deck);
-    return Result.success();
+    try {
+      if (!deck) return Result.failure('Deck not found');
+      await this.deckRepository.removeAndFlush(deck);
+      return Result.success();
+    } catch (error) {
+      if (error instanceof ForeignKeyConstraintViolationException) {
+        return Result.failure('You cannot delete a deck users are studying');
+      }
+      return Result.failure('Failed to remove deck');
+    }
   }
 
   private _mapDeckDtoToProps(
