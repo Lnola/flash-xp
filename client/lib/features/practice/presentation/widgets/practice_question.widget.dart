@@ -70,7 +70,7 @@ class _QuestionCardSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final widget = SizedBox(
       width: double.infinity,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 28),
@@ -84,10 +84,15 @@ class _QuestionCardSide extends StatelessWidget {
           children: [
             title != null ? _CardTitle(label: title!) : const Spacer(),
             _CardBody(label: body),
-            onTap != null ? _CardRotateButton(onTap: onTap!) : const Spacer(),
+            onTap != null ? const _CardRotateButton() : const Spacer(),
           ],
         ),
       ),
+    );
+    if (onTap == null) return widget;
+    return InkWell(
+      onTap: onTap!,
+      child: widget,
     );
   }
 }
@@ -126,33 +131,26 @@ class _CardBody extends StatelessWidget {
 }
 
 class _CardRotateButton extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const _CardRotateButton({
-    required this.onTap,
-  });
+  const _CardRotateButton();
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Tap to rotate card',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
-                ),
-          ),
-          const SizedBox(width: 8),
-          FaIcon(
-            FontAwesomeIcons.rotate,
-            size: 14,
-            color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Tap to rotate card',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
+              ),
+        ),
+        const SizedBox(width: 8),
+        FaIcon(
+          FontAwesomeIcons.rotate,
+          size: 14,
+          color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
+        ),
+      ],
     );
   }
 }
