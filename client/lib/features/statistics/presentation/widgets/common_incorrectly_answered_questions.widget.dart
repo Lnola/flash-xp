@@ -59,7 +59,7 @@ class _Legend extends StatelessWidget {
           style: Theme.of(context).textTheme.titleSmall,
         ),
         Text(
-          'The number next to the deck title and question text is the total number of mistakes you made on that specific question.\nClick on the card below for an overview of the deck and practice.',
+          'The number next to the deck title and question text is the number of mistakes you made on that specific question in the last 30 days.\nClick on the card below for an overview of the deck and practice.',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withAlpha(77),
                 fontWeight: FontWeight.w600,
