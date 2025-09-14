@@ -142,7 +142,7 @@ export class LearnerStatisticsRepository {
       .where({ learner_id: learnerId })
       .andWhere(knex.raw(`(payload->>'isCorrect')::boolean = FALSE`))
       .andWhere(
-        'createdAt',
+        'created_at',
         '>=',
         knex.raw(`CURRENT_DATE - INTERVAL '30 days'`),
       )
